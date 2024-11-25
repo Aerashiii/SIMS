@@ -5,10 +5,9 @@
     height: 88vh;
     padding: 20px 0px 0px 35px;
     position: fixed;
-    background-color: #ffffff;
-    position:fixed;
     margin-top:12vh;
     overflow-y: auto;
+    background-color: #DBEAEC;
     
 }
 .menu-item{

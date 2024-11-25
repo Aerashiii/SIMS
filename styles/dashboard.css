@@ -1,12 +1,125 @@
 /***********************| ALL DASHBOARD STYLES ONLY HERE |***************************/
 
-.dashboard-main-container{
-    width:100%;
-    height:auto;
-    border:1px solid;
-    padding-left:230px;
 
+.main-content-container h1{
+    color:#205072;
+   
+}
+.main-content-container h2{
+    text-align: center;
+    color:#205072;
+}
+.top-metrics-box-container{
+    display: flex;
+    width:100%;
+    justify-content: space-between;
+    padding:20px;
+}
+.total-sales-container,
+.inventory-value-container,
+.low-stocks-items-container,
+.occupied-rental-boxes-container{
+    width:250px;
+    height:200px;
+    border-radius:15%;
+    background-color: #D9D9D9;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color:#363949;
+    gap:10px;
+}
+#total-sales,
+#inventory-value,
+#low-stock-items,
+#occupied-rentas-boxes{
+    font-size: 2rem;
+    font-weight: bold;
+    color:#205072;
 }
 
+
+
+/*********************************/
+.sales-details-container{
+    display: flex;
+    justify-content: space-between;
+    padding:20px;
+   
+}
+.recent-sales-container,
+.low-stock-alert-container,
+.rental-box-summary-container{
+    width:370px;
+    height:300px;
+    border: 1px solid #7F98A9;
+    padding:10px;
+    border-radius:20px;
+    overflow: hidden;
+  
+}
+
+/*******| RECENT SALES |**********/
+.recent-sales-container h2{
+    font-size: 1.2rem;
+}
+#recent-sales-table{
+    text-align: center;
+    font-size: 0.8rem;
+    width:100%;
+    border:1px solid #7F98A9;
+    border-collapse: collapse;
     
+}
+#recent-sales-table th{
+    font-weight: bold;
+    border-bottom:1px solid;
+    padding:10px;
+}
+#recent-sales-table td{
+
+    padding:5px 0;
+}
+/******| LOW STOCK ALERT |********/
+.low-stock-alert h2{
+    font-size: 1.2rem;
+}
+#low-stock-alert-table{
+    text-align: center;
+    font-size: 0.8rem;
+    width:100%;
+    border:1px solid #7F98A9;
+    border-collapse: collapse;
     
+}
+#low-stock-alert-table th{
+    font-weight: bold;
+    border-bottom:1px solid;
+    padding:10px;
+}
+#low-stock-alert-table td{
+
+    padding:5px 0;
+} 
+/******| RENTAL BOX SUMMARY |********/
+.rental-box-summary h2{
+    font-size: 1.2rem;
+}
+#rental-box-summary-table{
+    text-align: center;
+    font-size: 0.8rem;
+    width:100%;
+    border:1px solid #7F98A9;
+    border-collapse: collapse;
+    
+}
+#rental-box-summary-table th{
+    font-weight: bold;
+    border-bottom:1px solid;
+    padding:10px;
+}
+#rental-box-summary-table td{
+
+    padding:5px 0;
+} 
