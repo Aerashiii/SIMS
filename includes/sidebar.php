@@ -9,6 +9,13 @@
                 <h3>Dashboard</h3>
             </a>
         </li>
+         <!-- | RECORDS SIDEBAR BUTTON |--> 
+         <li class="menu-item">
+            <a href="/SIMS/pages/records.php" class="sidebar-link" data-page="records">
+                <span class="material-symbols-rounded">folder_open</span>
+                <h3>Records</h3>
+            </a>
+        </li>
         <!-- | ANALYTICS SIDEBAR BUTTON |--> 
         <li class="menu-item">
             <a href="/SIMS/pages/analytics.php" class="sidebar-link" data-page="analytics">

@@ -33,6 +33,12 @@
             echo '<title>Dashboard</title>';
             echo '<link rel="stylesheet" href="../styles/dashboard.css">';
             break;
+        // IF THE CURRENT PAGE IS ANALYTICS, THEN LINK THE CSS AND SCRIPT OF THE ANALYTICS PAGE
+        case 'records':
+            echo '<title>Analytics</title>';
+            echo '<link rel="stylesheet" href="../styles/records.css">';
+            echo '<script src="../scripts/records.js"></script>';
+            break;
 
         // IF THE CURRENT PAGE IS ANALYTICS, THEN LINK THE CSS AND SCRIPT OF THE ANALYTICS PAGE
         case 'analytics':
