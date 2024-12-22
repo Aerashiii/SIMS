@@ -5,4 +5,319 @@
     height:auto;
     border:1px solid;
     padding-left:230px;
+   
+}
+/*| #1 |*/
+.inventory-header-container{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+#inventory-add-product-button{
+    padding:10px ;
+    margin-right:10px;
+    cursor: pointer;
+}
+/*| #2 |*/
+.inventory-switch-content-buttons-container{
+    display:flex;
+    gap:10px;
+    padding:10px 0;
+}
+.inventory-switch-content-buttons-container button{
+    padding:5px;
+    cursor:pointer;
+}
+#onhand-product-button.active{
+    background-color: #B2CF9B;
+    border:none;
+}
+#low-stock-product-button.active{
+    background-color: #B2CF9B;
+    border:none;
+}
+#out-stock-product-button.active{
+    background-color: #B2CF9B;
+    border:none;
+}
+#stock-in-product-button.active{
+    background-color: #B2CF9B;
+    border:none;
+}
+#stock-out-product-button.active{
+    background-color: #B2CF9B;
+    border:none;
+}
+#purchase-order-button.active{
+    background-color: #B2CF9B;
+    border:none;
+}
+/**********************| INVENTORY CONTENTS |**********************************/
+/*| #3 |*/
+.inventory-content-container{
+    width:100%;
+    border:1px solid;
+    height:75vh;
+    padding:10px;
+    display:none;
+}
+
+/************| ON HAND INVENTORY C|****************/
+/*| #3 |*/
+#onhand-inventory-content-container.active{
+    display:block;
+}
+.onhand-header-container{
+    display: flex;
+    align-items: center;
+    justify-content:space-between;
+}
+#onhand-inventory-table{
+    margin-top:10px;
+    width:100%;
+    border:1px solid;
+    border-collapse: collapse;
+}
+#onhand-inventory-table th{
+    padding: 10px 0;
+    border-bottom: 1px solid;
+}
+#onhand-action-text{
+    margin:0;
+}
+#onhand-delete-active-checkbox-button{
+    padding: 3px 8px;
+    border:1px solid red;
+    cursor:pointer;
+    color:red;
+    border-radius:3px;
+    margin:0;
+    display:none;
+}
+#onhand-delete-active-checkbox-button:hover{
+    background-color: red;
+    color:white;
+}
+#onhand-inventory-table td{
+    padding: 5px 0;
+    border-bottom: 1px solid;
+}
+/*************| LOW STOCK INVENTORY |***************/
+/*| #4 |*/
+#low-stock-inventory-content-container.active{
+    display: block;
+
+}
+.low-stock-header-container{
+    display: flex;
+    align-items: center;
+    justify-content:space-between;
+}
+#low-stock-inventory-table{
+    margin-top:10px;
+    width:100%;
+    border:1px solid;
+    border-collapse: collapse;
+}
+#low-stock-inventory-table th{
+    padding: 10px 0;
+    border-bottom: 1px solid;
+}
+#low-stock-action-text{
+    margin:0;
+}
+#low-stock-delete-active-checkbox-button{
+    padding: 3px 8px;
+    border:1px solid red;
+    cursor:pointer;
+    color:red;
+    border-radius:3px;
+    margin:0;
+    display:none;
+}
+#low-stock-delete-active-checkbox-button:hover{
+    background-color: red;
+    color:white;
+}
+#low-stock-inventory-table td{
+    padding: 5px 0;
+    border-bottom: 1px solid;
+}
+
+/**************| OUT OF STOCK INVENTORY |**************/
+/*| #5 |*/
+#out-stock-inventory-content-container.active{
+    display: block;
+}
+.out-stock-header-container{
+    display: flex;
+    align-items: center;
+    justify-content:space-between;
+}
+#out-stock-inventory-table{
+    margin-top:10px;
+    width:100%;
+    border:1px solid;
+    border-collapse: collapse;
+}
+#out-stock-inventory-table th{
+    padding: 10px 0;
+    border-bottom: 1px solid;
+}
+#out-stock-action-text{
+    margin:0;
+}
+#out-stock-delete-active-checkbox-button{
+    padding: 3px 8px;
+    border:1px solid red;
+    cursor:pointer;
+    color:red;
+    border-radius:3px;
+    margin:0;
+    display:none;
+}
+#out-stock-delete-active-checkbox-button:hover{
+    background-color: red;
+    color:white;
+}
+#out-stock-inventory-table td{
+    padding: 5px 0;
+    border-bottom: 1px solid;
+}
+/**************| STOCK IN STOCK INVENTORY |**************/
+/*| #5 |*/
+#stock-in-inventory-content-container.active{
+    display: block;
+}
+.stock-in-header-container{
+    display: flex;
+    align-items: center;
+    justify-content:space-between;
+}
+#stock-in-inventory-table{
+    margin-top:10px;
+    width:100%;
+    border:1px solid;
+    border-collapse: collapse;
+    text-align:center;
+}
+#stock-in-inventory-table th{
+    padding: 10px 0;
+    border-bottom: 1px solid;
+}
+#stock-in-action-text{
+    margin:0;
+}
+#stock-in-delete-active-checkbox-button{
+    padding: 3px 8px;
+    border:1px solid red;
+    cursor:pointer;
+    color:red;
+    border-radius:3px;
+    margin:0;
+    display:none;
+}
+#stock-in-delete-active-checkbox-button:hover{
+    background-color: red;
+    color:white;
+}
+#stock-in-inventory-table td{
+    padding: 5px 0;
+    border-bottom: 1px solid;
+}
+
+/**************| PURCHASE ORDER INVENTORY |**************/
+/*| #6 */
+#purchase-order-inventory-content-container.active{
+    display: block;
+}
+.purchase-order-header-container{
+    display: flex;
+    align-items: center;
+    justify-content:space-between;
+}
+#purchase-order-inventory-table{
+    margin-top:10px;
+    width:100%;
+    border:1px solid;
+    border-collapse: collapse;
+}
+#purchase-order-inventory-table th{
+    padding: 10px 0;
+    border-bottom: 1px solid;
+}
+#purchase-order-action-text{
+    margin:0;
+}
+#purchase-order-delete-active-checkbox-button{
+    padding: 3px 8px;
+    border:1px solid red;
+    cursor:pointer;
+    color:red;
+    border-radius:3px;
+    margin:0;
+    display:none;
+}
+#purchase-order-delete-active-checkbox-button:hover{
+    background-color: red;
+    color:white;
+}
+#purchase-order-inventory-table td{
+    padding: 5px 0;
+    border-bottom: 1px solid;
+}
+
+/*****************************************| ADD PRODUCT |***************************************************/
+/*| #7 |*/
+.add-product-modal-container{
+    top:0;
+    width:100%;
+    height:100vh;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    z-index: 50;
+    background-color: rgba(0, 0, 0, 0.363);
+}
+.add-product-form-container{
+    background-color: #ffffff;
+    padding:30px;
+    border-radius: 10px;
+}
+#add-product-form{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+#add-product-form h3{
+    text-align: center;
+}
+.form-group-container{
+    display:flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+.form-group-container label{
+    width:130px;
+    font-weight: bold;
+}
+.form-group-container input{
+    width:300px;
+    height: 2rem;
+    padding:3px;
+}
+.form-group-container select{
+    width:300px;
+    height: 2rem;
+    padding:3px;
+}
+
+#add-product-submit-button{
+    height: 2rem;
+    cursor: pointer;
+}
+#add-product-cancel-button{
+    height: 2rem;
+    cursor: pointer;
 }

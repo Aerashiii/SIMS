@@ -33,11 +33,11 @@
             echo '<title>Dashboard</title>';
             echo '<link rel="stylesheet" href="../styles/dashboard.css">';
             break;
-        // IF THE CURRENT PAGE IS ANALYTICS, THEN LINK THE CSS AND SCRIPT OF THE ANALYTICS PAGE
+        // IF THE CURRENT PAGE IS RECORDS, THEN LINK THE CSS AND SCRIPT OF THE RECORDS PAGE
         case 'records':
             echo '<title>Analytics</title>';
             echo '<link rel="stylesheet" href="../styles/records.css">';
-            echo '<script src="../scripts/records.js"></script>';
+            echo '<script src="../scripts/records/records.js"></script>';
             break;
 
         // IF THE CURRENT PAGE IS ANALYTICS, THEN LINK THE CSS AND SCRIPT OF THE ANALYTICS PAGE
@@ -50,7 +50,7 @@
         case 'inventory':
             echo '<title>Inventory</title>';
             echo '<link rel="stylesheet" href="../styles/inventory.css">';
-            echo '<script src="../scripts/inventory.js"></script>';
+            echo '<script src="../scripts/inventory/inventory.js"></script>';
             break;
         // IF THE CURRENT PAGE IS SALES, THEN LINK THE CSS AND SCRIPT OF THE SALES PAGE
         case 'sales':

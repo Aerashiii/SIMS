@@ -10,6 +10,7 @@
     border:1px solid;
     border-color:#dfdfdf;
     background-color: #BBDBDD;
+    z-index: 50;
 }
 #logo {
     height: 80px;

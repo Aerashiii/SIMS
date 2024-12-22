@@ -4,7 +4,7 @@
     <ul>
         <!-- | DASHBOARD SIDEBAR BUTTON|--> 
         <li class="menu-item" >
-            <a href="../pages/dashboard.php" class="sidebar-link" data-page="dashboard">
+            <a href="/SIMS/pages/dashboard.php" class="sidebar-link" data-page="dashboard">
                 <span class="material-symbols-rounded">dashboard</span>
                 <h3>Dashboard</h3>
             </a>
@@ -53,7 +53,7 @@
         </li>       
         <!-- | LOGOUT SIDEBAR BUTTON |--> 
         <li class="menu-item">
-            <a href="/SIMS/pages/logout.php" class="sidebar-link" data-page="logout" id="logout-button">
+            <a href="SIMS/pages/logout.php" class="sidebar-link" data-page="logout" id="logout-button">
                 <span class="material-symbols-rounded">logout</span>
                 <h3>Logout</h3>
             </a>       
