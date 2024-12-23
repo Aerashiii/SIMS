@@ -32,9 +32,9 @@
         </li>
         <!-- | SALES SIDEBAR BUTTON |--> 
         <li class="menu-item">
-            <a href="/SIMS/pages/sales.php" class="sidebar-link" data-page="sales">
-                <span class="material-symbols-rounded">monitoring</span>
-                <h3>Sales</h3>
+            <a href="/SIMS/pages/pos.php" class="sidebar-link" data-page="sales">
+            <span class="material-symbols-rounded">point_of_sale</span>
+                <h3>Point of Sale</h3>
             </a>
         </li>
         <!-- | RENTAL BOXES SIDEBAR BUTTON |--> 

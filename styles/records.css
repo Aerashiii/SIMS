@@ -89,12 +89,12 @@
 /*****************************/
 .category-container{
     width:100%;
-    height:300px;
+    
     border:none;
     padding: 0 10px;
     border-radius:10px;
     box-shadow: 0px 0px 5px 5px rgba(32, 32, 32, 0.068);
-    overflow-y: auto;
+  
     display:none;
 }
 /* Scrollbar customization */
@@ -306,4 +306,176 @@
 }
 #supplier-information-table td{
     padding:5px 10px;
+}
+
+
+
+
+/*******************| FOR ADD CATEGORY STYLE |**********************/
+.add-category-modal-container{
+    width:100%;
+    height:100vh;
+    position:fixed;
+    z-index: 60;
+    background-color: rgba(0, 0, 0, 0.418);
+    align-items: center;
+    justify-content: center;
+    top:0;
+    display:none;
+}
+.add-category-modal{
+    background-color: #ffffff;
+    padding:20px;
+    border-radius:10px;
+    width:400px;
+   
+}
+.add-category-modal h3{
+    text-align: center;
+    margin-bottom:15px;
+}
+#add-category-form{
+    display: flex;
+    flex-direction: column;
+    gap:10px;
+}
+.form-div{
+    width:100%;
+}
+.add-category-label{
+    font-weight: bold;
+    width: 130px;
+    display: inline-block;
+}
+
+.form-div input,
+.form-div select{
+    width:100%;
+    height:1.7rem;
+}
+#add-category-submit-button{
+    margin-top:20px;
+}
+#add-category-cancel-button{
+    margin-top:10px;
+}
+#add-category-submit-button,
+#add-category-cancel-button{
+height:2rem;
+font-weight: bold;
+cursor: pointer;
+width:100%;
+}
+
+
+/*******************| FOR ADD SUBCATEGORY STYLE |**********************/
+.add-subcategory-modal-container{
+    width:100%;
+    height:100vh;
+    position:fixed;
+    z-index: 60;
+    background-color: rgba(0, 0, 0, 0.418);
+    align-items: center;
+    justify-content: center;
+    top:0;
+    display:none;
+}
+.add-subcategory-modal{
+    background-color: #ffffff;
+    padding:20px;
+    border-radius:10px;
+    width:400px;
+   
+}
+.add-subcategory-modal h3{
+    text-align: center;
+    margin-bottom:15px;
+}
+#add-subcategory-form{
+    display: flex;
+    flex-direction: column;
+    gap:10px;
+}
+.form-div{
+    width:100%;
+}
+.form-div label{
+    font-weight: bold;
+    width: 100%;
+    display: inline-block;
+}
+
+.form-div input,
+.form-div select{
+    width:100%;
+    height:1.7rem;
+}
+#add-subcategory-submit-button{
+    margin-top:20px;
+}
+#add-subcategory-cancel-button{
+    margin-top:10px;
+}
+#add-subcategory-submit-button,
+#add-subcategory-cancel-button{
+height:2rem;
+font-weight: bold;
+cursor: pointer;
+width:100%;
+}
+
+/*******************| FOR ADD BRAND STYLE |**********************/
+.add-brand-modal-container{
+    width:100%;
+    height:100vh;
+    position:fixed;
+    z-index: 60;
+    background-color: rgba(0, 0, 0, 0.418);
+    align-items: center;
+    justify-content: center;
+    top:0;
+    display:none;
+}
+.add-brand-modal{
+    background-color: #ffffff;
+    padding:20px;
+    border-radius:10px;
+    width:400px;
+   
+}
+.add-brand-modal h3{
+    text-align: center;
+    margin-bottom:15px;
+}
+#add-brand-form{
+    display: flex;
+    flex-direction: column;
+    gap:10px;
+}
+.form-div{
+    width:100%;
+}
+.form-div label{
+    font-weight: bold;
+    width: 100%;
+    display: inline-block;
+}
+
+.form-div input,
+.form-div select{
+    width:100%;
+    height:1.7rem;
+}
+#add-brand-submit-button{
+    margin-top:20px;
+}
+#add-brand-cancel-button{
+    margin-top:10px;
+}
+#add-brand-submit-button,
+#add-brand-cancel-button{
+height:2rem;
+font-weight: bold;
+cursor: pointer;
+width:100%;
 }

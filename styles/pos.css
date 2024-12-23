@@ -1,0 +1,217 @@
+/***********************| ALL SALES STYLES ONLY HERE |***************************/
+.pos-main-content-container{
+    padding-top:12vh;
+}
+.pos-main-container{
+    width:100%;
+    height: 80vh;
+    padding:20px;
+    background-color: #E1F0DA;
+    border-radius:20px;
+}
+.pos-sub-container{
+    display: flex;
+    height:100%;
+    gap:30px;
+}
+/*************| SHOPPING CART STYLE |****************/
+.shopping-cart-container{
+    border:1px solid #99BC85;
+    width:65%;
+    height: 100%;
+    background-color: #ffffff;
+    padding:0px 20px 20px 20px;
+}
+.shopping-cart-content-container{
+    width:100%;
+    height:98%;
+    border:1px solid #99BC85;
+    background-color:#E1F0DA;
+    padding:20px;
+}
+.select-product-container{
+    display: flex;
+    padding:5px 0;
+    align-items: center;
+    justify-content: space-between;
+
+}
+#pos-select-product-button,
+#pos-scan-product-button{
+    padding:5px 10px;
+    cursor: pointer;
+    font-weight: bold;
+}
+.pos-shopping-cart-table-container{
+    border:1px solid #99BC85;
+    height:250px;
+    overflow-y: auto;
+}
+/* Scrollbar customization */
+.pos-shopping-cart-table-container::-webkit-scrollbar{
+    width: 5px;
+    /* Set the scrollbar width */
+}
+
+/* Track (background of the scrollbar) */
+.pos-shopping-cart-table-container::-webkit-scrollbar-track{
+    background: #f1f1f1;
+    /* Scrollbar track color */
+}
+
+/* Handle (scrollbar itself) */
+.pos-shopping-cart-table-container::-webkit-scrollbar-thumb{
+    background: #B2CF9B;
+    border-radius: 10px;
+}
+#pos-shopping-cart-table{
+    border:none;
+    width:100%;
+    border-collapse:collapse;
+    text-align: center;
+}
+#pos-shopping-cart-table th{
+    border:1px solid #99BC85;
+    padding:8px;
+    position: sticky;
+    z-index:5;
+    top:0;
+    background-color:#E1F0DA;
+}
+#pos-shopping-cart-table td{
+    padding:5px;
+}
+.pos-shopping-cart-subtotal-container{
+    font-weight: bold;
+    padding:10px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap:20px;
+    padding-right:20px;
+}
+.pos-info-buttons-container{
+    width:100%;
+    display: flex;
+    flex-direction:column;
+    
+}
+.pos-info-buttons-container div{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding:3px 0;
+    gap:10px;
+}
+.pos-info-buttons-container div label{
+    width:150px;
+    font-weight: bold;
+}
+#select-payment,
+#input-amount-recieved{
+    width:50%;
+    border:1px solid #99BC85;
+    height:1.6rem;
+    padding:3px;
+}
+#change{
+    border-bottom:1px solid #99BC85;
+    height:1.6rem;
+    padding:3px;
+    width:50%;
+}
+.pos-transaction-process-and-cancel-button-container{
+    padding:30px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.pos-transaction-process-and-cancel-button-container button{
+    padding:10px;
+    border:1px solid #629469;
+    background-color: #99BC85;
+    border-radius:10px;
+    font-weight: bold;
+    cursor: pointer;
+}
+.pos-transaction-process-and-cancel-button-container button:hover{
+    background-color: #71af4c;
+}
+
+/***************| RECIEPT PREVIEW STYLES |***************/
+.receipt-preview-container{
+    border:1px solid #99BC85;
+    width:35%;
+    height: 100%;
+    background-color: #ffffff;
+    padding:0px 20px 20px 20px;
+}
+.receipt-preview-content-container{
+    width:100%;
+    height:98%;
+    border:1px solid #99BC85;
+    background-color:#E1F0DA;
+    padding:20px;
+    padding-top: 10px !important;
+}
+.receipt-preview-date-container{
+    display: flex;
+    align-items: center;
+}
+#h4-store-name{
+    text-align: center;
+    font-size: 1.5rem;
+    padding:10px 0;
+}
+.transaction-details-container{
+    display:flex;
+    flex-direction: column;
+}
+.transaction-details-container div{
+    padding:10px 0;
+    display: flex;
+    align-items: center;
+    justify-content:space-between;
+    width:100%;
+    
+}
+.customer-information-container{
+    margin-top:20px;
+    display: flex;
+    flex-direction: column;
+    gap:10px;
+}
+.name-container{
+    display: flex;
+    align-items:center;
+}
+
+.contact-number-container{
+    display: flex;
+    align-items:center;
+
+}
+.name-container label,
+.contact-number-container label{
+    width:40%;
+}
+.name-container input,
+.contact-number-container input{
+    width:60%;
+    height:1.5rem;
+    padding:5px;
+}
+
+#receipt-preview-print-button{
+    padding: 10px;
+    border: 1px solid #629469;
+    background-color: #99BC85;
+    border-radius: 10px;
+    font-weight: bold;
+    cursor: pointer;  
+    margin-top: 100px;
+    width:100%;
+}
+#receipt-preview-print-button:hover{
+    background-color: #71af4c;
+}

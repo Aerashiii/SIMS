@@ -1,7 +1,8 @@
 
 <div class="top-nav-container">
     <!-- | STORE LOGO |-->    
-    <img src="../assets/images/logo.png" id="logo">
+    
+        <a href="../pages/dashboard.php"><img src="../assets/images/logo.png" id="logo"></a>
 
     <div class="right-container"> 
         <!-- | THEME TOGGLER |-->    

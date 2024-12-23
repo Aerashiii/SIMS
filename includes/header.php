@@ -35,9 +35,10 @@
             break;
         // IF THE CURRENT PAGE IS RECORDS, THEN LINK THE CSS AND SCRIPT OF THE RECORDS PAGE
         case 'records':
-            echo '<title>Analytics</title>';
+            echo '<title>Records</title>';
             echo '<link rel="stylesheet" href="../styles/records.css">';
             echo '<script src="../scripts/records/records.js"></script>';
+            echo '<script src="../scripts/records/add-category.js"></script>';
             break;
 
         // IF THE CURRENT PAGE IS ANALYTICS, THEN LINK THE CSS AND SCRIPT OF THE ANALYTICS PAGE
@@ -53,10 +54,10 @@
             echo '<script src="../scripts/inventory/inventory.js"></script>';
             break;
         // IF THE CURRENT PAGE IS SALES, THEN LINK THE CSS AND SCRIPT OF THE SALES PAGE
-        case 'sales':
-            echo '<title>Sales</title>';
-            echo '<link rel="stylesheet" href="../styles/sales.css">';
-            echo '<script src="../scripts/sales.js"></script>';
+        case 'pos':
+            echo '<title>Point Of Sale</title>';
+            echo '<link rel="stylesheet" href="../styles/pos.css">';
+            echo '<script src="../scripts/pos/pos.js"></script>';
             break;
         // IF THE CURRENT PAGE IS RENTAL-BOXES, THEN LINK THE CSS AND SCRIPT OF THE RENTAL-BOXES PAGE
         case 'rental-boxes':
@@ -86,8 +87,14 @@
 <?php
     if ($page != "login") {
         require '../includes/topNav.php';
-        include '../includes/sidebar.php';
+       
+        if($page != "pos"){
+            include '../includes/sidebar.php';
+        }
+       
+       
     }
+    
     ?>
 
 </body>

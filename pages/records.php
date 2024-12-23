@@ -42,16 +42,7 @@
                         <th>Created On</th>
                         <th>Status</th>
                         <th>Action</th>
-                    </tr>
-                    <tr>
-                        <td>Dress</td>
-                        <td>Dec 10 2001</td>
-                        <td>active</td>
-                        <td>
-                            <button>edit</button>
-                            <button>Delete</button>
-                        </td>
-                    </tr>                
+                    </tr>            
                 </table>
             </div>
             <!--| SUBCATEGORY TABLE|-->
@@ -196,3 +187,80 @@
 
     
 </main>
+
+<!--| FOR ADD CATEGORY |-->
+<div class="add-category-modal-container">
+    <div class="add-category-modal">
+        <h3>Add Category</h3>
+        <form action="" id="add-category-form">
+            <div class="form-div">
+                <label for="" class="add-category-label">Category Name:</label>
+                <input type="text" id="category-name">
+            </div>
+            <div class="form-div">
+                <label for=""  class="add-category-label">Status:</label>
+                <select name="" id="category-status">
+                    <option value="active">Active</option>
+                    <option value="inactive">Inactive</option>
+                </select>
+            </div>
+            <input type="submit" id="add-category-submit-button">
+        </form>
+        <button id="add-category-cancel-button">Cancel</button>
+        
+    </div>
+</div>
+<!--| FOR ADD SUBCATEGORY |-->
+<div class="add-subcategory-modal-container">
+    <div class="add-subcategory-modal">
+        <h3>Add Subcategory</h3>
+        <form action="" id="add-subcategory-form">
+            <div class="form-div">
+                <label for="" >Select Category:</label>
+                <select name="" id="">
+                    <option value=""></option>
+                </select>
+                
+            </div>
+
+            <div class="form-div">
+                <label for="" class="add-subcategory-label">Subcategory Name:</label>
+                <input type="text">
+            </div>
+            <div class="form-div">
+                <label for=""  class="add-subcategory-label">Status:</label>
+                <select name="" id="">
+                    <option value="active">Active</option>
+                    <option value="inactive">Inactive</option>
+                </select>
+            </div>
+            <input type="submit" id="add-subcategory-submit-button">         
+        </form>
+        <button id="add-subcategory-cancel-button">Cancel</button>
+        
+    </div>
+</div>
+
+<!--| FOR ADD BRAND |-->
+<div class="add-brand-modal-container">
+    <div class="add-brand-modal">
+        <h3>Add Brand</h3>
+        <form action="" id="add-brand-form">
+           
+            <div class="form-div">
+                <label for="" class="add-brand-label">Brand Name:</label>
+                <input type="text">
+            </div>
+            <div class="form-div">
+                <label for=""  class="add-brand-label">Status:</label>
+                <select name="" id="">
+                    <option value="active">Active</option>
+                    <option value="inactive">Inactive</option>
+                </select>
+            </div>
+            <input type="submit" id="add-brand-submit-button">         
+        </form>
+        <button id="add-brand-cancel-button">Cancel</button>
+        
+    </div>
+</div>
