@@ -23,23 +23,23 @@ try {
     }
 
     // Extract values safely
-    $categoryId = $input['subcategory_id'];
-    $categoryName = $input['subcategory_name'];
+    $brandId = $input['brand_id'];
+    $brandName = $input['brand_name'];
     $status = $input['status'];
    
 
     // Prepare the SQL statement
     $stmt = $conn->prepare("
-        UPDATE subcategory
-        SET subcategory_name = ?, status = ?
-        WHERE subcategory_id = ?
+        UPDATE brand
+        SET brand_name = ?, status = ?
+        WHERE brand_id = ?
     ");
 
     $stmt->bind_param(
         'ssi',
-        $subcategoryName,
+        $brandName,
         $status,
-        $subcategoryId
+        $brandId
     );
 
     if ($stmt->execute()) {

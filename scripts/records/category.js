@@ -14,7 +14,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const editCategoryExitButton = document.getElementById('category-edit-exit-button');
     const editCategorySaveButton = document.getElementById('save-edit-category-button');
 
-
+    // FOR SUBCATEGORY TABLE
+    const SelectCategoryOnSubcategoryTable = document.getElementById('subcategory-select-category');
 
     // FOR ADDING SUBCATEGORY
     const addSubcategoryButton = document.getElementById('add-subcategory-button');
@@ -27,11 +28,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const editSubcategoryModalCon = document.querySelector('.edit-subcategory-modal-container');
     const editSubcategoryExitButton = document.getElementById('subcategory-edit-exit-button');
     const editSubcategorySaveButton = document.getElementById('save-edit-subcategory-button');
-
-    // FOR ADDING BRAND
-    const addBrandButton = document.getElementById('add-brand-button');
-    const addBrandModalCon = document.querySelector('.add-brand-modal-container');
-    const addBrandCancelButton = document.getElementById('add-brand-cancel-button');
+    const editSubcategorySelectCategory = document.getElementById('edit-subcategory-select-category');
 
 
 
@@ -72,7 +69,7 @@ document.addEventListener('DOMContentLoaded', function() {
         formData.append("category_status", categoryStatus);
 
         // Send data to PHP script using Fetch API
-        fetch("../handler/records/add-category.php", {
+        fetch("../handler/records/category/add-category.php", {
             method: "POST",
             body: formData,
         })
@@ -93,7 +90,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     // DISPLAY CATEGORY
    function fetchCategoryData() {
-        fetch('../handler/records/retrieve-category.php')
+        fetch('../handler/records/category/retrieve-category.php')
             .then(response => {
                 if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
                 return response.json();
@@ -148,7 +145,7 @@ function attachCategoryActionListeners() {
     console.log("category Id : "+categoryId)
     
 
-    fetch(`../handler/records/retrieve-category-details.php?id=${categoryId}`)
+    fetch(`../handler/records/category/retrieve-category-details.php?id=${categoryId}`)
         .then(response => response.json())
         .then(category => {
         if (category.error) {
@@ -190,7 +187,7 @@ function attachCategoryActionListeners() {
             status: document.getElementById('edit-category-status').value.trim()           
         };
 
-        fetch('../handler/records/category-edit-handler.php', {
+        fetch('../handler/records/category/category-edit-handler.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -233,7 +230,7 @@ function attachCategoryActionListeners() {
   function handleDeleteCategory(event) {
     categoryId = event.currentTarget.dataset.id; // Set productId globally
 
-    fetch(`../handler/records/retrieve-category-details.php?id=${categoryId}`)
+    fetch(`../handler/records/category/retrieve-category-details.php?id=${categoryId}`)
       .then(response => response.json())
       .then(category => {
         if (category.error) {
@@ -259,7 +256,7 @@ function attachCategoryActionListeners() {
       console.error('category ID is not defined.');
       return;
     }
-    fetch(`../handler/records/category-delete-handler.php`, {
+    fetch(`../handler/records/category/category-delete-handler.php`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
@@ -290,11 +287,12 @@ function attachCategoryActionListeners() {
   }); 
 
 
-/*========================| FOR SUB CATEGORY |=================================================================================== */
-        fetchCategoryDataForSubcategory() ;
-        fetchSubcategoryData() ;
+/*========================| FOR SUBCATEGORY |=================================================================================== */
+    fetchCategoryDataForSelectCategory();
+    fetchSubcategoryData();
+    fetchCategoryDataForSubcategory();
 
-// FOR DISPLAYING ADD SUBCATEGORY MODAL
+    // FOR DISPLAYING ADD SUBCATEGORY MODAL
      addSubcategoryButton.addEventListener('click', function() {
         addSubcategoryModalCon.style.display = 'flex'; // Fixed the typo here
     });
@@ -305,7 +303,7 @@ function attachCategoryActionListeners() {
 
      // DISPLAY CATEGORY
    function fetchCategoryDataForSubcategory() {
-        fetch('../handler/records/retrieve-category.php')
+        fetch('../handler/records/category/retrieve-category.php')
             .then(response => {
                 if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
                 return response.json();
@@ -348,10 +346,6 @@ function attachCategoryActionListeners() {
             alert("Please fill in all fields.");
             return;
         }
-        console.log("Category Id:", categoryId);
-        console.log("subCategory name:", subcategoryName);
-        console.log("subCategory status:", subcategoryStatus);
-
         // Create FormData object to send to the server
         const formData = new FormData();
         formData.append("subcategory_name", subcategoryName);
@@ -359,7 +353,7 @@ function attachCategoryActionListeners() {
         formData.append("subcategory_status", subcategoryStatus);
 
         // Send data to PHP script using Fetch API
-        fetch("../handler/records/add-subcategory.php", {
+        fetch("../handler/records/category/add-subcategory.php", {
             method: "POST",
             body: formData,
         })
@@ -379,51 +373,100 @@ function attachCategoryActionListeners() {
         });
     }
 
-     // DISPLAY SUBCATEGORY
-     function fetchSubcategoryData() {
-        fetch('../handler/records/retrieve-subcategory.php')
-            .then(response => {
-                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-                return response.json();
-            })
-            .then(data => {
-                if (data.length === 0) {
-                    console.warn('No subcategory data found.');
-                } else {
-                    populateSubcategoryTable(data);
-                }
-            })
-            .catch(error => console.error('Error fetching subcategory data:', error));
-    }
-    
-    // Populate subcategory table
-    function populateSubcategoryTable(subcategories) {
-        const subcategoryTable = document.getElementById('subcategory-table');
-    
-        // Clear existing rows (except the header)
-        subcategoryTable.querySelectorAll('tr:not(:first-child)').forEach(row => row.remove());
-    
-        subcategories.forEach(subcategory => {
-            const row = document.createElement('tr');
-            row.innerHTML = `
-                <td>${subcategory.category_name}</td>
-                <td>${subcategory.subcategory_name}</td>
-                <td>${subcategory.date_created}</td>
-                <td>${subcategory.status}</td>
-                 <td>
-                    <button data-id="${subcategory.subcategory_id}" class="subcategory-edit-button">
-                        <img src="../assets/images/icons/edit.png" alt="Edit">
-                    </button>
-                    <button data-id="${subcategory.subcategory_id}" class="subcategory-delete-button">
-                        <img src="../assets/images/icons/delete1.png" alt="Delete">
-                    </button>
-                </td>
-            `;
-            subcategoryTable.appendChild(row);
-        });
-    
-        attachSubcategoryActionListeners();
-    }
+// DISPLAY SUBCATEGORY
+function fetchSubcategoryData(categoryId = null) {
+    const url = categoryId
+        ? `../handler/records/category/retrieve-subcategory.php?category_id=${categoryId}`
+        : '../handler/records/category/retrieve-subcategory.php';
+
+    fetch(url)
+        .then(response => {
+            if (!response.ok) throw new Error('Failed to fetch subcategory data');
+            return response.json();
+        })
+        .then(data => {
+            if (data.length > 0) {
+                populateSubcategoryTable(data);
+            } else {
+                console.error('Error:', 'No subcategories found');
+            }
+        })
+        .catch(error => console.error('Error fetching subcategory data:', error));
+}
+
+// Populate subcategory table
+function populateSubcategoryTable(subcategories) {
+    const subcategoryTable = document.getElementById('subcategory-table');
+
+    // Clear existing rows (except the header)
+    subcategoryTable.querySelectorAll('tr:not(:first-child)').forEach(row => row.remove());
+
+    subcategories.forEach(subcategory => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${subcategory.category_name}</td>
+            <td>${subcategory.subcategory_name}</td>
+            <td>${subcategory.date_created}</td>
+            <td>${subcategory.status}</td>
+            <td>
+                <button data-id="${subcategory.subcategory_id}" class="subcategory-edit-button">
+                    <img src="../assets/images/icons/edit.png" alt="Edit">
+                </button>
+                <button data-id="${subcategory.subcategory_id}" class="subcategory-delete-button">
+                    <img src="../assets/images/icons/delete1.png" alt="Delete">
+                </button>
+            </td>
+        `;
+        subcategoryTable.appendChild(row);
+    });
+
+    attachSubcategoryActionListeners();
+}
+
+// Fetch category data
+function fetchCategoryDataForSelectCategory() {
+    fetch('../handler/records/category/retrieve-category.php')
+        .then(response => {
+            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+            return response.json();
+        })
+        .then(data => {
+            if (data.length === 0) {
+                console.warn('No category data found.');
+            } else {
+                populateSelectCategoryOnSubcategoryTable(data);
+            }
+        })
+        .catch(error => console.error('Error fetching category data:', error));
+}
+
+// Populate select category for adding subcategory
+function populateSelectCategoryOnSubcategoryTable(categories) {
+    categories.forEach(category => {
+        const option2 = document.createElement('option');
+         option2.innerHTML = category.category_name;
+         option2.value = category.category_id;
+         SelectCategoryOnSubcategoryTable.appendChild(option2);
+    });
+}
+
+// Attach change listener to dropdown
+document.getElementById('subcategory-select-category').addEventListener('change', function () {
+    const selectedCategoryId = this.value; // Get the selected category ID
+    fetchSubcategoryData(selectedCategoryId); // Fetch and display subcategories for the selected category
+});
+
+// Initialize data on page load
+document.addEventListener('DOMContentLoaded', () => {
+    fetchCategoryDataForSelectCategory();
+    fetchSubcategoryData();
+});
+
+
+
+
+
+
 
 // Attach listeners to buttons
 function attachSubcategoryActionListeners() {
@@ -436,13 +479,45 @@ function attachSubcategoryActionListeners() {
 }
 
 /**************************| EDITING SUBCATEGORY  |*******************************************/
+    fetchCategoryForSelectCategory();
+
+    // DISPLAY SELECT CATEGORY IN EDIT SUBCATEGORY 
+    function fetchCategoryForSelectCategory() {
+        fetch('../handler/records/category/retrieve-category.php')
+            .then(response => {
+                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                return response.json();
+            })
+            .then(data => {
+                if (data.length === 0) {
+                    console.warn('No category data found.');
+                } else {
+                    populateEditSubcategorySelectCategory(data);
+                }
+            })
+            .catch(error => console.error('Error fetching category data:', error));
+    }
+
+    // Populate select category for editing subcategory
+    function populateEditSubcategorySelectCategory(categories) {
+        categories.forEach(category => {
+            const option1 = document.createElement('option');
+            option1.innerHTML = category.category_name;
+            option1.value = category.category_id;
+            editSubcategorySelectCategory.appendChild(option1);
+        });
+    }
+
+
+
+
     // Handle category editing
     function handleEditSubcategory(event) {
         const subcategoryId = event.currentTarget.dataset.id;
         console.log("subcategory Id : "+subcategoryId)
         
 
-        fetch(`../handler/records/retrieve-subcategory-details.php?id=${subcategoryId}`)
+        fetch(`../handler/records/category/retrieve-subcategory-details.php?id=${subcategoryId}`)
             .then(response => response.json())
             .then(subcategory => {
             if (subcategory.error) {
@@ -456,6 +531,7 @@ function attachSubcategoryActionListeners() {
     }
 
     function displayEditSubcategoryDetails(subcategory) { 
+        document.getElementById('edit-subcategory-select-category').value = subcategory.category_id;
         document.getElementById('edit-subcategory-id').value = subcategory.subcategory_id; // Set product_id
         document.getElementById('edit-subcategory-name').value = subcategory.subcategory_name;
 
@@ -477,12 +553,13 @@ function attachSubcategoryActionListeners() {
 
         editSubcategoryModalCon.style.display ='none';
         const categoryDetails = {
-            category_id: document.getElementById('edit-subcategory-id').value,
-            category_name: document.getElementById('edit-subcategory-name').value.trim(),
+            subcategory_id: document.getElementById('edit-subcategory-id').value,
+            category_id: document.getElementById('edit-subcategory-select-category').value,
+            subcategory_name: document.getElementById('edit-subcategory-name').value.trim(),
             status: document.getElementById('edit-subcategory-status').value.trim()           
         };
 
-        fetch('../handler/records/subcategory-edit-handler.php', {
+        fetch('../handler/records/category/subcategory-edit-handler.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -497,7 +574,7 @@ function attachSubcategoryActionListeners() {
             })
             .then((data) => {
                 if (data.success) {
-                    alert('Category saved successfully!');
+                    alert('Subcategory saved successfully!');
                     window.location.reload();
                 } else {
                     console.error('Error saving category:', data.message);
@@ -515,8 +592,8 @@ function attachSubcategoryActionListeners() {
 
     })
 
-  /***************************| FOR DELETE CATEGORY |*********************************** */
-  //FOR CATEGORY DELETION  
+  /***************************| FOR DELETE SUBCATEGORY |*********************************** */
+  //FOR SUBCATEGORY DELETION  
   const deleteSubcategoryModal = document.querySelector('.delete-subcategory-modal-container');
   const deleteSubcategoryYesButton = document.querySelector('#delete-subcategory-yes-button');
   const cancelDeleteSubcategoryButton = document.querySelector('#delete-subcategory-no-button');
@@ -525,7 +602,7 @@ function attachSubcategoryActionListeners() {
   function handleDeleteSubcategory(event) {
     subcategoryId = event.currentTarget.dataset.id; // Set productId globally
 
-    fetch(`../handler/records/retrieve-subcategory-details.php?id=${subcategoryId}`)
+    fetch(`../handler/records/category/retrieve-subcategory-details.php?id=${subcategoryId}`)
       .then(response => response.json())
       .then(subcategory => {
         if (subcategory.error) {
@@ -551,7 +628,8 @@ function attachSubcategoryActionListeners() {
       console.error('category ID is not defined.');
       return;
     }
-    fetch(`../handler/records/subcategory-delete-handler.php`, {
+    console.log("subcategory ID :",subcategoryId)
+    fetch(`../handler/records/category/subcategory-delete-handler.php`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
@@ -583,37 +661,6 @@ function attachSubcategoryActionListeners() {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-     /***********| FOR ADDING BRAND |************ */
-     addBrandButton.addEventListener('click', function() {
-        addBrandModalCon.style.display = 'flex'; // Fixed the typo here
-    });
-    addBrandCancelButton.addEventListener('click', function() {
-        addBrandModalCon.style.display = 'none'; // Fixed the typo here
-    });
 
 
 

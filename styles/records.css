@@ -402,7 +402,8 @@ width:100%;
     margin-top:10px;
 }
 #edit-subcategory-name,
-#edit-subcategory-status{
+#edit-subcategory-status,
+#edit-subcategory-select-category{
     height:2rem;
     padding:5px;
 }
@@ -495,7 +496,7 @@ width:100%;
     border-radius:3px;
     box-shadow: 2px 2px 2px 1px rgba(192, 192, 192, 0.664);
 }
-#brandcategory-table{
+#brand-table{
     width:100%;
     border:1px solid #B2CF9B;
     text-align: center;   
@@ -505,14 +506,127 @@ width:100%;
     overflow:hidden; 
    
 }
-#brandcategory-table th{
+#brand-table th{
     padding:10px 0;
     border-bottom:1px solid #B2CF9B;
     
    
 }
-#brandcategory-table td{
+#brand-table td{
     padding:10px 0;
+}
+/**********| FOR EDITING BRAND |***************/
+.edit-brand-modal-container{
+    width:100%;
+    height:100vh;
+    position:fixed;
+    z-index: 60;
+    background-color: rgba(0, 0, 0, 0.418);
+    align-items: center;
+    justify-content: center;
+    top:0;
+    display:none;
+}
+.edit-brand-modal{
+    background-color: #ffffff;
+    padding:20px;
+    padding-top:5px;
+    border-radius:10px;
+    width:400px;
+}
+
+#brand-edit-exit-button{
+    border-radius: 50%;
+    padding:5px;
+    border:1px solid;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    float: right;
+}
+#brand-edit-exit-button:hover{
+    border-color: red;
+}
+.edit-brand-modal h2{
+    text-align: center;
+    margin-top:30px;
+}
+.edit-brand-details-container{
+    display: flex;
+    flex-direction: column;
+}
+.edit-brand-details-container label{
+    margin-top:10px;
+}
+#edit-brand-name,
+#edit-brand-status,
+#edit-brand-select-category{
+    height:2rem;
+    padding:5px;
+}
+
+#save-edit-brand-button{
+    margin-top:20px;
+    height: 2rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+/**********| FOR DELETING SUBCATEGORY |***************/
+.delete-brand-modal-container{
+    top:0;
+    width:100%;
+    height: 100vh;
+    position:fixed;
+    z-index:100;
+    background-color: rgba(0, 0, 0, 0.301); 
+    justify-content:center;
+    align-items:center;
+    display:none;
+}
+.delete-brand-modal{
+    
+    padding:30px;
+    background-color: #ffffff;
+    border-radius:5px;  
+    text-align: center;
+}
+#delete-brand-name{
+    color:#000a29;
+    font-weight: bold;
+    
+   
+}
+.brand-delete-yes-and-no-button{
+    display: flex;
+    gap:10px;
+    justify-content: center;
+}
+#delete-brand-yes-button,
+#delete-brand-no-button{
+    padding: 5px 15px;
+    border-radius: 5px;
+    margin-top: 50px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border:none;
+    cursor: pointer;
+    width: 80px;
+    color:#ffffff;
+}
+#delete-brand-yes-button{
+    background-color: red;
+}
+#delete-brand-no-button{
+    background-color: #000c75;
+}
+#delete-brand-yes-button:hover {
+    font-size: 1.3rem;
+
+}
+#delete-brand-no-button:hover {
+    font-size: 1.3rem;
+
 }
 /*******************| PRODUCT LIST |***************************/
 #products-content-container.active{

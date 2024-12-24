@@ -39,6 +39,7 @@
             echo '<link rel="stylesheet" href="../styles/records.css">';
             echo '<script src="../scripts/records/records.js"></script>';
             echo '<script src="../scripts/records/category.js"></script>';
+            echo '<script src="../scripts/records/brand.js"></script>';
             break;
 
         // IF THE CURRENT PAGE IS ANALYTICS, THEN LINK THE CSS AND SCRIPT OF THE ANALYTICS PAGE

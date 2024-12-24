@@ -50,7 +50,7 @@
                 <div class="subcategory-table-header-container">
                     <h3>Subcategory:</h3>
                     <select name="" id="subcategory-select-category">
-                        <option value="">- Select Category -</option>
+                        <option value="">- Select All -</option>
                     </select>
                     <button id="add-subcategory-button">Add Subcategory</button>
                 </div>           
@@ -61,17 +61,7 @@
                         <th>Created On</th>
                         <th>Status</th>
                         <th>Action</th>
-                    </tr>
-                    <tr>
-                        <td>Dress</td>
-                        <td>toda</td>
-                        <td>Dec 20 2025</td>
-                        <td>active</td>
-                        <td>
-                            <button>edit</button>
-                            <button>Delete</button>
-                        </td>
-                    </tr>                    
+                    </tr>             
                 </table>
             </div>
         </div>
@@ -83,18 +73,12 @@
                 <h3>Brand:</h3>
                 <button id="add-brand-button">Add Brand</button>
             </div>     
-                <table id="brandcategory-table">
+                <table id="brand-table">
                     <tr>
                         <th>Brand</th>
+                        <th>Status</th>
                         <th>Action</th>
-                    </tr>
-                    <tr>
-                        <td>Dress</td>
-                        <td>
-                            <button>edit</button>
-                            <button>Delete</button>
-                        </td>
-                    </tr>               
+                    </tr>                          
                 </table>
         </div>
     </div>
@@ -325,15 +309,14 @@
 <div class="add-brand-modal-container">
     <div class="add-brand-modal">
         <h3>Add Brand</h3>
-        <form action="" id="add-brand-form">
-           
+        <form action="" id="add-brand-form">         
             <div class="form-div">
                 <label for="" class="add-brand-label">Brand Name:</label>
-                <input type="text">
+                <input type="text" id="add-brand-name">
             </div>
             <div class="form-div">
                 <label for=""  class="add-brand-label">Status:</label>
-                <select name="" id="">
+                <select name="" id="add-brand-status">
                     <option value="active">Active</option>
                     <option value="inactive">Inactive</option>
                 </select>
@@ -342,5 +325,37 @@
         </form>
         <button id="add-brand-cancel-button">Cancel</button>
         
+    </div>
+</div>
+<!--| MODAL FOR EDITING BRAND |-->
+<div class="edit-brand-modal-container" id="edit-brand-modal-container">
+    <div class="edit-brand-modal">
+        <button id="brand-edit-exit-button"><img src="../assets/images/icons/exit.png" alt=""></button>
+        <h2>Edit Brand</h2>
+        <div class="edit-brand-details-container" id="edit-brand-details-container">
+            <input type="hidden" name="edit-brand-id" id="edit-brand-id">
+            <label for="edit-brand-name">Brand:</label>
+            <input type="text" name="edit-brand-name" value="" id="edit-brand-name">
+            <label for="">Status:</label>
+            <select id="edit-brand-status" name="edit-brand-status" required>
+                <option value="active">active</option>
+                <option value="inactive">inactive</option>
+            </select>
+            
+            <button id="save-edit-brand-button">Save</button>
+        </div>
+    </div>
+</div>
+<!-- | DELATION CONFIRMATION FOR BRAND |-->
+<div class="delete-brand-modal-container">
+    <div class="delete-brand-modal">
+        <p>Are you sure you want to delete this Brand?</p>
+        <span id="delete-brand-name"></span>
+
+        <div class="brand-delete-yes-and-no-button">
+            <button id="delete-brand-yes-button">Yes</button>
+            <button id="delete-brand-no-button">No</button>
+        </div>
+
     </div>
 </div>

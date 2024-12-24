@@ -12,7 +12,10 @@ if ($conn->connect_error) {
 
 header('Content-Type: application/json');
 
-// Query to join category and subcategory tables
+// Check if category filter is provided
+$category_id = isset($_GET['category_id']) ? intval($_GET['category_id']) : null;
+
+// Base query to join category and subcategory tables
 $sql = "
     SELECT 
         subcategory.subcategory_id, 
@@ -27,15 +30,29 @@ $sql = "
     ON 
         subcategory.category_id = category.category_id
 ";
+
+// If category_id is provided, add filter condition to query
+if ($category_id) {
+    $sql .= " WHERE category.category_id = ?";
+}
+
+// Prepare the statement
 $stmt = $conn->prepare($sql);
 if (!$stmt) {
     die(json_encode(['success' => false, 'message' => "SQL prepare failed: " . $conn->error]));
 }
 
+// Bind the category_id parameter if it's provided
+if ($category_id) {
+    $stmt->bind_param('i', $category_id);
+}
+
+// Execute the statement
 if (!$stmt->execute()) {
     die(json_encode(['success' => false, 'message' => "Execution failed: " . $stmt->error]));
 }
 
+// Get the result
 $result = $stmt->get_result();
 $subcategory_data = $result->fetch_all(MYSQLI_ASSOC);
 
@@ -48,8 +65,10 @@ foreach ($subcategory_data as &$subcategory) {
 
 unset($subcategory); // Break the reference to avoid side effects
 
+// Return the results as JSON
 echo json_encode($subcategory_data);
 
+// Close statement and connection
 $stmt->close();
 $conn->close();
 ?>
