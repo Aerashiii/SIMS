@@ -86,16 +86,16 @@
     background-color: #B2CF9B;
    
 }
-/*****************************/
+/*************| FOR CATEGORY STYLES |****************/
 .category-container{
-    width:100%;
-    
+    width:100%; 
     border:none;
-    padding: 0 10px;
+    padding:10px;
     border-radius:10px;
-    box-shadow: 0px 0px 5px 5px rgba(32, 32, 32, 0.068);
-  
+    box-shadow: 0px 0px 5px 5px rgba(32, 32, 32, 0.068); 
     display:none;
+    height: 75vh;
+    overflow-y: auto;
 }
 /* Scrollbar customization */
 .category-container::-webkit-scrollbar{
@@ -161,6 +161,180 @@
 #subcategory-table td{
     padding:10px 0;
 }
+/*******************| FOR ADD CATEGORY STYLE |**********************/
+.add-category-modal-container{
+    width:100%;
+    height:100vh;
+    position:fixed;
+    z-index: 60;
+    background-color: rgba(0, 0, 0, 0.418);
+    align-items: center;
+    justify-content: center;
+    top:0;
+    display:none;
+}
+.add-category-modal{
+    background-color: #ffffff;
+    padding:20px;
+    border-radius:10px;
+    width:400px;
+   
+}
+.add-category-modal h3{
+    text-align: center;
+    margin-bottom:15px;
+}
+#add-category-form{
+    display: flex;
+    flex-direction: column;
+    gap:10px;
+}
+.form-div{
+    width:100%;
+}
+.add-category-label{
+    font-weight: bold;
+    width: 130px;
+    display: inline-block;
+}
+
+.form-div input,
+.form-div select{
+    width:100%;
+    height:1.7rem;
+}
+#add-category-submit-button{
+    margin-top:20px;
+}
+#add-category-cancel-button{
+    margin-top:10px;
+}
+#add-category-submit-button,
+#add-category-cancel-button{
+height:2rem;
+font-weight: bold;
+cursor: pointer;
+width:100%;
+}
+
+/**********| FOR RDITING CATEGORY |***************/
+.edit-category-modal-container{
+    width:100%;
+    height:100vh;
+    position:fixed;
+    z-index: 60;
+    background-color: rgba(0, 0, 0, 0.418);
+    align-items: center;
+    justify-content: center;
+    top:0;
+    display:none;
+}
+.edit-category-modal{
+    background-color: #ffffff;
+    padding:20px;
+    padding-top:5px;
+    border-radius:10px;
+    width:400px;
+}
+
+#category-edit-exit-button{
+    border-radius: 50%;
+    padding:5px;
+    border:1px solid;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    float: right;
+}
+#category-edit-exit-button:hover{
+    border-color: red;
+}
+.edit-category-modal h2{
+    text-align: center;
+    margin-top:30px;
+}
+.edit-category-details-container{
+    display: flex;
+    flex-direction: column;
+}
+.edit-category-details-container label{
+    margin-top:10px;
+}
+#edit-category-name,
+#edit-category-status{
+    height:2rem;
+    padding:5px;
+}
+
+#save-edit-category-button{
+    margin-top:20px;
+    height: 2rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+/**********| FOR DELETING CATEGORY |***************/
+.delete-category-modal-container{
+    top:0;
+    width:100%;
+    height: 100vh;
+    position:fixed;
+    z-index:100;
+    background-color: rgba(0, 0, 0, 0.301); 
+    justify-content:center;
+    align-items:center;
+    display:none;
+}
+.delete-category-modal{
+    
+    padding:30px;
+    background-color: #ffffff;
+    border-radius:5px;  
+    text-align: center;
+}
+#delete-category-name{
+    color:#000a29;
+    font-weight: bold;
+    
+   
+}
+.category-delete-yes-and-no-button{
+    display: flex;
+    gap:10px;
+    justify-content: center;
+}
+#delete-category-yes-button,
+#delete-category-no-button{
+    padding: 5px 15px;
+    border-radius: 5px;
+    margin-top: 50px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border:none;
+    cursor: pointer;
+    width: 80px;
+    color:#ffffff;
+}
+#delete-category-yes-button{
+    background-color: red;
+}
+#delete-category-no-button{
+    background-color: #000c75;
+}
+#delete-category-yes-button:hover {
+    font-size: 1.3rem;
+
+}
+
+#delete-category-no-button:hover {
+    font-size: 1.3rem;
+
+}
+
+
+
+
+
 /***********| SUBCATEGORY |*************/
 .subcategory-table-header-container{
     display: flex;
@@ -181,8 +355,121 @@
     border:none;
     background-color: #B2CF9B;
     border-radius:3px;
-    box-shadow: 2px 2px 2px 1px rgba(192, 192, 192, 0.664);;
+    box-shadow: 2px 2px 2px 1px rgba(192, 192, 192, 0.664);
 }
+/**********| FOR EDITING SUBCATEGORY |***************/
+.edit-subcategory-modal-container{
+    width:100%;
+    height:100vh;
+    position:fixed;
+    z-index: 60;
+    background-color: rgba(0, 0, 0, 0.418);
+    align-items: center;
+    justify-content: center;
+    top:0;
+    display:none;
+}
+.edit-subcategory-modal{
+    background-color: #ffffff;
+    padding:20px;
+    padding-top:5px;
+    border-radius:10px;
+    width:400px;
+}
+
+#subcategory-edit-exit-button{
+    border-radius: 50%;
+    padding:5px;
+    border:1px solid;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    float: right;
+}
+#subcategory-edit-exit-button:hover{
+    border-color: red;
+}
+.edit-subcategory-modal h2{
+    text-align: center;
+    margin-top:30px;
+}
+.edit-subcategory-details-container{
+    display: flex;
+    flex-direction: column;
+}
+.edit-subcategory-details-container label{
+    margin-top:10px;
+}
+#edit-subcategory-name,
+#edit-subcategory-status{
+    height:2rem;
+    padding:5px;
+}
+
+#save-edit-subcategory-button{
+    margin-top:20px;
+    height: 2rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+/**********| FOR DELETING SUBCATEGORY |***************/
+.delete-subcategory-modal-container{
+    top:0;
+    width:100%;
+    height: 100vh;
+    position:fixed;
+    z-index:100;
+    background-color: rgba(0, 0, 0, 0.301); 
+    justify-content:center;
+    align-items:center;
+    display:none;
+}
+.delete-subcategory-modal{
+    
+    padding:30px;
+    background-color: #ffffff;
+    border-radius:5px;  
+    text-align: center;
+}
+#delete-subcategory-name{
+    color:#000a29;
+    font-weight: bold;
+    
+   
+}
+.subcategory-delete-yes-and-no-button{
+    display: flex;
+    gap:10px;
+    justify-content: center;
+}
+#delete-subcategory-yes-button,
+#delete-subcategory-no-button{
+    padding: 5px 15px;
+    border-radius: 5px;
+    margin-top: 50px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border:none;
+    cursor: pointer;
+    width: 80px;
+    color:#ffffff;
+}
+#delete-subcategory-yes-button{
+    background-color: red;
+}
+#delete-subcategory-no-button{
+    background-color: #000c75;
+}
+#delete-subcategory-yes-button:hover {
+    font-size: 1.3rem;
+
+}
+#delete-subcategory-no-button:hover {
+    font-size: 1.3rem;
+
+}
+
 /********************| BRAND |***********************************/
 #brand-content-container.active{
     display:block;
@@ -311,61 +598,6 @@
 
 
 
-/*******************| FOR ADD CATEGORY STYLE |**********************/
-.add-category-modal-container{
-    width:100%;
-    height:100vh;
-    position:fixed;
-    z-index: 60;
-    background-color: rgba(0, 0, 0, 0.418);
-    align-items: center;
-    justify-content: center;
-    top:0;
-    display:none;
-}
-.add-category-modal{
-    background-color: #ffffff;
-    padding:20px;
-    border-radius:10px;
-    width:400px;
-   
-}
-.add-category-modal h3{
-    text-align: center;
-    margin-bottom:15px;
-}
-#add-category-form{
-    display: flex;
-    flex-direction: column;
-    gap:10px;
-}
-.form-div{
-    width:100%;
-}
-.add-category-label{
-    font-weight: bold;
-    width: 130px;
-    display: inline-block;
-}
-
-.form-div input,
-.form-div select{
-    width:100%;
-    height:1.7rem;
-}
-#add-category-submit-button{
-    margin-top:20px;
-}
-#add-category-cancel-button{
-    margin-top:10px;
-}
-#add-category-submit-button,
-#add-category-cancel-button{
-height:2rem;
-font-weight: bold;
-cursor: pointer;
-width:100%;
-}
 
 
 /*******************| FOR ADD SUBCATEGORY STYLE |**********************/

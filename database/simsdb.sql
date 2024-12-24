@@ -1,0 +1,225 @@
+-- phpMyAdmin SQL Dump
+-- version 5.2.1
+-- https://www.phpmyadmin.net/
+--
+-- Host: 127.0.0.1
+-- Generation Time: Dec 24, 2024 at 07:07 AM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.2.12
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `simsdb`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `brand`
+--
+
+CREATE TABLE `brand` (
+  `brand_id` int(255) NOT NULL,
+  `brand_name` varchar(255) NOT NULL,
+  `date_created` datetime(6) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `category`
+--
+
+CREATE TABLE `category` (
+  `category_id` int(255) NOT NULL,
+  `category_name` varchar(255) NOT NULL,
+  `status` varchar(255) NOT NULL,
+  `date_created` datetime(6) NOT NULL DEFAULT current_timestamp(6)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `category`
+--
+
+INSERT INTO `category` (`category_id`, `category_name`, `status`, `date_created`) VALUES
+(2, 'PCC', 'inactive', '2024-12-23 21:26:11.677611'),
+(3, 'airphones', 'active', '2024-12-23 21:32:18.386046'),
+(4, 't-shirt', 'active', '2024-12-23 21:32:38.151004'),
+(5, 'Bag', 'active', '2024-12-23 21:32:48.309912'),
+(6, 'table', 'active', '2024-12-23 21:45:46.988363'),
+(7, 'Speaker', 'active', '2024-12-23 21:46:06.247762'),
+(8, 'electric fan', 'active', '2024-12-23 21:48:29.918740'),
+(9, 'electric fan', 'active', '2024-12-23 21:48:29.998351'),
+(10, 'ok', 'active', '2024-12-23 21:49:16.073231'),
+(11, 'ewan', 'active', '2024-12-23 21:54:41.980269'),
+(12, 'floor', 'active', '2024-12-24 09:29:53.855456');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `products`
+--
+
+CREATE TABLE `products` (
+  `id` int(255) NOT NULL,
+  `product_name` varchar(255) NOT NULL,
+  `barcode` varchar(255) NOT NULL,
+  `brand_id` int(255) NOT NULL,
+  `category_id` int(255) NOT NULL,
+  `subcategory_id` int(255) NOT NULL,
+  `original_price` int(255) NOT NULL,
+  `selling_price` int(255) NOT NULL,
+  `quantity` int(255) NOT NULL,
+  `reorder_point` int(255) NOT NULL,
+  `status` varchar(255) NOT NULL,
+  `supplier_id` int(255) NOT NULL,
+  `date_created` datetime(6) NOT NULL DEFAULT current_timestamp(6)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `subcategory`
+--
+
+CREATE TABLE `subcategory` (
+  `subcategory_id` int(255) NOT NULL,
+  `subcategory_name` varchar(255) NOT NULL,
+  `category_id` int(255) NOT NULL,
+  `status` varchar(255) NOT NULL,
+  `date_created` datetime(6) NOT NULL DEFAULT current_timestamp(6)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `subcategory`
+--
+
+INSERT INTO `subcategory` (`subcategory_id`, `subcategory_name`, `category_id`, `status`, `date_created`) VALUES
+(1, 'das', 2, 'active', '2024-12-24 13:52:36.908955'),
+(2, 'das', 2, 'active', '2024-12-24 13:52:55.130138');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `supplier`
+--
+
+CREATE TABLE `supplier` (
+  `supplier_id` int(255) NOT NULL,
+  `supplier_name` varchar(255) NOT NULL,
+  `contact_person` varchar(255) NOT NULL,
+  `contact_number` int(255) NOT NULL,
+  `product_category_id` int(255) NOT NULL,
+  `product_supplied` varchar(255) NOT NULL,
+  `payment_terms` varchar(255) NOT NULL,
+  `note` varchar(255) NOT NULL,
+  `date_added` datetime(6) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user`
+--
+
+CREATE TABLE `user` (
+  `id` int(255) NOT NULL,
+  `username` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `role` varchar(255) NOT NULL,
+  `date_created` datetime(6) NOT NULL DEFAULT current_timestamp(6)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `brand`
+--
+ALTER TABLE `brand`
+  ADD PRIMARY KEY (`brand_id`);
+
+--
+-- Indexes for table `category`
+--
+ALTER TABLE `category`
+  ADD PRIMARY KEY (`category_id`);
+
+--
+-- Indexes for table `products`
+--
+ALTER TABLE `products`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `subcategory`
+--
+ALTER TABLE `subcategory`
+  ADD PRIMARY KEY (`subcategory_id`);
+
+--
+-- Indexes for table `supplier`
+--
+ALTER TABLE `supplier`
+  ADD PRIMARY KEY (`supplier_id`);
+
+--
+-- Indexes for table `user`
+--
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `brand`
+--
+ALTER TABLE `brand`
+  MODIFY `brand_id` int(255) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `category`
+--
+ALTER TABLE `category`
+  MODIFY `category_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
+-- AUTO_INCREMENT for table `products`
+--
+ALTER TABLE `products`
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `subcategory`
+--
+ALTER TABLE `subcategory`
+  MODIFY `subcategory_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `supplier`
+--
+ALTER TABLE `supplier`
+  MODIFY `supplier_id` int(255) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `user`
+--
+ALTER TABLE `user`
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

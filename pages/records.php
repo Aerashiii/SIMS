@@ -57,12 +57,14 @@
                 <table id="subcategory-table">
                     <tr>
                         <th>Category</th>
+                        <th>Subcategory</th>
                         <th>Created On</th>
                         <th>Status</th>
                         <th>Action</th>
                     </tr>
                     <tr>
                         <td>Dress</td>
+                        <td>toda</td>
                         <td>Dec 20 2025</td>
                         <td>active</td>
                         <td>
@@ -210,6 +212,48 @@
         
     </div>
 </div>
+<!--| MODAL FOR EDITING CATEGORY |-->
+<div class="edit-category-modal-container" id="edit-category-modal-container">
+    <div class="edit-category-modal">
+        <button id="category-edit-exit-button"><img src="../assets/images/icons/exit.png" alt=""></button>
+        <h2>Edit Category</h2>
+        <div class="edit-category-details-container" id="edit-category-details-container">
+            <input type="hidden" name="edit-cetegory-id" id="edit-category-id">
+            <label for="edit-category-name">Category:</label>
+            <input type="text" name="edit-category-name" value="" id="edit-category-name">
+            <label for="">Status:</label>
+            <select id="edit-category-status" name="edit-category-status" required>
+                <option value="active">active</option>
+                <option value="inactive">inactive</option>
+            </select>
+            
+            <button id="save-edit-category-button">Save</button>
+        </div>
+    </div>
+</div>
+<!-- | DELATION CONFIRMATION FOR CATEGORY |-->
+<div class="delete-category-modal-container">
+    <div class="delete-category-modal">
+        <p>Are you sure you want to delete this Category?</p>
+        <span id="delete-category-name"></span>
+
+        <div class="category-delete-yes-and-no-button">
+            <button id="delete-category-yes-button">Yes</button>
+            <button id="delete-category-no-button">No</button>
+        </div>
+
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
 <!--| FOR ADD SUBCATEGORY |-->
 <div class="add-subcategory-modal-container">
     <div class="add-subcategory-modal">
@@ -217,19 +261,19 @@
         <form action="" id="add-subcategory-form">
             <div class="form-div">
                 <label for="" >Select Category:</label>
-                <select name="" id="">
-                    <option value=""></option>
+                <select name="" id="add-subcategory-select-category">
+                    <option value=""> -select category -</option>
                 </select>
                 
             </div>
 
             <div class="form-div">
                 <label for="" class="add-subcategory-label">Subcategory Name:</label>
-                <input type="text">
+                <input type="text" id="add-subcategory-name">
             </div>
             <div class="form-div">
                 <label for=""  class="add-subcategory-label">Status:</label>
-                <select name="" id="">
+                <select name="" id="add-subcategory-status">
                     <option value="active">Active</option>
                     <option value="inactive">Inactive</option>
                 </select>
@@ -240,6 +284,42 @@
         
     </div>
 </div>
+<!--| MODAL FOR EDITING SUBCATEGORY |-->
+<div class="edit-subcategory-modal-container" id="edit-subcategory-modal-container">
+    <div class="edit-subcategory-modal">
+        <button id="subcategory-edit-exit-button"><img src="../assets/images/icons/exit.png" alt=""></button>
+        <h2>Edit Subategory</h2>
+        <div class="edit-subcategory-details-container" id="edit-subcategory-details-container">
+
+            <input type="hidden" name="edit-subcetegory-id" id="edit-subcategory-id">
+            <label>Category:</label>
+            <select name="" id="edit-subcategory-select-category"></select>
+            <label for="edit-subcategory-name">Subcategory:</label>
+            <input type="text" name="edit-subcategory-name" value="" id="edit-subcategory-name">
+            <label for="">Status:</label>
+            <select id="edit-subcategory-status" name="edit-subcategory-status" required>
+                <option value="active">active</option>
+                <option value="inactive">inactive</option>
+            </select>
+            
+            <button id="save-edit-subcategory-button">Save</button>
+        </div>
+    </div>
+</div>
+<!-- | DELATION CONFIRMATION FOR SUBCATEGORY |-->
+<div class="delete-subcategory-modal-container">
+    <div class="delete-subcategory-modal">
+        <p>Are you sure you want to delete this Subcategory?</p>
+        <span id="delete-subcategory-name"></span>
+
+        <div class="subcategory-delete-yes-and-no-button">
+            <button id="delete-subcategory-yes-button">Yes</button>
+            <button id="delete-subcategory-no-button">No</button>
+        </div>
+
+    </div>
+</div>
+
 
 <!--| FOR ADD BRAND |-->
 <div class="add-brand-modal-container">
