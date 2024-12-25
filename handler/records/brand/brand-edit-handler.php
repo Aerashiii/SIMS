@@ -1,4 +1,5 @@
 <?php
+header('Content-Type: application/json');
 
 $host = "localhost";
 $username = "root";
@@ -11,36 +12,25 @@ if ($conn->connect_error) {
     die(json_encode(["success" => false, "message" => "Connection failed: " . $conn->connect_error]));
 }
 
-// Set header for JSON response
-header('Content-Type: application/json');
+
 
 try {
-    // Decode the JSON payload
     $input = json_decode(file_get_contents('php://input'), true);
 
     if (!$input) {
         throw new Exception('Invalid JSON input');
     }
 
-    // Extract values safely
     $brandId = $input['brand_id'];
     $brandName = $input['brand_name'];
     $status = $input['status'];
-   
 
-    // Prepare the SQL statement
     $stmt = $conn->prepare("
         UPDATE brand
         SET brand_name = ?, status = ?
         WHERE brand_id = ?
     ");
-
-    $stmt->bind_param(
-        'ssi',
-        $brandName,
-        $status,
-        $brandId
-    );
+    $stmt->bind_param('ssi', $brandName, $status, $brandId);
 
     if ($stmt->execute()) {
         echo json_encode(['success' => true]);

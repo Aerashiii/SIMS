@@ -40,13 +40,7 @@
             echo '<script src="../scripts/records/records.js"></script>';
             echo '<script src="../scripts/records/category.js"></script>';
             echo '<script src="../scripts/records/brand.js"></script>';
-            break;
-
-        // IF THE CURRENT PAGE IS ANALYTICS, THEN LINK THE CSS AND SCRIPT OF THE ANALYTICS PAGE
-        case 'analytics':
-            echo '<title>Analytics</title>';
-            echo '<link rel="stylesheet" href="../styles/analytics.css">';
-            echo '<script src="../scripts/analytics.js"></script>';
+            echo '<script src="../scripts/records/products.js"></script>';
             break;
         // IF THE CURRENT PAGE IS INVENTORY, THEN LINK THE CSS AND SCRIPT OF THE INVENTORY PAGE
         case 'inventory':
@@ -54,16 +48,21 @@
             echo '<link rel="stylesheet" href="../styles/inventory.css">';
             echo '<script src="../scripts/inventory/inventory.js"></script>';
             break;
-        // IF THE CURRENT PAGE IS SALES, THEN LINK THE CSS AND SCRIPT OF THE SALES PAGE
+        // IF THE CURRENT PAGE IS POINT OF SALE, THEN LINK THE CSS AND SCRIPT OF THE POINT OF SALE PAGE
         case 'pos':
             echo '<title>Point Of Sale</title>';
             echo '<link rel="stylesheet" href="../styles/pos.css">';
             echo '<script src="../scripts/pos/pos.js"></script>';
             break;
-        // IF THE CURRENT PAGE IS RENTAL-BOXES, THEN LINK THE CSS AND SCRIPT OF THE RENTAL-BOXES PAGE
-        case 'rental-boxes':
-            echo '<title>Rental Boxes</title>';
-            echo '<link rel="stylesheet" href="../scripts/rental-boxes.css">';
+        // IF THE CURRENT PAGE IS RENTAL, THEN LINK THE CSS AND SCRIPT OF THE RENTAL-BOXES PAGE
+        case 'rental':
+            echo '<title>Rental</title>';
+            echo '<link rel="stylesheet" href="../scripts/rental.css">';
+            break;
+        // IF THE CURRENT PAGE IS REPORTS, THEN LINK THE CSS AND SCRIPT OF THE RENTAL-BOXES PAGE
+        case 'reports':
+            echo '<title>Reports</title>';
+            echo '<link rel="stylesheet" href="../scripts/reports.css">';
             break;
         // IF THE CURRENT PAGE IS SETTINGS, THEN LINK THE CSS AND SCRIPT OF THE SETTINGS PAGE
         case 'settings':

@@ -16,13 +16,6 @@
                 <h3>Records</h3>
             </a>
         </li>
-        <!-- | ANALYTICS SIDEBAR BUTTON |--> 
-        <li class="menu-item">
-            <a href="/SIMS/pages/analytics.php" class="sidebar-link" data-page="analytics">
-                <span class="material-symbols-rounded">analytics</span>
-                <h3>Analytics</h3>
-            </a>
-        </li>
         <!-- | INVENTORY SIDEBAR BUTTON |--> 
         <li class="menu-item">
             <a href="/SIMS/pages/inventory.php" class="sidebar-link" data-page="inventory">
@@ -37,11 +30,18 @@
                 <h3>Point of Sale</h3>
             </a>
         </li>
-        <!-- | RENTAL BOXES SIDEBAR BUTTON |--> 
+        <!-- | RENTAL SIDEBAR BUTTON |--> 
         <li class="menu-item">
-            <a href="/SIMS/pages/rental-boxes.php" class="sidebar-link" data-page="rental-boxes">
+            <a href="/SIMS/pages/rental.php" class="sidebar-link" data-page="rental-boxes">
                 <span class="material-symbols-rounded">shelves</span>
-                <h3>Rental Boxes</h3>
+                <h3>Rental</h3>
+            </a>
+        </li>
+         <!-- | REPORTS SIDEBAR BUTTON |--> 
+         <li class="menu-item">
+            <a href="/SIMS/pages/reports.php" class="sidebar-link" data-page="rental-boxes">
+                <span class="material-symbols-rounded">assessment</span>
+                <h3>Reports</h3>
             </a>
         </li>
         <!-- | SETTINGS SIDE BAR BUTTON |--> 

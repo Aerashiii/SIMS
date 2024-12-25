@@ -628,7 +628,7 @@ width:100%;
     font-size: 1.3rem;
 
 }
-/*******************| PRODUCT LIST |***************************/
+/*******************| PRODUCT LIST STYLE |***************************/
 #products-content-container.active{
     display:block;
 }
@@ -667,6 +667,70 @@ width:100%;
 #product-list-table td{
     padding:5px 10px;
 }
+/*********| ADD PRODUCT STYLE |*******/
+
+.add-product-modal{
+    background-color: #ffffff;
+    padding:20px;
+    border-radius:10px;
+    width:100%;
+    display:none;
+   
+   
+}
+.add-product-modal h3{
+    text-align: center;
+    font-size: 1.5rem;
+}
+#add-product-form{
+    display: flex;
+    flex-direction: column;
+    gap:10px;
+}
+#add-product-form div{
+    display: flex;
+    flex-direction: column;
+}
+#add-product-form div label{
+    font-weight: bold;
+    font-size: 1rem;
+    color:rgb(112, 112, 112);
+}
+#add-product-form div input,
+#add-product-form div select{
+    height:1.8rem;
+    padding:5px;
+}
+
+#add-product-submit-button{
+    height:1.8rem;
+    padding:5px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+#add-product-cancel-button{
+    height:1.8rem;
+    padding:5px;
+    margin-top: 10px;
+    width:100%;
+    cursor: pointer;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /*******************| SUPPLIER INFORMATION |***************************/
 #supplier-content-container.active{
@@ -825,3 +889,4 @@ font-weight: bold;
 cursor: pointer;
 width:100%;
 }
+
