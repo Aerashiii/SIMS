@@ -778,10 +778,13 @@ width:100%;
 }
 #product-list-table th{
     padding:15px 10px;
-    border-bottom: 1px solid;
+    border-bottom: 1px solid  #B2CF9B;
+    font-size: 0.8rem;
+   
 }
 #product-list-table td{
     padding:5px 10px;
+    font-size: 0.8rem;
 }
 /*********| ADD PRODUCT STYLE |*******/
 .delete-product-modal-container{
@@ -842,7 +845,62 @@ width:100%;
     cursor: pointer;
 }
 
+/**********| FOR DELETING PRODUCT |***************/
+.delete-product-modal-container{
+    top:0;
+    width:100%;
+    height: 100vh;
+    position:fixed;
+    z-index:100;
+    background-color: rgba(0, 0, 0, 0.301); 
+    justify-content:center;
+    align-items:center;
+    display:none;
+}
+.delete-product-modal{
+    
+    padding:30px;
+    background-color: #ffffff;
+    border-radius:5px;  
+    text-align: center;
+}
+#delete-product-name{
+    color:#000a29;
+    font-weight: bold;
+    
+   
+}
+.product-delete-yes-and-no-button{
+    display: flex;
+    gap:10px;
+    justify-content: center;
+}
+#delete-product-yes-button,
+#delete-product-no-button{
+    padding: 5px 15px;
+    border-radius: 5px;
+    margin-top: 50px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border:none;
+    cursor: pointer;
+    width: 80px;
+    color:#ffffff;
+}
+#delete-product-yes-button{
+    background-color: red;
+}
+#delete-product-no-button{
+    background-color: #000c75;
+}
+#delete-product-yes-button:hover {
+    font-size: 1.3rem;
 
+}
+#delete-product-no-button:hover {
+    font-size: 1.3rem;
+
+}
 
 
 

@@ -100,7 +100,10 @@
                             <th>Brand</th>
                             <th>Barcode</th>
                             <th>Quantity</th>
+                            <th>Reorder Point</th>
+                            <th>Original Price</th>
                             <th>Selling Price</th>
+                            <th>Supplier</th>
                             <th>Status</th>
                             <th>Action</th>
                         </tr>
@@ -323,7 +326,7 @@
         <form action="" id="add-product-form">
             <div>
                 <label for="">Product Name:</label>
-                <input type="text" name="add-product-name">
+                <input type="text" name="add-product-name" id="add-product-name">
             </div>
             <div>
                 <label for="">Brand:</label>
@@ -487,6 +490,22 @@
 
     </div>
 </div>
+
+
+<!-- | DELATION CONFIRMATION FOR PRODUCT |-->
+<div class="delete-product-modal-container">
+    <div class="delete-product-modal">
+        <p>Are you sure you want to delete this Product?</p>
+        <span id="delete-product-name"></span>
+
+        <div class="product-delete-yes-and-no-button">
+            <button id="delete-product-yes-button">Yes</button>
+            <button id="delete-product-no-button">No</button>
+        </div>
+
+    </div>
+</div>
+
 
 
 

@@ -172,7 +172,6 @@ document.addEventListener('DOMContentLoaded', function(){
 
 
     // DISPLAY SUPPLIER
-     // DISPLAY CATEGORY
      function fetchSupplierData() {
         fetch('../handler/records/supplier/retrieve-supplier.php')
             .then(response => {
