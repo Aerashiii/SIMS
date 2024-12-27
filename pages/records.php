@@ -20,7 +20,7 @@
         </ul>
 
     </div>
-    <div class="records-all-content-container">
+
         <!---------------| CATEGORY AND SUBCATEGORY |-------------------------->
         <div class="records-content-container active" id="category-content-container">
                 <div class="category-and-subcategory-container">
@@ -125,71 +125,14 @@
                             <th>Supplier type</th>
                             <th>Product Category</th>
                             <th>Payment Terms</th>
-                            <th>Date Added</th>
                             <th>Note</th>
                             <th>Action</th>
                         </tr>
                     </table>
                 </div>
             </div>
-    </div>
 
-    <!-- | MODAL FOR ADDING PRODUCT |--->
-
-    <div class="add-product-modal">
-        <h3>Add Product</h3>
-        <form action="" id="add-product-form">
-            <div>
-                <label for="">Product Name:</label>
-                <input type="text" name="add-product-name">
-            </div>
-            <div>
-                <label for="">Brand:</label>
-                <Select name="add-product-brand"></Select>
-            </div>
-            <div>
-                <label for="">Category:</label>
-                <Select name="add-product-category"></Select>
-            </div>
-            <div>
-                <label for="">Subcategory:</label>
-                <Select name="add-product-subcategory"></Select>
-            </div>
-            <div>
-                <label for="">Barcode:</label>
-                <input type="text" name="add-product-barcode">
-            </div>
-            <div>
-                <label for="">Original Price:</label>
-                <input type="text" name="add-product-original-price">
-            </div>
-            <div>
-                <label for="">Selling Price:</label>
-                <input type="text" name="add-product-selling-price">
-            </div>
-            <div>
-                <label for="">Quantity:</label>
-                <input type="text" name="add-product-quantity">
-            </div>
-            <div>
-                <label for="">Reorder Point:</label>
-                <input type="text" name="add-product-reorder-point">
-            </div>
-            <div>
-                <label for="">Status:</label>
-                <Select name="add-product-status"></Select>
-            </div>
-            <div>
-                <label for="">Supplier:</label>
-                <Select name="add-product-supplier"></Select>
-            </div>
-            <input type="submit" id="add-product-submit-button" value="save">
-        </form>
-        <button id="add-product-cancel-button">Cancel</button>       
-    </div>
-
-
-    
+      
 </main>
 
 <!--| FOR ADD CATEGORY |-->
@@ -367,6 +310,179 @@
         <div class="brand-delete-yes-and-no-button">
             <button id="delete-brand-yes-button">Yes</button>
             <button id="delete-brand-no-button">No</button>
+        </div>
+
+    </div>
+</div>
+
+
+ <!-- | MODAL FOR ADDING PRODUCT |--->
+ <div class="delete-product-modal-container">
+    <div class="add-product-modal">
+        <h3>Add Product</h3>
+        <form action="" id="add-product-form">
+            <div>
+                <label for="">Product Name:</label>
+                <input type="text" name="add-product-name">
+            </div>
+            <div>
+                <label for="">Brand:</label>
+                <Select name="add-product-brand" id="add-product-brand">
+                    <option value="">- select brand -</option>
+                </Select>
+            </div>
+            <div>
+                <label for="">Category:</label>
+                <Select name="add-product-category" id="add-product-category">
+                    <option value="">- select category -</option>
+                </Select>
+            </div>
+            <div>
+                <label for="">Subcategory:</label>
+                <Select name="add-product-subcategory" id="add-product-subcategory">
+                    <option value="">- select subcategory -</option>
+                </Select>
+            </div>
+            <div>
+                <label for="">Barcode:</label>
+                <input type="text" id="add-product-barcode" >
+            </div>
+            <div>
+                <label for="">Original Price:</label>
+                <input type="text" id="add-product-original-price">
+            </div>
+            <div>
+                <label for="">Selling Price:</label>
+                <input type="text" id="add-product-selling-price">
+            </div>
+            <div>
+                <label for="">Quantity:</label>
+                <input type="text" id="add-product-quantity">
+            </div>
+            <div>
+                <label for="">Reorder Point:</label>
+                <input type="text" id="add-product-reorder-point">
+            </div>
+            <div>
+                <label for="">Status:</label>
+                <Select id="add-product-status">
+                    <option value="active">active</option>
+                    <option value="inactive">inactive</option>
+                </Select>
+            </div>
+            <div>
+                <label for="">Supplier:</label>
+                <Select name="add-product-supplier" id="add-product-select-supplier"></Select>
+            </div>
+            <input type="submit" id="add-product-submit-button" value="save">
+        </form>
+        <button id="add-product-cancel-button">Cancel</button>       
+    </div>
+</div>
+
+<!-----------| FOR ADDING SUPPLIER |--------------------->
+
+<div class="add-supplier-modal-container">
+    <div class="add-supplier-modal">
+        <h3>Add Supplier</h3>
+        <form action="" id="add-supplier-form">
+            <div>
+                <label for="">Supplier Name:</label>
+                <input type="text" id="add-supplier-name" required>
+            </div>
+            <div>
+                <label for="">Contact Person:</label>
+                <input type="text" id="add-supplier-contact-person" required>
+            </div>
+            <div>
+                <label for="">Phone Number:</label>
+                <input type="text" id="add-supplier-phone-number" required>
+            </div>
+            <div>
+                <label for="">Address:</label>
+                <input type="text" id="add-supplier-address" required>
+            </div>
+            <div>
+                <label for="">Supplier Type:</label>
+                <select name="" id="add-supplier-type" required>
+                    <option value=""></option>
+                    <option value="Product Supplier">Product Supplier</option>
+                    <option value="Service Provider">Service Provider</option>
+                    <option value="Raw Material Supplier">Raw Material Supplier</option>
+                    <option value="Rental Box Supplier">Rental Box Supplier</option>
+                </select>
+            </div>
+            <div>
+                <label for="">Product Category:</label>
+                <select name="" id="add-supplier-product-category" required>
+                    <option value=""></option>
+                </select>
+            </div>
+            <div>
+                <label for="">Payment Terms:</label>
+                <Select id="add-supplier-payment-terms" required>
+                    <option value=""></option>
+                </Select>
+            </div>
+            <div>
+                <label for="">Note:</label>
+                <input type="text" id="add-supplier-note" >
+            </div>
+            <input type="Submit" id="add-supplier-submit-button">
+        </form>
+        <button id="add-supplier-cancel-button">Cancel</button>
+    </div>
+</div>
+<!--| MODAL FOR EDITING SUPPLIER |-->
+<div class="edit-supplier-modal-container" id="edit-supplier-modal-container">
+    <div class="edit-supplier-modal">
+        <button id="supplier-edit-exit-button"><img src="../assets/images/icons/exit.png" alt=""></button>
+        <h2>Edit Supplier</h2>
+        <div class="edit-supplier-details-container" id="edit-supplier-details-container">
+            <input type="hidden" name="edit-supplier-id" id="edit-supplier-id">
+
+            <label for="edit-supplier-name">Supplier Name:</label>
+            <input type="text" name="edit-supplier-name" value="" id="edit-supplier-name">
+
+            <label for="">Contact Person:</label>
+            <input type="text" id="edit-supplier-contact-person">
+
+            <label for="edit-supplier-name">Contact Number:</label>
+            <input type="text" name="edit-supplier-contact-number" value="" id="edit-supplier-contact-number">
+
+            <label for="">Address:</label>
+            <input type="text" id="edit-supplier-address">
+
+            <label for="edit-supplier-name">Supplier Type:</label>
+            <select name="edit-supplier-type" value="" id="edit-supplier-type" >
+                    <option value="Product Supplier">Product Supplier</option>
+                    <option value="Service Provider">Service Provider</option>
+                    <option value="Raw Material Supplier">Raw Material Supplier</option>
+                    <option value="Rental Box Supplier">Rental Box Supplier</option>
+                </select>
+
+            <label for="">Product Category:</label>
+            <select name="" id="edit-supplier-product-category"></select>
+
+            <label for="edit-supplier-name">Payment Terms:</label>
+            <select name="edit-supplier-payment-terms" value="" id="edit-supplier-payment-terms"></select>
+
+            <label for="">Note:</label>
+            <input type="text" id="edit-supplier-note">
+                       
+            <button id="save-edit-supplier-button">Save</button>
+        </div>
+    </div>
+</div>
+<!-- | DELATION CONFIRMATION FOR SUPPLIER |-->
+<div class="delete-supplier-modal-container">
+    <div class="delete-supplier-modal">
+        <p>Are you sure you want to delete this Supplier?</p>
+        <span id="delete-supplier-name"></span>
+
+        <div class="supplier-delete-yes-and-no-button">
+            <button id="delete-supplier-yes-button">Yes</button>
+            <button id="delete-supplier-no-button">No</button>
         </div>
 
     </div>

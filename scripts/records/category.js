@@ -46,22 +46,22 @@ document.addEventListener('DOMContentLoaded', function() {
    // Handle form submission using AJAX (Prevent default form submission)
     addCategoryForm.addEventListener("submit", function(event) {
         event.preventDefault(); // Prevent page reload
-
+        
         createCategory(); // Call the function to handle form data submission
     });
 
     // Function to handle category creation
     function createCategory() {
-        const categoryName = document.getElementById("category-name").value.trim();
-        const categoryStatus = document.getElementById("category-status").value.trim();
-
+        const categoryName = document.getElementById('category-name').value.trim();
+        const categoryStatus = document.getElementById('category-status').value.trim();
+        console.log("Category name:", categoryName);
+        console.log("Category status:", categoryStatus);
         // Validate form inputs
         if (!categoryName || !categoryStatus) {
             alert("Please fill in all fields.");
             return;
         }
-        console.log("Category name:", categoryName);
-        console.log("Category status:", categoryStatus);
+       
 
         // Create FormData object to send to the server
         const formData = new FormData();

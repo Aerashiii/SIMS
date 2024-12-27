@@ -1,21 +1,31 @@
 <?php
-// Include database connection
-require_once '../config/db.php'; // Adjust the path if necessary
+$server = "localhost";
+$username = "root";
+$password = "";
+$dbname = "simsdb";
+
+// Create connection
+$conn = new mysqli($server, $username, $password, $dbname);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
 
 // Check if the form is submitted via POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Collect and sanitize form data
-    $product_name = isset($_POST['add-product-name']) ? mysqli_real_escape_string($conn, $_POST['add-product-name']) : '';
-    $barcode = isset($_POST['add-product-barcode']) ? mysqli_real_escape_string($conn, $_POST['add-product-barcode']) : '';
-    $brand_id = isset($_POST['add-product-brand']) ? (int) $_POST['add-product-brand'] : 0;
-    $category_id = isset($_POST['add-product-category']) ? (int) $_POST['add-product-category'] : 0;
-    $subcategory_id = isset($_POST['add-product-subcategory']) ? (int) $_POST['add-product-subcategory'] : 0;
-    $original_price = isset($_POST['add-product-original-price']) ? (float) $_POST['add-product-original-price'] : 0;
-    $selling_price = isset($_POST['add-product-selling-price']) ? (float) $_POST['add-product-selling-price'] : 0;
-    $quantity = isset($_POST['add-product-quantity']) ? (int) $_POST['add-product-quantity'] : 0;
-    $reorder_point = isset($_POST['add-product-reorder-point']) ? (int) $_POST['add-product-reorder-point'] : 0;
-    $status = isset($_POST['add-product-status']) ? mysqli_real_escape_string($conn, $_POST['add-product-status']) : '';
-    $supplier_id = isset($_POST['add-product-supplier']) ? (int) $_POST['add-product-supplier'] : 0;
+    $product_name = isset($_POST['product_name']) ? mysqli_real_escape_string($conn, $_POST['product_name']) : '';
+    $barcode = isset($_POST['product_barcode']) ? mysqli_real_escape_string($conn, $_POST['product_barcode']) : '';
+    $brand_id = isset($_POST['product_brand']) ? (int) $_POST['product_brand'] : 0;
+    $category_id = isset($_POST['product_category']) ? (int) $_POST['product_category'] : 0;
+    $subcategory_id = isset($_POST['product_subcategory']) ? (int) $_POST['product_subcategory'] : 0;
+    $original_price = isset($_POST['original_price']) ? (float) $_POST['original_price'] : 0;
+    $selling_price = isset($_POST['selling_price']) ? (float) $_POST['selling_price'] : 0;
+    $quantity = isset($_POST['quantity']) ? (int) $_POST['quantity'] : 0;
+    $reorder_point = isset($_POST['reorder_point']) ? (int) $_POST['reorder_point'] : 0;
+    $status = isset($_POST['status']) ? mysqli_real_escape_string($conn, $_POST['status']) : '';
+    $supplier_id = isset($_POST['supplier_id']) ? (int) $_POST['supplier_id'] : 0;
 
     // Validate required fields
     if (empty($product_name) || empty($barcode) || empty($brand_id) || empty($category_id) || empty($subcategory_id) || empty($original_price) || empty($selling_price) || empty($quantity) || empty($reorder_point) || empty($status) || empty($supplier_id)) {

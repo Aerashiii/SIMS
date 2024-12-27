@@ -5,6 +5,8 @@ document.addEventListener('DOMContentLoaded', function () {
     const addBrandModalCon = document.querySelector('.add-brand-modal-container');
     const addBrandCancelButton = document.getElementById('add-brand-cancel-button');
     const addBrandForm = document.getElementById('add-brand-form');
+
+    //FOR EDITING BRAND
     const editBrandModalCon = document.querySelector('.edit-brand-modal-container');
     const editBrandExitButton = document.getElementById('brand-edit-exit-button');
     const editBrandSaveButton = document.getElementById('save-edit-brand-button');
@@ -101,7 +103,7 @@ document.addEventListener('DOMContentLoaded', function () {
             button.addEventListener('click', handleDeleteBrand)
         );
     }
-
+ // FOR EDITING BRAND
     function handleEditBrand(event) {
         const brandId = event.currentTarget.dataset.id;
         fetch(`../handler/records/brand/retrieve-brand-details.php?id=${brandId}`)

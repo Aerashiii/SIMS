@@ -41,6 +41,7 @@
             echo '<script src="../scripts/records/category.js"></script>';
             echo '<script src="../scripts/records/brand.js"></script>';
             echo '<script src="../scripts/records/products.js"></script>';
+            echo '<script src="../scripts/records/supplier.js"></script>';
             break;
         // IF THE CURRENT PAGE IS INVENTORY, THEN LINK THE CSS AND SCRIPT OF THE INVENTORY PAGE
         case 'inventory':
