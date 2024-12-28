@@ -77,10 +77,12 @@
     width:100%;
     border:1px solid;
     border-collapse: collapse;
+    text-align: center;
 }
 #onhand-inventory-table th{
     padding: 10px 0;
     border-bottom: 1px solid;
+    font-size: 0.8rem;
 }
 #onhand-action-text{
     margin:0;
@@ -101,6 +103,7 @@
 #onhand-inventory-table td{
     padding: 5px 0;
     border-bottom: 1px solid;
+    font-size: 0.8rem;
 }
 /*************| LOW STOCK INVENTORY |***************/
 /*| #4 |*/
@@ -302,11 +305,7 @@
     width:130px;
     font-weight: bold;
 }
-.form-group-container input{
-    width:300px;
-    height: 2rem;
-    padding:3px;
-}
+.form-group-container input,
 .form-group-container select{
     width:300px;
     height: 2rem;
@@ -320,4 +319,6 @@
 #add-product-cancel-button{
     height: 2rem;
     cursor: pointer;
+    width:100%;
+    margin-top:10px;
 }

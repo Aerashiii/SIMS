@@ -29,8 +29,7 @@
             <div class="search-container">
                 <input type="text">
                 <button>Search</button>
-            </div>
-            
+            </div>         
             <select name="" id="">
                 <option value=""> -select category-</option>
             </select>
@@ -38,19 +37,19 @@
         </div>
         <table id="onhand-inventory-table">
             <tr>
-                <th><input type="checkbox"></th>
-                <th>Product Name</th>
                 <th>Barcode</th>
+                <th>Product Name</th>
                 <th>Category</th>
+                <th>Subcategory</th>
                 <th>Brand</th>
                 <th>Quantity</th>
+                <th>Reorder Point</th>
+                <th>Original Price</th>
                 <th>Selling Price</th>
-                <th>
-                    <span id="onhand-action-text">Action</span>
-                    <button id="onhand-delete-active-checkbox-button">Delete</button>
-                </th>
+                <th>Supplier</th>
+                <th>Status</th>
+                <th>Action</th>
             </tr>
-
         </table>
 
     </div>
@@ -197,62 +196,61 @@
             <h3>Add Product</h3>
             <div class="form-group-container">
                 <label>Product Name:</label>
-                <input type="text" required>
+                <input type="text" id="add-product-name"required>
             </div>
             <div class="form-group-container">
                 <label>Brand:</label>
-                <select name="" id="" required>
+                <select name="" id="add-product-brand" required>
                     <option value="">- Select Brand -</option>
                 </select>
             </div>
             <div class="form-group-container">
                 <label>Category:</label>
-                <select name="" id="" required>
-                    <option value="">- Select Brand -</option>
+                <select name="" id="add-product-category" required>
+                    <option value="">- Select category -</option>
                 </select>
             </div>
             <div class="form-group-container">
                 <label>Subcategory:</label>
-                <select name="" id="" required>
-                    <option value="">- Select Brand -</option>
+                <select name="" id="add-product-subcategory" required>
+                    <option value="">- Select subcategory -</option>
                 </select>
             </div>
             <div class="form-group-container">
                 <label>Barcode:</label>
-                <input type="text" required>
+                <input type="text" id="add-product-barcode" required>
             </div>
             <div class="form-group-container">
                 <label>Quantity:</label>
-                <input type="text" required>
+                <input type="text" id="add-product-quantity" required>
             </div>
             <div class="form-group-container">
                 <label>Reorder Point:</label>
-                <input type="text" required>
+                <input type="text" id="add-product-reorder-point" required>
             </div>
             <div class="form-group-container">
                 <label>Original Price:</label>
-                <input type="text" required>
+                <input type="text"id="add-product-original-price" required>
             </div>
             <div class="form-group-container">
                 <label>Selling Price:</label>
-                <input type="text" required>
+                <input type="text" id="add-product-selling-price"  required>
             </div>
             <div class="form-group-container">
                 <label>Supplier:</label>
-                <input type="text" required>
+                <select name="" idadd-product-select-supplierselect>
             </div>
             <div class="form-group-container">
-                <label>Product Status:</label>
-                <select name="" id="" required>
+                <label>Status:</label>
+                <select name="" id="add-product-status" required>
                     <option value="active">active</option>
                     <option value="inactive">inactive</option>
                 </select>
             </div>
 
             <input type="submit" id="add-product-submit-button">
-            <button id="add-product-cancel-button">Cancel</button>
-
         </form>
+        <button id="add-product-cancel-button">Cancel</button>
 
     </div>
 

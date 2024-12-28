@@ -52,8 +52,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Function to handle category creation
     function createCategory() {
-        const categoryName = document.getElementById('category-name').value.trim();
-        const categoryStatus = document.getElementById('category-status').value.trim();
+        const categoryName = document.getElementById('add-category-name').value.trim();
+        const categoryStatus = document.getElementById('add-category-status').value.trim();
         console.log("Category name:", categoryName);
         console.log("Category status:", categoryStatus);
         // Validate form inputs
@@ -332,11 +332,11 @@ function attachCategoryActionListeners() {
     addSubcategoryForm.addEventListener("submit", function(event) {
         event.preventDefault(); // Prevent page reload
 
-        createCategory(); // Call the function to handle form data submission
+        createSubategory(); // Call the function to handle form data submission
     });
 
     // Function to handle category creation
-    function createCategory() {
+    function createSubategory() {
         const categoryId = document.getElementById('add-subcategory-select-category').value.trim();
         const subcategoryName = document.getElementById("add-subcategory-name").value.trim();
         const subcategoryStatus = document.getElementById("add-subcategory-status").value.trim();

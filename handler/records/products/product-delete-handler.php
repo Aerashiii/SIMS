@@ -1,5 +1,5 @@
 <?php
-// supplier-delete-handler.php
+
 $host = "localhost";
 $username = "root";
 $password = "";
@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Check if the product ID is valid
     if ($productId) {
         // Prepare SQL to delete the product
-        $sql = "DELETE FROM products WHERE product_id = ?";
+        $sql = "DELETE FROM products WHERE id = ?";
         $stmt = $conn->prepare($sql);
 
         // Check if the statement was prepared correctly

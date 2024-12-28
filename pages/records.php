@@ -145,11 +145,11 @@
         <form action="" id="add-category-form">
             <div class="form-div">
                 <label for="" class="add-category-label">Category Name:</label>
-                <input type="text" id="category-name">
+                <input type="text" id="add-category-name">
             </div>
             <div class="form-div">
                 <label for=""  class="add-category-label">Status:</label>
-                <select name="" id="category-status">
+                <select name="" id="add-category-status">
                     <option value="active">Active</option>
                     <option value="inactive">Inactive</option>
                 </select>
@@ -320,7 +320,7 @@
 
 
  <!-- | MODAL FOR ADDING PRODUCT |--->
- <div class="delete-product-modal-container">
+ <div class="add-product-modal-container">
     <div class="add-product-modal">
         <h3>Add Product</h3>
         <form action="" id="add-product-form">
@@ -380,6 +380,68 @@
             <input type="submit" id="add-product-submit-button" value="save">
         </form>
         <button id="add-product-cancel-button">Cancel</button>       
+    </div>
+</div>
+<!--| MODAL FOR EDITING PRODUCT |-->
+<div class="edit-product-modal-container" id="edit-product-modal-container">
+    <div class="edit-product-modal">
+        <button id="product-edit-exit-button"><img src="../assets/images/icons/exit.png" alt=""></button>
+        <h2>Edit Product</h2>
+        <div class="edit-product-details-container" id="edit-product-details-container">
+            <input type="hidden" name="edit-product-id" id="edit-product-id">
+
+            <label for="edit-product-name">Product Name:</label>
+            <input type="text" name="edit-product-name" value="" id="edit-product-name">
+
+            <label for="">Category:</label>
+            <select name="edit-product-category"  id="edit-product-category"></select>
+
+            <label for="">Subcategory:</label>
+            <select name="edit-product-subcategory" id="edit-product-subcategory"></select>
+
+            <label for="">Brand:</label>
+            <select name="edit-product-brand" id="edit-product-brand"></select>
+
+            <label for="edit-supplier-nam">Barcode:</label>
+           <input type="text" id="edit-product-barcode">
+
+            <label for="">Quantity:</label>
+            <input type="text" id="edit-product-quantity">
+
+            <label for="">Reorder Point:</label>
+            <input type="text" id="edit-product-reorder-point">
+
+            <label for="">Original Price:</label>
+            <input type="text" id="edit-product-original-price">
+
+            <label for="">Selling Price:</label>
+            <input type="text" id="edit-product-selling-price">
+
+            <label for="">Status:</label>
+            <select name="" id="edit-product-status">
+                <option value="active">active</option>
+                <option value="inactive">inactive</option>
+            </select>
+
+            <label for="edit-product-supplier">Supplier:</label>
+            <select name="edit-product-supplier" id="edit-product-supplier"></select>
+                       
+            <button id="save-edit-product-button">Save</button>
+        </div>
+    </div>
+</div>
+
+<!-- | DELATION CONFIRMATION FOR PRODUCT |-->
+<div class="delete-product-modal-container">
+    <div class="delete-product-modal">
+        <p>Are you sure you want to delete this Product?</p>
+        <span id="delete-product-name"></span>
+
+        <div class="product-delete-yes-and-no-button">
+            <button id="delete-product-yes-button">Yes</button>
+            <button id="delete-product-no-button">No</button>
+        </div>
+
     </div>
 </div>
 
@@ -492,19 +554,6 @@
 </div>
 
 
-<!-- | DELATION CONFIRMATION FOR PRODUCT |-->
-<div class="delete-product-modal-container">
-    <div class="delete-product-modal">
-        <p>Are you sure you want to delete this Product?</p>
-        <span id="delete-product-name"></span>
-
-        <div class="product-delete-yes-and-no-button">
-            <button id="delete-product-yes-button">Yes</button>
-            <button id="delete-product-no-button">No</button>
-        </div>
-
-    </div>
-</div>
 
 
 
