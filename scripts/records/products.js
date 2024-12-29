@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', function(){
     const addProductSelectBrand = document.getElementById('add-product-brand');
     const addProductSelectCategory = document.getElementById('add-product-category');
     const addProductSelectSubcategory = document.getElementById('add-product-subcategory');
+    const addProductSelectSupplier = document.getElementById('add-product-select-supplier');
 
     // FOR EDIT PRODUCT
     const editProductExitButton = document.getElementById('product-edit-exit-button');
@@ -166,7 +167,6 @@ document.addEventListener('DOMContentLoaded', function(){
     }
     // Populate select supplier for adding product
     function populateSelectSupplierAddProduct(suppliers) {
-        const addProductSelectSupplier = document.getElementById('add-product-select-supplier');
         suppliers.forEach(supplier => {
             const supplierOption = document.createElement('option');
             supplierOption.innerHTML = supplier.supplier_name;

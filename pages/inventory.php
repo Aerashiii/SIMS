@@ -238,7 +238,9 @@
             </div>
             <div class="form-group-container">
                 <label>Supplier:</label>
-                <select name="" idadd-product-select-supplierselect>
+                <select name="" id="add-product-select-supplier">
+                    <option value="">- Select Supplier -</option>
+                </select>
             </div>
             <div class="form-group-container">
                 <label>Status:</label>
