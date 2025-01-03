@@ -1,6 +1,14 @@
 <!-- | ALL ANALYTICS CONTENT GOES HERE |-->
 
 <?php 
+session_start();
+
+if (!isset($_SESSION['user'])) {
+    // if not login, go to login page
+    header('Location: login.php');
+    exit;
+}
+
     $page = 'reports'; //ASSIGNS THE NAME OF THE PAGE. THIS PAGE IS NAMED 'ANALYTICS' AND IS USED IN THE HEADER.PHP FILE.
     require '../includes/header.php'; //REQUIRES THE HEADER.PHP TO APPLY THE CSS, SCRIPTS, SIDEBAR, AND TOP NAVIGATION.
 ?>

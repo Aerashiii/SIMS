@@ -53,7 +53,7 @@
         </li>       
         <!-- | LOGOUT SIDEBAR BUTTON |--> 
         <li class="menu-item">
-            <a href="SIMS/pages/logout.php" class="sidebar-link" data-page="logout" id="logout-button">
+            <a href="../config/logout.php" class="sidebar-link" data-page="logout" id="logout-button">
                 <span class="material-symbols-rounded">logout</span>
                 <h3>Logout</h3>
             </a>       
