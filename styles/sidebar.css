@@ -7,7 +7,7 @@
     position: fixed;
     margin-top:12vh;
     overflow-y: auto;
-    background-color: #DBEAEC;
+    background-color: #ffffff;
     
 }
 .menu-item{
@@ -40,5 +40,5 @@
 }
 
 #logout-button{
-    margin-top: 250px;;
+    margin-top: 180px;
 }
