@@ -19,7 +19,7 @@ if (!isset($_SESSION['user'])) {
  <div class="rental-header-container">
         <h1>Rental Management</h1>
         <div class="search-container">
-            <input type="text">
+            <input type="text" placeholder="Search">
             <button>Search</button>
         </div>
         <button id="rental-add-rental-button">Add New Resntal</button>
