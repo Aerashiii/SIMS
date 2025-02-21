@@ -11,7 +11,7 @@
     width:35%;
     padding:20px 50px 50px 50px;
     border-radius:15%;
-    box-shadow: 0px 0px 15px 10px rgba(201, 201, 201, 0.61);
+    box-shadow: 0px 0px 15px 10px #c9c9c99c;
 }
 #login-form h2{
     text-align: center;
@@ -43,7 +43,7 @@
    
     margin-top:5px;
     border-radius:10px;
-    border:2px solid rgb(83, 83, 83);
+    border:2px solid #99BC85;
     padding:10px 15px;
     font-size: 1.2rem;
     border-style: solid;
