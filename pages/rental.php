@@ -22,7 +22,7 @@ if (!isset($_SESSION['user'])) {
             <input type="text" placeholder="Search">
             <button>Search</button>
         </div>
-        <button id="rental-add-rental-button">Add New Resntal</button>
+        <button id="rental-add-rental-button">Add New Rental</button>
     </div>
 
  <!--|Switch content |-->  
