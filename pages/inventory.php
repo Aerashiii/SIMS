@@ -35,7 +35,7 @@ if (!isset($_SESSION['user'])) {
         <div class="onhand-header-container">
             <h2>On Hand Inventory List</h2>
             <div class="search-container">
-                <input type="text">
+                <input type="text" placeholder="Search">
                 <button>Search</button>
             </div>         
             <select name="" id="">

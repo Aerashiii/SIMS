@@ -10,29 +10,26 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background-color: #f0f8ff; /* Light blue background */
-    padding: 20px 30px; /* Increased padding */
-    border-radius: 10px; /* Rounded corners */
-    border: 1px solid #a0c08c; /* Light green border */
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); /* Enhanced shadow */
 }
 
-
 .rental-header-container h1 {
-    font-size: 22px;
-    font-weight: bold;
     color: #343a40; /* Dark text color */
-    margin: 0;
 }
 
 .search-container {
     display: flex;
     align-items: center;
-    border: 2px solid #a0c08c; /* Light green border */
-    border-radius: 20px; /* Rounded edges */
+    border: 1px solid #99BC85; /* Light green border */
+    border-radius: 13px; /* Rounded edges */
     overflow: hidden;
-    background-color: #f8fdf2;
+    width: 354px; /* Updated width */
+    height: 31px; /* Updated height */
+    background-color: #ffffff;
+    position: relative;
+    margin-left: 280px;
+    
 }
+
 
 .search-container input[type="text"] {
     padding: 10px 15px;
@@ -41,11 +38,17 @@
     flex: 1;
     font-size: 14px;
     background: transparent;
+    color: #000000; /* Text color */
 }
 
+.search-container input[type="text"]::placeholder {
+    color: #99BC85; /* Placeholder text color */
+}
+
+
 .search-container button {
-    background-color: #728c69; /* Dark green button */
-    color: white;
+    background-color: #B2CF9B; /* Dark green button */
+    color: #000000;
     font-weight: bold;
     border: none;
     padding: 10px 15px;
@@ -53,21 +56,28 @@
 }
 
 .search-container button:hover {
-    background-color: #5a7350;
+    background-color: #99BC85;
+    color: white;
 }
 
-#rental-add-button {
-    background-color: #728c69; /* Dark green */
-    color: white;
+#add-rental-button{
+    background-color: #B2CF9B; /* Dark green button */
+    color: #000000; /* Text color */
     font-weight: bold;
     border: none;
-    padding: 10px 15px;
-    border-radius: 20px;
+    padding: 10px 10px; /* Updated padding */
+    text-align: center; /* Align text to center */
+    line-height: 10px; /* Vertically center text */
+    border-radius: 10px; /* Updated border radius */
     cursor: pointer;
-    margin-left: 10px;
+    margin-right: 30px;
+    width: 160px; /* Updated width */
+    height: 31px; /* Updated height */
     transition: background 0.3s ease;
+
 }
 
 #rental-add-button:hover {
-    background-color: #5a7350; /* Darker green on hover */
+    background-color: #99BC85; /* Darker green on hover */
+    color: white;
 }

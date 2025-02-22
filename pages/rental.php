@@ -9,7 +9,7 @@ if (!isset($_SESSION['user'])) {
     exit;
 }
 
-    $page ='rental-boxes'; //ASSIGNS THE NAME OF THE PAGE. THIS PAGE IS NAMED 'RENTAL-BOXES' AND IS USED IN THE HEADER.PHP FILE.
+    $page ='rental'; //ASSIGNS THE NAME OF THE PAGE. THIS PAGE IS NAMED 'RENTAL-BOXES' AND IS USED IN THE HEADER.PHP FILE.
     require '../includes/header.php'; //REQUIRES THE HEADER.PHP, FOR YOU CAN APPLY THE CSS,SCRIPT,SIDEBAR, AND TOPNAV ON THIS PAGE.
 ?>
 
@@ -22,11 +22,11 @@ if (!isset($_SESSION['user'])) {
             <input type="text" placeholder="Search">
             <button>Search</button>
         </div>
-        <button id="rental-add-button">Add New Rental</button>
+        <button id="add-rental-button">Add New Rental</button>
     </div>
 
  <!--|Switch content |-->  
- <div class="rental-switch-content-buttons-container">
+ <div class="rental-boxes-switch-content-buttons-container">
         <button id="renter-list-button" class="active">Renter List</button>
         <button id="rental-box-button">Rental Box</button>
         <button id="rental-button">Rental Button</button>
