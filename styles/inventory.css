@@ -24,14 +24,16 @@
     display:flex;
     gap:10px;
     padding:10px 0;
-    border-radius: 5%;
+    border:none;
+    border-radius: 3%;
 }
+
 .inventory-switch-content-buttons-container button{
     padding:5px;
     border-radius: 5%;
-    border-color: #c6c7c7;
+    border:none;
     cursor:pointer;
-    background-color: #eaf8e2;
+    background-color: #e0e0e0;
 }
 #onhand-product-button.active{
     background-color: #99BC85;
