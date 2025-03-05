@@ -148,5 +148,73 @@ if (!isset($_SESSION['user'])) {
 
 =======
     
+<<<<<<< HEAD
 >>>>>>> 0b911fdf7b00be29c6fcc53f020e19af186dbf10
 </main>
+=======
+</main>
+
+<!--------| ADD NEW RENTAL | --------------->
+<!--| #7 |-->  
+<div class="add-rental-modal-container">
+    <div class="add-rental-form-container">
+        <form action="" id="add-rental-form">
+            <h3>Add Renter</h3>
+            <div class="form-group-container">
+                <label>Box Number:</label>
+                <input type="text" id="add-rental-box-number"required>
+            </div>
+            <div class="form-group-container">
+                <label>Box Size:</label>
+                <select name="" id="add-rental-box-size" required>
+                    <option value="">- Select Brand -</option>
+                </select>
+            </div>
+            <div class="form-group-container">
+                <label>Rental Fee:</label>
+                <input type="text" id="add-rental-fee"required>
+                </select>
+            </div>
+            <div class="form-group-container">
+                <label>Rental Start Date:</label>
+                <input type="text" id="add-rental-start-date"required>
+            </div>
+            <div class="form-group-container">
+            <label>Rental End Date:</label>
+            <input type="text" id="add-rental-end-date"required>
+            </div>
+            <div class="form-group-container">
+                <h2>Customer Information:</h2 id="add-rental-customer-information">
+            </div>
+            <div class="form-group-container">
+                <label>Name:</label>
+                <input type="text" id="add-rental-name" required>
+            </div>
+            <div class="form-group-container">
+                <label>Contact Number:</label>
+                <input type="text"id="add-rental-contact-number" required>
+            </div>
+            <div class="form-group-container">
+                <label>Status:</label>
+                <select name="" id="add-rental-status" required>
+                    <option value="active">active</option>
+                    <option value="inactive">inactive</option>
+                </select>
+            </div>
+            <div class="form-group-container">
+                <label>Payment Status:</label>
+                <select name="" id="add-rental-payent-status" required>
+                    <option value="paid">paid</option>
+                    <option value="canceled">canceled</option>
+                    <option value="pending">pending</option>
+                </select>
+            </div>
+
+            <input type="submit" id="add-rental-submit-button">
+        </form>
+        <button id="add-rental-cancel-button">Cancel</button>
+
+    </div>
+
+</div>
+>>>>>>> 6bc0ea49cebf882381ec0dfa03c8b9853f23d75f
