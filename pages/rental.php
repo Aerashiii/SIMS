@@ -145,12 +145,4 @@ if (!isset($_SESSION['user'])) {
         </div>
     </div>
 
-
-
-
-
-
-
-try daw
-
 </main>
