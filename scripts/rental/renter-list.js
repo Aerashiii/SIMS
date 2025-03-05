@@ -3,23 +3,18 @@ document.addEventListener('DOMContentLoaded', function(){
     //RENTER LIST PRODUCT LIST DISPLAY
     const onhandProductListTable = document.getElementById('renter-list-table-table');
 
-    // FOR ADDING PRODUCT 
-    const addProductModalCon = document.querySelector('.add-product-modal-container');
-    const addProductForm = document.getElementById('add-product-form');
-    const addProductSelectBrand = document.getElementById('add-product-brand');
-    const addProductSelectCategory = document.getElementById('add-product-category');
-    const addProductSelectSubcategory = document.getElementById('add-product-subcategory');
-    const addProductSelectSupplier = document.getElementById('add-product-select-supplier');
+    // FOR ADDING RENTAL
+    const addRentalModalCon = document.querySelector('.add-rental-modal-container');
+    const addRentalForm = document.getElementById('add-rental-form');
+    const addRentalBoxSize = document.getElementById('add-rental-box-size');
 
-
-    // FOR EDIT PRODUCT
-    const editProductExitButton = document.getElementById('product-edit-exit-button');
-    const editProductModalCon = document.querySelector('.edit-product-modal-container');
+    // FOR EDIT RENTAL
+    const editProductExitButton = document.getElementById('rental-edit-exit-button');
+    const editProductModalCon = document.querySelector('.edit-rental-modal-container');
     const editProductSaveButton = document.getElementById('save-edit-product-button');
-    const editProductSelectBrand = document.getElementById('edit-product-brand');
-    const editProductSelectCategory = document.getElementById('edit-product-category');
-    const editProductSelectSubcategory= document.getElementById('edit-product-subcategory');
-    const editProductSelectSupplier = document.getElementById('edit-product-supplier');
+    const editRentalModalCon = document.querySelector('.edit-rental-modal-container');
+    const editRentalForm = document.getElementById('edit-rental-form');
+    const editRentalBoxSize = document.getElementById('edit-rental-box-size');
 
 
 /************| FOR CALLING THE FUNCTIONS |**************** */

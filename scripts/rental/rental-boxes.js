@@ -22,12 +22,12 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     //DISPLAY THE ADD PRODUCT MODAL WHEN ADD NEW PRODUCT BUTTON CLICKED
-    addProductButton.addEventListener('click', function(){
-        addProductModalCon.style.display = 'flex';
+    addRentalButton.addEventListener('click', function(){
+        addRentalModalCon.style.display = 'flex';
     })
     //HIDE THE ADD PRODUCT MODAL WHEN CANCEL BUTTON CLICKED
-    addProductCancelButton.addEventListener('click', function(){
-        addProductModalCon.style.display = 'none';
+    addRentalCancelButton.addEventListener('click', function(){
+        addRentalModalCon.style.display = 'none';
     })
 
 

@@ -129,3 +129,55 @@
     display:none;
 }
 
+/*****************************************| ADD NEW RENTAL|***************************************************/
+/*| #7 |*/
+.add-rental-modal-container{
+    top:0;
+    width:100%;
+    height:100vh;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    z-index: 50;
+    background-color: rgba(0, 0, 0, 0.363);
+}
+.add-rental-form-container{
+    background-color: #ffffff;
+    padding:30px;
+    border-radius: 10px;
+}
+#add-rental-form{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+#add-rental-form h3{
+    text-align: center;
+}
+.form-group-container{
+    display:flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+.form-group-container label{
+    width:130px;
+    font-weight: bold;
+}
+.form-group-container input,
+.form-group-container select{
+    width:300px;
+    height: 2rem;
+    padding:3px;
+}
+
+#add-rental-submit-button{
+    height: 2rem;
+    cursor: pointer;
+}
+#add-rental-cancel-button{
+    height: 2rem;
+    cursor: pointer;
+    width:100%;
+    margin-top:10px;
+}
