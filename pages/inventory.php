@@ -35,7 +35,7 @@ if (!isset($_SESSION['user'])) {
         <div class="onhand-header-container">
             <h2>On Hand Inventory List</h2>
             <div class="search-container">
-                <input type="text">
+                <input type="text" placeholder="Search">
                 <button>Search</button>
             </div>         
             <select name="" id="">
@@ -67,7 +67,7 @@ if (!isset($_SESSION['user'])) {
         <div class="low-stock-header-container">
             <h2>Low Stock Products</h2>
             <div class="search-container">
-                <input type="text">
+                <input type="text" placeholder="Search">
                 <button>Search</button>
             </div>
             
@@ -99,8 +99,8 @@ if (!isset($_SESSION['user'])) {
     <div class="inventory-content-container" id="out-stock-inventory-content-container">
         <div class="out-stock-header-container">
             <h2>Out of Stock Products</h2>
-            <div class="search-container">
-                <input type="text">
+            <div class="search-container" >
+                <input type="text" placeholder="Search">
                 <button>Search</button>
             </div>
             
@@ -132,12 +132,10 @@ if (!isset($_SESSION['user'])) {
     <div class="inventory-content-container" id="stock-in-inventory-content-container">
         <div class="stock-in-header-container">
             <h2>Stock In Products</h2>
-            <div>
-                <button>Add Product</button>
-                <button>Save</button>
-
+            <div class="search-container">
+                <input type="text" placeholder="Search">
+                <button>Search</button>
             </div>
-            
         </div>
         <table id="stock-in-inventory-table">
             <tr>       
@@ -166,13 +164,9 @@ if (!isset($_SESSION['user'])) {
         <div class="purchase-order-header-container">
             <h2>Purchase Order</h2>
             <div class="search-container">
-                <input type="text">
+                <input type="text" placeholder="Search">
                 <button>Search</button>
             </div>
-            
-            <select name="" id="">
-                <option value=""> -select category-</option>
-            </select>
 
         </div>
         <table id="purchase-order-inventory-table">

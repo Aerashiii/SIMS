@@ -60,12 +60,13 @@
         // IF THE CURRENT PAGE IS RENTAL, THEN LINK THE CSS AND SCRIPT OF THE RENTAL-BOXES PAGE
         case 'rental':
             echo '<title>Rental</title>';
-            echo '<link rel="stylesheet" href="../scripts/rental.css">';
+            echo '<link rel="stylesheet" href="../styles/rental.css">';
+
             break;
         // IF THE CURRENT PAGE IS REPORTS, THEN LINK THE CSS AND SCRIPT OF THE RENTAL-BOXES PAGE
         case 'reports':
             echo '<title>Reports</title>';
-            echo '<link rel="stylesheet" href="../scripts/reports.css">';
+            echo '<link rel="stylesheet" href="../styles/reports.css">';
             break;
         // IF THE CURRENT PAGE IS SETTINGS, THEN LINK THE CSS AND SCRIPT OF THE SETTINGS PAGE
         case 'settings':

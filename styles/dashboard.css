@@ -2,12 +2,12 @@
 
 
 .main-content-container h1{
-    color:#205072;
+    color:#343a40;
    
 }
 .main-content-container h2{
     text-align: center;
-    color:#205072;
+    color:#343a40;
 }
 .top-metrics-box-container{
     display: flex;
@@ -21,7 +21,7 @@
 .occupied-rental-boxes-container{
     width:250px;
     height:200px;
-    border-radius:15%;
+    border-radius:20%;
     background-color: #D9D9D9;
     display: flex;
     flex-direction: column;
@@ -36,7 +36,7 @@
 #occupied-rentas-boxes{
     font-size: 2rem;
     font-weight: bold;
-    color:#205072;
+    color:#343a40;
 }
 
 
@@ -53,7 +53,7 @@
 .rental-box-summary-container{
     width:370px;
     height:300px;
-    border: 1px solid #7F98A9;
+    border: 1px solid #99BC85;
     padding:10px;
     border-radius:20px;
     overflow: hidden;
@@ -68,7 +68,8 @@
     text-align: center;
     font-size: 0.8rem;
     width:100%;
-    border:1px solid #7F98A9;
+    border:1px solid #99BC85;
+    border-color: #99BC85;
     border-collapse: collapse;
     
 }
@@ -76,6 +77,7 @@
     font-weight: bold;
     border-bottom:1px solid;
     padding:10px;
+    border-color: #99BC85;
 }
 #recent-sales-table td{
 
@@ -89,7 +91,7 @@
     text-align: center;
     font-size: 0.8rem;
     width:100%;
-    border:1px solid #7F98A9;
+    border:1px solid #99BC85;
     border-collapse: collapse;
     
 }
@@ -97,6 +99,7 @@
     font-weight: bold;
     border-bottom:1px solid;
     padding:10px;
+    border-color: #99BC85;
 }
 #low-stock-alert-table td{
 
@@ -110,7 +113,7 @@
     text-align: center;
     font-size: 0.8rem;
     width:100%;
-    border:1px solid #7F98A9;
+    border:1px solid #99BC85;
     border-collapse: collapse;
     
 }
@@ -118,6 +121,7 @@
     font-weight: bold;
     border-bottom:1px solid;
     padding:10px;
+    border-color: #99BC85;
 }
 #rental-box-summary-table td{
 

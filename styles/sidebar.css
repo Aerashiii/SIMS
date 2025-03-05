@@ -1,6 +1,7 @@
 .sidebar-container {
     border: 1px solid; /*Temporary*/
     border-color:#dfdfdf;
+    border-top: #ffffff;
     width: 230px;
     height: 88vh;
     padding: 20px 0px 0px 35px;
@@ -8,6 +9,7 @@
     margin-top:12vh;
     overflow-y: auto;
     background-color: #ffffff;
+
     
 }
 .menu-item{
@@ -28,14 +30,14 @@
 }
 .menu-item a:hover {
     padding-left: 25px;
-    color: #7380EC;
+    color: #99BC85;
 }
 
 .menu-item a.active {
-    color: #7380EC;
+    color: #99BC85;
     border-left: 6px solid;
-    border-color: #7380EC;
-    background-color: #E2E3F0;
+    border-color: #99BC85;
+    background-color: #eaf8e2;
     padding-left: 25px;
 }
 

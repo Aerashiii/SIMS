@@ -19,14 +19,14 @@ if (!isset($_SESSION['user'])) {
  <div class="rental-header-container">
         <h1>Rental Management</h1>
         <div class="search-container">
-            <input type="text">
+            <input type="text" placeholder="Search">
             <button>Search</button>
         </div>
-        <button id="rental-add-rental-button">Add New Rental</button>
+        <button id="add-rental-button">Add New Rental</button>
     </div>
 
  <!--|Switch content |-->  
- <div class="rental-switch-content-buttons-container">
+ <div class="rental-boxes-switch-content-buttons-container">
         <button id="renter-list-button" class="active">Renter List</button>
         <button id="rental-box-button">Rental Box</button>
         <button id="rental-button">Rental Button</button>
@@ -35,7 +35,7 @@ if (!isset($_SESSION['user'])) {
     </div>
 
      <!---------------| FOR RENTER LIST------------------>
-     <div class="rental-content-container" id="renterlist-content-container">
+     <div class="rental-boxes-content-container" id="renterlist-content-container">
                 <div class="renter-list-container">
                     <div class="renter-list-header-container">
                         <h3>Renter list:</h3> 
@@ -54,7 +54,7 @@ if (!isset($_SESSION['user'])) {
      </div>
 
       <!---------------| FOR RENTAL BOX INFORMATION |------------------>
-      <div class="rental-content-container" id="rentalbox-content-container">
+      <div class="rental-boxes-content-container" id="rentalbox-content-container">
                 <div class="rental-box-content-container">
                     <div class="rental-box-header-container">
                         <h3>Rental Box Information:</h3>
@@ -75,7 +75,7 @@ if (!isset($_SESSION['user'])) {
       </div>
 
       <!---------------| FOR RENTAL |------------------>
-      <div class="rental-content-container" id="rentalbox-content-container">
+      <div class="rental-boxes-content-container" id="rentalbox-content-container">
                 <div class="rental-content-container">
                     <div class="rental-header-container">
                         <h3>Rental:</h3>
@@ -99,7 +99,7 @@ if (!isset($_SESSION['user'])) {
       </div>
 
       <!---------------| FOR Billing |------------------>
-      <div class="rental-content-container" id="rentalbox-content-container">
+      <div class="rental-boxes-content-container" id="rentalbox-content-container">
                 <div class="billing-content-container">
                     <div class="billing-header-container">
                         <h3>Billing:</h3>
@@ -124,7 +124,7 @@ if (!isset($_SESSION['user'])) {
       </div>
 
     <!---------------| FOR Billing |------------------>
-    <div class="rental-content-container" id="rentalbox-content-container">
+    <div class="rental-boxes-content-container" id="rentalbox-content-container">
         <div class="rental-ledger-content-container">
                 <div class="rental-ledger-header-container">
                      <h3>Rental Ledger:</h3>
@@ -144,5 +144,9 @@ if (!isset($_SESSION['user'])) {
                     </table>
         </div>
     </div>
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 0b911fdf7b00be29c6fcc53f020e19af186dbf10
 </main>

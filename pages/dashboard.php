@@ -67,7 +67,7 @@ if (!isset($_SESSION['user'])) {
 
         </div>
         <div class="low-stock-alert-container">
-        <h2>LOw Stock Alert</h2>
+        <h2>Low Stock Alert</h2>
             <table id="low-stock-alert-table">
                 <tr>
                     <th>Product Name</th>

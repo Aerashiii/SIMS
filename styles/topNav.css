@@ -7,8 +7,9 @@
     padding: 0 20px;  
     position:fixed;
     border:1px solid;
-    border-color:#ffffff;
-    background-color: #FFFFFF;
+    border-color: #dfdfdf;
+    border-top-color: #ffffff;
+    background-color: hsl(0, 0%, 100%);
     z-index: 50;
 }
 
