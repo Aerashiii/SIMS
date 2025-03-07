@@ -144,15 +144,6 @@ if (!isset($_SESSION['user'])) {
                     </table>
         </div>
     </div>
-<<<<<<< HEAD
-
-=======
-    
-<<<<<<< HEAD
->>>>>>> 0b911fdf7b00be29c6fcc53f020e19af186dbf10
-</main>
-=======
-</main>
 
 <!--------| ADD NEW RENTAL | --------------->
 <!--| #7 |-->  
@@ -217,4 +208,3 @@ if (!isset($_SESSION['user'])) {
     </div>
 
 </div>
->>>>>>> 6bc0ea49cebf882381ec0dfa03c8b9853f23d75f
