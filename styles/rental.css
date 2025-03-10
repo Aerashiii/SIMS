@@ -181,3 +181,14 @@
     width:100%;
     margin-top:10px;
 }
+
+.rental-boxes-content-container{
+    width:100%;
+    border:1px solid;
+    height:75vh;
+    padding:10px;
+    display:none;
+}
+.rental-boxes-content-container.active{
+    display:block;
+}

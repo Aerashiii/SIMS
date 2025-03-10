@@ -128,6 +128,7 @@
     width:100%;
     border:1px solid;
     border-collapse: collapse;
+    text-align: center;
 }
 #low-stock-inventory-table th{
     padding: 10px 0;
@@ -152,6 +153,8 @@
 #low-stock-inventory-table td{
     padding: 5px 0;
     border-bottom: 1px solid;
+    
+
 }
 
 /**************| OUT OF STOCK INVENTORY |**************/

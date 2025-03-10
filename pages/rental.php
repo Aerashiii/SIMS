@@ -32,10 +32,10 @@ if (!isset($_SESSION['user'])) {
         <button id="rental-button">Rental Button</button>
         <button id="billing-button">Billing</button>
         <button id="rental-ledger-button">Rental Ledger</button>
-    </div>
+</div>
 
      <!---------------| FOR RENTER LIST------------------>
-     <div class="rental-boxes-content-container" id="renterlist-content-container">
+     <div class="rental-boxes-content-container active" id="renterlist-content-container">
                 <div class="renter-list-container">
                     <div class="renter-list-header-container">
                         <h3>Renter list:</h3> 

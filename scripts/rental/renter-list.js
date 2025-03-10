@@ -9,10 +9,9 @@ document.addEventListener('DOMContentLoaded', function(){
     const addRentalBoxSize = document.getElementById('add-rental-box-size');
 
     // FOR EDIT RENTAL
-    const editProductExitButton = document.getElementById('rental-edit-exit-button');
-    const editProductModalCon = document.querySelector('.edit-rental-modal-container');
-    const editProductSaveButton = document.getElementById('save-edit-product-button');
+    const editRentalExitButton = document.getElementById('rental-edit-exit-button');
     const editRentalModalCon = document.querySelector('.edit-rental-modal-container');
+    const editProductSaveButton = document.getElementById('save-edit-product-button');
     const editRentalForm = document.getElementById('edit-rental-form');
     const editRentalBoxSize = document.getElementById('edit-rental-box-size');
 
