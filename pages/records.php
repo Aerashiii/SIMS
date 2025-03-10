@@ -168,6 +168,8 @@ if (!isset($_SESSION['user'])) {
         
     </div>
 </div>
+
+
 <!--| MODAL FOR EDITING CATEGORY |-->
 <div class="edit-category-modal-container" id="edit-category-modal-container">
     <div class="edit-category-modal">

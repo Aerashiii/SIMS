@@ -90,6 +90,21 @@ if (!isset($_SESSION['user'])) {
                     <button id="low-stock-delete-active-checkbox-button">Delete</button>
                 </th>
             </tr>
+            <tr>
+                <td><input type="checkbox"></td>
+                <td>try</td>
+                <td>123wqwe</td>
+                <td>cloth</td>
+                <td>try</td>
+                <td>123</td>
+                <td>2354</td>
+                <td>
+                    <button><img src="../assets/images/icons/edit.png" alt="Edit"></button>
+                    <button><img src="../assets/images/icons/delete1.png" alt="Delete"></button>
+
+                </td>
+
+            </tr>
 
         </table>
 

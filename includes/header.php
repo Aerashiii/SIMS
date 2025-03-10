@@ -62,6 +62,10 @@
             echo '<title>Rental</title>';
             echo '<link rel="stylesheet" href="../styles/rental.css">';
             echo '<script src="../scripts/rental/rental.js"></script>';
+<<<<<<< HEAD
+=======
+
+>>>>>>> ffb4a4d8680ce24826b1d75be205b92725da84ea
             break;
         // IF THE CURRENT PAGE IS REPORTS, THEN LINK THE CSS AND SCRIPT OF THE RENTAL-BOXES PAGE
         case 'reports':
