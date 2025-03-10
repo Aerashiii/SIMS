@@ -29,7 +29,7 @@ if (!isset($_SESSION['user'])) {
  <div class="rental-boxes-switch-content-buttons-container">
         <button id="renter-list-button" class="active">Renter List</button>
         <button id="rental-box-button">Rental Box</button>
-        <button id="rental-button">Rental </button>
+        <button id="rental-button">Rental</button>
         <button id="billing-button">Billing</button>
         <button id="rental-ledger-button">Rental Ledger</button>
 </div>
@@ -83,7 +83,7 @@ if (!isset($_SESSION['user'])) {
       </div>
 
       <!---------------| FOR RENTAL |------------------>
-      <div class="rental-boxes-content-container" id="rental-content-container">
+      <div class="rental-boxes-content-container" id="rental-report-content-container">
                 <div class="rental-content-container">
                     <div class="rental-header-container">
                         <h3>Rental:</h3>
@@ -105,17 +105,17 @@ if (!isset($_SESSION['user'])) {
                             <td>123wqwe</td>
                             <td>try</td>
                             <td>123wqwe</td>
-                            <td>123wqwe</td>
+                            <td>try</td>
                             <td>
                             <button><img src="../assets/images/icons/edit.png" alt="Edit"></button>
                             <button><img src="../assets/images/icons/delete1.png" alt="Delete"></button>
-                            </td>
+                        </td>
                     </table>
                 </div>
       </div>
 
       <!---------------| FOR Billing |------------------>
-      <div class="rental-boxes-content-container" id="rentalbox-content-container">
+      <div class="rental-boxes-content-container" id="billing-report-content-container">
                 <div class="billing-content-container">
                     <div class="billing-header-container">
                         <h3>Billing:</h3>
@@ -126,15 +126,23 @@ if (!isset($_SESSION['user'])) {
                             <th>Renter Name</th>
                             <th>Invoice Number</th>
                             <th>Billing Date</th>
-                            <th>Ammount Due</th>
+                            <th>Amount Due</th>
                             <th>Outstanding Amount</th>
                             <th>Payment Date</th>
-                            <th>
-                                <span id="billing-action-text">Action</span>
+                            <th>Action</th>
+                        </tr>
+                            <td>try</td>
+                            <td>123wqwe</td>
+                            <td>try</td>
+                            <td>123wqwe</td>
+                            <td>try</td>
+                            <td>123wqwe</td>
+                            <td>123wqwe</td>
+                            <td>
                                 <button id="generate-invoice-active-checkbox-button">Generate Invoice</button>
                                 <button id="apply-payment-active-checkbox-button">Apply Payment</button>
-                            </th>
-                        </tr>
+                            </td>
+                
                     </table>
                 </div>
       </div>

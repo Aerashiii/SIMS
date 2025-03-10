@@ -216,7 +216,7 @@
 
 /************|RENTAL |****************/
 /*| #3 |*/
-#rental-content-container .active{
+#rental-report-content-container .active{
     display:block;
 }
 .rental-header-container{
@@ -251,6 +251,48 @@
     color:white;
 }
 #rental-table td{
+    padding: 5px 0;
+    border-bottom: 1px solid;
+    font-size: 0.8rem;
+}
+
+/************| BILLING |****************/
+/*| #3 |*/
+#billing-report-content-container .active{
+    display:block;
+}
+.billing-header-container{
+    display: flex;
+    align-items: center;
+    justify-content:space-between;
+}
+#billing-table{
+    margin-top:10px;
+    width:100%;
+    border:1px solid;
+    border-collapse: collapse;
+    text-align: center;
+}
+#billing-table th{
+    padding: 10px 0;
+    border-bottom: 1px solid;
+    font-size: 0.8rem;
+}
+
+#billing-delete-active-checkbox-button{
+    padding: 3px 8px;
+    border:1px solid red;
+    cursor:pointer;
+    color:red;
+    border-radius:3px;
+    margin:0;
+    display:none;
+}
+#billing-delete-active-checkbox-button:hover{
+    background-color: red;
+    color:white;
+}
+#billing-table td{
     padding: 5px 0;
     border-bottom: 1px solid;
     font-size: 0.8rem;
