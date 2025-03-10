@@ -35,7 +35,7 @@ if (!isset($_SESSION['user'])) {
     </div>
 
      <!---------------| FOR RENTER LIST------------------>
-     <div class="rental-boxes-content-container" id="renterlist-content-container">
+     <div class="rental-boxes-content-container active" id="renterlist-content-container">
                 <div class="renter-list-container">
                     <div class="renter-list-header-container">
                         <h3>Renter list:</h3> 
@@ -203,7 +203,7 @@ if (!isset($_SESSION['user'])) {
 
             <input type="submit" id="add-rental-submit-button">
         </form>
-        <button id="add-rental-cancel-button">Cancel</button>
+        <button id=" ">Cancel</button>
 
     </div>
 
