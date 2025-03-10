@@ -119,7 +119,7 @@
     border:none;
 }
 
-/**********************| INVENTORY CONTENTS |**********************************/
+/**********************| RENTAL CONTENTS |**********************************/
 /*| #3 |*/
 .inventory-content-container{
     width:100%;
@@ -129,6 +129,132 @@
     display:none;
 }
 
+/************|RENTER LIST|****************/
+/*| #3 |*/
+#renterlist-content-container .active{
+    display:block;
+}
+.renter-list-header-container{
+    display: flex;
+    align-items: center;
+    justify-content:space-between;
+}
+#renter-list-table{
+    margin-top:10px;
+    width:100%;
+    border:1px solid;
+    border-collapse: collapse;
+    text-align: center;
+}
+#renter-list-table th{
+    padding: 10px 0;
+    border-bottom: 1px solid;
+    font-size: 0.8rem;
+}
+
+#renter-list-delete-active-checkbox-button{
+    padding: 3px 8px;
+    border:1px solid red;
+    cursor:pointer;
+    color:red;
+    border-radius:3px;
+    margin:0;
+    display:none;
+}
+#renter-list-delete-active-checkbox-button:hover{
+    background-color: red;
+    color:white;
+}
+#renter-list-table td{
+    padding: 5px 0;
+    border-bottom: 1px solid;
+    font-size: 0.8rem;
+}
+
+
+/************|RENTAL BOX INFORMATION|****************/
+/*| #3 |*/
+#rentalbox-content-container .active{
+    display:block;
+}
+.rental-box-header-container{
+    display: flex;
+    align-items: center;
+    justify-content:space-between;
+}
+#rental-box-table{
+    margin-top:10px;
+    width:100%;
+    border:1px solid;
+    border-collapse: collapse;
+    text-align: center;
+}
+#rental-box-table th{
+    padding: 10px 0;
+    border-bottom: 1px solid;
+    font-size: 0.8rem;
+}
+
+#rental-box-delete-active-checkbox-button{
+    padding: 3px 8px;
+    border:1px solid red;
+    cursor:pointer;
+    color:red;
+    border-radius:3px;
+    margin:0;
+    display:none;
+}
+#rental-box-delete-active-checkbox-button:hover{
+    background-color: red;
+    color:white;
+}
+#rental-box-table td{
+    padding: 5px 0;
+    border-bottom: 1px solid;
+    font-size: 0.8rem;
+}
+
+/************|RENTAL |****************/
+/*| #3 |*/
+#rental-content-container .active{
+    display:block;
+}
+.rental-header-container{
+    display: flex;
+    align-items: center;
+    justify-content:space-between;
+}
+#rental-table{
+    margin-top:10px;
+    width:100%;
+    border:1px solid;
+    border-collapse: collapse;
+    text-align: center;
+}
+#rental-table th{
+    padding: 10px 0;
+    border-bottom: 1px solid;
+    font-size: 0.8rem;
+}
+
+#rental-box-delete-active-checkbox-button{
+    padding: 3px 8px;
+    border:1px solid red;
+    cursor:pointer;
+    color:red;
+    border-radius:3px;
+    margin:0;
+    display:none;
+}
+#rental-delete-active-checkbox-button:hover{
+    background-color: red;
+    color:white;
+}
+#rental-table td{
+    padding: 5px 0;
+    border-bottom: 1px solid;
+    font-size: 0.8rem;
+}
 /*****************************************| ADD NEW RENTAL|***************************************************/
 /*| #7 |*/
 .add-rental-modal-container{
