@@ -288,6 +288,48 @@
     border-bottom: 1px solid;
     font-size: 0.8rem;
 }
+
+/************| RENTAL LEDGER|****************/
+/*| #3 |*/
+#rentalLedger-content-container .active{
+    display:block;
+}
+.rental-ledger-header-container{
+    display: flex;
+    align-items: center;
+    justify-content:space-between;
+}
+#rental-ledger-table{
+    margin-top:10px;
+    width:100%;
+    border:1px solid;
+    border-collapse: collapse;
+    text-align: center;
+}
+#rental-ledger-table th{
+    padding: 10px 0;
+    border-bottom: 1px solid;
+    font-size: 0.8rem;
+}
+
+#rental-ledger-delete-active-checkbox-button{
+    padding: 3px 8px;
+    border:1px solid red;
+    cursor:pointer;
+    color:red;
+    border-radius:3px;
+    margin:0;
+    display:none;
+}
+#rental-ledger-delete-active-checkbox-button:hover{
+    background-color: red;
+    color:white;
+}
+#rental-ledger-table td{
+    padding: 5px 0;
+    border-bottom: 1px solid;
+    font-size: 0.8rem;
+}
 /*****************************************| ADD NEW RENTAL|***************************************************/
 /*| #7 |*/
 .add-rental-modal-container{
@@ -350,4 +392,47 @@
 }
 .rental-boxes-content-container.active{
     display:block;
+}
+
+/*********** Search ***********/
+.search-container {
+    display: flex;
+    align-items: center;
+    border: 1px solid #99BC85; /* Light green border */
+    border-radius: 13px; /* Rounded edges */
+    overflow: hidden;
+    width: 300px; /* Updated width */
+    height: 31px; /* Updated height */
+    background-color: #ffffff;
+    position: relative;
+    margin-left: 280px;
+    
+}
+.search-container input[type="text"] {
+    padding: 10px 15px;
+    border: none;
+    outline: none;
+    flex: 1;
+    font-size: 14px;
+    background: transparent;
+    color: #000000; /* Text color */
+}
+
+.search-container input[type="text"]::placeholder {
+    color: #99BC85; /* Placeholder text color */
+}
+
+
+.search-container button {
+    background-color: #B2CF9B; /* Dark green button */
+    color: #000000;
+    font-weight: bold;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+}
+
+.search-container button:hover {
+    background-color: #99BC85;
+    color: white;
 }

@@ -147,8 +147,8 @@ if (!isset($_SESSION['user'])) {
                 </div>
       </div>
 
-    <!---------------| FOR Billing |------------------>
-    <div class="rental-boxes-content-container" id="rentalbox-content-container">
+    <!---------------| FOR RENTAL LEDGER|------------------>
+    <div class="rental-boxes-content-container" id="rentalLedger-content-container">
         <div class="rental-ledger-content-container">
                 <div class="rental-ledger-header-container">
                      <h3>Rental Ledger:</h3>
@@ -160,11 +160,18 @@ if (!isset($_SESSION['user'])) {
                             <th>Transaction Type</th>
                             <th>Amount</th>
                             <th>Note</th>
-                            <th>
-                                <span id="rental-ledger-action-text">Action</span>
-                                <button id="billing-delete-active-checkbox-button">Delete</button>
-                            </th>
+                            <th>Action</th>
                         </tr>
+                        <td>try</td>
+                            <td>123</td>
+                            <td>try</td>
+                            <td>123</td>
+                            <td>123</td>
+                            <td>
+                            <button><img src="../assets/images/icons/edit.png" alt="Edit"></button>
+                            <button><img src="../assets/images/icons/delete1.png" alt="Delete"></button>
+                            </td>
+
                     </table>
         </div>
     </div>
