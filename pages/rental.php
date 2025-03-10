@@ -144,8 +144,6 @@ if (!isset($_SESSION['user'])) {
                     </table>
         </div>
     </div>
-    
-</main>
 
 <!--------| ADD NEW RENTAL | --------------->
 <!--| #7 |-->  

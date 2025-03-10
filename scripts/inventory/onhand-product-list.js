@@ -232,6 +232,7 @@ function addProduct() {
 
     // Send data to PHP script using Fetch API
     fetch("../handler/records/products/add-product-handler.php", {
+        
         method: "POST",
         body: formData,
     })
