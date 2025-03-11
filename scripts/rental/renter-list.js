@@ -1,25 +1,19 @@
 document.addEventListener('DOMContentLoaded', function(){
-    // FOR PRODUCT LIST TABLE
+    // FOR RENTER LIST TABLE
     const renterListTable = document.getElementById('renter-list-table');
 
-    // FOR ADD PRODUCT
+    // FOR ADD RENTER LIST
     const addRentalModalCon = document.querySelector('.add-rental-modal-container');
     const addRentalButton = document.getElementById('add-rental-button');
     const addRentalCancelButton =document.getElementById('add-rental-cancel-button');
     const addRentalForm = document.getElementById('add-rental-form');
 
 
-    // FOR EDIT PRODUCT
-    const editProductExitButton = document.getElementById('product-edit-exit-button');
-    const editProductModalCon = document.querySelector('.edit-product-modal-container');
-    const editProductSaveButton = document.getElementById('save-edit-product-button');
-    const editProductSelectBrand = document.getElementById('edit-product-brand');
-    const editProductSelectCategory = document.getElementById('edit-product-category');
-    const editProductSelectSubcategory= document.getElementById('edit-product-subcategory');
-    const editProductSelectSupplier = document.getElementById('edit-product-supplier');
-
-  
-    
+    // FOR EDIT RENTER LIST
+    const editRenterExitButton = document.getElementById('renter-edit-exit-button');
+    const editRenterModalCon = document.querySelector('.edit-renter-modal-container');
+    const editRenterSaveButton = document.getElementById('save-edit-renter-button');
+   
 
     addRentalButton.addEventListener('click', function(){
         addRentalModalCon.style.display = 'flex';      
@@ -27,48 +21,63 @@ document.addEventListener('DOMContentLoaded', function(){
     addRentalCancelButton.addEventListener('click', function(){
         addRentalModalCon.style.display = 'none';
     })
-/*=====================================| FOR ADD PRODUCT |========================================================================== */
-    fetchSelectBrandAddProduct();
-    fetchSelectCategoryAddProduct();
-    fetchSelectSubcategoryAddProduct();
-    fetchSelectSupplierAddProduct();
-    fetchProductData();
+/*=====================================| FOR ADD RENTAL |========================================================================== */
+// Fetch categories on page load
+fetchCategoryData()
 
-    /**| RETRIEVE BRAND FOR ADD PRODUCT SELECT BRAND  |** */ 
-    function fetchSelectBrandAddProduct() {
-        fetch('../handler/records/brand/retrieve-brand.php')
-            .then(response => {
-                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-                return response.json();
-            })
-            .then(data => {
-                populateSelectBrandAddProduct(data); 
-                populateSelectBrandEditProduct(data);
-            })
-            .catch(error => console.error('Error fetching brand data:', error));
-    }
+addCategoryButton.addEventListener('click', function() {
+    addCategoryModalCon.style.display = 'flex'; // Fixed the typo here
+});
+addCategoryCancelButton.addEventListener('click', function() {
+    addCategoryModalCon.style.display = 'none'; // Fixed the typo here
+});
+// Handle form submission using AJAX (Prevent default form submission)
+addCategoryForm.addEventListener("submit", function(event) {
+    event.preventDefault(); // Prevent page reload
+    
+    createCategory(); // Call the function to handle form data submission
+});
 
-    function populateSelectBrandAddProduct(brands) {
-        brands.forEach(brand => {
-            const brandOption = document.createElement('option');
-            brandOption.innerHTML = brand.brand_name;
-            brandOption.value = brand.brand_id;      
-            addProductSelectBrand.appendChild(brandOption);
-        });
-       
+// Function to handle category creation
+function createCategory() {
+    const categoryName = document.getElementById('add-category-name').value.trim();
+    const categoryStatus = document.getElementById('add-category-status').value.trim();
+    console.log("Category name:", categoryName);
+    console.log("Category status:", categoryStatus);
+    // Validate form inputs
+    if (!categoryName || !categoryStatus) {
+        alert("Please fill in all fields.");
+        return;
     }
-    function populateSelectBrandEditProduct(brands) {
-        brands.forEach(brand => {
-            const brandOption = document.createElement('option');
-            brandOption.innerHTML = brand.brand_name;
-            brandOption.value = brand.brand_id;      
-            editProductSelectBrand.appendChild(brandOption);
-        });
-       
-    }
-    /***| RETRIEVE CATEGORY FOR ADD PRODUCT SELECT CATEGORY |* */
-     // DISPLAY CATEGORY
-   function fetchSelectCategoryAddProduct() {
+   
+
+    // Create FormData object to send to the server
+    const formData = new FormData();
+    formData.append("category_name", categoryName);
+    formData.append("category_status", categoryStatus);
+
+    // Send data to PHP script using Fetch API
+    fetch("../handler/records/category/add-category.php", {
+        method: "POST",
+        body: formData,
+    })
+    .then((response) => response.json()) // Parse the JSON response
+    .then((data) => {
+        if (data.success) {
+            alert("Category created successfully!");
+            addCategoryModalCon.style.display = 'none'; // Close the modal on success
+            location.reload(); // Reload page to update table
+        } else {
+            alert(`Error: ${data.message}`);
+        }
+    })
+    .catch((error) => {
+        console.error("Error:", error);
+        alert("An error occurred while creating the category.");
+    });
+}
+// DISPLAY CATEGORY
+function fetchCategoryData() {
     fetch('../handler/records/category/retrieve-category.php')
         .then(response => {
             if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
@@ -78,396 +87,191 @@ document.addEventListener('DOMContentLoaded', function(){
             if (data.length === 0) {
                 console.warn('No category data found.');
             } else {
-                populateSelectCategoryAddProduct(data);
-                populateSelectCategoryEditProduct(data);
+                populateCategoryTable(data);
             }
         })
         .catch(error => console.error('Error fetching category data:', error));
-    }
+}
 
-    // Populate select category for adding product
-    function populateSelectCategoryAddProduct(categories) {
-        categories.forEach(category => {
-            const categoryOption = document.createElement('option');
-            categoryOption.innerHTML = category.category_name;
-            categoryOption.value = category.category_id;
-            addProductSelectCategory.appendChild(categoryOption);
-        });
-    }
-     // Populate select category for Editing product
-     function populateSelectCategoryEditProduct(categories) {
-        categories.forEach(category => {
-            const categoryOption = document.createElement('option');
-            categoryOption.innerHTML = category.category_name;
-            categoryOption.value = category.category_id;
-            editProductSelectCategory.appendChild(categoryOption);
-        });
-    }
+// Populate category table
+function populateCategoryTable(categories) {
+    categoryTable.querySelectorAll('tr:not(:first-child)').forEach(row => row.remove());
 
-    /***| RETRIEVE SUBCATEGORY FOR ADD PRODUCT SELECT SUBCATEGORY |* */
-     // DISPLAY CATEGORY
-   function fetchSelectSubcategoryAddProduct() {
-    fetch('../handler/records/category/retrieve-subcategory.php')
-        .then(response => {
-            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-            return response.json();
-        })
-        .then(data => {
-            if (data.length === 0) {
-                console.warn('No category data found.');
-            } else {
-                populateSelectSubcategoryAddProduct(data);
-                populateSelectSubcategoryEditProduct(data);
-            }
-        })
-        .catch(error => console.error('Error fetching category data:', error));
-    }
-
-    // Populate select subcategory for adding product
-    function populateSelectSubcategoryAddProduct(subcategories) {
-        subcategories.forEach(subcategory => {
-            const subcategoryOption = document.createElement('option');
-            subcategoryOption.innerHTML = subcategory.subcategory_name;
-            subcategoryOption.value = subcategory.subcategory_id;
-            addProductSelectSubcategory.appendChild(subcategoryOption);
-        });
-    }
-    // Populate select subcategory for editing product
-    function populateSelectSubcategoryEditProduct(subcategories) {
-        subcategories.forEach(subcategory => {
-            const subcategoryOption = document.createElement('option');
-            subcategoryOption.innerHTML = subcategory.subcategory_name;
-            subcategoryOption.value = subcategory.subcategory_id;
-            editProductSelectSubcategory.appendChild(subcategoryOption);
-        });
-    }
-
-     /***| RETRIEVE SUPPLIER FOR ADD PRODUCT SELECT SUPPLIER |* */
-     // DISPLAY CATEGORY
-   function fetchSelectSupplierAddProduct() { 
-        fetch('../handler/records/supplier/retrieve-supplier.php')
-            .then(response => {
-                if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
-                return response.json();
-            })
-            .then(data => {
-                if (!data.success || data.data.length === 0) {
-                    console.warn('No supplier data found.');
-                } else {
-                    populateSelectSupplierAddProduct(data.data);
-                    populateSelectSupplierEditProduct(data.data);
-                }
-            })
-            .catch(error => console.error('Error fetching supplier data:', error));
-    
-    }
-    // Populate select supplier for adding product
-    function populateSelectSupplierAddProduct(suppliers) {
-        suppliers.forEach(supplier => {
-            const supplierOption = document.createElement('option');
-            supplierOption.innerHTML = supplier.supplier_name;
-            supplierOption.value = supplier.supplier_id;
-            addProductSelectSupplier.appendChild(supplierOption);
-        });
-    }
-     // Populate select supplier for editing product
-     function populateSelectSupplierEditProduct(suppliers) {
-        suppliers.forEach(supplier => {
-            const supplierOption = document.createElement('option');
-            supplierOption.innerHTML = supplier.supplier_name;
-            supplierOption.value = supplier.supplier_id;
-            editProductSelectSupplier.appendChild(supplierOption);
-        });
-    }
-
- 
- /**======================| FOR ADD PRODUCT |=============================== */
-addProductForm.addEventListener('submit', function (event) {
-    event.preventDefault();
-    addProduct();
-});
-
-// Function to handle product creation
-function addProduct() {
-    // Get form values and trim any extra spaces, ensure element exists first
-    const addProductName = document.getElementById("add-product-name")?.value.trim() || "";
-    const addProductBrand = document.getElementById("add-product-brand")?.value.trim() || "";
-    const addProductCategory = document.getElementById("add-product-category")?.value.trim() || "";
-    const addProductSubcategory = document.getElementById("add-product-subcategory")?.value.trim() || "";
-    const addProductBarcode = document.getElementById("add-product-barcode")?.value.trim() || "";
-    const addProductOriginalPrice = document.getElementById("add-product-original-price")?.value.trim() || "";
-    const addProductSellingPrice = document.getElementById("add-product-selling-price")?.value.trim() || "";
-    const addProductQuantity = document.getElementById("add-product-quantity")?.value.trim() || "";
-    const addProductReorderPoint = document.getElementById("add-product-reorder-point")?.value.trim() || "";
-    const addProductStatus = document.getElementById("add-product-status")?.value.trim() || "";
-    const addProductSupplier = document.getElementById("add-product-select-supplier")?.value.trim() || "";
-
-    // Create FormData object to send to the server
-    const formData = new FormData();
-    formData.append("product_name", addProductName);
-    formData.append("product_brand", addProductBrand);
-    formData.append("product_category", addProductCategory);
-    formData.append("product_subcategory", addProductSubcategory);
-    formData.append("product_barcode", addProductBarcode);
-    formData.append("original_price", addProductOriginalPrice);
-    formData.append("selling_price", addProductSellingPrice);
-    formData.append("quantity", addProductQuantity);
-    formData.append("reorder_point", addProductReorderPoint);
-    formData.append("status", addProductStatus);
-    formData.append("supplier_id", addProductSupplier);
-
-    console.log(formData);
-
-    // Send data to PHP script using Fetch API
-    fetch("../handler/records/products/add-product-handler.php", {
-        method: "POST",
-        body: formData,
-    })
-    .then((response) => {
-        if (!response.ok) {
-            return response.text().then((text) => {
-                throw new Error(`Server responded with status ${response.status}: ${text}`);
-            });
-        }
-        return response.json();
-    })
-    .then((data) => {
-        if (data.success) {
-            alert("Product added successfully!");
-            addProductModalCon.style.display = 'none'; // Close the modal
-            location.reload(); // Reload page to update table
-        } else {
-            alert(`Error: ${data.message}`);
-        }
-    })
-    .catch((error) => {
-        console.error("Error:", error);
-        alert("An error occurred while adding the product.");
+    categories.forEach(category => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${category.category_name}</td>
+            <td>${category.date_created}</td>
+            <td>${category.status}</td>
+            <td>
+                <button data-id="${category.category_id}" class="category-edit-button">
+                    <img src="../assets/images/icons/edit.png" alt="Edit">
+                </button>
+                <button data-id="${category.category_id}" class="category-delete-button">
+                    <img src="../assets/images/icons/delete1.png" alt="Delete">
+                </button>
+            </td>
+        `;
+        categoryTable.appendChild(row);
     });
+attachCategoryActionListeners();
 }
-/**==========================| FOR DISPLAYING PRODUCT |=============================================== */
- // DISPLAY PRODUCTS
- function fetchProductData() {
-    fetch('../handler/records/products/retrieve-products.php')
-        .then(response => {
-            if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+
+// Attach listeners to buttons
+function attachCategoryActionListeners() {
+document.querySelectorAll('.category-edit-button').forEach(button =>
+    button.addEventListener('click', handleEditCategory)
+);
+document.querySelectorAll('.category-delete-button').forEach(button =>
+    button.addEventListener('click', handleDeleteCategory)
+);
+}
+/**************************| EDITING CATEGORY  |*******************************************/
+// Handle category editing
+function handleEditCategory(event) {
+const categoryId = event.currentTarget.dataset.id;
+console.log("category Id : "+categoryId)
+
+
+fetch(`../handler/records/category/retrieve-category-details.php?id=${categoryId}`)
+    .then(response => response.json())
+    .then(category => {
+    if (category.error) {
+        console.error('Error fetching category details:', category.error);
+        return;
+    }
+    
+    displayEditCategoryDetails(category);
+    })
+    .catch(error => console.error('Error fetching category1 details:', error));
+}
+
+function displayEditCategoryDetails(category) {
+
+document.getElementById('edit-category-id').value = category.category_id; // Set product_id
+document.getElementById('edit-category-name').value = category.category_name;
+
+// Ensure status is properly set in the dropdown
+    const statusDropdown = document.getElementById('edit-category-status');
+    statusDropdown.value = category.status; // This will set the selected option based on the category status
+
+
+editCategoryModalCon.style.display = 'flex';
+}
+
+// FOR SAVING EDITED CATEGORY DETAILS
+editCategorySaveButton.addEventListener('click', saveEditCategoryDetails)
+
+// Function to send product data to the server
+function saveEditCategoryDetails(event) {
+    event.preventDefault(); // Prevent default form submission behavior
+
+    console.log( document.getElementById('edit-category-status').value);
+
+    editCategoryModalCon.style.display ='none';
+    const categoryDetails = {
+        category_id: document.getElementById('edit-category-id').value,
+        category_name: document.getElementById('edit-category-name').value.trim(),
+        status: document.getElementById('edit-category-status').value.trim()           
+    };
+
+    fetch('../handler/records/category/category-edit-handler.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(categoryDetails),
+    })
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
             return response.json();
         })
-        .then(data => {
-            if (!data.success || data.data.length === 0) {
-                console.warn('No product data found.');
+        .then((data) => {
+            if (data.success) {
+                alert('Category saved successfully!');
+                window.location.reload();
             } else {
-                populateProductTable(data.data);
+                console.error('Error saving category:', data.message);
+                alert(`Error: ${data.message}`);
             }
         })
-        .catch(error => console.error('Error fetching products data:', error));
-}
-
-    // Populate supplier table
-    function populateProductTable(products) {
-        productListTable.querySelectorAll('tr:not(:first-child)').forEach(row => row.remove());
-
-        products.forEach(product => {
-            const row = document.createElement('tr');
-            row.innerHTML = `
-                <td>${product.product_name}</td>
-                <td>${product.category_name}</td>
-                <td>${product.subcategory_name}</td>
-                <td>${product.brand_name}</td>
-                <td>${product.barcode}</td>
-                <td>${product.quantity}</td>
-                <td>${product.reorder_point}</td>
-                <td>${product.original_price}</td>
-                <td>${product.selling_price}</td>
-                <td>${product.supplier}</td>
-                <td>${product.status}</td>
-                <td>
-                    <button data-id="${product.id}" class="product-edit-button">
-                        <img src="../assets/images/icons/edit.png" alt="Edit">
-                    </button>
-                    <button data-id="${product.id}" class="product-delete-button">
-                        <img src="../assets/images/icons/delete1.png" alt="Delete">
-                    </button>
-                </td>
-            `;
-            productListTable.appendChild(row);
+        .catch((error) => {
+            console.error('Error during fetch:', error);
+            alert('An error occurred while saving the category.');
         });
-        attachProductActionListeners();
-    }
+} 
 
-    function attachProductActionListeners() {
-        document.querySelectorAll('.product-edit-button').forEach(button =>
-            button.addEventListener('click', handleEditProduct)
-        );
-        document.querySelectorAll('.product-delete-button').forEach(button =>
-            button.addEventListener('click', handleDeleteProduct)
+editCategoryExitButton.addEventListener('click', function(){
+editCategoryModalCon.style.display = 'none';
 
-        );
-    }
-
-/**===========================| FOR EDITING PRODUCT |=========================================================== */
-
-
-
-function handleEditProduct(event) {
-    const productId = event.currentTarget.dataset.id;
-    console.log(productId);
-    fetch(`../handler/records/products/retrieve-product-details.php?id=${productId}`)
-        .then(response => response.json())
-        .then(product => displayEditProductDetails(product))
-        .catch(error => console.error('Error fetching product details:', error));
-}
-
-function displayEditProductDetails(product) {
-    document.getElementById('edit-product-id').value = product.id;
-    document.getElementById('edit-product-name').value = product.product_name;
-    document.getElementById('edit-product-category').value = product.category_name;
-    document.getElementById('edit-product-subcategory').value = product.subcategory_name;
-    document.getElementById('edit-product-brand').value = product.brand_name;
-    document.getElementById('edit-product-barcode').value = product.barcode;
-    document.getElementById('edit-product-quantity').value = product.quantity;
-    document.getElementById('edit-product-reorder-point').value = product.reorder_point;
-    document.getElementById('edit-product-original-price').value = product.original_price;
-    document.getElementById('edit-product-selling-price').value = product.selling_price;
-    document.getElementById('edit-product-status').value = product.status;
-    document.getElementById('edit-product-supplier').value = product.supplier_name;   
-    editProductModalCon.style.display = 'flex';
-}
-
-
-// Listen for save button click to save the edited supplier
-editProductSaveButton.addEventListener('click', function (event) {
-event.preventDefault();
-
-// Gather all the input field values into an object
-const productDetails = {
-    product_id: document.getElementById('edit-product-id').value,
-    product_name: document.getElementById('edit-product-name').value.trim(),
-    barcode: document.getElementById('edit-product-barcode').value.trim(),
-    brand_id: document.getElementById('edit-product-brand').value,
-    category_id: document.getElementById('edit-product-category').value.trim(),
-    subcategory_id: document.getElementById('edit-product-subcategory').value.trim(),
-    original_price: document.getElementById('edit-product-original-price').value.trim(),
-    selling_price: document.getElementById('edit-product-selling-price').value.trim(),
-    quantity: document.getElementById('edit-product-quantity').value.trim(),
-    reorder_point: document.getElementById('edit-product-reorder-point').value.trim(),
-    status: document.getElementById('edit-product-status').value.trim(),
-    supplier_id: document.getElementById('edit-product-supplier').value.trim()   
-};
-
-// Send a POST request to the PHP handler to save the data
-fetch('../handler/records/products/product-edit-handler.php', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(productDetails),
 })
-.then(response => response.json())
-.then(data => {
-    if (data.success) {
-        alert('Product updated successfully!');
-        editProductModalCon.style.display = 'none';
-        fetchProductData(); // Assuming this function fetches and updates the supplier data
-    } else {
-        alert(`Error: ${data.message}`);
+
+/***************************| FOR DELETE CATEGORY |*********************************** */
+//FOR CATEGORY DELETION  
+const deleteCategoryModal = document.querySelector('.delete-category-modal-container');
+const deleteCategoryYesButton = document.querySelector('#delete-category-yes-button');
+const cancelDeleteCategoryButton = document.querySelector('#delete-category-no-button');
+
+// Handle Delete Category
+function handleDeleteCategory(event) {
+categoryId = event.currentTarget.dataset.id; // Set productId globally
+
+fetch(`../handler/records/category/retrieve-category-details.php?id=${categoryId}`)
+  .then(response => response.json())
+  .then(category => {
+    if (category.error) {
+      console.error('Error fetching product details:', category.error);
+      return;
     }
-})
-.catch(error => console.error('Error during fetch:', error));
-});
-
-// Listen for exit button to close the modal
-editProductExitButton .addEventListener('click', function () {
-editProductModalCon.style.display = 'none';
-});
-
-
-/***************************| FOR DELETE PRODUCT |***********************************/
-const deleteProductModal = document.querySelector('.delete-product-modal-container');
-const deleteProductYesButton = document.querySelector('#delete-product-yes-button');
-const cancelDeleteProductButton = document.querySelector('#delete-product-no-button');
-
-
-let productId = null;  // Define productId globally for the delete process
-
-// Handle product deletion
-function handleDeleteProduct(event) {
-  productId = event.currentTarget.dataset.id;  // Get the product ID from the button's data-id attribute
-  console.log(productId);
-
-  fetch(`../handler/records/products/retrieve-product-details.php?id=${productId}`)
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('Failed to fetch product details');
-      }
-      return response.json(); // Parse JSON if response is okay
-    })
-    .then(product => {
-      if (product.error) {
-        console.error('Error fetching product details for deleting product:', product.error);
-        return;
-      }
-      displayDeleteProductDetails(product);
-    })
-    .catch(error => console.error('Error fetching product details:', error));
-}
-
-// Display product details for deletion
-function displayDeleteProductDetails(product) {
-  deleteProductModal.style.display = 'flex';
-  document.querySelector('#delete-product-name').textContent = product.product_name;
-}
-
-// Confirm delete product
-deleteProductYesButton.addEventListener('click', function () {
-  console.log(productId);
-  if (!productId) {
-    console.error('Product ID is not defined.');
-    return;
-  }
-
-  fetch('../handler/records/products/product-delete-handler.php', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-    },
-    body: `id=${productId}`  // Send the product ID as part of the body
+    displayDeleteCategoryDetails(category);
   })
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('Failed to delete product');
+  .catch(error => console.error('Error fetching product details:', error));
+}
+
+// DISPLAY CATEGORY NAME FOR DELETING
+function displayDeleteCategoryDetails(category) {
+deleteCategoryModal.style.display = 'flex';
+document.querySelector('#delete-category-name').textContent = category.category_name;
+
+}
+
+
+// Confirm delete category
+deleteCategoryYesButton.addEventListener('click', function () {
+if (!categoryId) {
+  console.error('category ID is not defined.');
+  return;
+}
+fetch(`../handler/records/category/category-delete-handler.php`, {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/x-www-form-urlencoded',
+  },
+  body: `id=${categoryId}` // Send the product ID as part of the body
+})
+  .then(response => response.text()) // Read as text to inspect raw response
+  .then(text => {
+    try {
+      const data = JSON.parse(text);
+      if (data.success) {
+        alert(data.success);
+        window.location.reload();
+      } else {
+        alert(data.error);
       }
-      return response.text();  // Read as text to inspect raw response
-    })
-    .then(text => {
-      try {
-        const data = JSON.parse(text);
-        if (data.success) {
-          alert(data.success);
-          window.location.reload();
-        } else {
-          alert(data.error);
-        }
-      } catch (error) {
-        console.error('Response not JSON:', text);
-        alert('Something went wrong');
-      }
-    })
-    .catch(error => console.error('Error:', error));
+    } catch (error) {
+      console.error('Response not JSON:', text);
+      alert('Something went wrong');
+    }
+  })
+  .catch(error => console.error('Error:', error));
 });
 
 // Cancel delete product
-cancelDeleteProductButton.addEventListener('click', function () {
-  deleteProductModal.style.display = 'none'; 
-});
-
-
-
-
-
-
-
-
-
-
-
+cancelDeleteCategoryButton.addEventListener('click', function () {
+deleteCategoryModal.style.display = 'none';
+}); 
 
 });

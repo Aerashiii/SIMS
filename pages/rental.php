@@ -242,3 +242,36 @@ if (!isset($_SESSION['user'])) {
     </div>
 
 </div>
+
+<!--| MODAL FOR EDITING RENTER LIST |-->
+<div class="edit-renter-modal-container" id="edit-renter-modal-container">
+    <div class="edit-renter-modal">
+        <button id="renter-edit-exit-button"><img src="../assets/images/icons/exit.png" alt=""></button>
+        <h2>Edit Category</h2>
+        <div class="edit-renter-details-container" id="edit-renter-details-container">
+            <input type="hidden" name="edit-renter-id" id="edit-renter-id">
+            
+            <label for="edit-renter-name">Renter Name:</label>
+            <input type="text" name="edit-renter-name" value="" id="edit-renter-name">
+            
+            <label for="">Contact Number:</label>
+            <input type="text" name="edit-renter-contact-number" value="" id="edit-renter-contact-number">
+            </select>
+            
+            <button id="save-edit-renter-button">Save</button>
+        </div>
+    </div>
+</div>
+<!-- | DELATION CONFIRMATION FOR RENTER |-->
+<div class="delete-renter-list-modal-container">
+    <div class="delete-renter-list-modal">
+        <p>Are you sure you want to delete renter name?</p>
+        <span id="delete-renter-list-name"></span>
+
+        <div class="renter-list-delete-yes-and-no-button">
+            <button id="delete-renter-list-yes-button">Yes</button>
+            <button id="delete-renter-list-no-button">No</button>
+        </div>
+
+    </div>
+</div>
