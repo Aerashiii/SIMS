@@ -189,7 +189,10 @@ if (!isset($_SESSION['user'])) {
             <div class="form-group-container">
                 <label>Box Size:</label>
                 <select name="" id="add-rental-box-size" required>
-                    <option value="">- Select Brand -</option>
+                    <option value="">Size option -</option>
+                    <option value="Small">Small</option>
+                    <option value="Medium">Medium</option>
+                    <option value="Large">Large</option>
                 </select>
             </div>
             <div class="form-group-container">
@@ -234,7 +237,7 @@ if (!isset($_SESSION['user'])) {
 
             <input type="submit" id="add-rental-submit-button">
         </form>
-        <button id=" ">Cancel</button>
+        <button id="add-rental-cancel-button">Cancel</button>
 
     </div>
 

@@ -1,30 +1,38 @@
 document.addEventListener('DOMContentLoaded', function(){
-    
-    //RENTER LIST PRODUCT LIST DISPLAY
-    const onhandProductListTable = document.getElementById('renter-list-table-table');
+    // FOR PRODUCT LIST TABLE
+    const renterListTable = document.getElementById('renter-list-table');
 
-    // FOR ADDING RENTAL
+    // FOR ADD PRODUCT
     const addRentalModalCon = document.querySelector('.add-rental-modal-container');
+    const addRentalButton = document.getElementById('add-rental-button');
+    const addRentalCancelButton =document.getElementById('add-rental-cancel-button');
     const addRentalForm = document.getElementById('add-rental-form');
-    const addRentalBoxSize = document.getElementById('add-rental-box-size');
 
-    // FOR EDIT RENTAL
-    const editRentalExitButton = document.getElementById('rental-edit-exit-button');
-    const editRentalModalCon = document.querySelector('.edit-rental-modal-container');
+
+    // FOR EDIT PRODUCT
+    const editProductExitButton = document.getElementById('product-edit-exit-button');
+    const editProductModalCon = document.querySelector('.edit-product-modal-container');
     const editProductSaveButton = document.getElementById('save-edit-product-button');
-    const editRentalForm = document.getElementById('edit-rental-form');
-    const editRentalBoxSize = document.getElementById('edit-rental-box-size');
+    const editProductSelectBrand = document.getElementById('edit-product-brand');
+    const editProductSelectCategory = document.getElementById('edit-product-category');
+    const editProductSelectSubcategory= document.getElementById('edit-product-subcategory');
+    const editProductSelectSupplier = document.getElementById('edit-product-supplier');
 
+  
+    
 
-/************| FOR CALLING THE FUNCTIONS |**************** */
-fetchSelectBrandAddProduct();
-fetchSelectCategoryAddProduct();
-fetchSelectSubcategoryAddProduct();
-fetchSelectSupplierAddProduct();
-fetchProductData();
-
- /**======================| FOR ADD PRODUCT |=============================== */
-
+    addRentalButton.addEventListener('click', function(){
+        addRentalModalCon.style.display = 'flex';      
+    })
+    addRentalCancelButton.addEventListener('click', function(){
+        addRentalModalCon.style.display = 'none';
+    })
+/*=====================================| FOR ADD PRODUCT |========================================================================== */
+    fetchSelectBrandAddProduct();
+    fetchSelectCategoryAddProduct();
+    fetchSelectSubcategoryAddProduct();
+    fetchSelectSupplierAddProduct();
+    fetchProductData();
 
     /**| RETRIEVE BRAND FOR ADD PRODUCT SELECT BRAND  |** */ 
     function fetchSelectBrandAddProduct() {
@@ -41,7 +49,6 @@ fetchProductData();
     }
 
     function populateSelectBrandAddProduct(brands) {
-        
         brands.forEach(brand => {
             const brandOption = document.createElement('option');
             brandOption.innerHTML = brand.brand_name;
@@ -173,22 +180,9 @@ fetchProductData();
         });
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- addProductForm.addEventListener('submit', function (event) {
+ 
+ /**======================| FOR ADD PRODUCT |=============================== */
+addProductForm.addEventListener('submit', function (event) {
     event.preventDefault();
     addProduct();
 });
@@ -254,7 +248,7 @@ function addProduct() {
 /**==========================| FOR DISPLAYING PRODUCT |=============================================== */
  // DISPLAY PRODUCTS
  function fetchProductData() {
-    fetch('../handler/inventory/onhand-product/retrieve-products.php')
+    fetch('../handler/records/products/retrieve-products.php')
         .then(response => {
             if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
             return response.json();
@@ -271,16 +265,16 @@ function addProduct() {
 
     // Populate supplier table
     function populateProductTable(products) {
-        onhandProductListTable.querySelectorAll('tr:not(:first-child)').forEach(row => row.remove());
+        productListTable.querySelectorAll('tr:not(:first-child)').forEach(row => row.remove());
 
         products.forEach(product => {
             const row = document.createElement('tr');
             row.innerHTML = `
-                <td>${product.barcode}</td>
                 <td>${product.product_name}</td>
                 <td>${product.category_name}</td>
                 <td>${product.subcategory_name}</td>
                 <td>${product.brand_name}</td>
+                <td>${product.barcode}</td>
                 <td>${product.quantity}</td>
                 <td>${product.reorder_point}</td>
                 <td>${product.original_price}</td>
@@ -296,11 +290,11 @@ function addProduct() {
                     </button>
                 </td>
             `;
-            onhandProductListTable.appendChild(row);
+            productListTable.appendChild(row);
         });
-       // attachProductActionListeners();
+        attachProductActionListeners();
     }
-/*
+
     function attachProductActionListeners() {
         document.querySelectorAll('.product-edit-button').forEach(button =>
             button.addEventListener('click', handleEditProduct)
@@ -310,6 +304,170 @@ function addProduct() {
 
         );
     }
-*/
 
-}); 
+/**===========================| FOR EDITING PRODUCT |=========================================================== */
+
+
+
+function handleEditProduct(event) {
+    const productId = event.currentTarget.dataset.id;
+    console.log(productId);
+    fetch(`../handler/records/products/retrieve-product-details.php?id=${productId}`)
+        .then(response => response.json())
+        .then(product => displayEditProductDetails(product))
+        .catch(error => console.error('Error fetching product details:', error));
+}
+
+function displayEditProductDetails(product) {
+    document.getElementById('edit-product-id').value = product.id;
+    document.getElementById('edit-product-name').value = product.product_name;
+    document.getElementById('edit-product-category').value = product.category_name;
+    document.getElementById('edit-product-subcategory').value = product.subcategory_name;
+    document.getElementById('edit-product-brand').value = product.brand_name;
+    document.getElementById('edit-product-barcode').value = product.barcode;
+    document.getElementById('edit-product-quantity').value = product.quantity;
+    document.getElementById('edit-product-reorder-point').value = product.reorder_point;
+    document.getElementById('edit-product-original-price').value = product.original_price;
+    document.getElementById('edit-product-selling-price').value = product.selling_price;
+    document.getElementById('edit-product-status').value = product.status;
+    document.getElementById('edit-product-supplier').value = product.supplier_name;   
+    editProductModalCon.style.display = 'flex';
+}
+
+
+// Listen for save button click to save the edited supplier
+editProductSaveButton.addEventListener('click', function (event) {
+event.preventDefault();
+
+// Gather all the input field values into an object
+const productDetails = {
+    product_id: document.getElementById('edit-product-id').value,
+    product_name: document.getElementById('edit-product-name').value.trim(),
+    barcode: document.getElementById('edit-product-barcode').value.trim(),
+    brand_id: document.getElementById('edit-product-brand').value,
+    category_id: document.getElementById('edit-product-category').value.trim(),
+    subcategory_id: document.getElementById('edit-product-subcategory').value.trim(),
+    original_price: document.getElementById('edit-product-original-price').value.trim(),
+    selling_price: document.getElementById('edit-product-selling-price').value.trim(),
+    quantity: document.getElementById('edit-product-quantity').value.trim(),
+    reorder_point: document.getElementById('edit-product-reorder-point').value.trim(),
+    status: document.getElementById('edit-product-status').value.trim(),
+    supplier_id: document.getElementById('edit-product-supplier').value.trim()   
+};
+
+// Send a POST request to the PHP handler to save the data
+fetch('../handler/records/products/product-edit-handler.php', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(productDetails),
+})
+.then(response => response.json())
+.then(data => {
+    if (data.success) {
+        alert('Product updated successfully!');
+        editProductModalCon.style.display = 'none';
+        fetchProductData(); // Assuming this function fetches and updates the supplier data
+    } else {
+        alert(`Error: ${data.message}`);
+    }
+})
+.catch(error => console.error('Error during fetch:', error));
+});
+
+// Listen for exit button to close the modal
+editProductExitButton .addEventListener('click', function () {
+editProductModalCon.style.display = 'none';
+});
+
+
+/***************************| FOR DELETE PRODUCT |***********************************/
+const deleteProductModal = document.querySelector('.delete-product-modal-container');
+const deleteProductYesButton = document.querySelector('#delete-product-yes-button');
+const cancelDeleteProductButton = document.querySelector('#delete-product-no-button');
+
+
+let productId = null;  // Define productId globally for the delete process
+
+// Handle product deletion
+function handleDeleteProduct(event) {
+  productId = event.currentTarget.dataset.id;  // Get the product ID from the button's data-id attribute
+  console.log(productId);
+
+  fetch(`../handler/records/products/retrieve-product-details.php?id=${productId}`)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Failed to fetch product details');
+      }
+      return response.json(); // Parse JSON if response is okay
+    })
+    .then(product => {
+      if (product.error) {
+        console.error('Error fetching product details for deleting product:', product.error);
+        return;
+      }
+      displayDeleteProductDetails(product);
+    })
+    .catch(error => console.error('Error fetching product details:', error));
+}
+
+// Display product details for deletion
+function displayDeleteProductDetails(product) {
+  deleteProductModal.style.display = 'flex';
+  document.querySelector('#delete-product-name').textContent = product.product_name;
+}
+
+// Confirm delete product
+deleteProductYesButton.addEventListener('click', function () {
+  console.log(productId);
+  if (!productId) {
+    console.error('Product ID is not defined.');
+    return;
+  }
+
+  fetch('../handler/records/products/product-delete-handler.php', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    body: `id=${productId}`  // Send the product ID as part of the body
+  })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Failed to delete product');
+      }
+      return response.text();  // Read as text to inspect raw response
+    })
+    .then(text => {
+      try {
+        const data = JSON.parse(text);
+        if (data.success) {
+          alert(data.success);
+          window.location.reload();
+        } else {
+          alert(data.error);
+        }
+      } catch (error) {
+        console.error('Response not JSON:', text);
+        alert('Something went wrong');
+      }
+    })
+    .catch(error => console.error('Error:', error));
+});
+
+// Cancel delete product
+cancelDeleteProductButton.addEventListener('click', function () {
+  deleteProductModal.style.display = 'none'; 
+});
+
+
+
+
+
+
+
+
+
+
+
+
+});
