@@ -8,3 +8,74 @@
     padding-left:230px;
 
 }
+
+.report-header-container {
+    padding: 20px;
+    background-color: #fff;
+    border-bottom: 1px solid #ccc;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.report-header-container h1 {
+    margin: 0;
+}
+.search-container {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+.search-container input[type="text"],
+.search-container select,
+.search-container input[type="date"],
+.search-container button {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+.search-container button {
+    background-color: #28a745;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+.search-container button:hover {
+    background-color: #218838;
+}
+#export-report-button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: 1px solid #007bff;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+#export-report-button:hover {
+    background-color: #0056b3;
+}
+.inventory-lowstock-content-container {
+    padding: 20px;
+    background-color: #fff;
+    margin-top: 20px;
+}
+.inventory-lowstock-header-container h3 {
+    margin: 0 0 10px 0;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+table, th, td {
+    border: 1px solid #ddd;
+}
+th, td {
+    padding: 10px;
+    text-align: left;
+}
+th {
+    background-color: #f4f4f4;
+}

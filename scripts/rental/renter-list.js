@@ -30,7 +30,7 @@ addRentalForm.addEventListener('submit', function (event) {
     addRental();
 });
 
-// Function to handle product creation
+// Function to handle rental creation
 function addRental() {
     // Get form values and trim any extra spaces, ensure element exists first
     const addBoxNumber = document.getElementById("add-box-number")?.value.trim() || "";
@@ -43,23 +43,22 @@ function addRental() {
     const addRenterStatus = document.getElementById("add-renter-status")?.value.trim() || "";
     const addPaymentStatus = document.getElementById("add-payment-status")?.value.trim() || "";
 
-    //edit lang ulit  pag tapos na sa front end
-    
+ 
     // Create FormData object to send to the server
     const formData = new FormData(); 
-    formData.append("product_name", addProductName);
-    formData.append("product_brand", addProductBrand);
-    formData.append("product_category", addProductCategory);
-    formData.append("product_subcategory", addProductSubcategory);
-    formData.append("product_barcode", addProductBarcode);
-    formData.append("original_price", addProductOriginalPrice);
-    formData.append("selling_price", addProductSellingPrice);
-    formData.append("quantity", addProductQuantity);
-    formData.append("reorder_point", addProductReorderPoint);
-    formData.append("status", addProductStatus);
-    formData.append("supplier_id", addProductSupplier);
+    formData.append("box_number", addBoxNumber);
+    formData.append("box_size", addBoxSize);
+    formData.append("renter_fee", addRentalFee);
+    formData.append("rental_start_date", addRentalStartDate);
+    formData.append("rental_end_date", addPRentalEndDate);
+    formData.append("renter_name", addRenterName);
+    formData.append("contact_number", addContactNumber);
+    formData.append("renter_status", addRenterStatus);
+    formData.append("payment_status", addPaymentStatus);
 
     console.log(formData);
+
+// to follow lng 
 
     // Send data to PHP script using Fetch API
     fetch("../handler/records/products/add-product-handler.php", {
@@ -148,7 +147,7 @@ function addRental() {
         );
     }
 
-/**===========================| FOR EDITING PRODUCT |=========================================================== */
+/**===========================| FOR EDITING RENTAL |=========================================================== */
 
 
 
