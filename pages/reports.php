@@ -19,6 +19,7 @@ if (!isset($_SESSION['user'])) {
    
     <div class="report-header-container">
         <h1>Report Management</h1>
+    </div>
         <div class="search-container">
             <input type="text" placeholder="Search">
             
@@ -47,7 +48,7 @@ if (!isset($_SESSION['user'])) {
             </div>
             
             <button>Search</button>
-        </div>
+        
 
         <button id="export-report-button">Export</button>
     </div>
