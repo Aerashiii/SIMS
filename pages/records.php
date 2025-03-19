@@ -258,7 +258,7 @@ if (!isset($_SESSION['user'])) {
         </div>
     </div>
 </div>
-<!-- | DELATION CONFIRMATION FOR SUBCATEGORY |-->
+<!-- | DELETION CONFIRMATION FOR SUBCATEGORY |-->
 <div class="delete-subcategory-modal-container">
     <div class="delete-subcategory-modal">
         <p>Are you sure you want to delete this Subcategory?</p>

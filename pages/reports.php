@@ -16,43 +16,29 @@ if (!isset($_SESSION['user'])) {
 
 <main class="main-content-container"><!-- | THE STYLES FOR THIS CONTAINER ARE DEFINED IN GLOBAL.CSS TO STANDARDIZE THE STYLE OF THE MAIN CONTAINER ACROSS ALL PAGES |-->
     <!-- | your code here |-->
-   
     <div class="report-header-container">
+    <span class="material-symbols-rounded">menu</span>
         <h1>Report Management</h1>
-    </div>
+
         <div class="search-container">
             <input type="text" placeholder="Search">
-            
-            <div class="report-type-selection">
-                <select name="report_type" id="report_type" required>
-                    <option value="" >Report Type</option> 
-                    <option value="Inventory">Inventory</option>
-                    <option value="Sales">Sales</option>
-                    <option value="Rental">Rental</option>
-                </select>
-            </div>
-
-            <div class="report-category-selection">
-                <select name="report_type" id="report_type" required>
-                    <option value="" >Report Category</option> 
-                    <option value="on-hand-items">On Hand Items</option>
-                    <option value="low-stock-product">Low Stock Products</option>
-                    <option value="out-stock-product">Out Of Stock Products</option>
-                    <option value="purchase-order">Purchase Order</option>
-                    <option value="stocks">Stocks</option>
-                </select>
-            </div>
-
-            <div class= "report-date-range">
-                <input type="date" id="start" name="report-start" value="" />
-            </div>
-            
             <button>Search</button>
-        
-
+        </div>
         <button id="export-report-button">Export</button>
     </div>
+    
+    <div class="report-submenu-container">
+        <span class="material-symbols-rounded" id="hide-records-submenu-button">cancel</span>
+        <h4>Reports Content</h4>
+        <ul class="report-submenu-list">
+            <li><span class="material-symbols-rounded">inventory</span>Inventory</li>
+            <li><span class="material-symbols-rounded">point_of_sale</span>Sales</li>
+            <li><span class="material-symbols-rounded">shelves</span>Rental</li>    
+        </ul>
 
+    </div>
+
+    
     <!-- INVENTORY ON HAND ITEMS-->
     <div class="inventory-onhand-content-container active" id="inventory-onhand-content-container">
                 <div class="inventory-onhand-container">

@@ -68,6 +68,7 @@
         case 'reports':
             echo '<title>Reports</title>';
             echo '<link rel="stylesheet" href="../styles/reports.css">';
+            echo '<script src="../scripts/report/search.js"></script>';
             break;
         // IF THE CURRENT PAGE IS SETTINGS, THEN LINK THE CSS AND SCRIPT OF THE SETTINGS PAGE
         case 'settings':

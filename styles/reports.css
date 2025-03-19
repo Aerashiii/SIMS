@@ -1,81 +1,62 @@
-/***********************| ALL REPORTS STYLES ONLY HERE |***************************/
-
-
-.reports-main-container{
-    width:100%;
-    height:auto;
-    border:1px solid;
-    padding-left:230px;
-
-}
-
-.report-header-container {
-    padding: 20px;
-    background-color: #fff;
-    border-bottom: 1px solid #ccc;
-    display: flex;
-    justify-content: space-between;
+/*****************************************/
+.report-header-container{
+    display:flex;
+    justify-content: flex-start;
     align-items: center;
+    gap:5px;
+    font-size: 30px;
+    cursor:pointer;
+    font-weight:bold;
 }
-.report-header-container h1 {
-    margin: 0;
+.report-header-container:hover{
+    color:#B2CF9B;
 }
-.search-container {
-    display: flex;
-    gap: 10px;
-    align-items: center;
+/*****************************************/
+.report-submenu-container {
+    height: 85vh;
+    width: 0px;
+    border-radius: 3px;
+    background-color: #ffffff;
+    z-index: 10;
+    top: 12vh;
+    position: fixed;
+    overflow: hidden;
+    border: none;
+    transition: width 0.3s ease; /* Smooth transition effect */
 }
-.search-container input[type="text"],
-.search-container select,
-.search-container input[type="date"],
-.search-container button {
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+
+.report-submenu-container.active {
+    width: 180px;
 }
-.search-container button {
-    background-color: #28a745;
-    color: white;
+#hide-report-submenu-button{
+    float:right;
     cursor: pointer;
-    transition: background-color 0.3s;
 }
-.search-container button:hover {
-    background-color: #218838;
+#hide-report-submenu-button:hover{
+    color:red;
 }
-#export-report-button {
-    background-color: #007bff;
-    color: white;
-    padding: 10px 20px;
-    font-size: 16px;
-    border: 1px solid #007bff;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s;
+.report-submenu-container h4{
+    text-align:center;
+    padding:20px 0;
 }
-#export-report-button:hover {
-    background-color: #0056b3;
-}
-.inventory-lowstock-content-container {
-    padding: 20px;
-    background-color: #fff;
-    margin-top: 20px;
-}
-.inventory-lowstock-header-container h3 {
-    margin: 0 0 10px 0;
-}
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-}
-table, th, td {
-    border: 1px solid #ddd;
-}
-th, td {
-    padding: 10px;
+.report-submenu-container ul{
+    list-style: none;
+    padding-left:10%;
     text-align: left;
 }
-th {
-    background-color: #f4f4f4;
+.report-submenu-container ul li{
+    display: flex;
+    align-items: center;
+    gap:5px;
+    padding:10px 0;
+    cursor:pointer;
+}
+
+.report-submenu-container ul li:hover{
+    background-color: #B2CF9B;
+}
+/*************************************/
+.report-content-container{
+    display:none;
+    min-height: 82vh;
 }
