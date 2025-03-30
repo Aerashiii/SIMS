@@ -238,27 +238,5 @@ if (!isset($_SESSION['user'])) {
                 </div>
      </div>
 
-              <!-- RENTAL ACCOUNT RECIEVABLES-->
-    <div class="rental-account-receivable-content-container active" id="rental-account-receivable-content-container">
-                <div class="rental-account-receivable-container">
-                    <div class="rental-account-receivable-header-container">
-                        <h3>Rental (Account Receivables)</h3> 
-                    </div>   
-                    <table id="rental-account-receivable-table">
-                        <tr>
-                            <th>Renter Name</th>
-                            <th>Contact Information</th>
-                            <th>Due Date</th>
-                            <th>Outstanding Amount</th>
-                            <th>Days Overdue</th>
-                        </tr>
-                        <td>try</td>
-                        <td>123wqwe</td>
-                        <td>try</td>
-                        <td>123wqwe</td>
-                        <td>try</td>
-                        
-                    </table>
-                </div>
-     </div>
+  
 </main>
