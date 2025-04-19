@@ -35,12 +35,13 @@ if (!isset($_SESSION['user'])) {
         <div class="onhand-header-container">
             <h2>On Hand Inventory List</h2>
             <div class="search-container">
-                <input type="text" placeholder="Search">
-                <button>Search</button>
+                <form id="search-form">
+                    <input type="text" placeholder="Search" id="search-input">
+                    <button type="submit" name="submit" id="search-submit-button">search</button>
+                </form>
             </div>         
-            <select name="" id="">
-                <option value=""> -select category-</option>
-            </select>
+            
+            <select name="" id="select-product-by-category"> </select>
 
         </div>
         <table id="onhand-inventory-table">
@@ -71,41 +72,24 @@ if (!isset($_SESSION['user'])) {
                 <button>Search</button>
             </div>
             
-            <select name="" id="">
-                <option value=""> -select category-</option>
-            </select>
+            <select name="" id="select-low-stock-product-by-category"></select>
 
         </div>
         <table id="low-stock-inventory-table">
             <tr>
-                <th><input type="checkbox"></th>
-                <th>Product Name</th>
                 <th>Barcode</th>
+                <th>Product Name</th>
                 <th>Category</th>
+                <th>Subcategory</th>
                 <th>Brand</th>
                 <th>Quantity</th>
+                <th>Reorder Point</th>
+                <th>Original Price</th>
                 <th>Selling Price</th>
-                <th>
-                    <span id="low-stock-action-text">Action</span>
-                    <button id="low-stock-delete-active-checkbox-button">Delete</button>
-                </th>
-            </tr>
-            <tr>
-                <td><input type="checkbox"></td>
-                <td>try</td>
-                <td>123wqwe</td>
-                <td>cloth</td>
-                <td>try</td>
-                <td>123</td>
-                <td>2354</td>
-                <td>
-                    <button><img src="../assets/images/icons/edit.png" alt="Edit"></button>
-                    <button><img src="../assets/images/icons/delete1.png" alt="Delete"></button>
-
-                </td>
-
-            </tr>
-
+                <th>Supplier</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>   
         </table>
 
     </div>
@@ -119,25 +103,24 @@ if (!isset($_SESSION['user'])) {
                 <button>Search</button>
             </div>
             
-            <select name="" id="">
-                <option value=""> -select category-</option>
-            </select>
+            <select name="" id="select-out-stock-product-by-category"></select>
 
         </div>
         <table id="out-stock-inventory-table">
-            <tr>
-                <th><input type="checkbox"></th>
-                <th>Product Name</th>
+        <tr>
                 <th>Barcode</th>
+                <th>Product Name</th>
                 <th>Category</th>
+                <th>Subcategory</th>
                 <th>Brand</th>
                 <th>Quantity</th>
+                <th>Reorder Point</th>
+                <th>Original Price</th>
                 <th>Selling Price</th>
-                <th>
-                    <span id="out-stock-action-text">Action</span>
-                    <button id="out-stock-delete-active-checkbox-button">Delete</button>
-                </th>
-            </tr>
+                <th>Supplier</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>   
 
         </table>
 
@@ -274,3 +257,83 @@ if (!isset($_SESSION['user'])) {
     </div>
 
 </div>
+
+
+<!--| MODAL FOR EDITING PRODUCT |-->
+<div class="edit-product-modal-container" id="edit-product-modal-container">
+    <div class="edit-product-modal">
+        <button id="edit-product-exit-button"><img src="../assets/images/icons/exit.png" alt=""></button>
+        <h2>Edit Product</h2>
+        <form id="edit-product-form">
+        <div class="edit-product-details-container" id="edit-product-details-container">
+
+            <input type="hidden" name="edit-product-id" id="edit-product-id">
+            <label for="edit-product-name">Product name:</label>
+            <input type="text" name="edit-product-name" value="" id="edit-product-name" required>
+            <label for="">Barcode:</label>
+            <input type="text" name="edit-product-barcode" id="edit-product-barcode"  required>
+            <label for="edit-product-brand">Brand:</label>
+            <select name="edit-product-brand" id="edit-product-brand"  required></select>
+
+            <div>
+                <div class="edit-category-container" >
+                    <label for="">Category:</label>
+                    <select name="edit-product-category" id="edit-product-category"  required></select>
+                </div>
+                <div class="edit-subcategory-container" >
+                    <label for="">Subcategory:</label>
+                    <select name="edit-product-subcategory" id="edit-product-subcategory"  required></select>
+                </div>               
+            </div>
+            <div>
+                <div class="edit-original-price-container" >
+                    <label for="">Original Price:</label>
+                    <input type="text" name="edit-product-original-price" id="edit-product-original-price"  required>
+                </div>
+                <div class="edit-selling-price-container" >
+                    <label for="">Selling Price:</label>
+                    <input type="text" name="edit-product-selling-price" id="edit-product-selling-price"  required>
+                </div>               
+            </div>
+            <div>
+                <div class="edit-quantity-container">
+                    <label for="">Quantity</label>
+                    <input type="text" name="edit-product-quantity" id="edit-product-quantity"  required>
+                </div>
+                <div class="edit-reorder-point-container">
+                    <label for="">Reorder Point:</label>
+                    <input type="text" name="edit-product-reorder-point" id="edit-product-reorder-point"  required>
+                </div>               
+            </div>
+
+            <label for="">Status:</label>
+            <select name="" id="edit-product-status" required>
+                <option value="active">active</option>
+                <option value="inactive">inactive</option>
+            </select>
+
+            <label for="">Supplier:</label>
+            <select name="edit-product-select-supplier" id="edit-product-select-supplier"  required></select>
+
+           
+                  
+            <button id="save-edit-product-button">Save</button>
+        </div>
+        </form>
+    </div>
+</div>
+
+<!-- | DELATION CONFIRMATION FOR PRODUCT | -->
+<div class="delete-product-modal-container">
+    <div class="delete-product-modal">
+        <p>Are you sure you want to delete this Brand?</p>
+        <span id="delete-product-name"></span>
+
+        <div class="product-delete-yes-and-no-button">
+            <button id="delete-product-yes-button">Yes</button>
+            <button id="delete-product-no-button">No</button>
+        </div>
+
+    </div>
+</div>
+

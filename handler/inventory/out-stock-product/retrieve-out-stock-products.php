@@ -17,7 +17,7 @@ header('Content-Type: application/json');
 
 $category_id = isset($_GET['category_id']) ? intval($_GET['category_id']) : null;
 
-// Base SQL query
+// Base SQL query for products with 0 quantity
 $sql = "SELECT 
             p.id,
             p.product_name,
@@ -36,7 +36,7 @@ $sql = "SELECT
         LEFT JOIN category c ON p.category_id = c.category_id
         LEFT JOIN subcategory sub ON p.subcategory_id = sub.subcategory_id
         LEFT JOIN supplier s ON p.supplier_id = s.supplier_id
-        WHERE p.status = 'active'";
+        WHERE p.status = 'active' AND p.quantity = 0";
 
 // Add category filter if provided
 if ($category_id) {
@@ -76,7 +76,7 @@ if ($result) {
         $response['data'] = $products;
     } else {
         $response['success'] = false;
-        $response['message'] = 'No products found.';
+        $response['message'] = 'No out-of-stock products found.';
     }
 } else {
     $response['success'] = false;

@@ -12,7 +12,7 @@
     
         <!-- | ADMIN PROFILE |--> 
         <div class="admin">
-            <p>Hey,<span class="admin-name">Aira</span><span class="admin-txt"> admin</span></p>
+            <p>Hey,<span class="admin-name">Aaaaa</span><span class="admin-txt"> admin</span></p>
             <img src="../assets/images/profile.png" id="profile">
         </div>
     </div>

@@ -32,29 +32,24 @@ if (!isset($_SESSION['user'])) {
                     </div>
                     <div class="pos-shopping-cart-table-container">
                         <table id="pos-shopping-cart-table">
-                            <tr>
-                                <th>Product Name</th>
-                                <th>Barcode</th>
-                                <th>Price</th>
-                                <th>Quantity</th>
-                                <th>Total</th>
-                                <th>Action</th>                          
-                            </tr>
-                            <tr>
-                                <td>Dress</td>
-                                <td>123</td>
-                                <td>324234</td>
-                                <td>23</td>
-                                <td>23452354</td>
-                                <td>
-                                    <button>Remove</button>
-                                </td>
-                            </tr>                                                                                   
+                            <thead>
+                                <tr>
+                                    <th>Product Name</th>
+                                    <th>Barcode</th>
+                                    <th>Price</th>
+                                    <th>Quantity</th>
+                                    <th>Total</th>
+                                    <th>Action</th>                          
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- JS inserts rows here -->
+                            </tbody>                                                                                                               
                         </table>
                     </div>
                     <div class="pos-shopping-cart-subtotal-container" >
                         <label for="">Sub Total:</label>
-                        <span>12323</span>
+                        <span id="pos-shopping-sub-total">12323</span>
                     </div>
                     <div class="pos-info-buttons-container">
                         <div>
@@ -66,21 +61,18 @@ if (!isset($_SESSION['user'])) {
                         </div>
                         <div>
                             <label for="">Amount Recieved:</label>
-                            <input type="text" id="input-amount-recieved">
+                            <input type="text" id="pos-input-amount-recieved">
                         </div>
                         <div>
                             <label for="">Change:</label>
-                            <span id="change">12312</span>
+                            <span id="pos-shopping-change"></span>
                         </div>
                     </div>
                     <div class="pos-transaction-process-and-cancel-button-container">
                         <button>Process Payment</button>
                         <button>Cancel Transaction</button>
-                    </div>
-                    
-
-                </div>
-                
+                    </div>                    
+                </div>               
             </div>
              <!--| RECIEPT PREVIEW |-->
             <div class="receipt-preview-container">
@@ -111,7 +103,6 @@ if (!isset($_SESSION['user'])) {
                             <label for="">Change:</label>
                             <span>23</span>
                         </div>
-
                     </div>
                     <div class="customer-information-container">
                         <h5>Custormer Informaion: (optional)</h5>
@@ -122,36 +113,43 @@ if (!isset($_SESSION['user'])) {
                         <div class="contact-number-container">
                             <label for="">Contact Number:</label>
                             <input type="text">
-                        </div>
-                        
-
-                    </div>
-                   
-                    <button id="receipt-preview-print-button">Print Receipt</button>
-
-                    
-                    
-
-                </div>
-                
+                        </div>                    
+                    </div>                  
+                    <button id="receipt-preview-print-button">Print Receipt</button>                   
+                </div>                
             </div>
         </div>
-
-        
-        
-
-
-
-
-
     </div>
-
-
-
-
-
-
-
-
+    <div class="pos-product-selection-modal-container">
+        <div class="pos-product-selection-container">
+            <div class="pos-product-selection-header-container">
+                <h4>Product Selection</h4>
+                <span class="exit-icon" id="pos-product-selection-exit-button">&times;</span>
+            </div>          
+            <div class="pos-product-selection-content-container">
+                <div class="pos-product-selection-search-container">
+                    <form id="search-form">
+                        <input type="text" placeholder="Search" id="search-input">
+                        <button type="submit" name="submit" id="search-submit-button">search</button>
+                    </form>
+                </div>  
+                <div class="pos-product-table-container">
+                    <table id="pos-product-selection-table">
+                        <thead>
+                            <tr>
+                                <th>Product Name</th>
+                                <th>Barcode</th>
+                                <th>Price</th>
+                                <th>Action</th>                          
+                            </tr>\
+                        </thead>
+                        <tbody>
+                            <!-- JS inserts rows here -->   
+                        </tbody>                
+                    </table>
+                </div>
+            </div>
+        </div>        
+    </div>
 
 </main>

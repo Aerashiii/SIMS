@@ -9,7 +9,9 @@
     font-weight: semi-bold;
 }
 .main-content-container{
-    padding: 12.5vh 10px 0px 240px;
+    padding: 12.5vh 10px 0px 20px;
+    margin-left:13%;
     background-color: #ffffff;
+   
 
 }

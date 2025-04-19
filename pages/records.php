@@ -401,40 +401,40 @@ if (!isset($_SESSION['user'])) {
             <input type="hidden" name="edit-product-id" id="edit-product-id">
 
             <label for="edit-product-name">Product Name:</label>
-            <input type="text" name="edit-product-name" value="" id="edit-product-name">
+            <input type="text" name="edit-product-name" value="" id="edit-product-name" required>
 
             <label for="">Category:</label>
-            <select name="edit-product-category"  id="edit-product-category"></select>
+            <select name="edit-product-category"  id="edit-product-category" required></select>
 
             <label for="">Subcategory:</label>
-            <select name="edit-product-subcategory" id="edit-product-subcategory"></select>
+            <select name="edit-product-subcategory" id="edit-product-subcategory" required></select>
 
             <label for="">Brand:</label>
-            <select name="edit-product-brand" id="edit-product-brand"></select>
+            <select name="edit-product-brand" id="edit-product-brand" required></select>
 
             <label for="edit-supplier-nam">Barcode:</label>
-           <input type="text" id="edit-product-barcode">
+           <input type="text" id="edit-product-barcode" required>
 
             <label for="">Quantity:</label>
-            <input type="text" id="edit-product-quantity">
+            <input type="text" id="edit-product-quantity" required>
 
             <label for="">Reorder Point:</label>
-            <input type="text" id="edit-product-reorder-point">
+            <input type="text" id="edit-product-reorder-point" required>
 
             <label for="">Original Price:</label>
-            <input type="text" id="edit-product-original-price">
+            <input type="text" id="edit-product-original-price" required>
 
             <label for="">Selling Price:</label>
-            <input type="text" id="edit-product-selling-price">
+            <input type="text" id="edit-product-selling-price" required>
 
             <label for="">Status:</label>
-            <select name="" id="edit-product-status">
+            <select name="" id="edit-product-status" required>
                 <option value="active">active</option>
                 <option value="inactive">inactive</option>
             </select>
 
             <label for="edit-product-supplier">Supplier:</label>
-            <select name="edit-product-supplier" id="edit-product-supplier"></select>
+            <select name="edit-product-supplier" id="edit-product-supplier" required></select>
                        
             <button id="save-edit-product-button">Save</button>
         </div>

@@ -13,13 +13,24 @@ document.addEventListener('DOMContentLoaded', function(){
 
 
     // FOR EDIT PRODUCT
-    const editProductExitButton = document.getElementById('product-edit-exit-button');
+    const editProductExitButton = document.getElementById('edit-product-exit-button');
     const editProductModalCon = document.querySelector('.edit-product-modal-container');
     const editProductSaveButton = document.getElementById('save-edit-product-button');
     const editProductSelectBrand = document.getElementById('edit-product-brand');
     const editProductSelectCategory = document.getElementById('edit-product-category');
     const editProductSelectSubcategory= document.getElementById('edit-product-subcategory');
-    const editProductSelectSupplier = document.getElementById('edit-product-supplier');
+    const editProductSelectSupplier = document.getElementById('edit-product-select-supplier');
+
+      //tO SEARCH pRODUCT  
+  const searchForm = document.getElementById('search-form');
+  const searchInput = document.getElementById('search-input');
+  const productListTableBody = document.querySelector('#onhand-inventory-table tbody');
+
+   // FOR SUBCATEGORY TABLE
+   const SelectCategoryOnSubcategoryTable = document.getElementById('select-product-by-category');
+
+  
+
 
 
 /************| FOR CALLING THE FUNCTIONS |**************** */
@@ -28,6 +39,7 @@ fetchSelectCategoryAddProduct();
 fetchSelectSubcategoryAddProduct();
 fetchSelectSupplierAddProduct();
 fetchProductData();
+fetchCategoryDataForSelectCategory();
 
  /**======================| FOR ADD PRODUCT |=============================== */
 
@@ -162,7 +174,7 @@ fetchProductData();
     }
     // Populate select supplier for adding product
     function populateSelectSupplierAddProduct(suppliers) {
-        suppliers.forEach(supplier => {
+        suppliers.forEach(supplier => {  
             const supplierOption = document.createElement('option');
             supplierOption.innerHTML = supplier.supplier_name;
             supplierOption.value = supplier.supplier_id;
@@ -178,19 +190,6 @@ fetchProductData();
             editProductSelectSupplier.appendChild(supplierOption);
         });
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -258,10 +257,39 @@ function addProduct() {
         alert("An error occurred while adding the product.");
     });
 }
+
+
+/* ====================| FOR SEARCHING PRODUCT |=================================== */
+
+  searchForm.addEventListener('submit', event => {
+    event.preventDefault(); // Prevent the form from submitting traditionally
+
+    const searchTerm = searchInput.value.trim().toLowerCase(); // Get and normalize the search term
+    filterProducts(searchTerm);
+  });
+
+  // Function to filter products based on the search term
+  function filterProducts(searchTerm) {
+    const rows = Array.from(productListTableBody.querySelectorAll('tr')); // Convert NodeList to Array
+    rows.forEach(row => {
+      const productName = row.cells[1].textContent.toLowerCase(); // Assuming product name is in the second cell
+      if (!productName.includes(searchTerm)) {
+        productListTableBody.removeChild(row); // Remove row if it doesn't match the search term
+      }
+    });
+  }
+
+
+
+
+
 /**==========================| FOR DISPLAYING PRODUCT |=============================================== */
  // DISPLAY PRODUCTS
- function fetchProductData() {
-    fetch('../handler/inventory/onhand-product/retrieve-products.php')
+ function fetchProductData(categoryId = null ) {
+    const url = categoryId
+    ? `../handler/inventory/onhand-product/retrieve-products.php?category_id=${categoryId}`
+    : '../handler/inventory/onhand-product/retrieve-products.php';
+    fetch(url)
         .then(response => {
             if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
             return response.json();
@@ -305,9 +333,9 @@ function addProduct() {
             `;
             onhandProductListTable.appendChild(row);
         });
-       // attachProductActionListeners();
+        attachProductActionListeners();
     }
-/*
+
     function attachProductActionListeners() {
         document.querySelectorAll('.product-edit-button').forEach(button =>
             button.addEventListener('click', handleEditProduct)
@@ -317,6 +345,218 @@ function addProduct() {
 
         );
     }
-*/
+
+/* ====================| FOR SELECTING PRODUCT BY SELECTED CATEGORY |=================================== */
+// Fetch and populate categories in dropdown
+function fetchCategoryDataForSelectCategory() {
+    fetch('../handler/records/category/retrieve-category.php')
+        .then(response => {
+            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+            return response.json();
+        })
+        .then(data => {
+            if (data.length === 0) {
+                console.warn('No category data found.');
+            } else {
+                populateSelectCategoryOnSubcategoryTable(data);
+            }
+        })
+        .catch(error => console.error('Error fetching category data:', error));
+}
+
+function populateSelectCategoryOnSubcategoryTable(categories) {
+    // Optional: Add default option
+    const defaultOption = document.createElement('option');
+    defaultOption.text = 'All Categories';
+    defaultOption.value = '';
+    SelectCategoryOnSubcategoryTable.appendChild(defaultOption);
+
+    categories.forEach(category => {
+        const option = document.createElement('option');
+        option.text = category.category_name;
+        option.value = category.category_id;
+        SelectCategoryOnSubcategoryTable.appendChild(option);
+    });
+}
+
+// Attach change event
+SelectCategoryOnSubcategoryTable.addEventListener('change', function () {
+    const selectedCategoryId = this.value;
+    fetchProductData(selectedCategoryId || null);
+});
+
+// Init
+document.addEventListener('DOMContentLoaded', () => {
+    fetchCategoryDataForSelectCategory();
+    fetchProductData();
+});
+/**************************| EDITING PRODUCT  |*******************************************/
+    // Handle category editing
+    function handleEditProduct(event) {
+        const productId = event.currentTarget.dataset.id;
+        console.log("Product Id : "+productId)
+         
+        fetch(`../handler/inventory/product-details.php?id=${productId}`)
+            .then(response => response.json())
+            .then(product => {
+            if (product.error) {
+                console.error('Error fetching product details:', product.error);
+                return;
+            }
+            
+            displayEditProductDetails(product);
+            })
+            .catch(error => console.error('Error fetching product details:', error));
+        }
+    
+        function displayEditProductDetails(product) {
+        
+        document.getElementById('edit-product-id').value = product.id; // Set product_id
+        document.getElementById('edit-product-name').value = product.product_name;
+        document.getElementById('edit-product-barcode').value = product.barcode; // Set product_id
+        document.getElementById('edit-product-brand').value = product.brand_name; // Set product_id
+        document.getElementById('edit-product-category').value = product.category_name;
+        document.getElementById('edit-product-subcategory').value = product.subcategory_name; // Set product_id
+        document.getElementById('edit-product-original-price').value = product.original_price;
+        document.getElementById('edit-product-selling-price').value = product.selling_price; // Set product_id
+        document.getElementById('edit-product-quantity').value = product.quantity;
+        document.getElementById('edit-product-reorder-point').value = product.reorder_point; // Set product_id
+        editProductSelectSupplier.value = product.supplier_name;
+     
+        editProductModalCon.style.display = 'flex';
+        }
+   
+// Listen for save button click to save the edited supplier
+editProductSaveButton.addEventListener('click', function (event) {
+    event.preventDefault();
+    console.log("Button clicked")
+    // Gather all the input field values into an object
+    const form = document.getElementById('edit-product-form');
+
+    if (!form.checkValidity()) {
+        form.reportValidity(); // show native validation errors
+        return;
+    }
+    const productDetails = {
+        product_id: document.getElementById('edit-product-id').value,
+        product_name: document.getElementById('edit-product-name').value.trim(),
+        barcode: document.getElementById('edit-product-barcode').value.trim(),
+        brand_id: document.getElementById('edit-product-brand').value,
+        category_id: document.getElementById('edit-product-category').value.trim(),
+        subcategory_id: document.getElementById('edit-product-subcategory').value.trim(),
+        original_price: document.getElementById('edit-product-original-price').value.trim(),
+        selling_price: document.getElementById('edit-product-selling-price').value.trim(),
+        quantity: document.getElementById('edit-product-quantity').value.trim(),
+        reorder_point: document.getElementById('edit-product-reorder-point').value.trim(),
+        status: document.getElementById('edit-product-status').value.trim(),
+        supplier_id: document.getElementById('edit-product-select-supplier').value.trim()   
+    };
+    
+    // Send a POST request to the PHP handler to save the data
+    fetch('../handler/inventory/edit-product-handler.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(productDetails),
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert('Product updated successfully!');
+            editProductModalCon.style.display = 'none';
+            fetchProductData(); // Assuming this function fetches and updates the supplier data
+        } else {
+            alert(`Error: ${data.message}`);
+        }
+    })
+    .catch(error => console.error('Error during fetch:', error));
+    });
+    
+    // Listen for exit button to close the modal
+    editProductExitButton .addEventListener('click', function () {
+    editProductModalCon.style.display = 'none';
+    });
+    
+ /***************************| FOR DELETE PRODUCT |***********************************/
+const deleteProductModal = document.querySelector('.delete-product-modal-container');
+const deleteProductYesButton = document.querySelector('#delete-product-yes-button');
+const cancelDeleteProductButton = document.querySelector('#delete-product-no-button');
+
+
+let productId = null;  // Define productId globally for the delete process
+
+// Handle product deletion
+function handleDeleteProduct(event) {
+  productId = event.currentTarget.dataset.id;  // Get the product ID from the button's data-id attribute
+  console.log(productId);
+
+  fetch(`../handler/inventory/product-details.php?id=${productId}`)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Failed to fetch product details');
+      }
+      return response.json(); // Parse JSON if response is okay
+    })
+    .then(product => {
+      if (product.error) {
+        console.error('Error fetching product details for deleting product:', product.error);
+        return;
+      }
+      displayDeleteProductDetails(product);
+    })
+    .catch(error => console.error('Error fetching product details:', error));
+}
+
+// Display product details for deletion
+function displayDeleteProductDetails(product) {
+  deleteProductModal.style.display = 'flex';
+  document.querySelector('#delete-product-name').textContent = product.product_name;
+}
+
+// Confirm delete product
+deleteProductYesButton.addEventListener('click', function () {
+  console.log(productId);
+  if (!productId) {
+    console.error('Product ID is not defined.');
+    return;
+  }
+
+  fetch('../handler/inventory/delete-product-handler.php', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    body: `id=${productId}`  // Send the product ID as part of the body
+  })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Failed to delete product');
+      }
+      return response.text();  // Read as text to inspect raw response
+    })
+    .then(text => {
+      try {
+        const data = JSON.parse(text);
+        if (data.success) {
+          alert(data.success);
+          window.location.reload();
+        } else {
+          alert(data.error);
+        }
+      } catch (error) {
+        console.error('Response not JSON:', text);
+        alert('Something went wrong');
+      }
+    })
+    .catch(error => console.error('Error:', error));
+});
+
+// Cancel delete product
+cancelDeleteProductButton.addEventListener('click', function () {
+  deleteProductModal.style.display = 'none'; 
+});
+
+
+
+
 
 }); 

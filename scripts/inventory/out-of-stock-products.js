@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function(){
     
     //ON HAND PRODUCT LIST DISPLAY
-    const lowStockProductListTable = document.getElementById('low-stock-inventory-table');
+    const outStockProductListTable = document.getElementById('out-stock-inventory-table');
 
     // FOR ADDING PRODUCT 
     const addProductModalCon = document.querySelector('.add-product-modal-container');
@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', function(){
   const productListTableBody = document.querySelector('#onhand-inventory-table tbody');
 
    // FOR SUBCATEGORY TABLE
-   const SelectCategoryOnLowStockTable = document.getElementById('select-low-stock-product-by-category');
+   const SelectCategoryOnOutStockTable = document.getElementById('select-out-stock-product-by-category');
 
   
 
@@ -287,8 +287,8 @@ function addProduct() {
  // DISPLAY PRODUCTS
  function fetchProductData(categoryId = null ) {
     const url = categoryId
-    ? `../handler/inventory/low-stock-product/retrieve-low-stock-products.php?category_id=${categoryId}`
-    : '../handler/inventory/low-stock-product/retrieve-low-stock-products.php';
+    ? `../handler/inventory/out-stock-product/retrieve-out-stock-products.php?category_id=${categoryId}`
+    : '../handler/inventory/out-stock-product/retrieve-out-stock-products.php';
     fetch(url)
         .then(response => {
             if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
@@ -306,7 +306,7 @@ function addProduct() {
 
     // Populate supplier table
     function populateProductTable(products) {
-        lowStockProductListTable.querySelectorAll('tr:not(:first-child)').forEach(row => row.remove());
+        outStockProductListTable .querySelectorAll('tr:not(:first-child)').forEach(row => row.remove());
 
         products.forEach(product => {
             const row = document.createElement('tr');
@@ -331,7 +331,7 @@ function addProduct() {
                     </button>
                 </td>
             `;
-            lowStockProductListTable.appendChild(row);
+            outStockProductListTable.appendChild(row);
         });
        attachProductActionListeners();
     }
@@ -369,18 +369,18 @@ function populateSelectCategoryOnLowStockTable(categories) {
     const defaultOption = document.createElement('option');
     defaultOption.text = 'All Categories';
     defaultOption.value = '';
-    SelectCategoryOnLowStockTable.appendChild(defaultOption);
+    SelectCategoryOnOutStockTable.appendChild(defaultOption);
 
     categories.forEach(category => {
         const option = document.createElement('option');
         option.text = category.category_name;
         option.value = category.category_id;
-        SelectCategoryOnLowStockTable.appendChild(option);
+        SelectCategoryOnOutStockTable.appendChild(option);
     });
 }
 
 // Attach change event
-SelectCategoryOnLowStockTable.addEventListener('change', function () {
+SelectCategoryOnOutStockTable.addEventListener('change', function () {
     const selectedCategoryId = this.value;
     fetchProductData(selectedCategoryId || null);
 });

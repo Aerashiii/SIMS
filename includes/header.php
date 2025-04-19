@@ -50,6 +50,7 @@
             echo '<script src="../scripts/inventory/inventory.js"></script>';
             echo '<script src="../scripts/inventory/onhand-product-list.js"></script>';
             echo '<script src="../scripts/inventory/low-stock-product.js"></script>';
+            echo '<script src="../scripts/inventory/out-of-stock-products.js"></script>';
             break;
         // IF THE CURRENT PAGE IS POINT OF SALE, THEN LINK THE CSS AND SCRIPT OF THE POINT OF SALE PAGE
         case 'pos':

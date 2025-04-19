@@ -112,6 +112,52 @@
     border-bottom: 1px solid;
     font-size: 0.8rem;
 }
+
+/* Search */
+.search-container {
+    display: flex;
+    align-items: center;
+    border: 1px solid #99BC85; /* Light green border */
+    border-radius: 13px; /* Rounded edges */
+    overflow: hidden;
+    width: 300px; /* Updated width */
+    height: 31px; /* Updated height */
+    background-color: #B2CF9B;
+    position: relative;
+   
+    
+}
+#search-input[type="text"] {
+    padding: 10px 15px;
+    border: none;
+    outline: none;
+    flex: 1;
+    font-size: 14px;
+    background: transparent;
+    color: #000000; /* Text color */
+    background-color: #ffffff;
+
+}
+
+.search-container input[type="text"]::placeholder {
+    color: #99BC85; /* Placeholder text color */
+}
+
+
+#search-submit-button {
+    background-color: #B2CF9B; /* Dark green button */
+    color: #000000;
+    font-weight: bold;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+}
+
+#search-submit-button:hover {
+    background-color: #B2CF9B;
+    color: white;
+}
+
 /*************| LOW STOCK INVENTORY |***************/
 /*| #4 |*/
 #low-stock-inventory-content-container.active{
@@ -133,6 +179,7 @@
 #low-stock-inventory-table th{
     padding: 10px 0;
     border-bottom: 1px solid;
+    font-size: 0.8rem;
 }
 #low-stock-action-text{
     margin:0;
@@ -153,6 +200,7 @@
 #low-stock-inventory-table td{
     padding: 5px 0;
     border-bottom: 1px solid;
+    font-size: 0.8rem;
     
 
 }
@@ -172,10 +220,12 @@
     width:100%;
     border:1px solid;
     border-collapse: collapse;
+    text-align: center;
 }
 #out-stock-inventory-table th{
     padding: 10px 0;
     border-bottom: 1px solid;
+    font-size: 0.8rem;
 }
 #out-stock-action-text{
     margin:0;
@@ -196,6 +246,7 @@
 #out-stock-inventory-table td{
     padding: 5px 0;
     border-bottom: 1px solid;
+    font-size: 0.8rem;
 }
 /**************| STOCK IN STOCK INVENTORY |**************/
 /*| #5 |*/
@@ -333,45 +384,165 @@
     margin-top:10px;
 }
 
-/* Search */
-.search-container {
+
+
+
+
+/**********| FOR EDITING PRODUCT |***************/
+.edit-product-modal-container{
+    width:100%;
+    height:100vh;
+    position:fixed;
+    z-index: 60;
+    background-color: rgba(0, 0, 0, 0.418);
+    align-items: center;
+    justify-content: center;
+    top:0;
+    display:none;
+}
+.edit-product-modal{
+    background-color: #ffffff;
+    padding:20px;
+    padding-top:5px;
+    border-radius:10px;
+    width:50%;
+}
+.edit-product-modal h2{
+    color:#99BC85;
+}
+
+
+#edit-product-exit-button{
+    border-radius: 50%;
+    padding:5px;
+    border:1px solid;
     display: flex;
     align-items: center;
-    border: 1px solid #99BC85; /* Light green border */
-    border-radius: 13px; /* Rounded edges */
-    overflow: hidden;
-    width: 300px; /* Updated width */
-    height: 31px; /* Updated height */
-    background-color: #ffffff;
-    position: relative;
-    margin-left: 280px;
-    
+    justify-content: center;
+    cursor: pointer;
+    float: right;
 }
-.search-container input[type="text"] {
-    padding: 10px 15px;
-    border: none;
-    outline: none;
-    flex: 1;
-    font-size: 14px;
-    background: transparent;
-    color: #000000; /* Text color */
+#product-edit-exit-button:hover{
+    border-color: red;
 }
-
-.search-container input[type="text"]::placeholder {
-    color: #99BC85; /* Placeholder text color */
+.edit-product-modal h2{
+    text-align: center;
+    margin-top:30px;
 }
-
-
-.search-container button {
-    background-color: #B2CF9B; /* Dark green button */
-    color: #000000;
+.edit-product-details-container{
+    display: flex;
+    flex-direction: column;
+  
+}
+.edit-product-details-container label{
+    color:#727272;
     font-weight: bold;
-    border: none;
-    padding: 10px 15px;
+}
+.edit-product-details-container div{
+    display: flex;
+  gap:10px;
+
+}
+input:focus {
+    border: 1px solid #99BC85; 
+    outline: none; 
+    border-radius: 4px;
+  }
+.edit-category-container,
+.edit-subcategory-container,
+.edit-original-price-container,
+.edit-selling-price-container,
+.edit-quantity-container,
+.edit-reorder-point-container{
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    width: 100%;     
+    gap:0!important;
+}
+
+.edit-category-container select,
+.edit-subcategory-container select,
+.edit-original-price-container input,
+.edit-selling-price-container input,
+.edit-quantity-container input,
+.edit-reorder-point-container input{
+    height:2rem;
+    padding:5px;
+    margin:0;
+}
+.edit-product-details-container label{
+    margin-top:10px;
+}
+#edit-product-name,
+#edit-product-select-supplier,
+#edit-product-brand,
+#edit-product-barcode{
+    height:2rem;
+    padding:5px;
+}
+
+#save-edit-product-button{
+    margin-top:25px;
+    height: 2rem;
+    font-weight: bold;
     cursor: pointer;
 }
 
-.search-container button:hover {
-    background-color: #99BC85;
-    color: white;
+/**********| FOR DELETING product |***************/
+.delete-product-modal-container{
+    top:0;
+    width:100%;
+    height: 100vh;
+    position:fixed;
+    z-index:100;
+    background-color: rgba(0, 0, 0, 0.301); 
+    justify-content:center;
+    align-items:center;
+    display:none;
+}
+.delete-product-modal{
+    
+    padding:30px;
+    background-color: #ffffff;
+    border-radius:5px;  
+    text-align: center;
+}
+#delete-product-name{
+    color:#000a29;
+    font-weight: bold;
+    
+   
+}
+.product-delete-yes-and-no-button{
+    display: flex;
+    gap:10px;
+    justify-content: center;
+}
+#delete-product-yes-button,
+#delete-product-no-button{
+    padding: 5px 15px;
+    border-radius: 5px;
+    margin-top: 50px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border:none;
+    cursor: pointer;
+    width: 80px;
+    color:#ffffff;
+}
+#delete-product-yes-button{
+    background-color: red;
+}
+#delete-product-no-button{
+    background-color: #000c75;
+}
+#delete-product-yes-button:hover {
+    font-size: 1.3rem;
+
+}
+
+#delete-product-no-button:hover {
+    font-size: 1.3rem;
+
 }

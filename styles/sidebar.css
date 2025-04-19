@@ -2,9 +2,9 @@
     border: 1px solid; /*Temporary*/
     border-color:#dfdfdf;
     border-top: #ffffff;
-    width: 230px;
+    width: 13%;
     height: 88vh;
-    padding: 20px 0px 0px 35px;
+    padding: 20px 0px 0px 10px;
     position: fixed;
     margin-top:12vh;
     overflow-y: auto;
