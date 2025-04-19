@@ -5,7 +5,7 @@
 .pos-main-container{
     width:100%;
     /* Ensure the width is valid and does not exceed 100% */
-    height: 80vh;
+    height: auto;
     padding:10px;
     background-color: #E1F0DA;
     
@@ -143,13 +143,12 @@
 .receipt-preview-container{
     border:1px solid #99BC85;
     width:35%;
-    height: 100%;
+    height: auto;
     background-color: #ffffff;
     padding:0px 20px 20px 20px;
 }
 .receipt-preview-content-container{
     width:100%;
-    height:98%;
     border:1px solid #99BC85;
     background-color:#E1F0DA;
     padding:20px;
@@ -169,12 +168,46 @@
     flex-direction: column;
 }
 .transaction-details-container div{
-    padding:10px 0;
+    padding:5px 0;
     display: flex;
     align-items: center;
     justify-content:space-between;
     width:100%;
     
+}
+.pos-product-sales-receipt-container{
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 5px 0;
+    width:100%;
+   
+}
+.pos-product-total-sales-container{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px 0;
+    width:100%;
+}
+#pos-product-sales-receipt-table {
+    border: 1px solid #99BC85;
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+#pos-product-sales-receipt-table td:first-child {
+    text-align: left;
+}
+
+#pos-product-sales-receipt-table td:nth-child(2) {
+    text-align: center;
+}
+
+#pos-product-sales-receipt-table td:nth-child(3) {
+    text-align: right;
 }
 .customer-information-container{
     margin-top:20px;
@@ -203,23 +236,7 @@
     padding:5px;
 }
 
-#receipt-preview-print-button{
-    padding: 10px;
-    border: 1px solid #629469;
-    background-color: #99BC85;
-    border-radius: 10px;
-    font-weight: bold;
-    cursor: pointer;  
-    margin-top: 100px;
-    width:100%;
-}
-#receipt-preview-print-button:hover{
-    background-color: #71af4c;
 
-
-
-
-}
 /***************| PRODUCT SELECTION STYLES |***************/
 .pos-product-selection-modal-container{
     display: none;

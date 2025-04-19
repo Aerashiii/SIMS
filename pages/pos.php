@@ -49,7 +49,7 @@ if (!isset($_SESSION['user'])) {
                     </div>
                     <div class="pos-shopping-cart-subtotal-container" >
                         <label for="">Sub Total:</label>
-                        <span id="pos-shopping-sub-total">12323</span>
+                        <span id="pos-shopping-sub-total"></span>
                     </div>
                     <div class="pos-info-buttons-container">
                         <div>
@@ -83,13 +83,16 @@ if (!isset($_SESSION['user'])) {
                     </div>
                     <h4 id="h4-store-name">General's Space Rent</h4>
                     <div class="transaction-details-container">
-                        <div>
-                            <label for="">Total Items:</label>
-                            <span>12</span>
+                        <div class="pos-product-sales-receipt-container">
+                            <div class="pos-product-total-sales-container">
+                                <label for="">Total Items:</label>
+                                <span id="pos-receipt-total-items"></span>                             
+                            </div>                          
+                            <table id="pos-product-sales-receipt-table"><tbody></tbody></table>
                         </div>
                         <div>
                             <label for="">Total:</label>
-                            <span>123213</span>
+                            <span id="pos-receiptt-total-sales-amount"></span>
                         </div>
                         <div>
                             <label for="">Payment Method:</label>
@@ -97,11 +100,11 @@ if (!isset($_SESSION['user'])) {
                         </div>
                         <div>
                             <label for="">Amount Recieved:</label>
-                            <span>500</span>
+                            <span id="pos-receipt-amount-received"></span>
                         </div>
                         <div>
                             <label for="">Change:</label>
-                            <span>23</span>
+                            <span id="pos-receipt-change-amount"></span>
                         </div>
                     </div>
                     <div class="customer-information-container">
@@ -115,7 +118,7 @@ if (!isset($_SESSION['user'])) {
                             <input type="text">
                         </div>                    
                     </div>                  
-                    <button id="receipt-preview-print-button">Print Receipt</button>                   
+                                    
                 </div>                
             </div>
         </div>
@@ -141,7 +144,7 @@ if (!isset($_SESSION['user'])) {
                                 <th>Barcode</th>
                                 <th>Price</th>
                                 <th>Action</th>                          
-                            </tr>\
+                            </tr>
                         </thead>
                         <tbody>
                             <!-- JS inserts rows here -->   

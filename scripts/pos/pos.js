@@ -4,9 +4,15 @@ document.addEventListener('DOMContentLoaded', function () {
     const productSelectionModalCloseButton = document.getElementById('pos-product-selection-exit-button');
     const productSelectionTable = document.getElementById('pos-product-selection-table').querySelector('tbody');
     const cartTableBody = document.getElementById('pos-shopping-cart-table').querySelector('tbody');
+    const receiptTableBody = document.getElementById('pos-product-sales-receipt-table').querySelector('tbody');
+
     const subTotalEl = document.getElementById('pos-shopping-sub-total');
     const amountReceivedInput = document.getElementById('pos-input-amount-recieved');
     const changeEl = document.getElementById('pos-shopping-change');
+    
+    const receiptTotalEl = document.getElementById('pos-receiptt-total-sales-amount');
+    const receiptAmountReceivedEl = document.getElementById('pos-receipt-amount-received');
+    const receiptChangeEl = document.getElementById('pos-receipt-change-amount');
 
     let cart = [];
 
@@ -58,28 +64,32 @@ document.addEventListener('DOMContentLoaded', function () {
                 const barcode = btn.dataset.barcode;
                 const price = parseFloat(btn.dataset.price);
 
-                const found = cart.find(item => item.barcode === barcode);
-                if (found) {
-                    found.quantity++;
-                    found.total = found.quantity * found.price;
+                const existing = cart.find(item => item.barcode === barcode);
+                if (existing) {
+                    existing.quantity++;
+                    existing.total = existing.quantity * existing.price;
                 } else {
                     cart.push({ name, barcode, price, quantity: 1, total: price });
                 }
 
-                updateCartTable();
-                // Do NOT close modal
+                renderCart();
+               // productSelectionModal.style.display = 'none';
             });
         });
     }
 
-    function updateCartTable() {
+    function renderCart() {
         cartTableBody.innerHTML = '';
-        let subtotal = 0;
+        receiptTableBody.innerHTML = '';
+
+        let subTotal = 0;
 
         cart.forEach((item, index) => {
-            subtotal += item.total;
-            const row = document.createElement('tr');
-            row.innerHTML = `
+            subTotal += item.total;
+
+            // Cart table
+            const cartRow = document.createElement('tr');
+            cartRow.innerHTML = `
                 <td>${item.name}</td>
                 <td>${item.barcode}</td>
                 <td>${item.price.toFixed(2)}</td>
@@ -87,24 +97,38 @@ document.addEventListener('DOMContentLoaded', function () {
                 <td>${item.total.toFixed(2)}</td>
                 <td><button onclick="removeCartItem(${index})">Remove</button></td>
             `;
-            cartTableBody.appendChild(row);
+            cartTableBody.appendChild(cartRow);
+
+            // Receipt table
+            const receiptRow = document.createElement('tr');
+            receiptRow.innerHTML = `
+                <td>${item.name}</td>
+                <td>${item.quantity}</td>
+                <td>${item.total.toFixed(2)}</td>
+            `;
+            receiptTableBody.appendChild(receiptRow);
         });
 
-        subTotalEl.textContent = subtotal.toFixed(2);
+        subTotalEl.textContent = subTotal.toFixed(2);
+        receiptTotalEl.textContent = subTotal.toFixed(2);
         calculateChange();
     }
 
-    window.removeCartItem = function (index) {
-        cart.splice(index, 1);
-        updateCartTable();
-    }
-
     function calculateChange() {
-        const amountReceived = parseFloat(amountReceivedInput.value);
-        const subtotal = parseFloat(subTotalEl.textContent);
-        const change = isNaN(amountReceived) ? 0 : amountReceived - subtotal;
-        changeEl.textContent = change >= 0 ? change.toFixed(2) : '0.00';
+        const subTotal = parseFloat(subTotalEl.textContent) || 0;
+        const received = parseFloat(amountReceivedInput.value) || 0;
+        const change = received - subTotal;
+
+        changeEl.textContent = change.toFixed(2);
+        receiptAmountReceivedEl.textContent = received.toFixed(2);
+        receiptChangeEl.textContent = change.toFixed(2);
     }
 
     amountReceivedInput.addEventListener('input', calculateChange);
+
+    // Remove item from cart
+    window.removeCartItem = function(index) {
+        cart.splice(index, 1);
+        renderCart();
+    };
 });
