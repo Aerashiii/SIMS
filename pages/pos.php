@@ -1,5 +1,5 @@
 <!-- | ALL SALES CONTENT ONLY HERE |-->
-
+<!-- pos.php -->
 <?php 
 session_start();
 
@@ -8,18 +8,13 @@ if (!isset($_SESSION['user'])) {
     header('Location: login.php');
     exit;
 }
-
     $page ='pos'; //ASSIGNS THE NAME OF THE PAGE. THIS PAGE IS NAMED 'SALES' AND IS USED IN THE HEADER.PHP FILE.
     require '../includes/header.php'; //REQUIRES THE HEADER.PHP, FOR YOU CAN APPLY THE CSS,SCRIPT,SIDEBAR, AND TOPNAV ON THIS PAGE.
 ?>
-
-
 <main class="pos-main-content-container"><!-- | THE STYLES FOR THIS CONTAINER ARE DEFINED IN GLOBAL.CSS TO STANDARDIZE THE STYLE OF THE MAIN CONTAINER ACROSS ALL PAGES |-->
     <!-- | your code here |-->
-
     <div class="pos-main-container">
         <h1>Point Of Sale</h1>
-
         <!--| FOR SHOPPING CART AND RECIEPT PREVIEW |-->
         <div class="pos-sub-container">
             <!--| SHOPPING CART |-->
@@ -69,8 +64,8 @@ if (!isset($_SESSION['user'])) {
                         </div>
                     </div>
                     <div class="pos-transaction-process-and-cancel-button-container">
-                        <button>Process Payment</button>
-                        <button>Cancel Transaction</button>
+                        <button id="pos-transaction-process-button">Process Payment</button>
+                        <button id="pos-transaction-cancel-button">Cancel Transaction</button>
                     </div>                    
                 </div>               
             </div>
@@ -78,8 +73,9 @@ if (!isset($_SESSION['user'])) {
             <div class="receipt-preview-container">
                 <h4>Receipt Preview:</h4>
                 <div class="receipt-preview-content-container">
-                    <div class="receipt-preview-date-container">                       
-                        <span>December 12 2023</span>
+
+                    <div class="pos-receipt-datetime-container">
+                        <p><?php echo date(' M j, Y |  h:i A'); ?></p>
                     </div>
                     <h4 id="h4-store-name">General's Space Rent</h4>
                     <div class="transaction-details-container">
@@ -91,8 +87,8 @@ if (!isset($_SESSION['user'])) {
                             <table id="pos-product-sales-receipt-table"><tbody></tbody></table>
                         </div>
                         <div>
-                            <label for="">Total:</label>
-                            <span id="pos-receiptt-total-sales-amount"></span>
+                            <label for="" class="pos-receipt-total-label">Total:</label>
+                            <span id="pos-receipt-total-sales-amount"></span>
                         </div>
                         <div>
                             <label for="">Payment Method:</label>
@@ -154,5 +150,68 @@ if (!isset($_SESSION['user'])) {
             </div>
         </div>        
     </div>
+<!-- | MODAL FOR PROCESSING PAYMENT |-->
+<!-- | THIS MODAL IS FOR PROCESSING PAYMENT. IT WILL SHOW UP WHEN THE USER CLICKS THE PROCESS PAYMENT BUTTON |-->
+    <div class="pos-sales-process-modal-container">
+        <div class="pos-sales-process-container">
+            <div class="pos-sales-process-header-container">
+                <h4>Process Payment</h4>
+                <span class="exit-icon" id="pos-sales-process-exit-button">&times;</span>
+            </div>  
+            <div class="pos-sales-process-content-container">
+                <div class="pos-sales-process-table-container">
+                    <table id="pos-sales-process-table">
+                        <thead>
+                            <tr>
+                                <th>Product Name</th>
+                                <th>Barcode</th>
+                                <th>Price</th>
+                                <th>Quantity</th>
+                                <th>Total</th>                          
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- JS inserts rows here -->   
+                        </tbody>                
+                    </table>
+                </div> 
+                <div class="pos-sales-process-subtotal-container" >
+                    <label for="">Sub Total:</label>
+                    <span id="pos-sales-sub-total"></span>
+                </div> 
+                <div class="pos-sales-process-cash-amount-container" >
+                    <label for="">Cash Amount:</label>
+                    <span id="pos-sale-cash-amount"></span>
+                </div>
+                <div class="pos-sales-process-total-change-container" >
+                    <label for="">Change:</label>
+                    <span id="pos-sale-change-amount"></span>
+                </div>
+                <div class="pos-sales-process-buttons-container">
+                    <button id="pos-sales-process-confirm-button">Confirm Payment</button>
+                    <button id="pos-sales-process-cancel-button">Cancel Payment</button>
+                </div> 
+            </div>            
+        </div>
+    </div>
+
+ 
+        <div class="pos-sales-success-modal-container">
+            <div class="pos-sales-success-container">
+                <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-circle feather-40" id="pos-transact-success-icon">
+                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                </svg>
+                <h4>Transaction Success</h4>
+                <p>Transaction has been successfully processed.</p>
+                <div class="pos-sales-success-buttons-container">
+                    <button id="pos-transact-print-receipt-button">Print receipt</button>
+                    <button id="pos-transact-next-order-button">Next Order</button>
+               </div>
+                
+            </div>
+        </div>
+
+
 
 </main>

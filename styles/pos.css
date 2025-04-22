@@ -117,9 +117,9 @@
 }
 #change{
     border-bottom:1px solid #99BC85;
-    height:1.6rem;
+    height:1.4rem;
     padding:3px;
-    width:50%;
+    width:50% !important;
 }
 .pos-transaction-process-and-cancel-button-container{
     padding:30px 0;
@@ -143,7 +143,7 @@
 .receipt-preview-container{
     border:1px solid #99BC85;
     width:35%;
-    height: auto;
+  
     background-color: #ffffff;
     padding:0px 20px 20px 20px;
 }
@@ -154,9 +154,8 @@
     padding:20px;
     padding-top: 10px !important;
 }
-.receipt-preview-date-container{
-    display: flex;
-    align-items: center;
+.pos-receipt-datetime-container{
+    font-size: 0.7rem;
 }
 #h4-store-name{
     text-align: center;
@@ -182,6 +181,7 @@
     justify-content: space-between;
     padding: 5px 0;
     width:100%;
+    border-bottom: 1px solid #99BC85;
    
 }
 .pos-product-total-sales-container{
@@ -192,7 +192,7 @@
     width:100%;
 }
 #pos-product-sales-receipt-table {
-    border: 1px solid #99BC85;
+
     width: 100%;
     border-collapse: collapse;
     text-align: left;
@@ -214,6 +214,20 @@
     display: flex;
     flex-direction: column;
     gap:10px;
+}
+.pos-receipt-total-label{
+    font-weight: bold;
+    font-size: 1.1rem;
+    color: #000000 !important;
+    text-align: center;
+    padding: 5px 0;
+}
+#pos-receiptt-total-sales-amount{
+    font-weight: bold;
+    font-size: 1.1rem;
+    color: #000000 !important;
+    text-align: center;
+    padding: 5px 0;
 }
 .name-container{
     display: flex;
@@ -379,4 +393,158 @@
     border-radius: 5px;
     width:100%;
     font-size:1.2rem;
+}
+
+/************************| PROCESS PAYMENT |********************************/
+.pos-sales-process-modal-container{
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    padding: 20px 0;
+    position: absolute;
+    z-index: 50;
+    top: 0;
+    left: 0;
+    margin: 0;
+    width:100vw;
+    height:100vh;
+    background-color: #0000001e;
+}
+.pos-sales-process-container{
+    width:50%;
+    height:auto;
+    background-color: #ffffff;
+    padding:20px;
+    border-radius:10px;
+}
+.pos-sales-process-header-container{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 10px;
+}
+#pos-sales-process-exit-button{       
+    background-color: #bdbdbd8e;
+    border-radius: 50%;
+    font-weight: bold;
+    cursor: pointer;  
+   padding: 0 7px;
+    font-size: 1.5rem;
+}
+/*******| FOR PROCESS TABLE SECTION |********/
+.pos-sales-process-table-container{
+    width:100%;
+    height:250px;
+    overflow: auto;
+    border:1px solid #99BC85;
+    overflow: auto;
+}
+#pos-sales-process-table{
+    border:1px solid #99BC85;
+    width:100%;
+    border-collapse:collapse;
+    text-align: center;
+}
+#pos-sales-process-table th{
+    padding:8px;
+    position: sticky;
+    z-index:5;
+    top:0;
+    background-color:#E1F0DA;
+}
+/******| FOR SUBTOTAL, CASH AMOUNT, AND CHANGE SECTION |**********/
+.pos-sales-process-subtotal-container,
+.pos-sales-process-cash-amount-container,
+.pos-sales-process-total-change-container{
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content:space-between ;
+   
+}
+.pos-sales-process-buttons-container{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0;
+    gap: 20px;
+}
+.pos-sales-process-buttons-container button{
+    padding:10px;
+    border:1px solid #629469;
+    background-color: #99BC85;
+    border-radius:10px;
+    font-weight: bold;
+    cursor: pointer;
+
+}
+/***************| POS TRANSACTION SUCCESS MODAL |*******************/
+.pos-sales-success-modal-container{
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    padding: 20px 0;
+    position: absolute;
+    z-index: 50;
+    top: 0;
+    left: 0;
+    margin: 0;
+    width:100vw;
+    height:100vh;
+    background-color: #0000001e;
+}
+.pos-sales-success-container{
+    width:500px;
+    height:auto;
+    background-color: #ffffff;
+    padding:20px;
+    border-radius:10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#pos-transact-success-icon{
+    font-size: 5rem;
+    color: #4CAF50;
+   
+}
+.pos-sales-success-container h4{
+    font-size: 1.5rem;
+    padding:10px 0;
+}
+.pos-sales-success-buttons-container{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0;
+    gap: 20px;
+}
+#pos-transact-print-receipt-button{
+    padding:10px;
+    border:1px solid #629469;
+    background-color: #99BC85;
+    border-radius:10px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 20px;
+    width:200px;
+}
+.pos-sales-success-container button:hover{
+    background-color: #71af4c;
+}
+#pos-transact-next-order-button{
+    padding:10px;
+    border:1px solid #629469;
+    background-color: #99BC85;
+    border-radius:10px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 20px;
+    width:200px;
 }
