@@ -9,15 +9,20 @@ $conn = new mysqli($server, $username, $password, $dbname);
 
 // Check connection
 if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+    die(json_encode([
+        'success' => false,
+        'message' => 'Connection failed: ' . $conn->connect_error
+    ]));
 }
 
 // Set the response header to return JSON
 header('Content-Type: application/json');
 
-$category_id = isset($_GET['category_id']) ? intval($_GET['category_id']) : null;
+// Sanitize input values
+$searchQuery = isset($_POST['query']) ? trim($_POST['query']) : '';
+$categoryId = isset($_POST['category_id']) ? trim($_POST['category_id']) : '';
 
-// Base SQL query for low stock products
+// Initialize base SQL and params
 $sql = "SELECT 
             p.id,
             p.product_name,
@@ -36,13 +41,31 @@ $sql = "SELECT
         LEFT JOIN category c ON p.category_id = c.category_id
         LEFT JOIN subcategory sub ON p.subcategory_id = sub.subcategory_id
         LEFT JOIN supplier s ON p.supplier_id = s.supplier_id
-        WHERE p.status = 'active' AND p.quantity <= p.reorder_point AND p.quantity > 0"; ;
+        WHERE p.status = 'active' AND p.quantity <= p.reorder_point
+        AND p.reorder_point > 0";
 
-// Add category filter if provided
-if ($category_id) {
+$params = [];
+$types = "";
+
+// Apply filters
+if (!empty($categoryId)) {
     $sql .= " AND p.category_id = ?";
+    $params[] = $categoryId;
+    $types .= "i";
+}
+
+if (!empty($searchQuery)) {
+    $sql .= " AND (p.product_name LIKE ? OR p.barcode LIKE ?)";
+    $searchWildcard = "%" . $searchQuery . "%";
+    $params[] = $searchWildcard;
+    $params[] = $searchWildcard;
+    $types .= "ss";
+}
+
+// Prepare and execute
+if (!empty($params)) {
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("i", $category_id);
+    $stmt->bind_param($types, ...$params);
     $stmt->execute();
     $result = $stmt->get_result();
 } else {
@@ -76,13 +99,14 @@ if ($result) {
         $response['data'] = $products;
     } else {
         $response['success'] = false;
-        $response['message'] = 'No low stock products found.';
+        $response['message'] = 'No products found.';
     }
 } else {
     $response['success'] = false;
-    $response['message'] = 'Error fetching products: ' . $conn->error;
+    $response['message'] = 'Error executing query: ' . $conn->error;
 }
 
 $conn->close();
 echo json_encode($response);
 ?>
+

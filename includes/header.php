@@ -47,10 +47,13 @@
         case 'inventory':
             echo '<title>Inventory</title>';
             echo '<link rel="stylesheet" href="../styles/inventory.css">';
-            echo '<script src="../scripts/inventory/inventory.js"></script>';
-            echo '<script src="../scripts/inventory/onhand-product-list.js"></script>';
-            echo '<script src="../scripts/inventory/low-stock-product.js"></script>';
-            echo '<script src="../scripts/inventory/out-of-stock-products.js"></script>';
+            echo '<script type="module" src="../scripts/inventory/inventory.js"></script>';
+            echo '<script type="module" src="../scripts/inventory/onhand-product-list.js"></script>';
+            echo '<script type="module" src="../scripts/inventory/low-stock-product.js"></script>';
+            echo '<script type="module" src="../scripts/inventory/out-of-stock-products.js"></script>';
+            echo '<script type="module" src="../scripts/inventory/stock-in.js"></script>';
+            echo '<script type="module" src="../scripts/inventory/edit-and-delete-product.js"></script>';
+           
             break;
         // IF THE CURRENT PAGE IS POINT OF SALE, THEN LINK THE CSS AND SCRIPT OF THE POINT OF SALE PAGE
         case 'pos':

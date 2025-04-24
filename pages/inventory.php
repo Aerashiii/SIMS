@@ -34,31 +34,33 @@ if (!isset($_SESSION['user'])) {
     <div class="inventory-content-container active" id="onhand-inventory-content-container" >
         <div class="onhand-header-container">
             <h2>On Hand Inventory List</h2>
-            <div class="search-container">
-                <form id="search-form">
-                    <input type="text" placeholder="Search" id="search-input">
-                    <button type="submit" name="submit" id="search-submit-button">search</button>
-                </form>
+            <div class="inventory-search-container">         
+                <input type="text" placeholder="Search" class="inventory-search-input" id="inventory-onhand-products-search-input">
+                <button type="submit" name="submit" class="inventory-search-submit-button" id="inventory-onhand-product-search-submit-button">search</button>
             </div>         
             
             <select name="" id="select-product-by-category"> </select>
 
         </div>
         <table id="onhand-inventory-table">
-            <tr>
-                <th>Barcode</th>
-                <th>Product Name</th>
-                <th>Category</th>
-                <th>Subcategory</th>
-                <th>Brand</th>
-                <th>Quantity</th>
-                <th>Reorder Point</th>
-                <th>Original Price</th>
-                <th>Selling Price</th>
-                <th>Supplier</th>
-                <th>Status</th>
-                <th>Action</th>
-            </tr>
+            <thead>
+                <tr>
+                    <th>Barcode</th>
+                    <th>Product Name</th>
+                    <th>Category</th>
+                    <th>Subcategory</th>
+                    <th>Brand</th>
+                    <th>Quantity</th>
+                    <th>Reorder Point</th>
+                    <th>Original Price</th>
+                    <th>Selling Price</th>
+                    <th>Supplier</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+            
         </table>
 
     </div>
@@ -67,29 +69,33 @@ if (!isset($_SESSION['user'])) {
     <div class="inventory-content-container" id="low-stock-inventory-content-container">
         <div class="low-stock-header-container">
             <h2>Low Stock Products</h2>
-            <div class="search-container">
-                <input type="text" placeholder="Search">
-                <button>Search</button>
-            </div>
+            <div class="inventory-search-container">         
+                <input type="text" placeholder="Search"  class="inventory-search-input" id="inventory-low-stock-products-search-input">
+                <button type="submit" name="submit" class="inventory-search-submit-button" id="inventory-low-stock-product-search-submit-button">search</button>
+            </div> 
             
             <select name="" id="select-low-stock-product-by-category"></select>
 
         </div>
         <table id="low-stock-inventory-table">
-            <tr>
-                <th>Barcode</th>
-                <th>Product Name</th>
-                <th>Category</th>
-                <th>Subcategory</th>
-                <th>Brand</th>
-                <th>Quantity</th>
-                <th>Reorder Point</th>
-                <th>Original Price</th>
-                <th>Selling Price</th>
-                <th>Supplier</th>
-                <th>Status</th>
-                <th>Action</th>
-            </tr>   
+            <thead>
+                <tr>
+                    <th>Barcode</th>
+                    <th>Product Name</th>
+                    <th>Category</th>
+                    <th>Subcategory</th>
+                    <th>Brand</th>
+                    <th>Quantity</th>
+                    <th>Reorder Point</th>
+                    <th>Original Price</th>
+                    <th>Selling Price</th>
+                    <th>Supplier</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>   
+            </thead>
+            <tbody></tbody>
+            
         </table>
 
     </div>
@@ -98,30 +104,32 @@ if (!isset($_SESSION['user'])) {
     <div class="inventory-content-container" id="out-stock-inventory-content-container">
         <div class="out-stock-header-container">
             <h2>Out of Stock Products</h2>
-            <div class="search-container" >
-                <input type="text" placeholder="Search">
-                <button>Search</button>
-            </div>
+            <div class="inventory-search-container">         
+                <input type="text" placeholder="Search"  class="inventory-search-input" id="inventory-out-stock-products-search-input">
+                <button type="submit" name="submit" class="inventory-search-submit-button" id="inventory-out-stock-product-search-submit-button">search</button>
+            </div> 
             
             <select name="" id="select-out-stock-product-by-category"></select>
 
         </div>
         <table id="out-stock-inventory-table">
-        <tr>
-                <th>Barcode</th>
-                <th>Product Name</th>
-                <th>Category</th>
-                <th>Subcategory</th>
-                <th>Brand</th>
-                <th>Quantity</th>
-                <th>Reorder Point</th>
-                <th>Original Price</th>
-                <th>Selling Price</th>
-                <th>Supplier</th>
-                <th>Status</th>
-                <th>Action</th>
-            </tr>   
-
+            <thead>
+                <tr>
+                    <th>Barcode</th>
+                    <th>Product Name</th>
+                    <th>Category</th>
+                    <th>Subcategory</th>
+                    <th>Brand</th>
+                    <th>Quantity</th>
+                    <th>Reorder Point</th>
+                    <th>Original Price</th>
+                    <th>Selling Price</th>
+                    <th>Supplier</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>   
+            </thead>
+            <tbody></tbody>
         </table>
 
     </div>
@@ -130,31 +138,31 @@ if (!isset($_SESSION['user'])) {
     <div class="inventory-content-container" id="stock-in-inventory-content-container">
         <div class="stock-in-header-container">
             <h2>Stock In Products</h2>
-            <div class="search-container">
-                <input type="text" placeholder="Search">
-                <button>Search</button>
-            </div>
+            <button id="inventory-stockin-product-selection-button">Select Product</button>        
         </div>
         <table id="stock-in-inventory-table">
-            <tr>       
-                <th>Product Name</th>
-                <th>Barcode</th>
-                <th>Brand</th>
-                <th>Quantity</th>
-                <th>
-                    <span id="stock-in-action-text">Action</span>                  
-                </th>
-            </tr>
-            <tr>
-                <td>Dress</td>
-                <td>123</td>
-                <td>Penshop</td>
-                <td><input type="text"></td>
-                <td><button>Remove</button></td>
-            </tr>
-
-        </table>
-
+            <thead>
+                <tr>   
+                    <th style="display: none;"></th>    
+                    <th>Product Name</th>
+                    <th>Barcode</th>
+                    <th>Brand</th>
+                    <th>Quantity</th>
+                    <th>
+                        <span id="stock-in-action-text">Action</span>                  
+                    </th>
+                </tr>
+            </thead>
+            <tbody id="stock-in-inventory-table-body"></tbody>
+        </table>    
+         <button id="stock-in-save-button" >Save Stock in</button>
+         <div class="confirm-submit-stock-in-modal-container" id="confirm-submit-stock-in-modal-container">
+            <div class="confirm-submit-stock-in-modal" id="confirm-submit-stock-in-modal">
+                <p>Are you sure you want to submit this stock in?</p>
+                <button id="confirm-submit-stock-in-button">Yes</button>
+                <button id="cancel-submit-stock-in-button">No</button>
+            </div>
+         </div>
     </div>
     <!-------------------| PURCHASE ORDER LIST -------------------->
     <!--| #6 |-->  
@@ -337,3 +345,32 @@ if (!isset($_SESSION['user'])) {
     </div>
 </div>
 
+<!---- | MODAL FOR SELECTING PRODUCT FOR STOCK IN |-->
+<div class="stockin-product-selection-modal-container">
+        <div class="stockin-product-selection-container">
+            <div class="stockin-product-selection-header-container">
+                <h4>Product Selection</h4>
+                <span class="exit-icon" id="stockin-product-selection-exit-button">&times;</span>
+            </div>          
+            <div class="stockin-product-selection-content-container">
+                <div class="stockin-product-selection-search-container">                 
+                        <input type="text" placeholder="Search" id="stockin-product-selection-search-input">
+                        <button type="submit" name="submit" id="stockin-product-selection-search-submit-button">search</button>                 
+                </div>  
+                <div class="stockin-product-table-container">
+                    <table id="stockin-product-selection-table">
+                        <thead>
+                            <tr>
+                                <th>Product Name</th>
+                                <th>Brand</th>
+                                <th>Barcode</th>
+                                <th>Quantity</th>
+                                <th>Action</th>                          
+                            </tr>
+                        </thead>
+                        <tbody></tbody>                
+                    </table>
+                </div>
+            </div>
+        </div>        
+    </div>

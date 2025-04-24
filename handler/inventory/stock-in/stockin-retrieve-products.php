@@ -18,11 +18,11 @@ if ($conn->connect_error) {
 // Set the response header to return JSON
 header('Content-Type: application/json');
 
-// Sanitize input values
+// Get search query (if any)
 $searchQuery = isset($_POST['query']) ? trim($_POST['query']) : '';
-$categoryId = isset($_POST['category_id']) ? trim($_POST['category_id']) : '';
+$searchQuery = "%$searchQuery%";
 
-// Initialize base SQL and params
+// Base SQL
 $sql = "SELECT 
             p.id,
             p.product_name,
@@ -41,33 +41,17 @@ $sql = "SELECT
         LEFT JOIN category c ON p.category_id = c.category_id
         LEFT JOIN subcategory sub ON p.subcategory_id = sub.subcategory_id
         LEFT JOIN supplier s ON p.supplier_id = s.supplier_id
-        WHERE p.status = 'active' AND p.quantity = 0";
+        WHERE p.status = 'active'";
 
-$params = [];
-$types = "";
-
-// Apply filters
-if (!empty($categoryId)) {
-    $sql .= " AND p.category_id = ?";
-    $params[] = $categoryId;
-    $types .= "i";
-}
-
-if (!empty($searchQuery)) {
+// If there's a search query, add WHERE conditions
+if (!empty(trim($_POST['query']))) {
     $sql .= " AND (p.product_name LIKE ? OR p.barcode LIKE ?)";
-    $searchWildcard = "%" . $searchQuery . "%";
-    $params[] = $searchWildcard;
-    $params[] = $searchWildcard;
-    $types .= "ss";
-}
-
-// Prepare and execute
-if (!empty($params)) {
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param($types, ...$params);
+    $stmt->bind_param("ss", $searchQuery, $searchQuery);
     $stmt->execute();
     $result = $stmt->get_result();
 } else {
+    // No search query, get all active products
     $result = $conn->query($sql);
 }
 
@@ -108,4 +92,3 @@ if ($result) {
 $conn->close();
 echo json_encode($response);
 ?>
-

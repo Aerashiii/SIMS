@@ -63,11 +63,63 @@
 /*| #3 |*/
 .inventory-content-container{
     width:100%;
-    border:1px solid;
-    height:75vh;
-    padding:10px;
+    border:1px solid #1b1b1b;
+    height:73vh;
+    padding:0 10px 10px 10px;
     display:none;
+    overflow-y: auto;
+    border-radius:10px ;
+
 }
+
+/************| INVENTORY SEARCH |****************/
+
+.inventory-search-container {
+    display: flex;
+    align-items: center;
+    border: 1px solid #99BC85; /* Light green border */
+    border-radius: 13px; /* Rounded edges */
+    overflow: hidden;
+    width: 300px; /* Updated width */
+    height: 31px; /* Updated height */
+    background-color: #B2CF9B;
+    position: relative;
+    margin:5px auto;
+   
+    
+}
+.inventory-search-input[type="text"] {
+    padding: 10px 15px;
+    border: none;
+    outline: none;
+    flex: 1;
+    font-size: 14px;
+    background: transparent;
+    color: #000000; /* Text color */
+    background-color: #ffffff;
+
+}
+
+.inventory-search-container  input[type="text"]::placeholder {
+    color: #99BC85; /* Placeholder text color */
+}
+
+
+.inventory-search-submit-button {
+    background-color: #B2CF9B; /* Dark green button */
+    color: #000000;
+    font-weight: bold;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+}
+
+.inventory-search-submit-button:hover {
+    background-color: #B2CF9B;
+    color: white;
+}
+
+
 
 /************| ON HAND INVENTORY |****************/
 /*| #3 |*/
@@ -82,14 +134,18 @@
 #onhand-inventory-table{
     margin-top:10px;
     width:100%;
-    border:1px solid;
     border-collapse: collapse;
     text-align: center;
 }
-#onhand-inventory-table th{
-    padding: 10px 0;
-    border-bottom: 1px solid;
+#onhand-inventory-table th {
+    padding: 10px 0; 
     font-size: 0.8rem;
+    position: sticky;
+    top: 0;
+    background-color: #ffffff;
+    z-index: 2; 
+    border-bottom: 2px solid #99BC85;
+    box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.1);
 }
 #onhand-action-text{
     margin:0;
@@ -109,54 +165,11 @@
 }
 #onhand-inventory-table td{
     padding: 5px 0;
-    border-bottom: 1px solid;
+    border-bottom: 1px solid #99BC85;
     font-size: 0.8rem;
 }
 
-/* Search */
-.search-container {
-    display: flex;
-    align-items: center;
-    border: 1px solid #99BC85; /* Light green border */
-    border-radius: 13px; /* Rounded edges */
-    overflow: hidden;
-    width: 300px; /* Updated width */
-    height: 31px; /* Updated height */
-    background-color: #B2CF9B;
-    position: relative;
-   
-    
-}
-#search-input[type="text"] {
-    padding: 10px 15px;
-    border: none;
-    outline: none;
-    flex: 1;
-    font-size: 14px;
-    background: transparent;
-    color: #000000; /* Text color */
-    background-color: #ffffff;
 
-}
-
-.search-container input[type="text"]::placeholder {
-    color: #99BC85; /* Placeholder text color */
-}
-
-
-#search-submit-button {
-    background-color: #B2CF9B; /* Dark green button */
-    color: #000000;
-    font-weight: bold;
-    border: none;
-    padding: 10px 15px;
-    cursor: pointer;
-}
-
-#search-submit-button:hover {
-    background-color: #B2CF9B;
-    color: white;
-}
 
 /*************| LOW STOCK INVENTORY |***************/
 /*| #4 |*/
@@ -257,6 +270,17 @@
     display: flex;
     align-items: center;
     justify-content:space-between;
+    padding:5px 0;
+}
+#inventory-stockin-product-selection-button{
+    padding: 5px 10px;
+    border:1px solid #99BC85;
+    background-color: #B2CF9B;
+    border-radius:5px;
+    font-weight: bold;
+    cursor: pointer;
+    text-align: center;
+    margin-right: 10px;
 }
 #stock-in-inventory-table{
     margin-top:10px;
@@ -289,6 +313,69 @@
     padding: 5px 0;
     border-bottom: 1px solid;
 }
+#stock-in-save-button {
+    padding: 5px 10px;
+    border: 1px solid #99BC85;
+    background-color: #99BC85;
+    border-radius: 5px;
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+    text-align: center;
+    margin-right: 10px;
+    margin-top: 20px;
+    float: right;
+    transition: margin-right 0.3s ease;  
+    display:none;
+}
+#stock-in-save-button:hover{
+    margin-right: 15px;
+}
+.confirm-submit-stock-in-modal-container{
+    display: none;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+    width:100%;
+    height:90% ;
+    position:fixed;
+    z-index: 100;
+    background-color: rgba(0, 0, 0, 0.233);
+    top:10vh;
+}
+.confirm-submit-stock-in-modal{
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    width: 30%;
+    text-align: center;
+}
+#confirm-submit-stock-in-button,
+#cancel-submit-stock-in-button{
+    padding: 5px 15px;
+    border-radius: 5px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border:none;
+    cursor: pointer;
+    width: 80px;
+    color:#ffffff;
+    background-color: #99BC85;
+    margin-top:10px;
+}
+#confirm-submit-stock-in-button:hover {
+    background-color: #7acf4f;
+}
+#cancel-submit-stock-in-button:hover{
+    background-color: #7acf4f;
+}
+
+
+
+
+
 
 /**************| PURCHASE ORDER INVENTORY |**************/
 /*| #6 */
@@ -545,4 +632,141 @@ input:focus {
 #delete-product-no-button:hover {
     font-size: 1.3rem;
 
+}
+
+
+
+
+/***************| PRODUCT SELECTION FOR STOCK IN |***************/
+.stockin-product-selection-modal-container{
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    padding: 20px 0;
+    position: absolute;
+    z-index: 50;
+    top: 0;
+    left: 0;
+    margin: 0;
+    width:100vw;
+    height:100vh;
+    background-color: #0000003d;
+}
+.stockin-product-selection-container{
+    width:70%;
+    height:auto;
+    background-color: #ffffff;
+    padding:20px;
+    border-radius:10px;
+    
+}
+.stockin-product-selection-header-container{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 10px;
+}
+#stockin-product-selection-exit-button{
+   
+    background-color: #bdbdbd8e;
+    border-radius: 50%;
+    font-weight: bold;
+    cursor: pointer;  
+   padding: 0 7px;
+    font-size: 1.5rem;
+   
+}
+#stockin-product-selection-exit-button:hover{
+    background-color: #da0000;
+    color: rgb(255, 255, 255);
+
+   
+}
+/*************| FOR SEARCH PRODUCT ON PRODUCT SELECTION TABLE |*********************/
+.stockin-product-selection-search-container {
+    display: flex;
+    align-items: center;
+    border: 1px solid #99BC85; /* Light green border */
+    border-radius: 13px; /* Rounded edges */
+    overflow: hidden;
+    width: 300px; /* Updated width */
+    height: 31px; /* Updated height */
+    background-color: #B2CF9B;
+    position: relative;
+    margin:5px auto;
+   
+    
+}
+#stockin-product-selection-search-input[type="text"] {
+    padding: 10px 15px;
+    border: none;
+    outline: none;
+    flex: 1;
+    font-size: 14px;
+    background: transparent;
+    color: #000000; /* Text color */
+    background-color: #ffffff;
+
+}
+
+.stockin-product-selection-search-container  input[type="text"]::placeholder {
+    color: #99BC85; /* Placeholder text color */
+}
+
+
+#stockin-product-selection-search-submit-button {
+    background-color: #B2CF9B; /* Dark green button */
+    color: #000000;
+    font-weight: bold;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+}
+
+#stockin-product-selection-search-submit-button:hover {
+    background-color: #B2CF9B;
+    color: white;
+}
+
+
+.stockin-product-table-container{
+    width:100%;
+    height:520px;
+    overflow: auto;
+   
+}
+#stockin-product-selection-table{
+    border:1px solid #99BC85;
+    width:100%;
+    border-collapse:collapse;
+    text-align: center;
+}
+#stockin-product-selection-table th{
+
+    padding:8px;
+    position: sticky;
+    z-index:5;
+    top:0;
+    background-color:#E1F0DA;
+}
+#stockin-product-selection-table td{
+    padding: 5px 0;
+    border-bottom:1px solid #99bc8571;
+}
+#stockin-product-selection-table tr td button{
+    padding:5px 10px;
+    border:1px solid #99BC85;
+    background-color: #B2CF9B;
+    border-radius:5px;
+    font-weight: bold;
+    cursor: pointer;
+    text-align: center;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+   
 }
