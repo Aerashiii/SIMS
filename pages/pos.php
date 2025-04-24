@@ -119,6 +119,7 @@ if (!isset($_SESSION['user'])) {
             </div>
         </div>
     </div>
+<!---- | MODAL FOR SELECTING PRODUCT |-->
     <div class="pos-product-selection-modal-container">
         <div class="pos-product-selection-container">
             <div class="pos-product-selection-header-container">
@@ -126,11 +127,9 @@ if (!isset($_SESSION['user'])) {
                 <span class="exit-icon" id="pos-product-selection-exit-button">&times;</span>
             </div>          
             <div class="pos-product-selection-content-container">
-                <div class="pos-product-selection-search-container">
-                    <form id="search-form">
-                        <input type="text" placeholder="Search" id="search-input">
-                        <button type="submit" name="submit" id="search-submit-button">search</button>
-                    </form>
+                <div class="pos-product-selection-search-container">                 
+                        <input type="text" placeholder="Search" id="pos-product-selection-search-input">
+                        <button type="submit" name="submit" id="pos-product-selection-search-submit-button">search</button>                 
                 </div>  
                 <div class="pos-product-table-container">
                     <table id="pos-product-selection-table">

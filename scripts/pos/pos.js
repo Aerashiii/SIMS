@@ -83,18 +83,34 @@ document.addEventListener('DOMContentLoaded', function () {
         productSelectionModal.style.display = 'none';
     });
 
-// FOR DISPLAYING THE SELECTED PRODUCT
+// FOR DISPLAYING THE PRODUCT SELECTION PRODUCT
     fetchProducts();
-    function fetchProducts() {
-        fetch('../handler/pos/pos-retrieve-products.php')
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    populateProductTable(data.data);
-                }
-            })
-            .catch(err => console.error('Failed to load products:', err));
-    }
+
+const posProductSearchInput = document.getElementById('pos-product-selection-search-input');
+const posProductSearchButton = document.getElementById('pos-product-selection-search-submit-button');  
+
+
+
+
+// Fetch products (all or filtered)
+function fetchProducts(query = '') {
+    fetch('../handler/pos/pos-retrieve-products.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: 'query=' + encodeURIComponent(query)
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                populateProductTable(data.data);
+            } else {
+                productSelectionTable.innerHTML = '<tr><td colspan="4">No products found</td></tr>';
+            }
+        })
+        .catch(err => console.error('Failed to load products:', err));
+}
 
     function populateProductTable(products) {
         productSelectionTable.innerHTML = '';
@@ -137,6 +153,37 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         });
     }
+
+    // Search button click
+// Event: Search as you type
+posProductSearchInput.addEventListener('input', () => {
+    const query = posProductSearchInput.value.trim();
+
+    fetch('../handler/pos/pos-retrieve-products.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: 'query=' + encodeURIComponent(query)
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                populateProductTable(data.data);
+            } else {
+                productSelectionTable.innerHTML = '<tr><td colspan="4">No products found.</td></tr>';
+            }
+        })
+        .catch(err => console.error('Search failed:', err));
+});
+
+// Enter key trigger search
+posProductSearchInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+        const query = posProductSearchInput.value.trim();
+        fetchProducts(query);
+    }
+});
 
     function renderCart() {
         cartTableBody.innerHTML = '';
