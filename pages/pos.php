@@ -24,6 +24,14 @@ if (!isset($_SESSION['user'])) {
                     <div class="select-product-container">
                         <button id="pos-select-product-button">Select Product</button>
                         <button id="pos-scan-product-button">Scan Product</button>
+                        <input 
+                            type="text" 
+                            id="pos-barcode-scanner-input" 
+                            placeholder="Scan barcode..." 
+                            autofocus 
+                            style="position:absolute; left:-9999px;" 
+                        />
+                       
                     </div>
                     <div class="pos-shopping-cart-table-container">
                         <table id="pos-shopping-cart-table">
@@ -56,7 +64,7 @@ if (!isset($_SESSION['user'])) {
                         </div>
                         <div>
                             <label for="">Amount Recieved:</label>
-                            <input type="text" id="pos-input-amount-recieved">
+                            <input type="text" id="pos-input-amount-recieved" required>
                         </div>
                         <div>
                             <label for="">Change:</label>
@@ -107,11 +115,11 @@ if (!isset($_SESSION['user'])) {
                         <h5>Custormer Informaion: (optional)</h5>
                         <div class="name-container">
                             <label for="">Name:</label>
-                            <input type="text">
+                            <input type="text" id="pos-customer-name-input" required>
                         </div>
                         <div class="contact-number-container">
                             <label for="">Contact Number:</label>
-                            <input type="text">
+                            <input type="text" id="pos-customer-contact-number-input" required>
                         </div>                    
                     </div>                  
                                     
@@ -194,7 +202,8 @@ if (!isset($_SESSION['user'])) {
         </div>
     </div>
 
- 
+<!-- | MODAL FOR SUCCESSFUL TRANSACTION |-->
+<!-- | THIS MODAL IS FOR SUCCESSFUL TRANSACTION. IT WILL SHOW UP WHEN THE USER CLICKS THE PROCESS PAYMENT BUTTON |-->
         <div class="pos-sales-success-modal-container">
             <div class="pos-sales-success-container">
                 <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-circle feather-40" id="pos-transact-success-icon">

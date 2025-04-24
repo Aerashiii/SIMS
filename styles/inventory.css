@@ -435,6 +435,7 @@
     background-color: #ffffff;
     padding:30px;
     border-radius: 10px;
+    width: 50%;;
 }
 #add-product-form{
     display: flex;
@@ -448,6 +449,8 @@
     display:flex;
     align-items: center;
     justify-content: flex-start;
+    width: 100%;
+  
 }
 .form-group-container label{
     width:130px;
@@ -455,7 +458,7 @@
 }
 .form-group-container input,
 .form-group-container select{
-    width:300px;
+    width:100%;
     height: 2rem;
     padding:3px;
 }
@@ -469,6 +472,18 @@
     cursor: pointer;
     width:100%;
     margin-top:10px;
+}
+.inventory-add-product-barcode-container{
+    
+    width:100%;;
+    display: flex;
+    gap:5px;
+}
+#add-product-barcode{
+    width: 70%;	
+}
+#inventory-add-product-generate-barcode-button{
+    width:30%;
 }
 
 

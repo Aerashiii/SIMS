@@ -1,4 +1,6 @@
 //pos.js
+
+import { printReceipt } from './print-receipt.js';
 document.addEventListener('DOMContentLoaded', function () {
     const selectProductButton = document.getElementById('pos-select-product-button');
     const productSelectionModal = document.querySelector('.pos-product-selection-modal-container');
@@ -6,8 +8,9 @@ document.addEventListener('DOMContentLoaded', function () {
     const productSelectionTable = document.getElementById('pos-product-selection-table').querySelector('tbody');
     const cartTableBody = document.getElementById('pos-shopping-cart-table').querySelector('tbody');
     const receiptTableBody = document.getElementById('pos-product-sales-receipt-table').querySelector('tbody');
-   
 
+ 
+   
     const subTotalEl = document.getElementById('pos-shopping-sub-total');
     const amountReceivedInput = document.getElementById('pos-input-amount-recieved');
     const changeEl = document.getElementById('pos-shopping-change');
@@ -28,8 +31,10 @@ document.addEventListener('DOMContentLoaded', function () {
     const processTransactsubTotal= document.getElementById('pos-sales-sub-total');
     const processTransactCashAmount = document.getElementById('pos-sale-cash-amount');
     const processTransactChangeAmount = document.getElementById('pos-sale-change-amount');
+    
+    // FOR TRANSACTION CONFIRMATION 
+    const posSalesProcessConfirmButton = document.getElementById('pos-sales-process-confirm-button');
     const processTransactPaymentMethod = document.getElementById('pos-sales-process-cancel-button');
-
 
     let cart = [];
 
@@ -42,13 +47,22 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 // FOR DIPLAYING AND HIDING TRANSACTION PROCESS MODAL
 
+    // Inside DOMContentLoaded
     processPaymentButton.addEventListener('click', () => {
         if (cart.length === 0) {
             alert('Please add items to the cart before processing payment.');
             return;
         }
+
+        const amountReceived = parseFloat(amountReceivedInput.value);
+        if (isNaN(amountReceived) || amountReceived <= 0) {
+            alert('Please enter a valid amount received before processing payment.');
+            return;
+        }
+
         transactionProcessModal.style.display = 'flex';
     });
+
     transactionProcessModalCloseButton.addEventListener('click', () => {
         transactionProcessModal.style.display = 'none';
     });
@@ -255,109 +269,128 @@ posProductSearchInput.addEventListener('keydown', (e) => {
         cart.splice(index, 1);
         renderCart();
     };
+/***************| FOR BARCODE SCANNER |************************* */
+   //FOR SCANNER
+const barcodeInput = document.getElementById('pos-barcode-scanner-input');
+// Focus input automatically when page loads
+barcodeInput.focus();
 
-
-/******************| FOR UPDATE THE QUANTITY OF THE PRODUCT AFTER CONFIRM THE PAYMENT |************************************ */
-function updateProductQuantitiesAfterCheckout(addedProducts) {
-    fetch('../assets/handler/pos/update-products-quantity.php', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            addedProducts,
-        }),
-    })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json();
+// Handle scanner input
+barcodeInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+        const scannedBarcode = barcodeInput.value.trim();
+        console.log('Scanned Barcode:', scannedBarcode); // Debugging line
+       
+        // Fetch product by barcode
+        fetch('../handler/pos/pos-retrieve-products.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: 'barcode=' + encodeURIComponent(scannedBarcode)
         })
+        .then(response => response.json())
         .then(data => {
-            if (data.success) {
-                console.log('Product quantities updated successfully.');
+            console.log('API Response Data:', data);  // Debugging line
+            if (data.success && data.data.length > 0) {
+                const product = data.data[0]; // Assuming first match is the product
+                console.log('Product Found:', product); // Debugging line
+
+                const existing = cart.find(item => item.barcode === product.barcode);
+                if (existing) {
+                    existing.quantity++;
+                    existing.total = existing.quantity * existing.price;
+                } else {
+                    cart.push({
+                        name: product.product_name,
+                        barcode: product.barcode,
+                        price: parseFloat(product.selling_price),
+                        quantity: 1,
+                        total: parseFloat(product.selling_price)
+                    });
+                }
+
+                renderCart();  // Update the cart UI after adding the product
+                barcodeInput.value = ''; // Clear barcode input after adding
             } else {
-                console.error('Failed to update product quantities:', data.message);
+                alert('Product not found.');
+                barcodeInput.value = ''; // Clear input if product not found
             }
         })
         .catch(error => {
-            console.error('Error updating product quantities:', error);
+            //console.error('Error fetching product by barcode:', error);
+           // alert('Failed to fetch product.');
+            barcodeInput.value = ''; // Clear input on error
         });
-}
+    }
+});
 
+/******************| FOR UPDATE THE QUANTITY OF THE PRODUCT AFTER CONFIRM THE PAYMENT |************************************ */
 
+const posPrintReceiptButton = document.getElementById('pos-transact-print-receipt-button');
 /*************************************************** */
-document.getElementById('pos-sales-process-confirm-button').addEventListener('click', () => {
-    const cashReceived = parseFloat(processTransactCashAmount.textContent);
+// On Confirm Button Click
+posSalesProcessConfirmButton.addEventListener('click', () => {
+    const cash = parseFloat(processTransactCashAmount.textContent);
     const change = parseFloat(processTransactChangeAmount.textContent);
-    const paymentMethod = 'Cash'; // change this if you support more methods
+    const total_payment = parseFloat(processTransactsubTotal.textContent);
+    const total_items = cart.reduce((sum, item) => sum + item.quantity, 0);
+    const payment_method = "Cash";
 
-    // Save to DB
-    fetch('../assets/handler/pos/process-payment.php', {
+    // Get customer inputs
+    const customerNameInput = document.getElementById('pos-customer-name-input');
+    const customerContactInput = document.getElementById('pos-customer-contact-number-input');
+  
+      const customer_name = customerNameInput && customerNameInput.value.trim() !== ''
+          ? customerNameInput.value.trim()
+          : 'Guest';
+  
+      const contact_number = customerContactInput && customerContactInput.value.trim() !== ''
+          ? customerContactInput.value.trim()
+          : null;
+
+            // Now, call printReceipt
+            printReceipt(cart, cash, payment_method, customer_name, contact_number);
+
+    // Simulate server call here...
+    fetch('../handler/pos/process-sale.php', {
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            products: cart,
-            total: parseFloat(subTotalEl.textContent),
-            cashReceived,
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams({
+            cash,
             change,
-            paymentMethod
+            total_payment,
+            total_items,
+            payment_method,
+            customer_name,
+            contact_number,
+            cart: JSON.stringify(cart)
         })
     })
     .then(res => res.json())
     .then(data => {
         if (data.success) {
-            updateProductQuantitiesAfterCheckout(cart);
-            alert("Transaction saved!");
-
-            // Call print
-            import('./print-receipt.js').then(({ printReceipt }) => {
-                printReceipt(cart, cashReceived, paymentMethod);
-            });
-
-            // Reset all
-            cart = [];
-            cartTableBody.innerHTML = '';
-            receiptTableBody.innerHTML = '';
-            processTransactionTable.innerHTML = '';
-
-            subTotalEl.textContent = '0.00';
-            amountReceivedInput.value = '';
-            changeEl.textContent = '0.00';
-
-            receiptTotalEl.textContent = '0.00';
-            receiptAmountReceivedEl.textContent = '0.00';
-            receiptChangeEl.textContent = '0.00';
-
-            processTransactsubTotal.textContent = '0.00';
-            processTransactCashAmount.textContent = '0.00';
-            processTransactChangeAmount.textContent = '0.00';
-
-            productSelectionModal.style.display = 'none';
+            // Hide transaction modal
             transactionProcessModal.style.display = 'none';
+
+
+
+            // Show success modal
+            document.querySelector('.pos-sales-success-modal-container').style.display = 'flex';
         } else {
-            alert("Failed to save transaction: " + data.message);
+            alert('Transaction failed. Please try again.');
         }
     })
-    .catch(error => {
-        console.error("Error saving transaction:", error);
+    .catch(err => {
+        console.error(err);
+        alert('An error occurred while processing the transaction.');
     });
 });
 
-
-
-
-
-
-
-
-
-
-
-
+// On Next Order Button Click
+document.getElementById('pos-transact-next-order-button').addEventListener('click', () => {
+    location.reload(); // Reload page to reset everything
+});
 
 
 });

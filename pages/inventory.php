@@ -226,7 +226,11 @@ if (!isset($_SESSION['user'])) {
             </div>
             <div class="form-group-container">
                 <label>Barcode:</label>
-                <input type="text" id="add-product-barcode" required>
+                <div class="inventory-add-product-barcode-container">
+                    <input type="text" id="add-product-barcode" maxlength="13" required>
+                    <button id="inventory-add-product-generate-barcode-button">Generate</button>
+                </div>
+                
             </div>
             <div class="form-group-container">
                 <label>Quantity:</label>

@@ -1,5 +1,7 @@
-export function printReceipt(addedProducts, cashReceived, paymentMethod) {
-    const branchName = sessionStorage.getItem('branch_name') || 'Unknown Branch';
+//THIS IS print0receipt.js
+
+export function printReceipt(addedProducts, cashReceived, paymentMethod, customerName = 'Guest', customerContact = null) {
+    const branchName = sessionStorage.getItem('branch_name') || 'Generals Space Rent';
     const date = new Date().toLocaleString('en-US', {
         weekday: 'short',
         month: 'short',
@@ -14,17 +16,19 @@ export function printReceipt(addedProducts, cashReceived, paymentMethod) {
     let totalItems = 0;
 
     let receiptHTML = `
-        <div id="receipt-content" style="font-family: monospace; padding: 10px;">
-            <h3>${branchName}</h3>
-            <p>${date}</p>
+        <div id="receipt-content" style="font-family: monospace; padding: 10px; width: 300px;">
+            <h3 style="text-align: center;">${branchName}</h3>
+            <p style="text-align: center;">${date}</p>
             <hr>
+            <p><strong>Customer:</strong> ${customerName}</p>
+            ${customerContact ? `<p><strong>Contact:</strong> ${customerContact}</p>` : ''}
             <table style="width: 100%; border-collapse: collapse;">
                 <thead>
                     <tr>
-                        <th>Qty</th>
-                        <th>Item</th>
-                        <th>Price</th>
-                        <th>Total</th>
+                        <th style="text-align:left;">Qty</th>
+                        <th style="text-align:left;">Item</th>
+                        <th style="text-align:right;">Price</th>
+                        <th style="text-align:right;">Total</th>
                     </tr>
                 </thead>
                 <tbody>`;
@@ -38,23 +42,19 @@ export function printReceipt(addedProducts, cashReceived, paymentMethod) {
             <tr>
                 <td>${product.quantity}</td>
                 <td>${product.name}</td>
-                <td>${product.price.toFixed(2)}</td>
-                <td>${lineTotal.toFixed(2)}</td>
+                <td style="text-align:right;">${product.price.toFixed(2)}</td>
+                <td style="text-align:right;">${lineTotal.toFixed(2)}</td>
             </tr>`;
     });
 
-    const tax = total * 0.12;
-    const totalDue = total + tax;
-    const change = cashReceived - totalDue;
+    const change = cashReceived - total;
 
     receiptHTML += `
                 </tbody>
             </table>
             <hr>
-            <p><strong>Items:</strong> ${totalItems}</p>
+            <p><strong>Total Items:</strong> ${totalItems}</p>
             <p><strong>Subtotal:</strong> ${total.toFixed(2)}</p>
-            <p><strong>Tax (12%):</strong> ${tax.toFixed(2)}</p>
-            <p><strong>Total Due:</strong> ${totalDue.toFixed(2)}</p>
             <p><strong>Cash Received:</strong> ${cashReceived.toFixed(2)}</p>
             <p><strong>Change:</strong> ${change.toFixed(2)}</p>
             <p><strong>Payment Method:</strong> ${paymentMethod}</p>
@@ -62,7 +62,7 @@ export function printReceipt(addedProducts, cashReceived, paymentMethod) {
             <p style="text-align:center;">Thank you for your purchase!</p>
         </div>`;
 
-    const printWindow = window.open('', '_blank');
+    const printWindow = window.open('', '','height=600,width=500');
     printWindow.document.write(receiptHTML);
     printWindow.document.close();
     printWindow.focus();

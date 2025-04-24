@@ -331,67 +331,77 @@ if (!isset($_SESSION['user'])) {
 
  <!-- | MODAL FOR ADDING PRODUCT |--->
  <div class="add-product-modal-container">
-    <div class="add-product-modal">
-        <h3>Add Product</h3>
+    <div class="add-product-form-container">
         <form action="" id="add-product-form">
-            <div>
-                <label for="">Product Name:</label>
-                <input type="text" name="add-product-name" id="add-product-name">
+            <h3>Add Product</h3>
+            <div class="form-group-container">
+                <label>Product Name:</label>
+                <input type="text" id="add-product-name"required>
             </div>
-            <div>
-                <label for="">Brand:</label>
-                <Select name="add-product-brand" id="add-product-brand">
-                    <option value="">- select brand -</option>
-                </Select>
+            <div class="form-group-container">
+                <label>Brand:</label>
+                <select name="" id="add-product-brand" required>
+                    <option value="">- Select Brand -</option>
+                </select>
             </div>
-            <div>
-                <label for="">Category:</label>
-                <Select name="add-product-category" id="add-product-category">
-                    <option value="">- select category -</option>
-                </Select>
+            <div class="form-group-container">
+                <label>Category:</label>
+                <select name="" id="add-product-category" required>
+                    <option value="">- Select category -</option>
+                </select>
             </div>
-            <div>
-                <label for="">Subcategory:</label>
-                <Select name="add-product-subcategory" id="add-product-subcategory">
-                    <option value="">- select subcategory -</option>
-                </Select>
+            <div class="form-group-container">
+                <label>Subcategory:</label>
+                <select name="" id="add-product-subcategory" required>
+                    <option value="">- Select subcategory -</option>
+                </select>
             </div>
-            <div>
-                <label for="">Barcode:</label>
-                <input type="text" id="add-product-barcode" >
+            <div class="form-group-container">
+                <label>Barcode:</label>
+                <div class="inventory-add-product-barcode-container">
+                    <input type="text" id="add-product-barcode" maxlength="13" required>
+                    <button id="inventory-add-product-generate-barcode-button">Generate</button>
+                </div>
+                
             </div>
-            <div>
-                <label for="">Original Price:</label>
-                <input type="text" id="add-product-original-price">
+            <div class="form-group-container">
+                <label>Quantity:</label>
+                <input type="text" id="add-product-quantity" required>
             </div>
-            <div>
-                <label for="">Selling Price:</label>
-                <input type="text" id="add-product-selling-price">
+            <div class="form-group-container">
+                <label>Reorder Point:</label>
+                <input type="text" id="add-product-reorder-point" required>
             </div>
-            <div>
-                <label for="">Quantity:</label>
-                <input type="text" id="add-product-quantity">
+            <div class="form-group-container">
+                <label>Original Price:</label>
+                <input type="text"id="add-product-original-price" required>
             </div>
-            <div>
-                <label for="">Reorder Point:</label>
-                <input type="text" id="add-product-reorder-point">
+            <div class="form-group-container">
+                <label>Selling Price:</label>
+                <input type="text" id="add-product-selling-price"  required>
             </div>
-            <div>
-                <label for="">Status:</label>
-                <Select id="add-product-status">
+            <div class="form-group-container">
+                <label>Supplier:</label>
+                <select name="" id="add-product-select-supplier">
+                    <option value="">- Select Supplier -</option>
+                </select>
+            </div>
+            <div class="form-group-container">
+                <label>Status:</label>
+                <select name="" id="add-product-status" required>
                     <option value="active">active</option>
                     <option value="inactive">inactive</option>
-                </Select>
+                </select>
             </div>
-            <div>
-                <label for="">Supplier:</label>
-                <Select name="add-product-supplier" id="add-product-select-supplier"></Select>
-            </div>
-            <input type="submit" id="add-product-submit-button" value="save">
+
+            <input type="submit" id="add-product-submit-button">
         </form>
-        <button id="add-product-cancel-button">Cancel</button>       
+        <button id="add-product-cancel-button">Cancel</button>
+
     </div>
+
 </div>
+
 <!--| MODAL FOR EDITING PRODUCT |-->
 <div class="edit-product-modal-container" id="edit-product-modal-container">
     <div class="edit-product-modal">

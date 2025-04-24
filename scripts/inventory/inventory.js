@@ -162,11 +162,37 @@ fetchSelectSupplierAddProduct();
         });
     }
     
+    const addProductBarcodeInput = document.getElementById('add-product-barcode');
+    const generateBarcodeBtn = document.getElementById('inventory-add-product-generate-barcode-button');
+    
+     // Prevent non-digit characters and enforce max 13 characters
+     addProductBarcodeInput.addEventListener('input', () => {
+        addProductBarcodeInput.value = addProductBarcodeInput.value.replace(/\D/g, '').slice(0, 13);
+    });
+    
+    // Generate 13-digit random barcode
+    generateBarcodeBtn.addEventListener('click', (e) => {
+        e.preventDefault(); // Prevent form submit if inside form
+        const randomBarcode = generate13DigitBarcode();
+        addProductBarcodeInput.value = randomBarcode;
+    });
+    
+    // Barcode generation helper function
+    function generate13DigitBarcode() {
+        let barcode = '';
+        for (let i = 0; i < 13; i++) {
+            barcode += Math.floor(Math.random() * 10);
+        }
+        return barcode;
+    }
 
- addProductForm.addEventListener('submit', function (event) {
-    event.preventDefault();
-    addProduct();
-});
+
+    // Handle form submission
+    addProductForm.addEventListener('submit', function (event) {
+        event.preventDefault();
+        addProduct();
+    });
+
 
 // Function to handle product creation
 function addProduct() {
@@ -200,7 +226,7 @@ function addProduct() {
     console.log(formData);
 
     // Send data to PHP script using Fetch API
-    fetch("../handler/records/products/add-product-handler.php", {
+    fetch("../handler/inventory/add-product.php", {
         
         method: "POST",
         body: formData,

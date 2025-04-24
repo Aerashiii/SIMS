@@ -787,62 +787,72 @@ width:100%;
     font-size: 0.8rem;
 }
 /*********| ADD PRODUCT STYLE |*******/
+/*****************************************| ADD PRODUCT |***************************************************/
+/*| #7 |*/
 .add-product-modal-container{
     top:0;
     width:100%;
-    height: 100vh;
-    position:fixed;
-    z-index:100;
-    background-color: rgba(0, 0, 0, 0.301); 
-    justify-content:center;
-    align-items:center;
-    display:none;
+    height:100vh;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    z-index: 50;
+    background-color: rgba(0, 0, 0, 0.363);
 }
-.add-product-modal{
+.add-product-form-container{
     background-color: #ffffff;
-    padding:20px;
-    border-radius:10px;
-    width:50%;
-    max-height:90vh;
-    overflow-y: auto;
-   
-}
-.add-product-modal h3{
-    text-align: center;
-    font-size: 1.5rem;
+    padding:30px;
+    border-radius: 10px;
+    width: 50%;;
 }
 #add-product-form{
     display: flex;
     flex-direction: column;
-    gap:10px;
+    gap: 10px;
 }
-#add-product-form div{
-    display: flex;
-    flex-direction: column;
+#add-product-form h3{
+    text-align: center;
 }
-#add-product-form div label{
+.form-group-container{
+    display:flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+  
+}
+.form-group-container label{
+    width:130px;
     font-weight: bold;
-    font-size: 1rem;
-    color:rgb(112, 112, 112);
 }
-#add-product-form div input,
-#add-product-form div select{
-    height:1.8rem;
-    padding:5px;
+.form-group-container input,
+.form-group-container select{
+    width:100%;
+    height: 2rem;
+    padding:3px;
 }
 
 #add-product-submit-button{
-    height:1.8rem;
-    padding:5px;
-    margin-top: 10px;
+    height: 2rem;
     cursor: pointer;
 }
 #add-product-cancel-button{
-    height:1.8rem;
-    padding:5px;
-    margin-top: 10px;
-    width:100%;
+    height: 2rem;
     cursor: pointer;
+    width:100%;
+    margin-top:10px;
+}
+.inventory-add-product-barcode-container{
+    
+    width:100%;;
+    display: flex;
+    gap:5px;
+}
+#add-product-barcode{
+    width: 70%;	
+}
+#inventory-add-product-generate-barcode-button{
+    width:30%;
 }
 /**********| FOR EDITING PRODUCT |***************/
 .edit-product-modal-container{

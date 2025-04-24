@@ -1,4 +1,11 @@
 <?php
+// Set headers
+header('Content-Type: application/json');
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Methods: POST");
+header("Access-Control-Allow-Headers: Content-Type");
+
+// Database connection settings
 $server = "localhost";
 $username = "root";
 $password = "";
@@ -6,21 +13,22 @@ $dbname = "simsdb";
 
 // Create connection
 $conn = new mysqli($server, $username, $password, $dbname);
+$conn->set_charset("utf8mb4"); // Ensure proper encoding
 
 // Check connection
 if ($conn->connect_error) {
-    die(json_encode([
+    http_response_code(500);
+    echo json_encode([
         'success' => false,
         'message' => 'Connection failed: ' . $conn->connect_error
-    ]));
+    ]);
+    exit;
 }
 
-// Set the response header to return JSON
-header('Content-Type: application/json');
-
-// Get search query (if any)
-$searchQuery = isset($_POST['query']) ? trim($_POST['query']) : '';
-$searchQuery = "%$searchQuery%";
+// Get and prepare search query
+$searchQueryRaw = isset($_POST['query']) ? trim($_POST['query']) : '';
+$searchQuery = "%$searchQueryRaw%";
+$barcodeRaw = isset($_POST['barcode']) ? trim($_POST['barcode']) : '';
 
 // Base SQL
 $sql = "SELECT 
@@ -43,15 +51,38 @@ $sql = "SELECT
         LEFT JOIN supplier s ON p.supplier_id = s.supplier_id
         WHERE p.status = 'active'";
 
-// If there's a search query, add WHERE conditions
-if (!empty(trim($_POST['query']))) {
+// Add filter if search query is provided
+// Determine search type: barcode OR general query
+if (!empty($barcodeRaw)) {
+    $sql .= " AND p.barcode = ?";
+    $stmt = $conn->prepare($sql);
+    if (!$stmt) {
+        http_response_code(500);
+        echo json_encode([
+            'success' => false,
+            'message' => 'Prepare failed: ' . $conn->error
+        ]);
+        exit;
+    }
+    $stmt->bind_param("s", $barcodeRaw);
+    $stmt->execute();
+    $result = $stmt->get_result();
+} elseif (!empty($searchQueryRaw)) {
+    $searchQuery = "%$searchQueryRaw%";
     $sql .= " AND (p.product_name LIKE ? OR p.barcode LIKE ?)";
     $stmt = $conn->prepare($sql);
+    if (!$stmt) {
+        http_response_code(500);
+        echo json_encode([
+            'success' => false,
+            'message' => 'Prepare failed: ' . $conn->error
+        ]);
+        exit;
+    }
     $stmt->bind_param("ss", $searchQuery, $searchQuery);
     $stmt->execute();
     $result = $stmt->get_result();
 } else {
-    // No search query, get all active products
     $result = $conn->query($sql);
 }
 
@@ -85,6 +116,7 @@ if ($result) {
         $response['message'] = 'No products found.';
     }
 } else {
+    http_response_code(500);
     $response['success'] = false;
     $response['message'] = 'Error executing query: ' . $conn->error;
 }

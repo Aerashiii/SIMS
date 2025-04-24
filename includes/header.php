@@ -59,7 +59,8 @@
         case 'pos':
             echo '<title>Point Of Sale</title>';
             echo '<link rel="stylesheet" href="../styles/pos.css">';
-            echo '<script src="../scripts/pos/pos.js"></script>';
+            echo '<script type="module" src="../scripts/pos/pos.js"></script>';
+            echo '<script type="module" src="../scripts/pos/print-receipt.js"></script>';
             break;
         // IF THE CURRENT PAGE IS RENTAL, THEN LINK THE CSS AND SCRIPT OF THE RENTAL-BOXES PAGE
         case 'rental':
