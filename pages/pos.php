@@ -23,7 +23,7 @@ if (!isset($_SESSION['user'])) {
                 <div class="shopping-cart-content-container">
                     <div class="select-product-container">
                         <button id="pos-select-product-button">Select Product</button>
-                        <button id="pos-scan-product-button">Scan Product</button>
+                        
                         <input 
                             type="text" 
                             id="pos-barcode-scanner-input" 

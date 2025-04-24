@@ -59,6 +59,7 @@ if (!isset($_SESSION['user'])) {
                 <div class="rental-box-content-container">
                     <div class="rental-box-header-container">
                         <h3>Rental Box Information:</h3>
+                        <button id="rental-add-rental-box-button">Add Rental Box</button>
                     </div>   
                     <table id="rental-box-table">
                         <tr>
@@ -68,14 +69,7 @@ if (!isset($_SESSION['user'])) {
                             <th>Status</th>
                             <th>Action</th>
                         </tr>
-                        <td>try</td>
-                        <td>123wqwe</td>
-                        <td>try</td>
-                        <td>123wqwe</td>
-                        <td>
-                        <button><img src="../assets/images/icons/edit.png" alt="Edit"></button>
-                        <button><img src="../assets/images/icons/delete1.png" alt="Delete"></button>
-                        </td>
+                     
                     </table>
                 </div>
       </div>
@@ -111,7 +105,7 @@ if (!isset($_SESSION['user'])) {
                     </table>
                 </div>
       </div>
-
+</main>
  
 
 <!--------| ADD NEW RENTAL | --------------->
@@ -210,6 +204,39 @@ if (!isset($_SESSION['user'])) {
             <button id="delete-renter-list-yes-button">Yes</button>
             <button id="delete-renter-list-no-button">No</button>
         </div>
+
+    </div>
+</div>
+
+<!-- | ADD RENTAL BOX MODAL |-->
+<div class="rental-add-box-rental-modal-container">
+    <div class="rental-add-box-rental-modal">
+        <h2>Add Box Rental</h2>
+        <div>
+            <label for="">Box Number:</label>
+            <input type="text" name="rental-add-box-number" id="rental-add-box-number" value="" required> 
+        </div>
+        <div>
+            <label for="">Box Size:</label>
+            <input type="text" name="rental-add-box-size" id="rental-add-box-size" value="" required >
+        </div>
+        <div>
+            <label for="">Rental Fee:</label>
+            <input type="text" name="rental-add-box-rental-fee" id="rental-add-box-rental-fee" value="" required>
+        </div>
+        <div>
+            <label for="">Quantity:</label>
+            <input type="text" name="rental-add-box-quantity" id="rental-add-box-quantity" value="" required>          
+        </div>
+        <div>
+            <label for="">Status:</label>
+            <select name="" id="rental-add-box-status" required>
+                <option value="active">active</option>
+                <option value="inactive">inactive</option>
+            </select>
+        </div>
+       <button id="add-box-rental-cancel-button">Cancel</button>
+       <button id="add-box-rental-save-button">Save</button>
 
     </div>
 </div>

@@ -185,14 +185,18 @@
 #low-stock-inventory-table{
     margin-top:10px;
     width:100%;
-    border:1px solid;
     border-collapse: collapse;
     text-align: center;
 }
 #low-stock-inventory-table th{
-    padding: 10px 0;
-    border-bottom: 1px solid;
+    padding: 10px 0; 
     font-size: 0.8rem;
+    position: sticky;
+    top: 0;
+    background-color: #ffffff;
+    z-index: 2; 
+    border-bottom: 2px solid #99BC85;
+    box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.1);
 }
 #low-stock-action-text{
     margin:0;
@@ -212,7 +216,7 @@
 }
 #low-stock-inventory-table td{
     padding: 5px 0;
-    border-bottom: 1px solid;
+    border-bottom: 1px solid #99BC85;
     font-size: 0.8rem;
     
 
@@ -231,14 +235,18 @@
 #out-stock-inventory-table{
     margin-top:10px;
     width:100%;
-    border:1px solid;
     border-collapse: collapse;
     text-align: center;
 }
 #out-stock-inventory-table th{
-    padding: 10px 0;
-    border-bottom: 1px solid;
+    padding: 10px 0; 
     font-size: 0.8rem;
+    position: sticky;
+    top: 0;
+    background-color: #ffffff;
+    z-index: 2; 
+    border-bottom: 2px solid #99BC85;
+    box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.1);
 }
 #out-stock-action-text{
     margin:0;
@@ -258,7 +266,7 @@
 }
 #out-stock-inventory-table td{
     padding: 5px 0;
-    border-bottom: 1px solid;
+    border-bottom: 1px solid #99BC85;
     font-size: 0.8rem;
 }
 /**************| STOCK IN STOCK INVENTORY |**************/
