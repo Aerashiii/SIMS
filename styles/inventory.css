@@ -201,19 +201,8 @@
 #low-stock-action-text{
     margin:0;
 }
-#low-stock-delete-active-checkbox-button{
-    padding: 3px 8px;
-    border:1px solid red;
-    cursor:pointer;
-    color:red;
-    border-radius:3px;
-    margin:0;
-    display:none;
-}
-#low-stock-delete-active-checkbox-button:hover{
-    background-color: red;
-    color:white;
-}
+
+
 #low-stock-inventory-table td{
     padding: 5px 0;
     border-bottom: 1px solid #99BC85;

@@ -1,11 +1,4 @@
-<?php
-// Set headers for JSON response
-header('Content-Type: application/json');
-header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Methods: POST");
-header("Access-Control-Allow-Headers: Content-Type");
-
-// Database connection settings
+<?php 
 $server = "localhost";
 $username = "root";
 $password = "";
@@ -13,61 +6,52 @@ $dbname = "simsdb";
 
 // Create connection
 $conn = new mysqli($server, $username, $password, $dbname);
-$conn->set_charset("utf8mb4"); // Ensure proper encoding
 
 // Check connection
 if ($conn->connect_error) {
     http_response_code(500);
-    echo json_encode([
-        'success' => false,
-        'message' => 'Connection failed: ' . $conn->connect_error
-    ]);
-    exit;
+    echo json_encode(["success" => false, "message" => "Database connection failed: " . $conn->connect_error]);
+    exit();
 }
 
-// Get POST data
-$boxNumber = isset($_POST['box_number']) ? trim($_POST['box_number']) : '';
-$boxSize = isset($_POST['box_size']) ? trim($_POST['box_size']) : '';
-$rentalFee = isset($_POST['rental_fee']) ? trim($_POST['rental_fee']) : '';
-$quantity = isset($_POST['quantity']) ? trim($_POST['quantity']) : '';
-$status = isset($_POST['status']) ? trim($_POST['status']) : 'active';
+header('Content-Type: application/json');
 
-// Check if any required field is empty
-if (empty($boxNumber) || empty($boxSize) || empty($rentalFee) || empty($quantity) || empty($status)) {
-    echo json_encode(['success' => false, 'message' => 'All fields are required.']);
-    exit;
-}
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $box_number = $_POST['box_number'] ?? '';
+    $size = $_POST['box_size'] ?? '';
+    $width = $_POST['box_width'] ?? '';
+    $length= $_POST['box_length'] ?? '';
+    $rental_fee = $_POST['box_rental_fee'] ?? '';
+    $quantity = $_POST['box_quantity'] ?? '';
+    $status = $_POST['box_status'] ?? '';
+    
 
-// SQL query to insert rental box
-$sql = "INSERT INTO rental_boxes (box_number, box_size, rental_fee, quantity, status) VALUES (?, ?, ?, ?, ?)";
+    if (empty($box_number) || empty($size) || empty($width) || empty($length) || empty($rental_fee) || empty($quantity) || empty($status)) {
+        http_response_code(400);
+        echo json_encode(["success" => false, "message" => "All fields are required."]);
+        exit();
+    }
 
-// Prepare statement
-$stmt = $conn->prepare($sql);
-if (!$stmt) {
-    echo json_encode([
-        'success' => false,
-        'message' => 'Prepare failed: ' . $conn->error
-    ]);
-    exit;
-}
+    $stmt = $conn->prepare("INSERT INTO rentalbox (box_number, box_size, width, length, rental_fee, quantity, status) VALUES (?, ?, ?, ?, ?, ?, ?)");
+    if (!$stmt) {
+        http_response_code(500);
+        echo json_encode(["success" => false, "message" => "Failed to prepare SQL statement: " . $conn->error]);
+        exit();
+    }
 
-// Bind parameters
-$stmt->bind_param("ssdis", $boxNumber, $boxSize, $rentalFee, $quantity, $status);
+    $stmt->bind_param("isiiiis", $box_number, $size, $width, $length, $rental_fee, $quantity, $status);
 
-// Execute query
-if ($stmt->execute()) {
-    echo json_encode([
-        'success' => true,
-        'message' => 'Rental box added successfully!'
-    ]);
+    if ($stmt->execute()) {
+        echo json_encode(["success" => true, "message" => "Box rental added successfully."]);
+    } else {
+        http_response_code(500);
+        echo json_encode(["success" => false, "message" => "Failed to execute query: " . $stmt->error]);
+    }
+
+    $stmt->close();
+    $conn->close();
 } else {
-    echo json_encode([
-        'success' => false,
-        'message' => 'Error saving rental box: ' . $stmt->error
-    ]);
+    http_response_code(405);
+    echo json_encode(["success" => false, "message" => "Invalid request method."]);
 }
-
-// Close the connection
-$stmt->close();
-$conn->close();
 ?>

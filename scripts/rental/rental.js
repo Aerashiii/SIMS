@@ -3,10 +3,6 @@ document.addEventListener('DOMContentLoaded', function () {
     const buttons = document.querySelectorAll('.rental-boxes-switch-content-buttons-container button');
     const contentContainers = document.querySelectorAll('.rental-boxes-content-container');
 
-    const addProductButton = document.getElementById('add-rental-button');
-    const addProductCancelButton = document.getElementById('add-rental-cancel-button');
-    const addProductModalCon = document.querySelector('.add-rental-modal-container');
-
 
     // ADD AND REMOVE ACTIVE CLASS
     buttons.forEach((button, index) => {
@@ -21,14 +17,29 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    //DISPLAY THE ADD PRODUCT MODAL WHEN ADD NEW PRODUCT BUTTON CLICKED
-    addRentalButton.addEventListener('click', function(){
-        addRentalModalCon.style.display = 'flex';
-    })
-    //HIDE THE ADD PRODUCT MODAL WHEN CANCEL BUTTON CLICKED
-    addRentalCancelButton.addEventListener('click', function(){
-        addRentalModalCon.style.display = 'none';
-    })
+
+    // FOR DISPLAYING THE ADD RENTAL TRANSACTION 
+    const addRentalTransactionButton = document.getElementById('add-rental-button');
+    const addRentalTransactionBackButton = document.getElementById('add-rental-back-button');
+    const addRentalTransactionModalCon = document.querySelector('.add-rental-transaction-container');
+    const rentalManagementContentCon = document.querySelector('.rental-management-content-container');
+
+    addRentalTransactionButton.addEventListener('click', function() {
+        addRentalTransactionButton.style.display = 'none';
+        addRentalTransactionBackButton.style.display = 'block';
+
+        addRentalTransactionModalCon.style.display = 'block';
+        rentalManagementContentCon.style.display = 'none';
+    });
+
+    addRentalTransactionBackButton.addEventListener('click', function() {
+        addRentalTransactionButton.style.display = 'block';
+        addRentalTransactionBackButton.style.display = 'none';
+
+        addRentalTransactionModalCon.style.display = 'none';
+        rentalManagementContentCon.style.display = 'block';
+    });
+
 
 
 

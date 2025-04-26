@@ -314,12 +314,12 @@ if (!isset($_SESSION['user'])) {
         </div>
     </div>
 </div>
+
 <!-- | DELATION CONFIRMATION FOR BRAND |-->
 <div class="delete-brand-modal-container">
     <div class="delete-brand-modal">
         <p>Are you sure you want to delete this Brand?</p>
         <span id="delete-brand-name"></span>
-
         <div class="brand-delete-yes-and-no-button">
             <button id="delete-brand-yes-button">Yes</button>
             <button id="delete-brand-no-button">No</button>
@@ -327,7 +327,6 @@ if (!isset($_SESSION['user'])) {
 
     </div>
 </div>
-
 
  <!-- | MODAL FOR ADDING PRODUCT |--->
  <div class="add-product-modal-container">

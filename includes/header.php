@@ -66,9 +66,12 @@
         case 'rental':
             echo '<title>Rental</title>';
             echo '<link rel="stylesheet" href="../styles/rental.css">';
-            echo '<script src="../scripts/rental/rental.js"></script>';
-            echo '<script src="../scripts/rental/renter-list.js"></script>';
-            echo '<script src="../scripts/rental/rental-box.js"></script>';
+            echo '<script type="module" src="../scripts/rental/rental.js"></script>';
+            echo '<script type="module" src="../scripts/rental/renter-list.js"></script>';
+            echo '<script type="module" src="../scripts/rental/rental-box.js"></script>';
+            echo '<script type="module" src="../scripts/rental/add-rental.js"></script>';
+            echo '<script type="module" src="../scripts/rental/rental-transaction-print-receipt.js"></script>';
+            echo '<script type="module" src="../scripts/rental/rental-list.js"></script>';
             break;
         // IF THE CURRENT PAGE IS REPORTS, THEN LINK THE CSS AND SCRIPT OF THE RENTAL-BOXES PAGE
         case 'reports':

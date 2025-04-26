@@ -340,8 +340,6 @@ function addProduct() {
 
 /**===========================| FOR EDITING PRODUCT |=========================================================== */
 
-
-
 function handleEditProduct(event) {
     const productId = event.currentTarget.dataset.id;
     console.log(productId);
