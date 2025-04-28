@@ -15,7 +15,7 @@ if ($conn->connect_error) {
 header('Content-Type: application/json');
 
 
-$sql = "SELECT brand_id, brand_name, status,date_created FROM brand";
+$sql = "SELECT brand_id, brand_name, status,date_created FROM brand WHERE deleted='no'";
 $stmt = $conn->prepare($sql);
 if (!$stmt) {
     die(json_encode(['success' => false, 'message' => "SQL prepare failed: " . $conn->error]));

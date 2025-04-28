@@ -42,6 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Check if the barcode already exists
     $check_query = "SELECT id FROM products WHERE barcode = '$barcode'";
     $check_result = $conn->query($check_query);
+    $isDeleted = "no";
 
     if ($check_result && $check_result->num_rows > 0) {
         echo json_encode(['success' => false, 'message' => 'Barcode already exists. Please generate a new one.']);
@@ -49,8 +50,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // SQL to insert product data into the products table
-    $sql = "INSERT INTO products (product_name, barcode, brand_id, category_id, subcategory_id, original_price, selling_price, quantity, reorder_point, status, supplier_id)
-            VALUES ('$product_name', '$barcode', $brand_id, $category_id, $subcategory_id, $original_price, $selling_price, $quantity, $reorder_point, '$status', $supplier_id)";
+    $sql = "INSERT INTO products (product_name, barcode, brand_id, category_id, subcategory_id, original_price, selling_price, quantity, reorder_point, status, supplier_id, deleted)
+            VALUES ('$product_name', '$barcode', $brand_id, $category_id, $subcategory_id, $original_price, $selling_price, $quantity, $reorder_point, '$status', $supplier_id, $isDeleted )";
 
     // Execute the query and check for errors
     if (mysqli_query($conn, $sql)) {

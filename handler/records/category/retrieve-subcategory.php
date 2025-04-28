@@ -29,11 +29,13 @@ $sql = "
         category 
     ON 
         subcategory.category_id = category.category_id
+    WHERE 
+        subcategory.deleted = 'no'
 ";
 
-// If category_id is provided, add filter condition to query
+// If category_id is provided, add additional filter
 if ($category_id) {
-    $sql .= " WHERE category.category_id = ?";
+    $sql .= " AND category.category_id = ?";
 }
 
 // Prepare the statement

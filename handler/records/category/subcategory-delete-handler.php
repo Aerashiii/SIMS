@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Check if the product ID is valid
     if ( $subcategoryId) {
         // Prepare SQL to delete the product
-        $sql = "DELETE FROM subcategory WHERE subcategory_id = ?";
+        $sql = "UPDATE subcategory SET deleted ='yes' WHERE subcategory_id = ?";
         $stmt = $conn->prepare($sql);
 
         // Check if the statement was prepared correctly

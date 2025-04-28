@@ -551,3 +551,91 @@
     margin-top: 20px;
     width:200px;
 }
+
+
+
+/************************| RESPONSIVE STYLES FOR POS |********************************/
+@media (max-width: 768px) {
+    .pos-sub-container {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .shopping-cart-container,
+    .receipt-preview-container {
+        width: 100%;
+    }
+
+    .pos-product-selection-container {
+        width: 90%;
+    }
+
+    .pos-product-selection-search-container {
+        width: 90%;
+    }
+
+    #select-payment,
+    #input-amount-recieved,
+    #pos-shopping-change,
+    #change {
+        width: 100% !important;
+    }
+
+    .pos-info-buttons-container div label {
+        width: 120px;
+    }
+
+    .name-container label,
+    .contact-number-container label {
+        width: 35%;
+    }
+
+    .name-container input,
+    .contact-number-container input {
+        width: 65%;
+    }
+
+    .pos-product-table-container {
+        height: 400px;
+    }
+}
+
+@media (max-width: 480px) {
+    .pos-main-content-container {
+        padding-top: 8vh;
+    }
+
+    .pos-product-selection-search-container {
+        width: 100%;
+        height: auto;
+        flex-direction: column;
+        padding: 10px;
+    }
+
+    #pos-product-selection-search-input[type="text"] {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    #pos-product-selection-search-submit-button {
+        width: 100%;
+    }
+
+    .pos-product-selection-container {
+        width: 95%;
+    }
+
+    #h4-store-name {
+        font-size: 1.2rem;
+    }
+
+    .pos-transaction-process-and-cancel-button-container {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .pos-transaction-process-and-cancel-button-container button {
+        width: 100%;
+    }
+}
+

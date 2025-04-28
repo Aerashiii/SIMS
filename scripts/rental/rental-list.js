@@ -41,7 +41,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 <td>${rental.status}</td>
                 <td>
                     <button data-id="${rental.id}" class="rental-view-details-button">View Details</button>
-                    <button data-id="${rental.id}" class="rental-completed-button">Completed</button>                
+                    <button data-id="${rental.id}" class="rental-completed-button">Completed</button>
+                    <button data-id="${rental.id}" class="rental-delete-button">Delete</button>                
                 </td>
             `;
             rentalTableBody.appendChild(row);
@@ -55,6 +56,9 @@ document.addEventListener('DOMContentLoaded', function () {
         );     
         document.querySelectorAll('.rental-completed-button').forEach(button =>
             button.addEventListener('click', handlecompletedrental)
+        );
+        document.querySelectorAll('.rental-delete-button').forEach(button =>
+            button.addEventListener('click', handleDeleteRentalBox)
         );
     }
 /***************| FOR HANDLE VIEW DETAILS |******************************** */
@@ -142,7 +146,70 @@ function handlecompletedrental(event) {
     }
 }
 
+/**************************| FOR DELETING RENTAL BOX |***************************************************** */
 
+const deleteRentalModal = document.querySelector('.delete-rental-modal-container');
+const deleteRentalYesButton = document.getElementById('delete-rental-yes-button');
+const cancelDeleteRentalButton = document.getElementById('delete-rental-no-button');
+
+
+let rentalId = null; // Declare boxId in a broader scope
+// Handle supplier deletion
+function handleDeleteRentalBox(event) {
+    rentalId = event.currentTarget.dataset.id;  
+    console.log(rentalId);
+
+  fetch(`../handler/rental/rental-list/rental-details.php?id=${rentalId}`)
+    .then(response => response.json())
+    .then(rental => {
+      if (rental.error) {
+        console.error('Error fetching rental details:', rental.error);
+        return;
+      }
+      displayDeleteRentalDetails(rental);
+    })
+    .catch(error => console.error('Error fetching rental details:', error));
+}
+
+// Display supplier details for deletion
+function displayDeleteRentalDetails(rental) {
+    deleteRentalModal.style.display = 'flex';
+  document.querySelector('#delete-rental-id').textContent = rental.id;
+}
+
+// Confirm delete supplier
+deleteRentalYesButton.addEventListener('click', function () {
+ 
+
+  fetch('../handler/rental/rental-list/delete-rental.php', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    body: `id=${rentalId}`  
+  })
+    .then(response => response.text())  // Read as text to inspect raw response
+    .then(text => {
+      try {
+        const data = JSON.parse(text);
+        if (data.success) {
+          alert(data.success);
+          window.location.reload();
+        } else {
+          alert(data.error);
+        }
+      } catch (error) {
+        console.error('Response not JSON:', text);
+        alert('Something went wrong');
+      }
+    })
+    .catch(error => console.error('Error:', error));
+});
+
+// Cancel delete supplier
+cancelDeleteRentalButton.addEventListener('click', function () {
+    deleteRentalModal.style.display = 'none';  
+});
 
 
 

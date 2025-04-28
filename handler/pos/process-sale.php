@@ -49,7 +49,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $transaction_id = $stmt->insert_id;
         $stmt->close();
 
-        // Update product stock
+        // Insert product sales records
+        $productSalesStmt = $conn->prepare("INSERT INTO `product-sales` (`transact_ID`, `product_id`, `quantity_sold`, `total_sale`) VALUES (?, ?, ?, ?)");
+        if (!$productSalesStmt) {
+            throw new Exception("Prepare failed (Product Sales): " . $conn->error);
+        }
+
+        // Update product stock and insert product sales
         $updateStmt = $conn->prepare("UPDATE products SET quantity = quantity - ? WHERE barcode = ?");
         if (!$updateStmt) {
             throw new Exception("Prepare failed (Update): " . $conn->error);
@@ -58,13 +64,35 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         foreach ($cart as $item) {
             $qty = (int)$item['quantity'];
             $barcode = $item['barcode'];
+            $total = $item['total'];
 
+            // Update product quantity
             $updateStmt->bind_param("is", $qty, $barcode);
             if (!$updateStmt->execute()) {
                 throw new Exception("Execute failed (Update): " . $updateStmt->error);
             }
+
+            // Get product ID
+            $productIdStmt = $conn->prepare("SELECT id FROM products WHERE barcode = ?");
+            $productIdStmt->bind_param("s", $barcode);
+            $productIdStmt->execute();
+            $productIdResult = $productIdStmt->get_result();
+            
+            if ($productIdResult->num_rows > 0) {
+                $product = $productIdResult->fetch_assoc();
+                $product_id = $product['id'];
+                
+                // Insert into product-sales table
+                $productSalesStmt->bind_param("iiid", $transaction_id, $product_id, $qty, $total);
+                if (!$productSalesStmt->execute()) {
+                    throw new Exception("Execute failed (Product Sales): " . $productSalesStmt->error);
+                }
+            }
+            $productIdStmt->close();
         }
+        
         $updateStmt->close();
+        $productSalesStmt->close();
 
         // Commit if all succeeded
         $conn->commit();

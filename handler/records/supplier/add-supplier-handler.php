@@ -15,7 +15,7 @@ if ($conn->connect_error) {
 }
 
 header('Content-Type: application/json');
-
+$deleted = 'no';
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $supplier_name = $_POST['supplier_name'] ?? '';
     $contact_person = $_POST['contact_person'] ?? '';
@@ -32,14 +32,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit();
     }
 
-    $stmt = $conn->prepare("INSERT INTO supplier (supplier_name, contact_person, contact_number, address, supplier_type, product_category_id, payment_terms, note) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+    $stmt = $conn->prepare("INSERT INTO supplier (supplier_name, contact_person, contact_number, address, supplier_type, product_category_id, payment_terms, note,deleted) VALUES (?, ?, ?, ?, ?, ?, ?, ?,?)");
     if (!$stmt) {
         http_response_code(500);
         echo json_encode(["success" => false, "message" => "Failed to prepare SQL statement: " . $conn->error]);
         exit();
     }
 
-    $stmt->bind_param("ssssssss", $supplier_name, $contact_person, $contact_number, $address, $supplier_type, $product_category_id, $payment_terms, $note);
+    $stmt->bind_param("ssssssss", $supplier_name, $contact_person, $contact_number, $address, $supplier_type, $product_category_id, $payment_terms, $note,$deleted );
 
     if ($stmt->execute()) {
         echo json_encode(["success" => true, "message" => "Supplier added successfully."]);

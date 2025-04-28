@@ -42,7 +42,7 @@ $sql = "SELECT
         LEFT JOIN subcategory sub ON p.subcategory_id = sub.subcategory_id
         LEFT JOIN supplier s ON p.supplier_id = s.supplier_id
         WHERE p.status = 'active' AND p.quantity <= p.reorder_point
-        AND p.reorder_point > 0";
+        AND p.reorder_point > 0 AND p.deleted = 'no'";
 
 $params = [];
 $types = "";

@@ -9,34 +9,68 @@
     text-align: center;
     color:#343a40;
 }
-.top-metrics-box-container{
-    display: flex;
+.top-metrics-box-container{ 
     width:100%;
-    justify-content: space-between;
     padding:20px;
 }
-.total-sales-container,
-.inventory-value-container,
-.low-stocks-items-container,
-.occupied-rental-boxes-container{
-    width:250px;
-    height:200px;
-    border-radius:20%;
+#switch-metrics-boxes-icon{
+    font-size: 2rem;
+    color:#9b9b9b;
+    cursor:pointer;
+    transition: transform 0.5s ease;
+    float:right;
+
+}
+#switch-metrics-boxes-icon:hover{
+    color:#99BC85;
+    transform: rotate(360deg);
+
+}
+.metrics-box-container-one,
+.metrics-box-container-two{
+    width: 100%;
+    justify-content: space-between;
+    display: none;
+    opacity: 0;
+    transform: scale(0.95);
+    transition: all 0.5s ease;
+}
+.metrics-box-container-one.active,
+.metrics-box-container-two.active{
+    display: flex;
+    opacity: 1;
+    transform: scale(1);
+}
+
+.metrics-box{
+    width: 270px;
+    height: 200px;
+    border-radius: 20%;
     background-color: #D9D9D9;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    color:#363949;
-    gap:10px;
+    color: #363949;
+    gap: 10px;
+    overflow: hidden; /* Hide overflow */
 }
 #total-sales,
-#inventory-value,
+#total-products,
 #low-stock-items,
-#occupied-rentas-boxes{
+#occupied-rental-boxes,
+#total-expenses,
+#total-value,
+#total-pending-orders,
+#total-rental-boxes{
     font-size: 2rem;
     font-weight: bold;
-    color:#343a40;
+    color: #343a40;
+    white-space: nowrap; /* Prevent wrapping */
+    overflow: hidden; /* Hide content overflow */
+    text-overflow: ellipsis; /* Add "..." when content overflows */
+    width: 100%; /* Ensure it takes up the full width of its container */
+    text-align: center; /* Center the content */
 }
 
 
@@ -46,18 +80,31 @@
     display: flex;
     justify-content: space-between;
     padding:20px;
+    gap:10px;
    
+}
+.recent-sales-table-container,
+.low-stock-alert-table-container,
+.rental-box-summary-table-container{
+    height:90%;
+    width:100%;
+    overflow-y: auto;
 }
 .recent-sales-container,
 .low-stock-alert-container,
 .rental-box-summary-container{
-    width:370px;
+    width:100%;
     height:300px;
     border: 1px solid #99BC85;
     padding:10px;
     border-radius:20px;
-    overflow: hidden;
-  
+}
+#recent-sales-table th,
+#low-stock-alert-table th,
+#rental-box-summary-table th{
+  position: sticky;
+  top: 0;
+  background-color: #ffffff;
 }
 
 /*******| RECENT SALES |**********/
@@ -127,3 +174,65 @@
 
     padding:5px 0;
 } 
+
+
+/* Mobile Responsive Styles */
+@media (max-width: 768px) {
+    .top-metrics-box-container {
+        padding: 10px;
+    }
+
+    .metrics-box-container-one.active,
+    .metrics-box-container-two.active {
+        flex-direction: column;
+        align-items: center;
+        gap:20px;
+    }
+
+    .metrics-box {
+        width: 90%;
+        height: auto;
+        border-radius: 15px;
+        padding: 20px;
+    }
+
+    #total-sales,
+    #total-products,
+    #low-stock-items,
+    #occupied-rental-boxes,
+    #total-expenses,
+    #total-value,
+    #total-pending-orders,
+    #total-rental-boxes {
+        font-size: 1.5rem;
+    }
+
+    .sales-details-container {
+        flex-direction: column;
+        gap: 20px;
+        padding: 10px;
+    }
+
+    .recent-sales-container,
+    .low-stock-alert-container,
+    .rental-box-summary-container {
+        height: auto;
+        padding: 15px;
+    }
+
+    #recent-sales-table,
+    #low-stock-alert-table,
+    #rental-box-summary-table {
+        font-size: 0.7rem;
+    }
+
+    .main-content-container h1,
+    .main-content-container h2 {
+        font-size: 1.5rem;
+        text-align: center;
+    }
+
+    #switch-metrics-boxes-icon {
+        font-size: 1.5rem;
+    }
+}

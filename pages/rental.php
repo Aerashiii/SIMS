@@ -9,6 +9,7 @@ if (!isset($_SESSION['user'])) {
     exit;
 }
 
+
     $page ='rental'; //ASSIGNS THE NAME OF THE PAGE. THIS PAGE IS NAMED 'RENTAL-BOXES' AND IS USED IN THE HEADER.PHP FILE.
     require '../includes/header.php'; //REQUIRES THE HEADER.PHP, FOR YOU CAN APPLY THE CSS,SCRIPT,SIDEBAR, AND TOPNAV ON THIS PAGE.
 ?>
@@ -393,3 +394,16 @@ if (!isset($_SESSION['user'])) {
     </div>
  </div>
 
+
+ <!-- | DELATION CONFIRMATION FOR RENTAL |-->
+<div class="delete-rental-modal-container">
+    <div class="delete-rental-modal">
+        <p>Are you sure you want to delete Rental?</p>
+        <span id="delete-rental-id"></span>
+        <div class="rental-delete-yes-and-no-button">
+            <button id="delete-rental-yes-button">Yes</button>
+            <button id="delete-rental-no-button">No</button>
+        </div>
+
+    </div>
+</div>

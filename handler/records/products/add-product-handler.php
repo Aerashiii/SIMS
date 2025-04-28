@@ -11,7 +11,7 @@ $conn = new mysqli($server, $username, $password, $dbname);
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
-
+$deleted = 'no';
 // Check if the form is submitted via POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Collect and sanitize form data
@@ -34,8 +34,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // SQL to insert product data into the products table
-    $sql = "INSERT INTO products (product_name, barcode, brand_id, category_id, subcategory_id, original_price, selling_price, quantity, reorder_point, status, supplier_id)
-            VALUES ('$product_name', '$barcode', $brand_id, $category_id, $subcategory_id, $original_price, $selling_price, $quantity, $reorder_point, '$status', $supplier_id)";
+    $sql = "INSERT INTO products (product_name, barcode, brand_id, category_id, subcategory_id, original_price, selling_price, quantity, reorder_point, status, supplier_id, deleted)
+            VALUES ('$product_name', '$barcode', $brand_id, $category_id, $subcategory_id, $original_price, $selling_price, $quantity, $reorder_point, '$status', $supplier_id, $deleted)";
 
     // Execute the query and check for errors
     if (mysqli_query($conn, $sql)) {

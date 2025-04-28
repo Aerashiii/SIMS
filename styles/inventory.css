@@ -14,11 +14,85 @@
     align-items: center;
     justify-content: space-between;
 }
-#inventory-add-product-button{
-    padding:10px ;
-    margin-right:10px;
+/* FOR ADD NEW PRODUCT BUTTON */ 
+
+#inventory-add-product-button {
+    position: relative;
+    width: 150px;
+    height: 40px;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    border: 1px solid #34974d;
+    background-color: #3aa856;
+    transition: all 0.3s;
 }
+
+#inventory-add-product-button .button__text,
+#inventory-add-product-button .button__icon {
+    transition: all 0.3s;
+}
+
+/* BUTTON TEXT */
+#inventory-add-product-button .button__text {
+    flex: 1;
+    color: #fff;
+    font-weight: 600;
+    text-align: left;
+    padding-left:10px;
+}
+
+/* BUTTON ICON */
+#inventory-add-product-button .button__icon {
+    position: absolute;
+    right: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 40px;
+    background-color: #34974d;
+    transform: translateX(100%); /* Start hidden to the right */
+}
+
+/* SVG ICON INSIDE */
+#inventory-add-product-button .svg {
+    width: 24px;
+    height: 24px;
+    stroke: #fff;
+}
+
+/* HOVER EFFECT */
+#inventory-add-product-button:hover {
+    background: #34974d;
+}
+
+/* On hover: move icon to left inside button */
+#inventory-add-product-button:hover .button__icon {
+    transform: translateX(0);
+}
+
+/* Optional: make text move slightly if you want */
+#inventory-add-product-button:hover .button__text {
+    padding-right: 20px;
+   display:none;
+   
+}
+
+/* ACTIVE EFFECT */
+#inventory-add-product-button:active {
+    border: 1px solid #2e8644;
+}
+
+#inventory-add-product-button:active .button__icon {
+    background-color: #2e8644;
+}
+
+
+
+
+
 /*| #2 |*/
 .inventory-switch-content-buttons-container{
     display:flex;
@@ -38,26 +112,32 @@
 #onhand-product-button.active{
     background-color: #99BC85;
     border:none;
+    color:#ffffff;
 }
 #low-stock-product-button.active{
     background-color: #99BC85;
     border:none;
+    color:#ffffff;
 }
 #out-stock-product-button.active{
     background-color: #99BC85;
     border:none;
+    color:#ffffff;
 }
 #stock-in-product-button.active{
     background-color: #99BC85;
     border:none;
+    color:#ffffff;
 }
 #stock-out-product-button.active{
     background-color: #B2CF9B;
     border:none;
+    color:#ffffff;
 }
 #purchase-order-button.active{
     background-color: #99BC85;
     border:none;
+    color:#ffffff;
 }
 /**********************| INVENTORY CONTENTS |**********************************/
 /*| #3 |*/
@@ -71,7 +151,10 @@
     border-radius:10px ;
 
 }
-
+.inventory-select-category{
+    padding: 3px 5px;
+    margin-right:20px;
+}
 /************| INVENTORY SEARCH |****************/
 
 .inventory-search-container {
@@ -387,12 +470,18 @@
 #purchase-order-inventory-table{
     margin-top:10px;
     width:100%;
-    border:1px solid;
     border-collapse: collapse;
+    text-align: center;
 }
 #purchase-order-inventory-table th{
-    padding: 10px 0;
-    border-bottom: 1px solid;
+    padding: 10px 0; 
+    font-size: 0.8rem;
+    position: sticky;
+    top: 0;
+    background-color: #ffffff;
+    z-index: 2; 
+    border-bottom: 2px solid #99BC85;
+    box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.1);
 }
 #purchase-order-action-text{
     margin:0;
@@ -412,8 +501,97 @@
 }
 #purchase-order-inventory-table td{
     padding: 5px 0;
-    border-bottom: 1px solid;
+    border-bottom: 1px solid #99BC85;
+    font-size: 0.8rem;
 }
+
+#inventory-add-order-button{
+display:flex;
+align-items: center;
+justify-content: center;
+cursor:pointer;
+padding:1px 3px;
+font-weight: bold;
+color:#464646;
+border:1px solid ;
+background-color: #dddddd;
+}
+#inventory-add-order-button:hover{
+    background-color: #ffffff;
+}
+
+/**************************| FOR ADD ORDER MODAL |**********************/
+.add-order-modal-container{
+    top:0;
+    width:100%;
+    height:100vh;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    z-index: 50;
+    background-color: rgba(0, 0, 0, 0.363);
+}
+.add-order-form-container{
+    background-color: #ffffff;
+    padding:30px;
+    border-radius: 10px;
+    width: 50%;
+}
+#add-order-product-form{
+    display: flex;
+    flex-direction: column;
+    gap:10px;
+    justify-content: center;
+text-align: center;
+}
+.order-form-group-container{
+    display: flex;  
+    gap: 10px;
+}
+.order-form-group-container label{
+width:180px;
+font-weight: bold;
+text-align: left;
+
+}
+.order-form-group-container input,
+.order-form-group-container select{
+    width:100%;
+    height: 2rem;
+    padding:3px;
+}
+.inventory-order-add-product-barcode-container{
+    display: flex;
+    width:100%;
+    gap:10px;
+}
+#add-order-product-barcode{
+    width:70%
+}
+#inventory-add-order-product-generate-barcode-button{
+    width:30%;
+}
+#add-order-product-submit-button,
+#add-order-product-cancel-button{
+    margin-top:15px;
+    width:100%;
+    height:2rem;
+    cursor:pointer;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /*****************************************| ADD PRODUCT |***************************************************/
 /*| #7 |*/
@@ -432,7 +610,7 @@
     background-color: #ffffff;
     padding:30px;
     border-radius: 10px;
-    width: 50%;;
+    width: 50%;
 }
 #add-product-form{
     display: flex;
@@ -482,6 +660,11 @@
 #inventory-add-product-generate-barcode-button{
     width:30%;
 }
+
+
+
+
+
 
 
 
@@ -782,3 +965,82 @@ input:focus {
     margin: auto;
    
 }
+
+/*====================| MEDIA QUERY FOR INVENTORY PAGE |=====================*/
+@media (max-width: 768px) {
+    .inventory-main-container {
+        padding-left: 0; /* Remove sidebar space */
+    }
+
+    .inventory-header-container,
+    .onhand-header-container,
+    .low-stock-header-container,
+    .out-stock-header-container,
+    .stock-in-header-container {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    #inventory-add-product-button {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    #inventory-add-product-button .button__text {
+        text-align: center;
+        padding-left: 0;
+    }
+
+    .inventory-switch-content-buttons-container {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .inventory-switch-content-buttons-container button {
+        flex: 1 1 45%;
+        min-width: 120px;
+    }
+
+    .inventory-search-container {
+        width: 100%;
+    }
+
+    #onhand-inventory-table th,
+    #low-stock-inventory-table th,
+    #out-stock-inventory-table th,
+    #stock-in-inventory-table th,
+    #onhand-inventory-table td,
+    #low-stock-inventory-table td,
+    #out-stock-inventory-table td,
+    #stock-in-inventory-table td {
+        font-size: 12px;
+        padding: 8px 0;
+    }
+
+    .inventory-content-container {
+        height: auto;
+    }
+
+    #inventory-stockin-product-selection-button,
+    #stock-in-save-button,
+    #onhand-delete-active-checkbox-button,
+    #out-stock-delete-active-checkbox-button,
+    #stock-in-delete-active-checkbox-button {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+/* Optional: Extra small devices like phones */
+@media (max-width: 480px) {
+    .inventory-switch-content-buttons-container button {
+        flex: 1 1 100%;
+    }
+
+    .inventory-search-submit-button {
+        padding: 8px 10px;
+        font-size: 14px;
+    }
+}
+

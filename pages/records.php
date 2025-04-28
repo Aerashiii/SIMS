@@ -8,6 +8,11 @@ if (!isset($_SESSION['user'])) {
     header('Location: login.php');
     exit;
 }
+// 🚫 Check if role is 'cashier' and deny access
+if (isset($_SESSION['role']) && $_SESSION['role'] === 'cashier') {
+    echo "<script>alert('Access Denied: Cashier role cannot access this page.'); window.location.href='login.php';</script>";
+    exit;
+}
 
     $page = 'records'; //ASSIGNS THE NAME OF THE PAGE. THIS PAGE IS NAMED 'ANALYTICS' AND IS USED IN THE HEADER.PHP FILE.
     require '../includes/header.php'; //REQUIRES THE HEADER.PHP TO APPLY THE CSS, SCRIPTS, SIDEBAR, AND TOP NAVIGATION.

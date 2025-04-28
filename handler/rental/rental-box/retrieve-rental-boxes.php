@@ -32,7 +32,7 @@ $sql = "SELECT
             r.quantity, 
             r.status         
         FROM rentalbox r      
-        WHERE r.status = 'active'";
+        WHERE r.status = 'active' AND r.deleted ='no' ";
 
 $params = [];
 $types = "";

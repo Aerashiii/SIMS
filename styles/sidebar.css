@@ -44,3 +44,51 @@
 #logout-button{
     margin-top: 180px;
 }
+
+
+
+/* MEDIA QUERY FOR SMALLER DEVICES */
+@media (max-width: 768px) {
+    .sidebar-container {
+        width: 50px; /* Expand sidebar to be more accessible */
+        margin-top: 5vh; /* Adjust for smaller screen */
+        transition: all ease 1s;
+        z-index:500;
+    }
+    .sidebar-container:hover{
+        width:200px;
+    }
+
+    .menu-item a {
+        font-size: 1rem; /* Make the menu font bigger for better visibility */
+        padding: 12px 8px;
+    }
+
+    #logout-button {
+        margin-top: 50px; /* Move the logout button closer */
+    }
+}
+
+/* MEDIA QUERY FOR VERY SMALL DEVICES (Phones) */
+@media (max-width: 480px) {
+    .sidebar-container {
+        width: 30px; /* Sidebar takes full width on small devices */
+        height: auto; /* Allow sidebar to adapt to content height */
+        padding: 10px;
+        margin-top: 0; /* Remove top margin to fit in screen */
+        position: static; /* Let the sidebar scroll with the content */
+    }
+
+    .menu-item a {
+        font-size: 1.2rem; /* Larger font for better readability */
+        padding: 10px 15px;
+    }
+
+    .menu-item a.active {
+        padding-left: 20px;
+    }
+
+    #logout-button {
+        margin-top: 20px; /* Adjust logout button for small screens */
+    }
+}

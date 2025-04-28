@@ -38,6 +38,7 @@ $sql = "
         payment AS p
     ON 
         s.payment_terms = p.payment_id
+    WHERE s.deleted = 'no'
 ";
 
 $result = $conn->query($sql);

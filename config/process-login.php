@@ -40,8 +40,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $_SESSION['role'] = $user['role'];
 
             // Redirect based on role
-            if ($_SESSION['role'] == 'admin') {
+            if ($_SESSION['role'] === 'admin') {
                 header('Location: ../pages/dashboard.php');
+                exit;
+            } elseif ($_SESSION['role'] === 'cashier') {
+                header('Location: ../pages/pos.php');
+                exit;
+            } else {
+                // Other roles can be handled here if needed
+                $_SESSION['error'] = 'Unauthorized access!';
+                header('Location: ../pages/login.php');
                 exit;
             }
         } else {

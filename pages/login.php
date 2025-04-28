@@ -21,6 +21,7 @@ if (isset($_SESSION['error'])) {
                 <label for="entry-type">Entry Type:</label> <!-- Updated for attribute -->
                 <select id="entry-type" name="entry-type"> <!-- Fixed name attribute -->
                     <option value="admin">Admin</option>
+                    <option value="cashier">Cashier</option>
                 </select>
                 <label for="username">Username:</label> <!-- Updated for attribute -->
                 <input type="text" id="username" name="username" required> <!-- Added required -->

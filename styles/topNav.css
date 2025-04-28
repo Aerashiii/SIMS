@@ -60,7 +60,62 @@
 }
 
 #profile {
-    height:30px;
+    height:40px;
     border-radius:50%;
     margin-right:5px;
+}
+
+
+/* MEDIA QUERY FOR SMALLER DEVICES (Tablets and below) */
+@media (max-width: 768px) {
+    .top-nav-container {
+        height: 10vh;
+        padding: 0 15px;  /* Reduce padding for better space */
+    }
+
+    #logo {
+        height: 50px;  /* Adjust logo size */
+    }
+
+    .datetime-container {
+        font-size: 16px; /* Smaller font size for the datetime */
+        gap: 5px;  /* Reduce space between datetime elements */
+    }
+
+    .right-container {
+        gap: 15px;  /* Reduce space between right container elements */
+    }
+
+    .admin-dropdown p {
+        width: 70px; /* Shrink dropdown text width for smaller screens */
+    }
+}
+
+/* MEDIA QUERY FOR VERY SMALL DEVICES (Phones) */
+@media (max-width: 480px) {
+    .top-nav-container {
+        height: 8vh;  /* Further reduce height for very small devices */
+        padding: 0 10px;  /* Reduce padding for space efficiency */
+    }
+
+    #logo {
+        height: 40px;  /* Further reduce logo size */
+    }
+
+    .datetime-container {
+        font-size: 14px;  /* Make font size smaller */
+        gap: 3px;  /* Tighten gap between datetime elements */
+    }
+
+    .right-container {
+        gap: 10px;  /* Reduce space between right container elements */
+    }
+
+    .admin-dropdown p {
+        width: 60px;  /* Adjust dropdown text width */
+    }
+
+    #profile {
+        height: 35px; /* Reduce profile picture size for better fit */
+    }
 }

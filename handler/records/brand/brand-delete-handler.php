@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Check if the Brand ID is valid
     if ( $brandId) {
         // Prepare SQL to delete the brand
-        $sql = "DELETE FROM brand WHERE brand_id = ?";
+        $sql = "UPDATE brand SET deleted='yes' WHERE brand_id = ?";
         $stmt = $conn->prepare($sql);
 
         // Check if the statement was prepared correctly

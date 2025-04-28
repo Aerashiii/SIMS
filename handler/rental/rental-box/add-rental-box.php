@@ -15,7 +15,7 @@ if ($conn->connect_error) {
 }
 
 header('Content-Type: application/json');
-
+$deleted ='no';
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $box_number = $_POST['box_number'] ?? '';
     $size = $_POST['box_size'] ?? '';
@@ -32,14 +32,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit();
     }
 
-    $stmt = $conn->prepare("INSERT INTO rentalbox (box_number, box_size, width, length, rental_fee, quantity, status) VALUES (?, ?, ?, ?, ?, ?, ?)");
+    $stmt = $conn->prepare("INSERT INTO rentalbox (box_number, box_size, width, length, rental_fee, quantity, status, deleted) VALUES (?, ?, ?, ?, ?, ?, ?,?)");
     if (!$stmt) {
         http_response_code(500);
         echo json_encode(["success" => false, "message" => "Failed to prepare SQL statement: " . $conn->error]);
         exit();
     }
 
-    $stmt->bind_param("isiiiis", $box_number, $size, $width, $length, $rental_fee, $quantity, $status);
+    $stmt->bind_param("isiiiis", $box_number, $size, $width, $length, $rental_fee, $quantity, $status, $deleted );
 
     if ($stmt->execute()) {
         echo json_encode(["success" => true, "message" => "Box rental added successfully."]);

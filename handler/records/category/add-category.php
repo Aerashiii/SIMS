@@ -11,7 +11,7 @@ $conn = new mysqli($server, $username, $password, $dbname);
 if ($conn->connect_error) {
     die(json_encode(["success" => false, "message" => "Database connection failed: " . $conn->connect_error]));
 }
-
+$deleted = 'no';
 // Check if form data is received via POST
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Get the data from the request
@@ -24,13 +24,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Prepare and bind the SQL statement
-    $stmt = $conn->prepare("INSERT INTO category (category_name, status) VALUES (?, ?)");
+    $stmt = $conn->prepare("INSERT INTO category (category_name, status,deleted) VALUES (?, ?,?)");
     if (!$stmt) {
         echo json_encode(["success" => false, "message" => "SQL preparation failed: " . $conn->error]);
         exit;
     }
 
-    $stmt->bind_param("ss", $category_name, $category_status);
+    $stmt->bind_param("sss", $category_name, $category_status,$deleted);
 
     // Execute the query
     if ($stmt->execute()) {

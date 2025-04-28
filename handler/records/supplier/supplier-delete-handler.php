@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Check if the supplier ID is valid
     if ($supplierId) {
         // Prepare SQL to delete the supplier
-        $sql = "DELETE FROM supplier WHERE supplier_id = ?";
+        $sql = "UPDATE supplier SET deleted='yes' WHERE supplier_id = ?";
         $stmt = $conn->prepare($sql);
 
         // Check if the statement was prepared correctly

@@ -1,62 +1,120 @@
-/*****************************************/
-.report-header-container{
+/******************| FOR REPORTS INVENTORY |************************/
+.inventory-content-container,
+.report-sales-content-container,
+.report-rental-content-container{
+    border:2px solid rgb(177, 177, 177);
+    height:75vh;
+    padding:10px;
+    margin-top:40px;
+    border-radius:10px;
+}
+.reports-onhand-header-container,
+.reports-low-stock-header-container,
+.reports-out-stock-header-container,
+.report-sales-header-container,
+.report-rental-header-container{
     display:flex;
-    justify-content: flex-start;
-    align-items: center;
-    gap:5px;
-    font-size: 30px;
+    justify-content: space-between;
+}
+.pdf-button, .excel-button{
+    padding:5px 10px;
+    border:1px solid ;
+    border-radius: 5px;
     cursor:pointer;
-    font-weight:bold;
 }
-.report-header-container:hover{
-    color:#B2CF9B;
+.pdf-button{
+    border-color: rgb(97, 97, 97);
 }
-/*****************************************/
-.report-submenu-container {
-    height: 85vh;
-    width: 0px;
-    border-radius: 3px;
+.pdf-button:hover{
+    border-color: rgb(185, 28, 28);
+}
+.excel-button{
+    border-color: rgb(97, 97, 97);
+}
+.excel-button:hover{
+    border-color: rgb(27, 133, 0);
+}
+.pdf-and-excel-button-container{
+    display:flex;
+    align-items: center;
+    justify-content: space-between;
+    gap:10px;
+}
+.report-inventory-table-container,
+.report-sales-table-container,
+.report-rental-table-container{
+    width:100%;
+    max-height:90%;
+    overflow-y: auto;
+    margin-top:10px;
+}
+.reports-inventory-table,
+.report-sales-table,
+.report-rental-table {
+    width:100%;
+    text-align: center;
+    border-collapse: collapse;
+}
+.inventory-select-category{
+    padding:2px 10px;
+    border-radius:5px;
+}
+.reports-inventory-table th,
+.report-sales-table th,
+.report-rental-table th{
+    top:0;
+    position:sticky;
     background-color: #ffffff;
-    z-index: 10;
-    top: 12vh;
-    position: fixed;
-    overflow: hidden;
-    border: none;
-    transition: width 0.3s ease; /* Smooth transition effect */
-}
-
-.report-submenu-container.active {
-    width: 180px;
-}
-#hide-report-submenu-button{
-    float:right;
-    cursor: pointer;
-}
-#hide-report-submenu-button:hover{
-    color:red;
-}
-.report-submenu-container h4{
-    text-align:center;
-    padding:20px 0;
-}
-.report-submenu-container ul{
-    list-style: none;
-    padding-left:10%;
-    text-align: left;
-}
-.report-submenu-container ul li{
-    display: flex;
-    align-items: center;
-    gap:5px;
+    border-bottom:2px solid rgb(0, 0, 0);
     padding:10px 0;
-    cursor:pointer;
+}
+.reports-inventory-table td,
+.report-sales-table td,
+.report-rental-table td{
+    padding:5px 0;
+    border-bottom:1px solid #B2CF9B;
 }
 
-.report-submenu-container ul li:hover{
-    background-color: #B2CF9B;
-}
-/*************************************/
-.report-content-container{
-    display:none;
-    min-height: 82vh;
+
+
+/* MEDIA QUERY FOR SMALLER DEVICES */
+@media (max-width: 768px) {
+    .inventory-content-container,
+    .report-sales-content-container,
+    .report-rental-content-container {
+        height: auto;
+        padding: 10px 5px;
+        margin-top: 20px;
+    }
+
+    .pdf-and-excel-button-container {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+
+    .reports-onhand-header-container,
+    .reports-low-stock-header-container,
+    .reports-out-stock-header-container,
+    .report-sales-header-container,
+    .report-rental-header-container {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .pdf-button, .excel-button {
+        width: 100%;
+        text-align: center;
+    }
+
+    .reports-inventory-table,
+    .report-sales-table,
+    .report-rental-table {
+        font-size: 14px; /* Slightly smaller font for small screens */
+    }
+
+    .inventory-select-category {
+        width: 100%;
+    }
 }

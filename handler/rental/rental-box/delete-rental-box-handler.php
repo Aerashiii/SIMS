@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Check if the Box ID is valid
     if ($BoxId) {
         // Prepare SQL to delete the Box
-        $sql = "DELETE FROM rentalbox WHERE box_id = ?";
+        $sql = "UPDATE rentalbox SET deleted = 'yes' WHERE box_id = ?";
         $stmt = $conn->prepare($sql);
 
         // Check if the statement was prepared correctly

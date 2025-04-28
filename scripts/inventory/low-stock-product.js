@@ -20,7 +20,7 @@ function fetchProductData(query = '', categoryId = '') {
     formData.append('query', query);
     formData.append('category_id', categoryId);
 
-    fetch('../handler/inventory/onhand-product/retrieve-products.php', {
+    fetch('../handler/inventory/low-stock-product/retrieve-low-stock-products.php', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
@@ -127,7 +127,7 @@ lowStockProductSearchInput.addEventListener('input', () => {
 lowStockProductSearchInput.addEventListener('input', () => {
     const query = lowStockProductSearchInput.value.trim();
 
-    fetch('../handler/inventory/onhand-product/retrieve-products.php', {
+    fetch('../handler/inventory/low-stock-product/retrieve-low-stock-products.php', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'

@@ -11,7 +11,7 @@ $conn = new mysqli($server, $username, $password, $dbname);
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
-
+$deleted = 'no';
 // Check if form data is received via POST
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Get the data from the request
@@ -20,8 +20,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $subcategory_status = $_POST['subcategory_status'];
 
     // Prepare and bind the SQL statement
-    $stmt = $conn->prepare("INSERT INTO subcategory (subcategory_name, category_id, status) VALUES (?, ?,?)");
-    $stmt->bind_param("sis", $subcategory_name,  $categoryId , $subcategory_status);  // 's' for string
+    $stmt = $conn->prepare("INSERT INTO subcategory (subcategory_name, category_id, status, deleted) VALUES (?, ?,?,?)");
+    $stmt->bind_param("sis", $subcategory_name,  $categoryId , $subcategory_status, $deleted);  // 's' for string
 
     // Execute the query
     if ($stmt->execute()) {

@@ -39,21 +39,28 @@
         </li>
          <!-- | REPORTS SIDEBAR BUTTON |--> 
          <li class="menu-item">
-            <a href="/SIMS/pages/reports.php" class="sidebar-link" data-page="rental-boxes">
+            <a href="/SIMS/pages/reports/report-inventory.php" class="sidebar-link" data-page="rental-boxes">
                 <span class="material-symbols-rounded">assessment</span>
                 <h3>Reports</h3>
             </a>
         </li>
         <!-- | SETTINGS SIDE BAR BUTTON |--> 
         <li class="menu-item">
-            <a href="/SIMS/pages/settings.php" class="sidebar-link" data-page="settings">
+            <a href="/SIMS/pages/settings/profile-settings.php" class="sidebar-link" data-page="settings">
                 <span class="material-symbols-rounded">settings</span>
                 <h3>Settings</h3>
             </a>
         </li>       
         <!-- | LOGOUT SIDEBAR BUTTON |--> 
+        <!-- | LOGOUT SIDEBAR BUTTON |--> 
         <li class="menu-item">
-            <a href="../config/logout.php" class="sidebar-link" data-page="logout" id="logout-button">
+            <a href="<?php
+                if (isset($page) && ($page === 'profile_settings' || $page === 'user_management' || $page === 'system_preferences' || $page === 'report-inventory' || $page === 'report-rental' || $page === 'report-sales')) {
+                    echo '../../config/logout.php';
+                } else {
+                    echo '../config/logout.php';
+                }
+            ?>" class="sidebar-link" data-page="logout" id="logout-button">
                 <span class="material-symbols-rounded">logout</span>
                 <h3>Logout</h3>
             </a>       

@@ -37,7 +37,7 @@ $sql = "SELECT
         LEFT JOIN category c ON p.category_id = c.category_id
         LEFT JOIN subcategory sub ON p.subcategory_id = sub.subcategory_id
         LEFT JOIN supplier s ON p.supplier_id = s.supplier_id
-        WHERE p.status = 'active'";  // You can change this condition if necessary
+        WHERE p.status = 'active' AND p.deleted='no'";  // You can change this condition if necessary
 
 // Execute the query
 $result = mysqli_query($conn, $sql);
