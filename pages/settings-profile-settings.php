@@ -3,14 +3,14 @@
 session_start();
 
 if (!isset($_SESSION['user'])) {
-    header('Location: ../login.php');
+    header('Location:login.php');
     exit;
 }
 
 
 
-$page = 'profile_settings';
-require '../../includes/header.php';
+$page = 'settings-profile-settings';
+require '../includes/header.php';
 
 $user_id = $_SESSION['id'];
 
@@ -65,6 +65,7 @@ if (isset($_POST['upload_profile'])) {
                 $stmt->bind_param("si", $filePath, $user_id);
                 if ($stmt->execute()) {
                     echo "<script>alert('Profile picture updated successfully!');</script>";
+                    echo "<script>window.location.reload()</script>";
                     header("Refresh:0");
                     exit();
                 } else {
@@ -314,7 +315,7 @@ if (isset($_POST['save_changes'])) {
 
 </head>
 <body>
-    <?php include 'settings.php'; ?>
+    <?php include 'settings-submenu.php'; ?>
 
     <h4 class="profile-setting">Profile Setting</h4>
     
@@ -330,7 +331,7 @@ if (isset($_POST['save_changes'])) {
         </div>
 
         <div class="profile-details-container">
-            <form action="profile-settings.php" method="POST" id="user-details-form">
+            <form action="settings-profile-settings.php" method="POST" id="user-details-form">
                 <div>
                     <label>Name:</label>
                     <input type="text" name="name" value="<?= htmlspecialchars($user['name']) ?>" disabled>

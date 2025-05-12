@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 function fetchSalesTransactions() {
-    fetch('../../handler/reports/retrieve-sales-transaction.php')
+    fetch('../handler/reports/retrieve-sales-transaction.php')
         .then(response => response.json())
         .then(data => {
             const tbody = document.querySelector("#report-sales-table tbody");

@@ -26,7 +26,7 @@ $sql = "
         s.address,
         s.supplier_type,
         c.category_name AS product_category_name,
-        p.payment_type AS payment_type,
+        s.payment_terms,
         s.note
     FROM 
         supplier AS s
@@ -34,10 +34,6 @@ $sql = "
         category AS c 
     ON 
         s.product_category_id = c.category_id
-    LEFT JOIN 
-        payment AS p
-    ON 
-        s.payment_terms = p.payment_id
     WHERE s.deleted = 'no'
 ";
 

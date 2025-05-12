@@ -13,8 +13,8 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'cashier') {
     exit;
 }
 
-$page = 'system_preferences';
-require '../../includes/header.php';
+$page = 'settings-system-preferences';
+require '../includes/header.php';
 
 // === DATABASE CONNECTION ===
 $server = "localhost";
@@ -57,7 +57,7 @@ if (isset($_POST['upload_logo'])) {
 
         // Validate image type
         if (str_starts_with($fileType, 'image/')) {
-            $uploadDir = '../../assets/images/uploads/';
+            $uploadDir = '../assets/images/uploads/';
             if (!is_dir($uploadDir)) {
                 mkdir($uploadDir, 0777, true);
             }
@@ -426,7 +426,7 @@ if (isset($_POST['save_business_details'])) {
     </style>
 </head>
 <body>
-    <?php include 'settings.php'; ?>
+    <?php include 'settings-submenu.php'; ?>
 
     <div class="container">
         <!-- Display success/error messages -->
@@ -464,7 +464,7 @@ if (isset($_POST['save_business_details'])) {
             </div>
 
             <div class="business-details-container">
-                <form action="system-preferences.php" method="POST" id="business-details-form">
+                <form action="settings-system-preferences.php" method="POST" id="business-details-form">
                     <div>
                         <label for="name">Business Name:</label>
                         <input type="text" name="name" id="name" 

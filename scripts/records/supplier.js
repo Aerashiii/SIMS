@@ -1,44 +1,71 @@
-document.addEventListener('DOMContentLoaded', function(){
-    // FOR ADDING SUPPLIER
-   const addSupplierModalCon = document.querySelector('.add-supplier-modal-container');
-   const addSupplierButton = document.getElementById('add-supplier-button');
-   const addSupplierCancelButton = document.getElementById('add-supplier-cancel-button');
-   const addSupplierSelectProductCategory = document.getElementById('add-supplier-product-category');
-   const addSupplierSelectPaymentTerm = document.getElementById('add-supplier-payment-terms');
-   const addSupplierForm = document.getElementById('add-supplier-form');
+document.addEventListener('DOMContentLoaded', function() {
+    // DOM Elements
+    const supplierTable = document.getElementById('supplier-information-table');
+    const addSupplierModalCon = document.querySelector('.add-supplier-modal-container');
+    const addSupplierButton = document.getElementById('add-supplier-button');
+    const addSupplierCancelButton = document.getElementById('add-supplier-cancel-button');
+    const addSupplierSelectProductCategory = document.getElementById('add-supplier-product-category');
+    const addSupplierForm = document.getElementById('add-supplier-form');
+    
+    const editSupplierModalCon = document.querySelector('.edit-supplier-modal-container');
+    const editSupplierExitButton = document.getElementById('supplier-edit-exit-button');
+    const editSupplierSaveButton = document.getElementById('save-edit-supplier-button');
+    
+    const deleteSupplierModal = document.querySelector('.delete-supplier-modal-container');
+    const deleteSupplierYesButton = document.querySelector('#delete-supplier-yes-button');
+    const cancelDeleteSupplierButton = document.querySelector('#delete-supplier-no-button');
 
-   // FOR DISPLAYING CATEGORY
-   const supplierTable =document.getElementById('supplier-information-table');
+    let currentSupplierId = null;
 
-   // FOR EDITING SUPPLIER
-   const editSupplierModalCon = document.querySelector('.edit-supplier-modal-container');
-   const editSupplierExitButton = document.getElementById('supplier-edit-exit-button');
-   const editSupplierSaveButton = document.getElementById('save-edit-supplier-button');
+    // Initialize the page
 
-
-   // FOR DISPLAYING ADD SUPPLIER FORM
-   addSupplierButton.addEventListener('click', function(){
-        addSupplierModalCon.style.display = 'flex';
-       
-   })
-   // FOR HIDING ADD SUPPLIER FORM
-   addSupplierCancelButton.addEventListener('click', function(){
-    addSupplierModalCon.style.display = 'none';
-   })
-
-
-
-    /***| RETRIEVE CATEGORY FOR ADD SUPPLIER SELECT CATEGORY |* */
-    fetchSelectCategoryAddSupplier() ;
+    fetchSelectCategoryAddSupplier();
     fetchSelectPaymentAddSupplier();
-    fetchSupplierData() ;
-     // DISPLAY CATEGORY
-     function fetchSelectCategoryAddSupplier() {
+    fetchSupplierData();
+    setupEventListeners();
+    
+
+    // Set up all event listeners
+    function setupEventListeners() {
+        // Add Supplier
+        addSupplierButton.addEventListener('click', showAddSupplierModal);
+        addSupplierCancelButton.addEventListener('click', hideAddSupplierModal);
+        addSupplierForm.addEventListener('submit', handleAddSupplierSubmit);
+
+ 
+        editSupplierSaveButton.addEventListener('click', handleEditSupplierSave);
+
+        // Delete Supplier
+        deleteSupplierYesButton.addEventListener('click', confirmDeleteSupplier);
+        cancelDeleteSupplierButton.addEventListener('click', hideDeleteSupplierModal);
+    }
+
+    // Modal Visibility Functions
+    function showAddSupplierModal() {
+        addSupplierModalCon.style.display = 'flex';
+        console.log('Add Supplier modal shown');
+    }
+
+    function hideAddSupplierModal() {
+        addSupplierModalCon.style.display = 'none';
+    }
+
+    function showEditSupplierModal() {
+        editSupplierModalCon.style.display = 'flex';
+    }
+
+    function showDeleteSupplierModal() {
+        deleteSupplierModal.style.display = 'flex';
+    }
+
+    function hideDeleteSupplierModal() {
+        deleteSupplierModal.style.display = 'none';
+    }
+
+    // Data Fetching Functions
+    function fetchSelectCategoryAddSupplier() {
         fetch('../handler/records/category/retrieve-category.php')
-            .then(response => {
-                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-                return response.json();
-            })
+            .then(handleResponse)
             .then(data => {
                 if (data.length === 0) {
                     console.warn('No category data found.');
@@ -48,136 +75,15 @@ document.addEventListener('DOMContentLoaded', function(){
                 }
             })
             .catch(error => console.error('Error fetching category data:', error));
-        }
-    
-        // Populate select category for adding product
-        function populateSelectCategoryAddSupplier(categories) {
-            categories.forEach(category => {
-                const categoryOption = document.createElement('option');
-                categoryOption.innerHTML = category.category_name;
-                categoryOption.value = category.category_id;
-                addSupplierSelectProductCategory.appendChild(categoryOption);
-            });
-        }
-        function populateSelectCategoryEditSupplier(categories) {
-            const editSupplierProducCategory = document.getElementById('edit-supplier-product-category');
-            categories.forEach(category => {
-                const categoryOption = document.createElement('option');
-                categoryOption.innerHTML = category.category_name;
-                categoryOption.value = category.category_id;
-                editSupplierProducCategory.appendChild(categoryOption);
-            });
-        }
-// RETRIEVE PAYMENT TYPE
-        function fetchSelectPaymentAddSupplier() {
-            fetch('../handler/records/supplier/retrieve-payment.php')
-                .then(response => {
-                    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-                    return response.json();
-                })
-                .then(data => {
-                    if (data.length === 0) {
-                        console.warn('No Payment data found.');
-                    } else {
-                        populateSelectPaymentAddSupplier(data);
-                        populateSelectPaymenteEditSupplier(data);
-                    }
-                })
-                .catch(error => console.error('Error fetching Payment data:', error));
-            }
-        
-            // Populate select category for adding product
-            function populateSelectPaymentAddSupplier(payments) {
-                payments.forEach(payment => {
-                    const paymentOption = document.createElement('option');
-                    paymentOption.innerHTML = payment.payment_type;
-                    paymentOption.value = payment.payment_id;
-                    addSupplierSelectPaymentTerm.appendChild(paymentOption);
-                });
-            }
-            // Populate select category for adding product
-            function populateSelectPaymenteEditSupplier(payments) {
-                const editSupplierPaymentTerms = document.getElementById('edit-supplier-payment-terms');
-                payments.forEach(payment => {
-                    const paymentOption = document.createElement('option');
-                    paymentOption.innerHTML = payment.payment_type;
-                    paymentOption.value = payment.payment_id;
-                    editSupplierPaymentTerms.appendChild(paymentOption);
-                });
-            }
-    
-/**======================| FOR ADD AUPPLIER |=============================== */
-    addSupplierForm .addEventListener('submit', function (event) {
-        event.preventDefault();
-        addSupplier();
-    });
-  // Function to handle category creation
-  function addSupplier() {
-    const addSupplierName = document.getElementById("add-supplier-name").value.trim();
-    const addSupplierContactPerson = document.getElementById("add-supplier-contact-person").value.trim();
-    const addSupplierPhoneNumber = document.getElementById("add-supplier-phone-number").value.trim();
-    const addSupplierAddress = document.getElementById("add-supplier-address").value.trim();
-    const addSupplierType = document.getElementById("add-supplier-type").value.trim();
-    const addSupplierProductCategory = document.getElementById("add-supplier-product-category").value.trim();
-    const addSupplierPaymentTerms = document.getElementById("add-supplier-payment-terms").value.trim();
-    const addSupplierNote = document.getElementById("add-supplier-note").value.trim();
-   
-    // Validate form inputs
-    if (!addSupplierName || !addSupplierContactPerson || !addSupplierPhoneNumber || !addSupplierAddress || !addSupplierType || !addSupplierProductCategory || !addSupplierPaymentTerms || !addSupplierNote) {
-        alert("Please fill in all fields."  );
-        return;
     }
 
-    
-    // Create FormData object to send to the server
-    const formData = new FormData();
-    formData.append("supplier_name", addSupplierName);
-    formData.append("contact_person", addSupplierContactPerson);
-    formData.append("phone_number", addSupplierPhoneNumber);
-    formData.append("address", addSupplierAddress);
-    formData.append("supplier_type", addSupplierType);
-    formData.append("product_category_id", addSupplierProductCategory);
-    formData.append("payment_terms", addSupplierPaymentTerms);
-    formData.append("note", addSupplierNote);
-
-
-    // Send data to PHP script using Fetch API
-    fetch("../handler/records/supplier/add-supplier-handler.php", {
-        method: "POST",
-        body: formData,
-    })
-        .then((response) => {
-            if (!response.ok) {
-                return response.text().then((text) => {
-                    throw new Error(`Server responded with status ${response.status}: ${text}`);
-                });
-            }
-            return response.json();
-        })
-        .then((data) => {
-            if (data.success) {
-                alert("Supplier created successfully!");
-                addSupplierModalCon.style.display = 'none'; // Close the modal
-                location.reload(); // Reload page to update table
-            } else {
-                alert(`Error: ${data.message}`);
-            }
-        })
-        .catch((error) => {
-            console.error("Error:", error);
-            alert("An error occurred while creating the supplier.");
-        });
-    
+    function fetchSelectPaymentAddSupplier() {
+        // Implement if needed
     }
 
-
-    // DISPLAY SUPPLIER
-     function fetchSupplierData() {
+    function fetchSupplierData() {
         fetch('../handler/records/supplier/retrieve-supplier.php')
-            .then(response => {
-                if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
-                return response.json();
-            })
+            .then(handleResponse)
             .then(data => {
                 if (!data.success || data.data.length === 0) {
                     console.warn('No supplier data found.');
@@ -187,13 +93,37 @@ document.addEventListener('DOMContentLoaded', function(){
             })
             .catch(error => console.error('Error fetching supplier data:', error));
     }
-    
-    // Populate supplier table
+
+    // Data Population Functions
+    function populateSelectCategoryAddSupplier(categories) {
+        addSupplierSelectProductCategory.innerHTML = '<option value="">--Select Category--</option>';
+        categories.forEach(category => {
+            const option = document.createElement('option');
+            option.textContent = category.category_name;
+            option.value = category.category_id;
+            addSupplierSelectProductCategory.appendChild(option);
+        });
+    }
+
+    function populateSelectCategoryEditSupplier(categories) {
+        const editSelect = document.getElementById('edit-supplier-product-category');
+        editSelect.innerHTML = '<option value="">--Select Category--</option>';
+        categories.forEach(category => {
+            const option = document.createElement('option');
+            option.textContent = category.category_name;
+            option.value = category.category_id;
+            editSelect.appendChild(option);
+        });
+    }
+
     function populateSupplierTable(suppliers) {
-        supplierTable.querySelectorAll('tr:not(:first-child)').forEach(row => row.remove());
-    
+        // Clear existing rows (keeping header)
+        while (supplierTable.rows.length > 1) {
+            supplierTable.deleteRow(1);
+        }
+
         suppliers.forEach(supplier => {
-            const row = document.createElement('tr');
+            const row = supplierTable.insertRow();
             row.innerHTML = `
                 <td>${supplier.supplier_name}</td>
                 <td>${supplier.contact_person}</td>
@@ -201,7 +131,7 @@ document.addEventListener('DOMContentLoaded', function(){
                 <td>${supplier.address}</td>
                 <td>${supplier.supplier_type}</td>
                 <td>${supplier.product_category_name || 'N/A'}</td>
-                <td>${supplier.payment_type || 'N/A'}</td>
+                <td>${supplier.payment_terms || 'N/A'}</td>
                 <td>${supplier.note}</td>
                 <td>
                     <button data-id="${supplier.supplier_id}" class="supplier-edit-button">
@@ -212,28 +142,72 @@ document.addEventListener('DOMContentLoaded', function(){
                     </button>
                 </td>
             `;
-            supplierTable.appendChild(row);
         });
+
         attachSupplierActionListeners();
     }
 
-     function attachSupplierActionListeners() {
-        document.querySelectorAll('.supplier-edit-button').forEach(button =>
-            button.addEventListener('click', handleEditSupplier)
-        );
-        document.querySelectorAll('.supplier-delete-button').forEach(button =>
-            button.addEventListener('click', handleDeleteSupplier)
-    
-        );
-    }
+/****************| EDIT SUPPLIER |**************************** */
+editSupplierExitButton.addEventListener('click', function(){
+    editSupplierModalCon.style.display = 'none';
+    console.log('Edit Supplier modal closed');
+});
 
-    // FOR EDITING SUPPLIER
     function handleEditSupplier(event) {
-        const supplierId = event.currentTarget.dataset.id;
-        fetch(`../handler/records/supplier/retrieve-supplier-details.php?id=${supplierId}`)
-            .then(response => response.json())
+        currentSupplierId = event.currentTarget.dataset.id;
+        fetch(`../handler/records/supplier/retrieve-supplier-details.php?id=${currentSupplierId}`)
+            .then(handleResponse)
             .then(supplier => displayEditSupplierDetails(supplier))
             .catch(error => console.error('Error fetching supplier details:', error));
+    }
+
+    function handleDeleteSupplier(event) {
+        currentSupplierId = event.currentTarget.dataset.id;
+        fetch(`../handler/records/supplier/retrieve-supplier-details.php?id=${currentSupplierId}`)
+            .then(handleResponse)
+            .then(supplier => displayDeleteSupplierDetails(supplier))
+            .catch(error => console.error('Error fetching supplier details:', error));
+    }
+
+    function handleEditSupplierSave(event) {
+        event.preventDefault();
+        
+        const supplierDetails = {
+            supplier_id: document.getElementById('edit-supplier-id').value,
+            supplier_name: document.getElementById('edit-supplier-name').value.trim(),
+            contact_person: document.getElementById('edit-supplier-contact-person').value.trim(),
+            contact_number: document.getElementById('edit-supplier-contact-number').value.trim(),
+            address: document.getElementById('edit-supplier-address').value.trim(),
+            supplier_type: document.getElementById('edit-supplier-type').value.trim(),
+            product_category_id: document.getElementById('edit-supplier-product-category').value.trim(),
+            payment_terms: document.getElementById('edit-supplier-payment-terms').value.trim(),
+            note: document.getElementById('edit-supplier-note').value.trim()
+        };
+
+        fetch('../handler/records/supplier/supplier-edit-handler.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(supplierDetails),
+        })
+        .then(handleResponse)
+        .then(data => {
+            if (data.success) {
+                alert('Supplier updated successfully!');
+                hideEditSupplierModal();
+                fetchSupplierData();
+            } else {
+                alert(`Error: ${data.message}`);
+            }
+        })
+        .catch(error => console.error('Error during fetch:', error));
+    }
+
+    // Helper Functions
+    function handleResponse(response) {
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();
     }
 
     function displayEditSupplierDetails(supplier) {
@@ -246,124 +220,114 @@ document.addEventListener('DOMContentLoaded', function(){
         document.getElementById('edit-supplier-product-category').value = supplier.product_category_id;
         document.getElementById('edit-supplier-payment-terms').value = supplier.payment_terms;
         document.getElementById('edit-supplier-note').value = supplier.note;
-        editSupplierModalCon.style.display = 'flex';
+        showEditSupplierModal();
     }
 
-   // Listen for save button click to save the edited supplier
-editSupplierSaveButton.addEventListener('click', function (event) {
-    event.preventDefault();
+    function displayDeleteSupplierDetails(supplier) {
+        document.querySelector('#delete-supplier-name').textContent = supplier.supplier_name;
+        showDeleteSupplierModal();
+    }
 
-    // Gather all the input field values into an object
-    const supplierDetails = {
-        supplier_id: document.getElementById('edit-supplier-id').value,
-        supplier_name: document.getElementById('edit-supplier-name').value.trim(),
-        contact_person: document.getElementById('edit-supplier-contact-person').value.trim(),
-        contact_number: document.getElementById('edit-supplier-contact-number').value,
-        address: document.getElementById('edit-supplier-address').value.trim(),
-        supplier_type: document.getElementById('edit-supplier-type').value.trim(),
-        product_category_id: document.getElementById('edit-supplier-product-category').value.trim(),
-        payment_terms: document.getElementById('edit-supplier-payment-terms').value.trim(),
-        note: document.getElementById('edit-supplier-note').value
-    };
-
-    // Send a POST request to the PHP handler to save the data
-    fetch('../handler/records/supplier/supplier-edit-handler.php', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(supplierDetails),
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            alert('Supplier updated successfully!');
-            editSupplierModalCon.style.display = 'none';
-            fetchSupplierData(); // Assuming this function fetches and updates the supplier data
-        } else {
-            alert(`Error: ${data.message}`);
+    function confirmDeleteSupplier() {
+        if (!currentSupplierId) {
+            console.error('Supplier ID is not defined.');
+            return;
         }
-    })
-    .catch(error => console.error('Error during fetch:', error));
-});
 
-// Listen for exit button to close the modal
-editSupplierExitButton.addEventListener('click', function () {
-    editSupplierModalCon.style.display = 'none';
-});
+        fetch('../handler/records/supplier/supplier-delete-handler.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: `id=${currentSupplierId}`
+        })
+        .then(handleResponse)
+        .then(data => {
+            if (data.success) {
+                alert(data.success);
+                hideDeleteSupplierModal();
+                fetchSupplierData();
+            } else {
+                alert(data.error);
+            }
+        })
+        .catch(error => console.error('Error:', error));
+    }
+
+    function attachSupplierActionListeners() {
+        document.querySelectorAll('.supplier-edit-button').forEach(button => {
+            button.addEventListener('click', handleEditSupplier);
+        });
+        
+        document.querySelectorAll('.supplier-delete-button').forEach(button => {
+            button.addEventListener('click', handleDeleteSupplier);
+        });
+    }
+
+    /******************| ADD SUPPLIER |**************************** */
+    // SUBMISSION OF ADD SUBCATEGORY FORM
+    addSupplierForm.addEventListener("submit", function(event) {
+        event.preventDefault();
+        addSupplier(); // Fixed function name (was createSubategory)
+    });
+
+    // Supplier Creation Function
+    function addSupplier() {
 
 
- /***************************| FOR DELETE SUPPLIER |*********************************** */
-const deleteSupplierModal = document.querySelector('.delete-supplier-modal-container');
-const deleteSupplierYesButton = document.querySelector('#delete-supplier-yes-button');
-const cancelDeleteSupplierButton = document.querySelector('#delete-supplier-no-button');
+        const addSupplierName = document.getElementById("add-supplier-name").value.trim();
+        const addSupplierContactPerson = document.getElementById("add-supplier-contact-person").value.trim();
+        const addSupplierPhoneNumber = document.getElementById("add-supplier-phone-number").value.trim();
+        const addSupplierAddress = document.getElementById("add-supplier-address").value.trim();
+        const addSupplierType = document.getElementById("add-supplier-type").value.trim();
+        const addSupplierProductCategory = document.getElementById("add-supplier-product-category").value.trim();
+        const addSupplierPaymentTerms = document.getElementById("add-supplier-payment-terms").value.trim();
+        const addSupplierNote = document.getElementById("add-supplier-note").value.trim();
 
-let supplierId = null;  // Define supplierId globally for the delete process
-
-// Handle supplier deletion
-function handleDeleteSupplier(event) {
-  supplierId = event.currentTarget.dataset.id;  // Get the supplier ID from the button's data-id attribute
-  console.log(supplierId);
-
-  fetch(`../handler/records/supplier/retrieve-supplier-details.php?id=${supplierId}`)
-    .then(response => response.json())
-    .then(supplier => {
-      if (supplier.error) {
-        console.error('Error fetching supplier details:', supplier.error);
-        return;
-      }
-      displayDeleteSupplierDetails(supplier);
-    })
-    .catch(error => console.error('Error fetching supplier details:', error));
-}
-
-// Display supplier details for deletion
-function displayDeleteSupplierDetails(supplier) {
-  deleteSupplierModal.style.display = 'flex';
-  document.querySelector('#delete-supplier-name').textContent = supplier.supplier_name;
-}
-
-// Confirm delete supplier
-deleteSupplierYesButton.addEventListener('click', function () {
-  console.log(supplierId);
-  if (!supplierId) {
-    console.error('Supplier ID is not defined.');
-    return;
-  }
-
-  fetch('../handler/records/supplier/supplier-delete-handler.php', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-    },
-    body: `id=${supplierId}`  // Send the supplier ID as part of the body
-  })
-    .then(response => response.text())  // Read as text to inspect raw response
-    .then(text => {
-      try {
-        const data = JSON.parse(text);
-        if (data.success) {
-          alert(data.success);
-          window.location.reload();
-        } else {
-          alert(data.error);
-        }
-      } catch (error) {
-        console.error('Response not JSON:', text);
-        alert('Something went wrong');
-      }
-    })
-    .catch(error => console.error('Error:', error));
-});
-
-// Cancel delete supplier
-cancelDeleteSupplierButton.addEventListener('click', function () {
-  deleteSupplierModal.style.display = 'none';  // Correct the reference to deleteSupplierModal
-});
-
+        console.log(addSupplierProductCategory);
 
     
+        
+        // Create FormData object to send to the server
+        const formData = new FormData();
+        formData.append("supplier_name", addSupplierName);
+        formData.append("contact_person", addSupplierContactPerson);
+        formData.append("phone_number", addSupplierPhoneNumber);
+        formData.append("address", addSupplierAddress);
+        formData.append("supplier_type", addSupplierType);
+        formData.append("product_category_id", addSupplierProductCategory);
+        formData.append("payment_terms", addSupplierPaymentTerms);
+        formData.append("note", addSupplierNote);
 
+        console.log("FormData:", formData);
+        
+       
 
-
+        fetch("../handler/records/supplier/add-supplier-handler.php", {
+            method: "POST",
+            body: formData,
+        })
+        .then(async response => {
+            const text = await response.text();
+            try {
+                return JSON.parse(text);
+            } catch {
+                throw new Error(text || 'Invalid server response');
+            }
+        })
+        .then(data => {
+            if (data.success) {
+                alert("Supplier created successfully!");
+                hideAddSupplierModal();
+                addSupplierForm.reset();
+                fetchSupplierData();
+            } else {
+                throw new Error(data.message || "Unknown error occurred");
+            }
+        })
+        .catch(error => {
+            console.error("Error:", error);
+            alert(`Error: ${error.message}`);
+        });
+    }
 
 
 });

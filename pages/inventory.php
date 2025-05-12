@@ -214,77 +214,84 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'cashier') {
 </main>
 
 <!--------| ADD NEW PRODUCT | --------------->
-<!--| #7 |-->  
-<div class="add-product-modal-container">
-    <div class="add-product-form-container">
-        <form action="" id="add-product-form">
-            <h3>Add Product</h3>
-            <div class="form-group-container">
-                <label>Product Name:</label>
-                <input type="text" id="add-product-name"required>
-            </div>
-            <div class="form-group-container">
-                <label>Brand:</label>
-                <select name="" id="add-product-brand" required>
-                    <option value="">- Select Brand -</option>
-                </select>
-            </div>
-            <div class="form-group-container">
-                <label>Category:</label>
-                <select name="" id="add-product-category" required>
-                    <option value="">- Select category -</option>
-                </select>
-            </div>
-            <div class="form-group-container">
-                <label>Subcategory:</label>
-                <select name="" id="add-product-subcategory" required>
-                    <option value="">- Select subcategory -</option>
-                </select>
-            </div>
-            <div class="form-group-container">
-                <label>Barcode:</label>
-                <div class="inventory-add-product-barcode-container">
-                    <input type="text" id="add-product-barcode" maxlength="13" required>
-                    <button id="inventory-add-product-generate-barcode-button">Generate</button>
-                </div>
-                
-            </div>
-            <div class="form-group-container">
-                <label>Quantity:</label>
-                <input type="text" id="add-product-quantity" required>
-            </div>
-            <div class="form-group-container">
-                <label>Reorder Point:</label>
-                <input type="text" id="add-product-reorder-point" required>
-            </div>
-            <div class="form-group-container">
-                <label>Original Price:</label>
-                <input type="text"id="add-product-original-price" required>
-            </div>
-            <div class="form-group-container">
-                <label>Selling Price:</label>
-                <input type="text" id="add-product-selling-price"  required>
-            </div>
-            <div class="form-group-container">
-                <label>Supplier:</label>
-                <select name="" id="add-product-select-supplier">
-                    <option value="">- Select Supplier -</option>
-                </select>
-            </div>
-            <div class="form-group-container">
-                <label>Status:</label>
-                <select name="" id="add-product-status" required>
-                    <option value="active">active</option>
-                    <option value="inactive">inactive</option>
-                </select>
-            </div>
+<div class="add-product-modal-container" id="add-product-modal">
+  <div class="add-product-form-container">
+    <form action="" id="add-product-form">
+      <h3>Add Product</h3>
 
-            <input type="submit" id="add-product-submit-button">
-        </form>
-        <button id="add-product-cancel-button">Cancel</button>
+      <div class="form-group-container">
+        <label>Product Name:</label>
+        <input type="text" id="add-product-name" name="product_name" required>
+      </div>
 
-    </div>
+      <div class="form-group-container">
+        <label>Brand:</label>
+        <select id="add-product-brand" name="product_brand" required>
+          <option value="">- Select Brand -</option>
+        </select>
+      </div>
 
+      <div class="form-group-container">
+        <label>Category:</label>
+        <select id="add-product-category" name="product_category" required>
+          <option value="">- Select Category -</option>
+        </select>
+      </div>
+
+      <div class="form-group-container">
+        <label>Subcategory:</label>
+        <select id="add-product-subcategory" name="product_subcategory" required>
+          <option value="">- Select Subcategory -</option>
+        </select>
+      </div>
+
+      <div class="form-group-container">
+        <label>Barcode:</label>
+        <div class="inventory-add-product-barcode-container">
+          <input type="text" id="add-product-barcode" name="product_barcode" maxlength="13" required>
+          <button type="button" id="inventory-add-product-generate-barcode-button">Generate</button>
+        </div>
+      </div>
+
+      <div class="form-group-container">
+        <label>Quantity:</label>
+        <input type="number" id="add-product-quantity" name="quantity" required>
+      </div>
+
+      <div class="form-group-container">
+        <label>Reorder Point:</label>
+        <input type="number" id="add-product-reorder-point" name="reorder_point" required>
+      </div>
+
+      <div class="form-group-container">
+        <label>Original Price:</label>
+        <input type="number" step="0.01" id="add-product-original-price" name="original_price" required>
+      </div>
+
+      <div class="form-group-container">
+        <label>Selling Price:</label>
+        <input type="number" step="0.01" id="add-product-selling-price" name="selling_price" required>
+      </div>
+
+      <div class="form-group-container">
+        <label>Supplier:</label>
+        <select id="add-product-select-supplier" name="supplier_id" required>
+          <option value="">- Select Supplier -</option>
+        </select>
+      </div>
+
+      <div class="form-group-container">
+        <label>Status:</label>
+        <select id="add-product-status" name="status" required>
+          <option value="active">Active</option>
+          <option value="inactive">Inactive</option>
+        </select>
+      </div>
+
+      <input type="submit" id="add-product-submit-button" value="Add Product">
+    </form>
+    <button id="add-product-cancel-button">Cancel</button>
+  </div>
 </div>
 
 

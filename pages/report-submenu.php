@@ -1,15 +1,5 @@
 
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 
-
-<!-- Include jsPDF Library (for PDF export) -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-
-<!-- Include jsPDF AutoTable Plugin -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
-
-<!-- Include SheetJS Library (for Excel export) -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.1/xlsx.full.min.js"></script>
 
 <style>
     .reports-main-content-container {
@@ -75,13 +65,13 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 </script>
-
+<?php include '../includes/sidebar.php'; ?>
 <main class="main-content-container">
     <div class="reports-top-submenu-container">  
         <ul class="reports-submenu-list">
-            <li><a href="./report-inventory.php" class="reports-top-bar"><span class="material-symbols-rounded">inventory_2</span>Inventory</a></li>
-            <li><a href="./report-sales.php" class="reports-top-bar"><span class="material-symbols-rounded">request_quote</span>Sales</a></li>
-            <li><a href="./report-rental.php" class="reports-top-bar"><span class="material-symbols-rounded">storefront</span>Rental</a></li>          
+            <li><a href="report-inventory.php" class="reports-top-bar"><span class="material-symbols-rounded">inventory_2</span>Inventory</a></li>
+            <li><a href="report-sales.php" class="reports-top-bar"><span class="material-symbols-rounded">request_quote</span>Sales</a></li>
+            <li><a href="report-rental.php" class="reports-top-bar"><span class="material-symbols-rounded">storefront</span>Rental</a></li>          
         </ul>
     </div> 
 </main>

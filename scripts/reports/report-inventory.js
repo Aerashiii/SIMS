@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function () {
        formData.append('query', query);
        formData.append('category_id', categoryId);
    
-       fetch('../../handler/inventory/onhand-product/retrieve-products.php', {
+       fetch('../handler/inventory/onhand-product/retrieve-products.php', {
            method: 'POST',
            headers: {
                'Content-Type': 'application/x-www-form-urlencoded',
@@ -69,7 +69,7 @@ document.addEventListener('DOMContentLoaded', function () {
        }
    
        function fetchCategoryDataForSelectCategory() {
-           fetch('../../handler/records/category/retrieve-category.php')
+           fetch('../handler/records/category/retrieve-category.php')
                .then(response => {
                    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
                    return response.json();

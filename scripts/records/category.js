@@ -14,15 +14,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const editCategoryExitButton = document.getElementById('category-edit-exit-button');
     const editCategorySaveButton = document.getElementById('save-edit-category-button');
 
-    // FOR SUBCATEGORY TABLE
-    const SelectCategoryOnSubcategoryTable = document.getElementById('subcategory-select-category');
 
-    // FOR ADDING SUBCATEGORY
-    const addSubcategoryButton = document.getElementById('add-subcategory-button');
-    const addSubcategoryModalCon = document.querySelector('.add-subcategory-modal-container');
-    const addSubcategoryCancelButton = document.getElementById('add-subcategory-cancel-button');
-    const addSubcategorySelectCategory = document.getElementById('add-subcategory-select-category');
-    const addSubcategoryForm = document.getElementById('add-subcategory-form');
 
     //FOR EDITING SUBCATEGORY
     const editSubcategoryModalCon = document.querySelector('.edit-subcategory-modal-container');
@@ -288,90 +280,122 @@ function attachCategoryActionListeners() {
 
 
 /*========================| FOR SUBCATEGORY |=================================================================================== */
-    fetchCategoryDataForSelectCategory();
-    fetchSubcategoryData();
-    fetchCategoryDataForSubcategory();
+// FOR SUBCATEGORY TABLE
+const SelectCategoryOnSubcategoryTable = document.getElementById('subcategory-select-category');
 
-    // FOR DISPLAYING ADD SUBCATEGORY MODAL
-     addSubcategoryButton.addEventListener('click', function() {
-        addSubcategoryModalCon.style.display = 'flex'; // Fixed the typo here
-    });
-    // FOR HIDING ADD SUBCATEGORY MODAL
-    addSubcategoryCancelButton.addEventListener('click', function() {
-        addSubcategoryModalCon.style.display = 'none'; // Fixed the typo here
-    });
+// FOR ADDING SUBCATEGORY
+const addSubcategoryButton = document.getElementById('add-subcategory-button');
+const addSubcategoryModalCon = document.querySelector('.add-subcategory-modal-container');
+const addSubcategoryCancelButton = document.getElementById('add-subcategory-cancel-button');
+const addSubcategorySelectCategory = document.getElementById('add-subcategory-select-category');
+const addSubcategoryForm = document.getElementById('add-subcategory-form');
 
-     // DISPLAY CATEGORY
-   function fetchCategoryDataForSubcategory() {
-        fetch('../handler/records/category/retrieve-category.php')
-            .then(response => {
-                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-                return response.json();
-            })
-            .then(data => {
-                if (data.length === 0) {
-                    console.warn('No category data found.');
-                } else {
-                    populateSelectCategory(data);
-                }
-            })
-            .catch(error => console.error('Error fetching category data:', error));
-    }
+fetchCategoryDataForSelectCategory();
+fetchSubcategoryData();
+fetchCategoryDataForSubcategory();
 
-    // Populate select category for adding subcategory
-    function populateSelectCategory(categories) {
-        categories.forEach(category => {
-            const option = document.createElement('option');
-             option.innerHTML = category.category_name;
-             option.value = category.category_id;
-            addSubcategorySelectCategory.appendChild(option);
-        });
-    }
+// FOR DISPLAYING ADD SUBCATEGORY MODAL
+addSubcategoryButton.addEventListener('click', function() {
+    addSubcategoryModalCon.style.display = 'flex';
+});
 
-    // SUBMISSION OF ADD SUBCATEGORY FORM
-    addSubcategoryForm.addEventListener("submit", function(event) {
-        event.preventDefault(); // Prevent page reload
+// FOR HIDING ADD SUBCATEGORY MODAL
+addSubcategoryCancelButton.addEventListener('click', function() {
+    addSubcategoryModalCon.style.display = 'none';
+});
 
-        createSubategory(); // Call the function to handle form data submission
-    });
-
-    // Function to handle category creation
-    function createSubategory() {
-        const categoryId = document.getElementById('add-subcategory-select-category').value.trim();
-        const subcategoryName = document.getElementById("add-subcategory-name").value.trim();
-        const subcategoryStatus = document.getElementById("add-subcategory-status").value.trim();
-
-        // Validate form inputs
-        if (!categoryId || !subcategoryName || !subcategoryStatus) {
-            alert("Please fill in all fields.");
-            return;
-        }
-        // Create FormData object to send to the server
-        const formData = new FormData();
-        formData.append("subcategory_name", subcategoryName);
-        formData.append("category_id", categoryId);
-        formData.append("subcategory_status", subcategoryStatus);
-
-        // Send data to PHP script using Fetch API
-        fetch("../handler/records/category/add-subcategory.php", {
-            method: "POST",
-            body: formData,
+// DISPLAY CATEGORY
+function fetchCategoryDataForSubcategory() {
+    fetch('../handler/records/category/retrieve-category.php')
+        .then(response => {
+            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+            return response.json();
         })
-        .then((response) => response.json()) // Parse the JSON response
-        .then((data) => {
-            if (data.success) {
-                alert("Subcategory created successfully!");
-                addCategoryModalCon.style.display = 'none'; // Close the modal on success
-                location.reload(); // Reload page to update table
+        .then(data => {
+            if (data.length === 0) {
+                console.warn('No category data found.');
             } else {
-                alert(`Error: ${data.message}`);
+                populateSelectCategory(data);
             }
         })
-        .catch((error) => {
-            console.error("Error:", error);
-            alert("An error occurred while creating the subcategory.");
-        });
+        .catch(error => console.error('Error fetching category data:', error));
+}
+
+// Populate select category for adding subcategory
+function populateSelectCategory(categories) {
+    // Clear existing options first
+    addSubcategorySelectCategory.innerHTML = '<option value="">-select category-</option>';
+    
+    categories.forEach(category => {
+        const option = document.createElement('option');
+        option.textContent = category.category_name;
+        option.value = category.category_id;
+        addSubcategorySelectCategory.appendChild(option);
+    });
+}
+
+// SUBMISSION OF ADD SUBCATEGORY FORM
+addSubcategoryForm.addEventListener("submit", function(event) {
+    event.preventDefault();
+    createSubcategory(); // Fixed function name (was createSubategory)
+});
+
+// Function to handle subcategory creation
+function createSubcategory() {
+    const categoryId = addSubcategorySelectCategory.value.trim();
+    const subcategoryName = document.getElementById("add-subcategory-name").value.trim();
+    const subcategoryStatus = document.getElementById("add-subcategory-status").value.trim();
+
+    // Validate form inputs
+    if (categoryId === "") {
+        alert("Please select a category.");
+        return;
     }
+    if (!subcategoryName) {
+        alert("Please enter a subcategory name.");
+        return;
+    }
+
+    // Create FormData object
+    const formData = new FormData();
+    formData.append("category_id", categoryId);
+    formData.append("subcategory_name", subcategoryName);
+    formData.append("subcategory_status", subcategoryStatus);
+
+    // Send data to PHP script
+    fetch("../handler/records/category/add-subcategory.php", {
+        method: "POST",
+        body: formData,
+    })
+    .then(async (response) => {
+        // First try to parse as JSON
+        try {
+            const data = await response.json();
+            if (!response.ok) {
+                throw new Error(data.message || 'Server error');
+            }
+            return data;
+        } catch (e) {
+            // If JSON parsing fails, get the raw text
+            const text = await response.text();
+            throw new Error(text || 'Invalid server response');
+        }
+    })
+    .then((data) => {
+        if (data.success) {
+            alert("Subcategory created successfully!");
+            addSubcategoryModalCon.style.display = 'none';
+            document.getElementById("add-subcategory-name").value = "";
+            fetchSubcategoryData();
+        } else {
+            alert(data.message || "Error creating subcategory");
+        }
+    })
+    .catch((error) => {
+        console.error("Error:", error);
+        alert(error.message || "An error occurred while creating the subcategory.");
+    });
+}
 
 // DISPLAY SUBCATEGORY
 function fetchSubcategoryData(categoryId = null) {

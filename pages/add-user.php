@@ -38,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_user'])) {
             $insert_stmt->bind_param("ssss", $name, $username, $password, $role);
 
             if ($insert_stmt->execute()) {
-                echo "<script>alert('User added successfully!'); window.location.href='user-management.php';</script>";
+                echo "<script>alert('User added successfully!'); window.location.href='settings-user-management.php';</script>";
             } else {
                 echo "<script>alert('Failed to add user.');</script>";
             }

@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function(){
     // Fetch rental reports data
-    fetch('../../handler/reports/retrieve-rental-transaction.php')
+    fetch('../handler/reports/retrieve-rental-transaction.php')
         .then(response => response.json())
         .then(data => {
             const tableBody = document.querySelector('#report-rental-table tbody');

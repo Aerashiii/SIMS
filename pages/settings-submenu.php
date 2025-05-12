@@ -125,19 +125,19 @@
         <h4>Settings Content</h4>
         <ul class="settings-submenu-list">
             <li>
-                <a href="./profile-settings.php" class="settings-top-bar">
+                <a href="./settings-profile-settings.php" class="settings-top-bar">
                     <span class="material-symbols-rounded">person</span> <!-- profile icon -->
                     Profile
                 </a>
             </li>
             <li>
-                <a href="./user-management.php" class="settings-top-bar">
+                <a href="./settings-user-management.php" class="settings-top-bar">
                     <span class="material-symbols-rounded">group</span> <!-- user management icon -->
                     User Management
                 </a>
             </li>
             <li>
-                <a href="./system-preferences.php" class="settings-top-bar">
+                <a href="./settings-system-preferences.php" class="settings-top-bar">
                     <span class="material-symbols-rounded">settings</span> <!-- system preferences icon -->
                     System Preferences
                 </a>

@@ -3,19 +3,19 @@ session_start();
 
 // Authentication check
 if (!isset($_SESSION['user'])) {
-    header('Location: ../login.php');
+    header('Location: login.php');
     exit;
 }
 
 // Authorization check
 if (isset($_SESSION['role']) && $_SESSION['role'] === 'cashier') {
-    echo "<script>alert('Access Denied: Cashier role cannot access this page.'); window.location.href='../login.php';</script>";
+    echo "<script>alert('Access Denied: Cashier role cannot access this page.'); window.location.href='login.php';</script>";
     exit;
 }
 
-$page = 'user_management';
-require '../../includes/header.php';
-include 'settings.php';
+$page = 'settings-user-management';
+require '../includes/header.php';
+include 'settings-submenu.php';
 
 // Database connection
 $server = "localhost";
@@ -55,7 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_user'])) {
             $insert_stmt->bind_param("ssss", $name, $username, $password, $role);
 
             if ($insert_stmt->execute()) {
-                echo "<script>alert('User added successfully!'); window.location.reload();</script>";
+                echo "<script>alert('User added successfully!'); window.location.href='settings-user-management.php';</script>";
             } else {
                 echo "<script>alert('Failed to add user.');</script>";
             }

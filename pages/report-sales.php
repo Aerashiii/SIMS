@@ -3,7 +3,7 @@ session_start();
 
 // Authentication check
 if (!isset($_SESSION['user'])) {
-    header('Location: ../login.php');
+    header('Location: login.php');
     exit;
 }
 
@@ -14,11 +14,21 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'cashier') {
 }
 
 $page = 'report-sales';
-require '../../includes/header.php';
-include 'reports.php';
+require '../includes/header.php';
+include 'report-submenu.php';
 
 ?>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 
+
+<!-- Include jsPDF Library (for PDF export) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<!-- Include jsPDF AutoTable Plugin -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
+
+<!-- Include SheetJS Library (for Excel export) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.1/xlsx.full.min.js"></script>
 <main class="reports-main-content-container"><!-- | THE STYLES FOR THIS CONTAINER ARE DEFINED IN GLOBAL.CSS TO STANDARDIZE THE STYLE OF THE MAIN CONTAINER ACROSS ALL PAGES |-->
 
     <div class="report-sales-content-container" id="onhand-inventory-content-container" >
