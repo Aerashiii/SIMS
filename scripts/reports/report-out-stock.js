@@ -18,7 +18,7 @@ function fetchProductData(query = '', categoryId = '') {
     formData.append('query', query);
     formData.append('category_id', categoryId);
 
-    fetch('../../handler/inventory/out-stock-product/retrieve-out-stock-products.php', {
+    fetch('../handler/inventory/out-stock-product/retrieve-out-stock-products.php', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
@@ -50,7 +50,7 @@ function fetchProductData(query = '', categoryId = '') {
                    <td>₱ ${product.original_price}</td>
                    <td>₱ ${product.selling_price}</td>
                     <td>₱ ${product.selling_price * product.quantity}</td>
-                   <td><img src="../../assets/images/icons/button.png"> Out Stock</td>
+                   <td><img src="../assets/images/icons/button.png"> Out Stock</td>
             `;
             outStockProductListTable.appendChild(row);
         });
@@ -58,7 +58,7 @@ function fetchProductData(query = '', categoryId = '') {
 
 
     function fetchCategoryDataForSelectCategory() {
-        fetch('../../handler/records/category/retrieve-category.php')
+        fetch('../handler/records/category/retrieve-category.php')
             .then(response => {
                 if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
                 return response.json();

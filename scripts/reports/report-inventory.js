@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', function () {
                    <td>₱ ${product.original_price}</td>
                    <td>₱ ${product.selling_price}</td>
                     <td>₱ ${product.selling_price * product.quantity}</td>
-                   <td><img src="../../assets/images/icons/check.png"> On hand</td>
+                   <td><img src="../assets/images/icons/check.png"> On hand</td>
                  
                `;
                onhandProductListTable.appendChild(row);

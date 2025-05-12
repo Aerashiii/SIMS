@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Add Supplier
         addSupplierButton.addEventListener('click', showAddSupplierModal);
         addSupplierCancelButton.addEventListener('click', hideAddSupplierModal);
-        addSupplierForm.addEventListener('submit', handleAddSupplierSubmit);
+     
 
  
         editSupplierSaveButton.addEventListener('click', handleEditSupplierSave);
@@ -193,7 +193,8 @@ editSupplierExitButton.addEventListener('click', function(){
         .then(data => {
             if (data.success) {
                 alert('Supplier updated successfully!');
-                hideEditSupplierModal();
+                editSupplierModalCon.style.display = 'none';
+                
                 fetchSupplierData();
             } else {
                 alert(`Error: ${data.message}`);

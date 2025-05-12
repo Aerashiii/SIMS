@@ -41,7 +41,7 @@ $sql = "SELECT
         LEFT JOIN category c ON p.category_id = c.category_id
         LEFT JOIN subcategory sub ON p.subcategory_id = sub.subcategory_id
         LEFT JOIN supplier s ON p.supplier_id = s.supplier_id
-        WHERE p.status = 'active' AND p.quantity = 0 AND p.deleted='no'";
+        WHERE p.status = 'active' AND p.quantity < 1 AND p.deleted='no'";
 
 $params = [];
 $types = "";
