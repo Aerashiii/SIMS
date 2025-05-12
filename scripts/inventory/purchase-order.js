@@ -16,7 +16,8 @@ document.addEventListener('DOMContentLoaded', function () {
     })
 
 
-/**=========================| START FOR ADD PRODUCT RDER |=============================== */
+/**=========================| START FOR ADD PRODUCT ORDER |=============================== */
+/**=========================| START FOR ADD PRODUCT ORDER |=============================== */
 
 /************| FOR CALLING THE FUNCTIONS |**************** */
 fetchSelectBrandAddProduct();
@@ -24,39 +25,38 @@ fetchSelectCategoryAddProduct();
 fetchSelectSubcategoryAddProduct();
 fetchSelectSupplierAddProduct();
 
-   // FOR ADDING PRODUCT 
-   const addProductOrderForm = document.getElementById('add-order-product-form');
-   const addProductOrderSelectBrand = document.getElementById('add-order-product-brand');
-   const addProductOrderSelectCategory = document.getElementById('add-order-product-category');
-   const addProductOrderSelectSubcategory = document.getElementById('add-order-product-subcategory');
-   const addProductOrderSelectSupplier = document.getElementById('add-order-product-select-supplier');
+// FOR ADDING PRODUCT 
+const addProductOrderForm = document.getElementById('add-order-product-form');
+const addProductOrderSelectBrand = document.getElementById('add-order-product-brand');
+const addProductOrderSelectCategory = document.getElementById('add-order-product-category');
+const addProductOrderSelectSubcategory = document.getElementById('add-order-product-subcategory');
+const addProductOrderSelectSupplier = document.getElementById('add-order-product-select-supplier');
 
+/*****| RETRIEVE BRAND  |******/ 
+function fetchSelectBrandAddProduct() {
+    fetch('../handler/records/brand/retrieve-brand.php')
+        .then(response => {
+            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+            return response.json();
+        })
+        .then(data => {
+            populateSelectBrandAddProduct(data);                
+        })
+        .catch(error => console.error('Error fetching brand data:', error));
+}
 
-    /*****| RETRIEVE BRAND  |******/ 
-    function fetchSelectBrandAddProduct() {
-        fetch('../handler/records/brand/retrieve-brand.php')
-            .then(response => {
-                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-                return response.json();
-            })
-            .then(data => {
-                populateSelectBrandAddProduct(data);                
-            })
-            .catch(error => console.error('Error fetching brand data:', error));
-    }
-    // FUNCTION TO POPULATE  ADD ORDER SELECT BRAND
-    function populateSelectBrandAddProduct(brands) {
-        
-        brands.forEach(brand => {
-            const brandOption = document.createElement('option');
-            brandOption.innerHTML = brand.brand_name;
-            brandOption.value = brand.brand_id;      
-            addProductOrderSelectBrand.appendChild(brandOption);
-        });     
-    }
-   
-    /***| RETRIEVE CATEGORY FOR ADD PRODUCT ORDER SELECT CATEGORY |* */
-   function fetchSelectCategoryAddProduct() {
+// FUNCTION TO POPULATE  ADD ORDER SELECT BRAND
+function populateSelectBrandAddProduct(brands) {
+    brands.forEach(brand => {
+        const brandOption = document.createElement('option');
+        brandOption.innerHTML = brand.brand_name;
+        brandOption.value = brand.brand_id;      
+        addProductOrderSelectBrand.appendChild(brandOption);
+    });     
+}
+
+/***| RETRIEVE CATEGORY FOR ADD PRODUCT ORDER SELECT CATEGORY |* */
+function fetchSelectCategoryAddProduct() {
     fetch('../handler/records/category/retrieve-category.php')
         .then(response => {
             if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
@@ -70,19 +70,20 @@ fetchSelectSupplierAddProduct();
             }
         })
         .catch(error => console.error('Error fetching category data:', error));
-    }
-    // FUNCTION TO POPULATE  ADD ORDER SELECT CATEGORY
-    function populateSelectCategoryAddProduct(categories) {
-        categories.forEach(category => {
-            const categoryOption = document.createElement('option');
-            categoryOption.innerHTML = category.category_name;
-            categoryOption.value = category.category_id;
-            addProductOrderSelectCategory.appendChild(categoryOption);
-        });
-    }
-    
-    /***| RETRIEVE SUBCATEGORY FOR ADD PRODUCT ORDER SELECT SUBCATEGORY |* */
-   function fetchSelectSubcategoryAddProduct() {
+}
+
+// FUNCTION TO POPULATE  ADD ORDER SELECT CATEGORY
+function populateSelectCategoryAddProduct(categories) {
+    categories.forEach(category => {
+        const categoryOption = document.createElement('option');
+        categoryOption.innerHTML = category.category_name;
+        categoryOption.value = category.category_id;
+        addProductOrderSelectCategory.appendChild(categoryOption);
+    });
+}
+
+/***| RETRIEVE SUBCATEGORY FOR ADD PRODUCT ORDER SELECT SUBCATEGORY |* */
+function fetchSelectSubcategoryAddProduct() {
     fetch('../handler/records/category/retrieve-subcategory.php')
         .then(response => {
             if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
@@ -96,124 +97,127 @@ fetchSelectSupplierAddProduct();
             }
         })
         .catch(error => console.error('Error fetching category data:', error));
-    }
-    // FUNCTION TO POPULATE  ADD ORDER SELECT SUBCATEGORY
-    function populateSelectSubcategoryAddProduct(subcategories) {
-        subcategories.forEach(subcategory => {
-            const subcategoryOption = document.createElement('option');
-            subcategoryOption.innerHTML = subcategory.subcategory_name;
-            subcategoryOption.value = subcategory.subcategory_id;
-            addProductOrderSelectSubcategory.appendChild(subcategoryOption);
-        });
-    } 
-     /***| RETRIEVE SUPPLIER FOR ADD PRODUCT ORDER SELECT SUPPLIER |* */
-   function fetchSelectSupplierAddProduct() { 
-        fetch('../handler/records/supplier/retrieve-supplier.php')
-            .then(response => {
-                if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
-                return response.json();
-            })
-            .then(data => {
-                if (!data.success || data.data.length === 0) {
-                    console.warn('No supplier data found.');
-                } else {
-                    populateSelectSupplierAddProduct(data.data);                   
-                }
-            })
-            .catch(error => console.error('Error fetching supplier data:', error));    
-    }
-    // FUNCTION TO POPULATE  ADD ORDER SELECT SUPPLIER
-    function populateSelectSupplierAddProduct(suppliers) {
-        suppliers.forEach(supplier => {  
-            const supplierOption = document.createElement('option');
-            supplierOption.innerHTML = supplier.supplier_name;
-            supplierOption.value = supplier.supplier_id;
-            addProductOrderSelectSupplier.appendChild(supplierOption);
-        });
-    }
-   
-    const addProductOrderBarcodeInput = document.getElementById('add-order-product-barcode');
-    const generateBarcodeBtn = document.getElementById('inventory-add-order-product-generate-barcode-button');
-    
-     // Prevent non-digit characters and enforce max 13 characters
-     addProductOrderBarcodeInput.addEventListener('input', () => {
-        addProductOrderBarcodeInput.value = addProductOrderBarcodeInput.value.replace(/\D/g, '').slice(0, 13);
+}
+
+// FUNCTION TO POPULATE  ADD ORDER SELECT SUBCATEGORY
+function populateSelectSubcategoryAddProduct(subcategories) {
+    subcategories.forEach(subcategory => {
+        const subcategoryOption = document.createElement('option');
+        subcategoryOption.innerHTML = subcategory.subcategory_name;
+        subcategoryOption.value = subcategory.subcategory_id;
+        addProductOrderSelectSubcategory.appendChild(subcategoryOption);
     });
-    
-    // Generate 13-digit random barcode
-    generateBarcodeBtn.addEventListener('click', (e) => {
-        e.preventDefault(); // Prevent form submit if inside form
-        const randomBarcode = generate13DigitBarcode();
-        addProductOrderBarcodeInput.value = randomBarcode;
+} 
+
+/***| RETRIEVE SUPPLIER FOR ADD PRODUCT ORDER SELECT SUPPLIER |* */
+function fetchSelectSupplierAddProduct() { 
+    fetch('../handler/records/supplier/retrieve-supplier.php')
+        .then(response => {
+            if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+            return response.json();
+        })
+        .then(data => {
+            if (!data.success || data.data.length === 0) {
+                console.warn('No supplier data found.');
+            } else {
+                populateSelectSupplierAddProduct(data.data);                   
+            }
+        })
+        .catch(error => console.error('Error fetching supplier data:', error));    
+}
+
+// FUNCTION TO POPULATE  ADD ORDER SELECT SUPPLIER
+function populateSelectSupplierAddProduct(suppliers) {
+    suppliers.forEach(supplier => {  
+        const supplierOption = document.createElement('option');
+        supplierOption.innerHTML = supplier.supplier_name;
+        supplierOption.value = supplier.supplier_id;
+        addProductOrderSelectSupplier.appendChild(supplierOption);
     });
-  
-    // Barcode generation helper function
-    function generate13DigitBarcode() {
-        let barcode = '';
-        for (let i = 0; i < 13; i++) {
-            barcode += Math.floor(Math.random() * 10);
-        }
-        return barcode;
+}
+
+const addProductOrderBarcodeInput = document.getElementById('add-order-product-barcode');
+const generateBarcodeBtn = document.getElementById('inventory-add-order-product-generate-barcode-button');
+
+// Prevent non-digit characters and enforce max 13 characters
+addProductOrderBarcodeInput.addEventListener('input', () => {
+    addProductOrderBarcodeInput.value = addProductOrderBarcodeInput.value.replace(/\D/g, '').slice(0, 13);
+});
+
+// Generate 13-digit random barcode
+generateBarcodeBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    const randomBarcode = generate13DigitBarcode();
+    addProductOrderBarcodeInput.value = randomBarcode;
+});
+
+// Barcode generation helper function
+function generate13DigitBarcode() {
+    let barcode = '';
+    for (let i = 0; i < 13; i++) {
+        barcode += Math.floor(Math.random() * 10);
     }
-    // Handle form submission
-    addProductOrderForm.addEventListener('submit', function (event) {
-        event.preventDefault();
-        addProduct();
-    });
+    return barcode;
+}
+
+// Handle form submission
+addProductOrderForm.addEventListener('submit', function (event) {
+    event.preventDefault();
+    addProduct();
+});
 
 // Function to handle product creation
 function addProduct() {
-    // Get form values and trim any extra spaces, ensure element exists first
-    const addProductName = document.getElementById("add-order-product-name")?.value.trim() || "";
-    const addProductBrand = document.getElementById("add-order-product-brand")?.value.trim() || "";
-    const addProductCategory = document.getElementById("add-order-product-category")?.value.trim() || "";
-    const addProductSubcategory = document.getElementById("add-order-product-subcategory")?.value.trim() || "";
-    const addProductBarcode = document.getElementById("add-order-product-barcode")?.value.trim() || "";
-    const addProductOriginalPrice = document.getElementById("add-order-product-original-price")?.value.trim() || "";
-    const addProductSellingPrice = document.getElementById("add-order-product-selling-price")?.value.trim() || "";
-    const addProductQuantity = document.getElementById("add-order-product-quantity")?.value.trim() || "";
-    const addProductReorderPoint = document.getElementById("add-order-product-reorder-point")?.value.trim() || "";
-    const addProductStatus = document.getElementById("add-order-product-status")?.value.trim() || "";
-    const addProductSupplier = document.getElementById("add-order-product-select-supplier")?.value.trim() || "";
+    const formData = new FormData(addProductOrderForm);
+    
+    // Additional validation
+    const barcode = formData.get('product_barcode');
+    if (barcode.length !== 13) {
+        alert("Barcode must be exactly 13 digits.");
+        return;
+    }
 
-    // Create FormData object to send to the server
-    const formData = new FormData();
-    formData.append("product_name", addProductName);
-    formData.append("product_brand", addProductBrand);
-    formData.append("product_category", addProductCategory);
-    formData.append("product_subcategory", addProductSubcategory);
-    formData.append("product_barcode", addProductBarcode);
-    formData.append("original_price", addProductOriginalPrice);
-    formData.append("selling_price", addProductSellingPrice);
-    formData.append("quantity", addProductQuantity);
-    formData.append("reorder_point", addProductReorderPoint);
-    formData.append("status", addProductStatus);
-    formData.append("supplier_id", addProductSupplier);
-    console.log(formData);
-    // Send data to PHP script using Fetch API
-    fetch("../handler/inventory/purchase-order/add-order.php", {       
+    // Convert numeric fields to proper types
+    const originalPrice = parseFloat(formData.get('original_price'));
+    const sellingPrice = parseFloat(formData.get('selling_price'));
+    const quantity = parseInt(formData.get('quantity'));
+    const reorderPoint = parseInt(formData.get('reorder_point'));
+
+    if (isNaN(originalPrice) || isNaN(sellingPrice) || isNaN(quantity) || isNaN(reorderPoint)) {
+        alert("Please enter valid numeric values for price and quantity fields.");
+        return;
+    }
+
+    if (sellingPrice < originalPrice) {
+        alert("Selling price should be greater than or equal to original price.");
+        return;
+    }
+
+    // Submit via fetch
+    fetch("../handler/inventory/purchase-order/add-order.php", {
         method: "POST",
-        body: formData,
+        body: formData
     })
-    .then((response) => {
+    .then(response => {
         if (!response.ok) {
-            return response.text().then((text) => {
-                throw new Error(`Server responded with status ${response.status}: ${text}`);
-            });
+            throw new Error('Network response was not ok');
         }
         return response.json();
     })
-    .then((data) => {
+    .then(data => {
         if (data.success) {
-            alert("Product added successfully!");
-            addProductOrderModalCon.style.display = 'none'; // Close the modal
-            location.reload(); // Reload page to update table
+            alert("Purchase order added successfully!");
+            addProductOrderForm.reset();
+            window.location.reload();
+            document.querySelector(".add-order-modal-container").style.display = "none";
+            // Optionally refresh product list here
         } else {
-            alert(`Error: ${data.message}`);
+            alert("Error adding product: " + (data.message || "Unknown error"));
         }
     })
-    .catch((error) => {
-        console.error("Error:", error);     
+    .catch(error => {
+        console.error("Error submitting purchase order:", error);
+        alert("An error occurred while submitting the form. Please try again.");
     });
 }
 /*=====================================| END OF ADD ORDER SCRIPT |====================================================== */

@@ -1,4 +1,6 @@
 <?php
+header('Content-Type: application/json');
+
 $server = "localhost";
 $username = "root";
 $password = "";
@@ -9,9 +11,11 @@ $conn = new mysqli($server, $username, $password, $dbname);
 
 // Check connection
 if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+    die(json_encode(['success' => false, 'message' => "Connection failed: " . $conn->connect_error]));
 }
-$deleted ='no';
+
+$deleted = 'no';
+
 // Check if the form is submitted via POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Collect and sanitize form data
@@ -28,8 +32,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $supplier_id = isset($_POST['supplier_id']) ? (int) $_POST['supplier_id'] : 0;
 
     // Validate required fields
-    if (empty($product_name) || empty($barcode) || empty($brand_id) || empty($category_id) || empty($subcategory_id) || empty($original_price) || empty($selling_price) || empty($quantity) || empty($reorder_point) || empty($status) || empty($supplier_id)) {
-        echo json_encode(['success' => false, 'message' => 'All fields are required.']);
+    if (empty($product_name) || empty($barcode) || $brand_id <= 0 || $category_id <= 0 || 
+        $subcategory_id <= 0 || $original_price <= 0 || $selling_price <= 0 || 
+        $quantity < 0 || $reorder_point < 0 || empty($status) || $supplier_id <= 0) {
+        echo json_encode(['success' => false, 'message' => 'All fields are required and must have valid values.']);
         exit;
     }
 
@@ -48,18 +54,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 
-    // SQL to insert product data into the products table
-    $sql = "INSERT INTO `purchase-order` (product_name, barcode, brand_id, category_id, subcategory_id, original_price, selling_price, quantity, reorder_point, status, supplier_id, deleted)
-            VALUES ('$product_name', '$barcode', $brand_id, $category_id, $subcategory_id, $original_price, $selling_price, $quantity, $reorder_point, '$status', $supplier_id, $deleted )";
+    // SQL to insert product data into the purchase_order table (removed hyphen)
+    $sql = "INSERT INTO `purchase-order` (product_name, barcode, brand_id, category_id, subcategory_id, 
+            original_price, selling_price, quantity, reorder_point, status, supplier_id, deleted)
+            VALUES ('$product_name', '$barcode', $brand_id, $category_id, $subcategory_id, 
+            $original_price, $selling_price, $quantity, $reorder_point, '$status', $supplier_id, '$deleted')";
 
     // Execute the query and check for errors
     if (mysqli_query($conn, $sql)) {
-        echo json_encode(['success' => true, 'message' => 'Product added successfully!']);
+        echo json_encode(['success' => true, 'message' => 'Purchase order added successfully!']);
     } else {
         echo json_encode(['success' => false, 'message' => 'Error: ' . mysqli_error($conn)]);
     }
 
     // Close the connection
     mysqli_close($conn);
+} else {
+    echo json_encode(['success' => false, 'message' => 'Invalid request method.']);
 }
 ?>

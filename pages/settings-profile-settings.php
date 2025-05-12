@@ -65,7 +65,6 @@ if (isset($_POST['upload_profile'])) {
                 $stmt->bind_param("si", $filePath, $user_id);
                 if ($stmt->execute()) {
                     echo "<script>alert('Profile picture updated successfully!');</script>";
-                    echo "<script>window.location.reload()</script>";
                     header("Refresh:0");
                     exit();
                 } else {

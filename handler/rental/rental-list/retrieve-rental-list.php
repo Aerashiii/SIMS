@@ -1,14 +1,19 @@
 <?php
+// Database credentials
 $server = "localhost";
 $username = "root";
 $password = "";
 $dbname = "simsdb";
 
-// Create connection
+// Set response header to JSON
+header('Content-Type: application/json');
+
+// Connect to the database
 $conn = new mysqli($server, $username, $password, $dbname);
 
-// Check connection
+// Check for connection errors
 if ($conn->connect_error) {
+    http_response_code(500);
     echo json_encode([
         'success' => false,
         'message' => 'Connection failed: ' . $conn->connect_error
@@ -16,109 +21,111 @@ if ($conn->connect_error) {
     exit();
 }
 
-// Set response header
-header('Content-Type: application/json');
-
-// Get and sanitize input
+// Sanitize and retrieve POST input
 $searchQuery = isset($_POST['query']) ? trim($_POST['query']) : '';
 $statusFilter = isset($_POST['status']) ? trim($_POST['status']) : '';
 
-// Base SQL - Updated to match your actual database schema
-$sql = "SELECT 
-            rt.id,
-            IFNULL(r.renter_name, 'Unknown') AS renter_name,
-            rt.rented_quantity,
-            rt.payment,
-            rt.rental_start_date,
-            rt.rental_end_date,
-            rt.status,
-            GROUP_CONCAT(DISTINCT rb.box_number SEPARATOR ', ') AS box_numbers
-        FROM `rental-transaction` rt
-        LEFT JOIN renter r ON r.renter_id = rt.renter_id
-        LEFT JOIN `rented-box-transaction` rbt ON rbt.rental_transaction_id = rt.id
-        LEFT JOIN `rental-box` rb ON rb.box_id = rbt.box_id
-        WHERE 1=1 ";
+// Initialize base SQL query
+$sql = "
+    SELECT 
+        rt.id,
+        IFNULL(r.renter_name, 'Unknown') AS renter_name,
+        rt.rented_quantity,
+        rt.payment,
+        rt.rental_start_date,
+        rt.rental_end_date,
+        rt.status,
+        GROUP_CONCAT(DISTINCT rb.box_number SEPARATOR ', ') AS box_numbers
+    FROM `rental-transaction` rt
+    LEFT JOIN renter r ON r.renter_id = rt.renter_id
+    LEFT JOIN `rented-box-transaction` rbt ON rbt.rental_transaction_id = rt.id
+    LEFT JOIN `rental-box` rb ON rb.box_id = rbt.box_id
+    WHERE 1 = 1
+";
 
+// Prepare dynamic conditions
 $params = [];
 $types = "";
 
-// Add conditions if searchQuery or statusFilter are provided
+// If search query exists, add filter
 if (!empty($searchQuery)) {
-    $sql .= " AND r.renter_name LIKE CONCAT('%', ?, '%') ";
+    $sql .= " AND r.renter_name LIKE CONCAT('%', ?, '%')";
     $params[] = $searchQuery;
     $types .= "s";
 }
 
-// Validate status against possible values
+// Define valid status values
 $validStatuses = ['active', 'completed', 'pending', 'cancelled'];
-if (!empty($statusFilter) && in_array($statusFilter, $validStatuses)) {
-    $sql .= " AND rt.status = ? ";
+
+// If valid status filter provided, add condition
+if (!empty($statusFilter) && in_array(strtolower($statusFilter), $validStatuses)) {
+    $sql .= " AND rt.status = ?";
     $params[] = $statusFilter;
     $types .= "s";
 }
 
-// Add GROUP BY since we're using GROUP_CONCAT
-$sql .= " GROUP BY rt.id ";
+// Finalize query with grouping
+$sql .= " GROUP BY rt.id";
 
-// Prepare and execute
+// Prepare SQL statement
 $stmt = $conn->prepare($sql);
-
-if ($stmt === false) {
+if (!$stmt) {
+    http_response_code(500);
     echo json_encode([
         'success' => false,
-        'message' => 'SQL Error: ' . $conn->error
+        'message' => 'SQL preparation failed: ' . $conn->error
     ]);
     exit();
 }
 
+// Bind parameters if available
 if (!empty($params)) {
     $stmt->bind_param($types, ...$params);
 }
 
+// Execute the query
 if (!$stmt->execute()) {
+    http_response_code(500);
     echo json_encode([
         'success' => false,
-        'message' => 'Execution failed: ' . $stmt->error
+        'message' => 'Query execution failed: ' . $stmt->error
     ]);
     exit();
 }
 
+// Get results
 $result = $stmt->get_result();
-
-if ($result === false) {
+if (!$result) {
+    http_response_code(500);
     echo json_encode([
         'success' => false,
-        'message' => 'Result retrieval failed: ' . $stmt->error
+        'message' => 'Failed to retrieve results: ' . $stmt->error
     ]);
     exit();
 }
 
-// Fetch data
-$response = [];
+// Build response data
 $rentals = [];
-
-if ($result->num_rows > 0) {
-    while ($row = $result->fetch_assoc()) {
-        $rentals[] = [
-            'id' => (int)$row['id'],
-            'renter_name' => $row['renter_name'],
-            'quantity' => (int)$row['rented_quantity'],
-            'payment' => (float)$row['payment'],
-            'rental_start_date' => $row['rental_start_date'],
-            'rental_end_date' => $row['rental_end_date'],
-            'status' => $row['status'],
-            'box_numbers' => $row['box_numbers'] ? $row['box_numbers'] : 'Not specified'
-        ];
-    }
+while ($row = $result->fetch_assoc()) {
+    $rentals[] = [
+        'id' => (int)$row['id'],
+        'renter_name' => $row['renter_name'],
+        'quantity' => (int)$row['rented_quantity'],
+        'payment' => (float)$row['payment'],
+        'rental_start_date' => $row['rental_start_date'],
+        'rental_end_date' => $row['rental_end_date'],
+        'status' => $row['status'],
+        'box_numbers' => $row['box_numbers'] ?? 'Not specified'
+    ];
 }
 
-$response['success'] = true;
-$response['data'] = $rentals;
+// Output final JSON
+echo json_encode([
+    'success' => true,
+    'data' => $rentals
+]);
 
-// Close connection
+// Close connections
 $stmt->close();
 $conn->close();
-
-// Output JSON
-echo json_encode($response);
 ?>
