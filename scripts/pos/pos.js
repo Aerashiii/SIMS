@@ -386,7 +386,7 @@ posSalesProcessConfirmButton.addEventListener('click', () => {
         alert('An error occurred while processing the transaction.');
     });
 });
-
+ 
 // On Next Order Button Click
 document.getElementById('pos-transact-next-order-button').addEventListener('click', () => {
     location.reload(); // Reload page to reset everything
