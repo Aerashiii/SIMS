@@ -19,11 +19,12 @@
     cursor:pointer;
     transition: transform 0.5s ease;
     float:right;
+  
 
 }
 #switch-metrics-boxes-icon:hover{
     color:#99BC85;
-    transform: rotate(360deg);
+  
 
 }
 .metrics-box-container-one,

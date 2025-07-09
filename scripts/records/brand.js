@@ -11,16 +11,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const editBrandExitButton = document.getElementById('brand-edit-exit-button');
     const editBrandSaveButton = document.getElementById('save-edit-brand-button');
 
-    // Show Add Brand Modal
-    addBrandButton.addEventListener('click', function () {
-        addBrandModalCon.style.display = 'flex';
-    });
-
-    // Hide Add Brand Modal
-    addBrandCancelButton.addEventListener('click', function () {
-        addBrandModalCon.style.display = 'none';
-    });
-
+    
     // Fetch and display brand data
     fetchBrandData();
 

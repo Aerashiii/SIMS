@@ -11,53 +11,10 @@
 .records-header-container:hover{
     color:#B2CF9B;
 }
-/*****************************************/
-.records-submenu-container {
-    height: 85vh;
-    width: 0px;
-    border-radius: 3px;
-    background-color: #ffffff;
-    z-index: 10;
-    top: 12vh;
-    position: fixed;
-    overflow: hidden;
-    border: none;
-    transition: width 0.3s ease; /* Smooth transition effect */
-}
 
-.records-submenu-container.active {
-    width: 180px;
-}
-#hide-records-submenu-button{
-    float:right;
-    cursor: pointer;
-}
-#hide-records-submenu-button:hover{
-    color:red;
-}
-.records-submenu-container h4{
-    text-align:center;
-    padding:20px 0;
-}
-.records-submenu-container ul{
-    list-style: none;
-    padding-left:10%;
-    text-align: left;
-}
-.records-submenu-container ul li{
-    display: flex;
-    align-items: center;
-    gap:5px;
-    padding:10px 0;
-    cursor:pointer;
-}
-
-.records-submenu-container ul li:hover{
-    background-color: #B2CF9B;
-}
 /*************************************/
 .records-content-container{
-    display:none;
+    display:flex;
     min-height: 82vh;
 }
 /*******************| CATEGORY< SUBCATEGORY< AND BRAND BOX |*********************/
@@ -82,9 +39,9 @@
     border-radius:3px;
     width:100px;
 }
-#category-button.active{
+.category-header-buttons-container button:hover{
     background-color: #B2CF9B;
-   
+    color: #ffffff;
 }
 /*************| FOR CATEGORY STYLES |****************/
 .category-container{
@@ -161,28 +118,49 @@
 #subcategory-table td{
     padding:10px 0;
 }
+
+
 /*******************| FOR ADD CATEGORY STYLE |**********************/
 .add-category-modal-container{
-    width:100%;
-    height:100vh;
-    position:fixed;
-    z-index: 60;
-    background-color: rgba(0, 0, 0, 0.418);
-    align-items: center;
+    width: 100%;
+    display: flex;
     justify-content: center;
-    top:0;
-    display:none;
+    align-items: center;
+}
+.back-category-button-container{
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    padding:10px ;
+}
+#back-category-button{
+    text-decoration: none;
+    font-weight: bold;
+    padding:5px 10px;
+    color:#B2CF9B;
+    background-color: #ffffff;
+    border-radius:5px;
+    border:1px solid rgb(235, 235, 235);
+
+}
+#back-category-button:hover{
+    box-shadow: 5px 5px 3px 1px #b2cf9b8e;
+    border-color:#B2CF9B;
+
 }
 .add-category-modal{
     background-color: #ffffff;
     padding:20px;
     border-radius:10px;
     width:400px;
+    border:1px solid rgb(212, 212, 212);
+    box-shadow: 0px 5px 5px 5px rgba(32, 32, 32, 0.068) ;
    
 }
 .add-category-modal h3{
     text-align: center;
     margin-bottom:15px;
+    font-size: 2rem;;
 }
 #add-category-form{
     display: flex;
@@ -201,7 +179,7 @@
 .form-div input,
 .form-div select{
     width:100%;
-    height:1.7rem;
+    height:2rem;
 }
 #add-category-submit-button{
     margin-top:20px;
@@ -341,6 +319,7 @@ width:100%;
     align-items: center;
     justify-content:space-between;
     gap:10px;
+     padding: 5px 0;
 }
 #subcategory-select-category{
     padding:5px 10px;
@@ -349,7 +328,7 @@ width:100%;
     background-color: #B2CF9B;
 }
 #add-subcategory-button{
-    padding:8px 10px;
+    padding:8px 10px; 
     font-weight: bold;
     cursor:pointer;
     border:none;
@@ -359,28 +338,48 @@ width:100%;
 }
 
 
+
 /*******************| FOR ADD SUBCATEGORY STYLE |**********************/
 .add-subcategory-modal-container{
-    width:100%;
-    height:100vh;
-    position:fixed;
-    z-index: 60;
-    background-color: rgba(0, 0, 0, 0.418);
-    align-items: center;
+     width: 100%;
+    display: flex;
     justify-content: center;
-    top:0;
-    display:none;
+    align-items: center;
+}
+.back-subcategory-button-container{
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    padding:10px ;
+}
+#back-subcategory-button{
+    text-decoration: none;
+    font-weight: bold;
+    padding:5px 10px;
+    color:#B2CF9B;
+    background-color: #ffffff;
+    border-radius:5px;
+    border:1px solid rgb(235, 235, 235);
+
+}
+#back-subcategory-button:hover{
+    box-shadow: 5px 5px 3px 1px #b2cf9b8e;
+    border-color:#B2CF9B;
+
 }
 .add-subcategory-modal{
     background-color: #ffffff;
     padding:20px;
     border-radius:10px;
     width:400px;
+    border:1px solid rgb(212, 212, 212);
+    box-shadow: 0px 5px 5px 5px rgba(32, 32, 32, 0.068) ;
    
 }
 .add-subcategory-modal h3{
     text-align: center;
     margin-bottom:15px;
+    font-size: 2rem;
 }
 #add-subcategory-form{
     display: flex;
@@ -399,7 +398,7 @@ width:100%;
 .form-div input,
 .form-div select{
     width:100%;
-    height:1.7rem;
+    height:2rem;
 }
 #add-subcategory-submit-button{
     margin-top:20px;
@@ -529,9 +528,6 @@ width:100%;
 }
 
 /********************| BRAND |***********************************/
-#brand-content-container.active{
-    display:block;
-}
 .brand-container{
     width:100%;
     padding:5px 15px;
@@ -577,26 +573,44 @@ width:100%;
 
 /*******************| FOR ADD BRAND STYLE |**********************/
 .add-brand-modal-container{
-    width:100%;
-    height:100vh;
-    position:fixed;
-    z-index: 60;
-    background-color: rgba(0, 0, 0, 0.418);
-    align-items: center;
+    width: 100%;
+    display: flex;
     justify-content: center;
-    top:0;
-    display:none;
+    align-items: center;
+}
+.back-brand-button-container{
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    padding:10px ;
+}
+#back-brand-button{
+    text-decoration: none;
+    font-weight: bold;
+    padding:5px 10px;
+    color:#91c764;
+    background-color: #ffffff;
+    border-radius:5px;
+    border:1px solid #7bbb48;
+}
+#back-brand-button:hover{
+    box-shadow: 5px 5px 3px 1px #b2cf9b8e;
+    border-color:#B2CF9B;
+
 }
 .add-brand-modal{
     background-color: #ffffff;
     padding:20px;
     border-radius:10px;
     width:400px;
+     border:1px solid rgb(212, 212, 212);
+    box-shadow: 0px 5px 5px 5px rgba(32, 32, 32, 0.068) ;
    
 }
 .add-brand-modal h3{
     text-align: center;
     margin-bottom:15px;
+    font-size:2rem ;
 }
 #add-brand-form{
     display: flex;
@@ -788,30 +802,65 @@ width:100%;
 }
 /*********| ADD PRODUCT STYLE |*******/
 /*****************************************| ADD PRODUCT |***************************************************/
-/*| #7 |*/
 .add-product-modal-container{
-    top:0;
+  
     width:100%;
     height:100vh;
-    display: none;
+    display: flex;
     align-items: center;
     justify-content: center;
-    position: fixed;
-    z-index: 50;
-    background-color: rgba(0, 0, 0, 0.363);
+
+}
+.back-product-button-container{
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    padding:10px ;
+}
+#back-product-button{
+    text-decoration: none;
+    font-weight: bold;
+    padding:5px 10px;
+    color:#91c764;
+    background-color: #ffffff;
+    border-radius:5px;
+    border:1px solid #7bbb48;
+}
+#back-product-button:hover{
+    box-shadow: 5px 5px 3px 1px #b2cf9b8e;
+    border-color:#B2CF9B;
 }
 .add-product-form-container{
     background-color: #ffffff;
     padding:30px;
     border-radius: 10px;
-    width: 50%;;
+    width: 70%;
+     border:1px solid rgb(212, 212, 212);
+    box-shadow: 0px 5px 5px 5px rgba(32, 32, 32, 0.068) ;
+}
+.add-product-inventory-button-container{
+    width:100%;
+    display: flex;
+    justify-content: flex-end;
+}
+#add-product-inventory-button{
+    text-decoration: none;
+    background-color: #99BC85;
+    color: #ffffff;
+    font-size: 1.2rem;
+    padding:5px 10px;
+    border-radius: 5px;
+    right:0;
+}
+#add-product-inventory-button:hover{
+    background-color: #83b667;
 }
 #add-product-form{
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
-#add-product-form h3{
+#add-product-form h2{
     text-align: center;
 }
 .form-group-container{
@@ -822,16 +871,20 @@ width:100%;
   
 }
 .form-group-container label{
-    width:130px;
+    width:150px;
     font-weight: bold;
+    color: #5c5c5c;
 }
 .form-group-container input,
-.form-group-container select{
+.form-group-container select,
+.form-group-container textarea{
     width:100%;
     height: 2rem;
     padding:3px;
 }
-
+.form-group-container textarea{
+    height: 5rem;
+}
 #add-product-submit-button{
     height: 2rem;
     cursor: pointer;
@@ -854,6 +907,29 @@ width:100%;
 #inventory-add-product-generate-barcode-button{
     width:30%;
 }
+
+.add-product-select-supplier-container{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.add-product-suplier-container{
+    width:100%;
+    display:flex;
+    justify-content: space-around;
+    align-items: center;
+    gap:10px;
+}
+#add-product-select-supplier{
+    display: none;
+}
+#add-product-select-supplier-button{
+    width:150px;
+    height:2rem;
+    cursor:pointer;
+}
+
 /**********| FOR EDITING PRODUCT |***************/
 .edit-product-modal-container{
     width:100%;
@@ -1025,24 +1101,41 @@ width:100%;
 }
 /***************| FOR ADD SUPPLIER STYLE |*********************/
 .add-supplier-modal-container{
-    width:100%;
-    height:100vh;
-    position:fixed;
-    z-index: 60;
-    background-color: rgba(0, 0, 0, 0.418);
-    align-items: center;
+    width: 100%;
+    display: flex;
     justify-content: center;
-    top:0;
-    display:none;
+    align-items: center;
+}
+.back-supplier-button-container{
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    padding:10px ;
+}
+#back-supplier-button{
+    text-decoration: none;
+    font-weight: bold;
+    padding:5px 10px;
+    color:#91c764;
+    background-color: #ffffff;
+    border-radius:5px;
+    border:1px solid #7bbb48;
+}
+#back-supplier-button:hover{
+    box-shadow: 5px 5px 3px 1px #b2cf9b8e;
+    border-color:#B2CF9B;
 }
 .add-supplier-modal{
     background-color: #ffffff;
     padding:20px;
     border-radius:10px;
-    width:40%;
+    width:70%;
+     border:1px solid rgb(212, 212, 212);
+    box-shadow: 0px 5px 5px 5px rgba(32, 32, 32, 0.068) ;
 }
 .add-supplier-modal h3{
     text-align: center;
+    font-size: 2rem;
 }
 #add-supplier-form{
     display:flex;

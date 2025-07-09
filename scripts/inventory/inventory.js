@@ -35,10 +35,10 @@ document.addEventListener('DOMContentLoaded', function () {
    
 
         //DISPLAY THE ADD PRODUCT MODAL WHEN ADD NEW PRODUCT BUTTON CLICKED
-    addProductButton.addEventListener('click', function(){
-        addProductModalCon.style.display = 'flex';
-        console.log('Add Product Button Clicked');
-    })
+    ///addProductButton.addEventListener('click', function(){
+    //    addProductModalCon.style.display = 'flex';
+  //      console.log('Add Product Button Clicked');
+  //  })
 
 
     /**| RETRIEVE BRAND FOR ADD PRODUCT SELECT BRAND  |** */ 

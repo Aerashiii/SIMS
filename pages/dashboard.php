@@ -21,7 +21,7 @@ if (!isset($_SESSION['user'])) {
     <h2>Top Metrics</h2>
 
     <div class="top-metrics-box-container">
-        <span><i class="fas fa-undo-alt" id="switch-metrics-boxes-icon"></i> </span>
+        <span><i class="fas fa-exchange-alt" id="switch-metrics-boxes-icon"></i></span>
         <div class="metrics-box-container-one active">
             <div class="metrics-box">
                 <span id="total-sales"></span>

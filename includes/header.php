@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,1,0" />
 
   <?php
-  $settingsPages = ['report-inventory', 'report-rental', 'report-sales', 'profile_settings', 'user_management', 'system_preferences'];
+  $settingsPages = ['report-inventory', 'report-rental', 'report-sales', 'profile_settings', 'user_management', 'system_preferences','inventory'];
 
   // Common styles
   echo '<link rel="stylesheet" href="../styles/global.css">';
@@ -37,17 +37,28 @@
       echo '<script src="../scripts/dashboard/dashboard.js"></script>';
       break;
 
-    case 'records':
+    case 'records-category':
+    case 'records-subcategory':
+    case 'records-brand':
+    case 'records-product':
+    case 'records-supplier':
+    case 'records-add-category':
+    case 'records-add-subcategory':
+    case 'records-add-brand':
+    case 'records-add-product':
+    case 'records-add-supplier':
       echo '<title>Records</title>';
       echo '<link rel="stylesheet" href="../styles/records.css">';
       echo '<script src="../scripts/records/records.js"></script>';
       echo '<script src="../scripts/records/category.js"></script>';
+      echo '<script src="../scripts/records/subcategory.js"></script>';
       echo '<script src="../scripts/records/brand.js"></script>';
       echo '<script src="../scripts/records/products.js"></script>';
-      echo '<script src="../scripts/records/supplier.js"></script>';
+      echo '<script src="../scripts/records/supplier.js"></script>';     
       break;
 
     case 'inventory':
+    case 'inventory-add-product':
       echo '<title>Inventory</title>';
       echo '<link rel="stylesheet" href="../styles/inventory.css">';
       echo '<script type="module" src="../scripts/inventory/inventory.js"></script>';
@@ -57,6 +68,8 @@
       echo '<script type="module" src="../scripts/inventory/stock-in.js"></script>';
       echo '<script type="module" src="../scripts/inventory/edit-and-delete-product.js"></script>';
       echo '<script type="module" src="../scripts/inventory/purchase-order.js"></script>';
+
+      echo '<script type="module" src="../scripts/inventory/inventory-add-product.js"></script>';
       break;
 
     case 'pos':

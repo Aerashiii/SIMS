@@ -27,6 +27,7 @@
     border: 1px solid #34974d;
     background-color: #3aa856;
     transition: all 0.3s;
+    text-decoration: none;
 }
 
 #inventory-add-product-button .button__text,
@@ -56,39 +57,10 @@
     transform: translateX(100%); /* Start hidden to the right */
 }
 
-/* SVG ICON INSIDE */
-#inventory-add-product-button .svg {
-    width: 24px;
-    height: 24px;
-    stroke: #fff;
-}
-
 /* HOVER EFFECT */
 #inventory-add-product-button:hover {
     background: #34974d;
 }
-
-/* On hover: move icon to left inside button */
-#inventory-add-product-button:hover .button__icon {
-    transform: translateX(0);
-}
-
-/* Optional: make text move slightly if you want */
-#inventory-add-product-button:hover .button__text {
-    padding-right: 20px;
-   display:none;
-   
-}
-
-/* ACTIVE EFFECT */
-#inventory-add-product-button:active {
-    border: 1px solid #2e8644;
-}
-
-#inventory-add-product-button:active .button__icon {
-    background-color: #2e8644;
-}
-
 
 
 
@@ -596,28 +568,43 @@ text-align: left;
 /*****************************************| ADD PRODUCT |***************************************************/
 /*| #7 |*/
 .add-product-modal-container{
-    top:0;
+  
     width:100%;
     height:100vh;
-    display: none;
+    display: flex;
     align-items: center;
     justify-content: center;
-    position: fixed;
-    z-index: 50;
-    background-color: rgba(0, 0, 0, 0.363);
+
 }
 .add-product-form-container{
     background-color: #ffffff;
     padding:30px;
     border-radius: 10px;
-    width: 50%;
+    width: 100%;
+}
+.add-product-inventory-button-container{
+    width:100%;
+    display: flex;
+    justify-content: flex-end;
+}
+#add-product-inventory-button{
+    text-decoration: none;
+    background-color: #99BC85;
+    color: #ffffff;
+    font-size: 1.2rem;
+    padding:5px 10px;
+    border-radius: 5px;
+    right:0;
+}
+#add-product-inventory-button:hover{
+    background-color: #83b667;
 }
 #add-product-form{
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
-#add-product-form h3{
+#add-product-form h2{
     text-align: center;
 }
 .form-group-container{
@@ -628,16 +615,20 @@ text-align: left;
   
 }
 .form-group-container label{
-    width:130px;
+    width:150px;
     font-weight: bold;
+    color: #5c5c5c;
 }
 .form-group-container input,
-.form-group-container select{
+.form-group-container select,
+.form-group-container textarea{
     width:100%;
     height: 2rem;
     padding:3px;
 }
-
+.form-group-container textarea{
+    height: 5rem;
+}
 #add-product-submit-button{
     height: 2rem;
     cursor: pointer;
@@ -661,9 +652,27 @@ text-align: left;
     width:30%;
 }
 
+.add-product-select-supplier-container{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
 
-
-
+.add-product-suplier-container{
+    width:100%;
+    display:flex;
+    justify-content: space-around;
+    align-items: center;
+    gap:10px;
+}
+#add-product-select-supplier{
+    display: none;
+}
+#add-product-select-supplier-button{
+    width:150px;
+    height:2rem;
+    cursor:pointer;
+}
 
 
 

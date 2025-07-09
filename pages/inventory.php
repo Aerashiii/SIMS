@@ -10,7 +10,7 @@ if (!isset($_SESSION['user'])) {
 }
 // 🚫 Check if role is 'cashier' and deny access
 if (isset($_SESSION['role']) && $_SESSION['role'] === 'cashier') {
-    echo "<script>alert('Access Denied: Cashier role cannot access this page.'); window.location.href='login.php';</script>";
+    echo "<script>alert('Access Denied: Cashier role cannot access this page.'); window.location.href='../login.php';</script>";
     exit;
 }
     $page ='inventory'; //ASSIGNS THE NAME OF THE PAGE. THIS PAGE IS NAMED 'INVENTORY' AND IS USED IN THE HEADER.PHP FILE.
@@ -22,10 +22,9 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'cashier') {
     <div class="inventory-header-container">
         <h1>Inventory Management</h1>
 
-        <button type="button" class="button" id="inventory-add-product-button">
+        <a href="inventory-add-product.php"  class="button" id="inventory-add-product-button">
             <span class="button__text">Add Product</span>
-            <span class="button__icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" viewBox="0 0 24 24" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" stroke="currentColor" height="24" fill="none" class="svg"><line y2="19" y1="5" x2="12" x1="12"></line><line y2="12" y1="12" x2="19" x1="5"></line></svg></span>
-        </button>
+        </a>
     </div>
     <!--| #2 |-->  
     <div class="inventory-switch-content-buttons-container">
@@ -213,86 +212,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'cashier') {
 
 </main>
 
-<!--------| ADD NEW PRODUCT | --------------->
-<div class="add-product-modal-container" id="add-product-modal">
-  <div class="add-product-form-container">
-    <form action="" id="add-product-form">
-      <h3>Add Product</h3>
 
-      <div class="form-group-container">
-        <label>Product Name:</label>
-        <input type="text" id="add-product-name" name="product_name" required>
-      </div>
-
-      <div class="form-group-container">
-        <label>Brand:</label>
-        <select id="add-product-brand" name="product_brand" required>
-          <option value="">- Select Brand -</option>
-        </select>
-      </div>
-
-      <div class="form-group-container">
-        <label>Category:</label>
-        <select id="add-product-category" name="product_category" required>
-          <option value="">- Select Category -</option>
-        </select>
-      </div>
-
-      <div class="form-group-container">
-        <label>Subcategory:</label>
-        <select id="add-product-subcategory" name="product_subcategory" required>
-          <option value="">- Select Subcategory -</option>
-        </select>
-      </div>
-
-      <div class="form-group-container">
-        <label>Barcode:</label>
-        <div class="inventory-add-product-barcode-container">
-          <input type="text" id="add-product-barcode" name="product_barcode" maxlength="13" required>
-          <button type="button" id="inventory-add-product-generate-barcode-button">Generate</button>
-        </div>
-      </div>
-
-      <div class="form-group-container">
-        <label>Quantity:</label>
-        <input type="number" id="add-product-quantity" name="quantity" required>
-      </div>
-
-      <div class="form-group-container">
-        <label>Reorder Point:</label>
-        <input type="number" id="add-product-reorder-point" name="reorder_point" required>
-      </div>
-
-      <div class="form-group-container">
-        <label>Original Price:</label>
-        <input type="number" step="0.01" id="add-product-original-price" name="original_price" required>
-      </div>
-
-      <div class="form-group-container">
-        <label>Selling Price:</label>
-        <input type="number" step="0.01" id="add-product-selling-price" name="selling_price" required>
-      </div>
-
-      <div class="form-group-container">
-        <label>Supplier:</label>
-        <select id="add-product-select-supplier" name="supplier_id" required>
-          <option value="">- Select Supplier -</option>
-        </select>
-      </div>
-
-      <div class="form-group-container">
-        <label>Status:</label>
-        <select id="add-product-status" name="status" required>
-          <option value="active">Active</option>
-          <option value="inactive">Inactive</option>
-        </select>
-      </div>
-
-      <input type="submit" id="add-product-submit-button" value="Add Product">
-    </form>
-    <button id="add-product-cancel-button">Cancel</button>
-  </div>
-</div>
 
 
 <!--| MODAL FOR EDITING PRODUCT |-->

@@ -13,7 +13,7 @@
         </li>
          <!-- | RECORDS SIDEBAR BUTTON |-->
          <li class="menu-item">
-            <a href="../pages/records.php" class="sidebar-link" data-page="records">
+            <a href="../pages/records-category.php" class="sidebar-link" data-page="records">
                 <span class="material-symbols-rounded">folder_open</span>
                 <h3>Records</h3>
             </a>
