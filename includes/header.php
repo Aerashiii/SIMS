@@ -38,22 +38,38 @@
       break;
 
     case 'records-category':
-    case 'records-subcategory':
-    case 'records-brand':
-    case 'records-product':
-    case 'records-supplier':
     case 'records-add-category':
-    case 'records-add-subcategory':
-    case 'records-add-brand':
-    case 'records-add-product':
-    case 'records-add-supplier':
       echo '<title>Records</title>';
       echo '<link rel="stylesheet" href="../styles/records.css">';
       echo '<script src="../scripts/records/records.js"></script>';
       echo '<script src="../scripts/records/category.js"></script>';
+      break;
+    case 'records-subcategory':
+    case 'records-add-subcategory':
+      echo '<title>Records</title>';
+      echo '<link rel="stylesheet" href="../styles/records.css">';
+      echo '<script src="../scripts/records/records.js"></script>';
       echo '<script src="../scripts/records/subcategory.js"></script>';
+      break;
+    case 'records-brand':
+    case 'records-add-brand':
+      echo '<title>Records</title>';
+      echo '<link rel="stylesheet" href="../styles/records.css">';
+      echo '<script src="../scripts/records/records.js"></script>';
       echo '<script src="../scripts/records/brand.js"></script>';
+      break;
+    case 'records-product':
+    case 'records-add-product':
+      echo '<title>Records</title>';
+      echo '<link rel="stylesheet" href="../styles/records.css">';
+      echo '<script src="../scripts/records/records.js"></script>';
       echo '<script src="../scripts/records/products.js"></script>';
+      break;
+    case 'records-supplier':
+    case 'records-add-supplier':
+      echo '<title>Records</title>';
+      echo '<link rel="stylesheet" href="../styles/records.css">';
+      echo '<script src="../scripts/records/records.js"></script>';
       echo '<script src="../scripts/records/supplier.js"></script>';     
       break;
 

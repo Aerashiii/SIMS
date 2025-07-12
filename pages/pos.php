@@ -37,8 +37,7 @@ if (!isset($_SESSION['user'])) {
                         <table id="pos-shopping-cart-table">
                             <thead>
                                 <tr>
-                                    <th>Product Name</th>
-                                    <th>Barcode</th>
+                                    <th>Description</th>                                
                                     <th>Price</th>
                                     <th>Quantity</th>
                                     <th>Total</th>
@@ -57,8 +56,7 @@ if (!isset($_SESSION['user'])) {
                     <div class="pos-info-buttons-container">
                         <div>
                             <label for="">Payment Method:</label>
-                            <select id="select-payment">
-                                <option value="">- Select Payment -</option>
+                            <select id="select-payment">                                
                                 <option value="">Cash</option>
                             </select>
                         </div>
@@ -143,8 +141,7 @@ if (!isset($_SESSION['user'])) {
                     <table id="pos-product-selection-table">
                         <thead>
                             <tr>
-                                <th>Product Name</th>
-                                <th>Barcode</th>
+                                <th>Description</th>                              
                                 <th>Price</th>
                                 <th>Action</th>                          
                             </tr>
@@ -170,8 +167,7 @@ if (!isset($_SESSION['user'])) {
                     <table id="pos-sales-process-table">
                         <thead>
                             <tr>
-                                <th>Product Name</th>
-                                <th>Barcode</th>
+                                <th>Description</th>                           
                                 <th>Price</th>
                                 <th>Quantity</th>
                                 <th>Total</th>                          

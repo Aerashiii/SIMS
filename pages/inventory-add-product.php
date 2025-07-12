@@ -28,26 +28,26 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'cashier') {
 
         <div class="form-group-container">
             <label>Product Name:</label>
-            <input type="text" id="add-product-name" name="product_name" required>
+            <input type="text" id="add-product-name" name="product_name" >
         </div>
 
         <div class="form-group-container">
             <label>Brand:</label>
-            <select id="add-product-brand" name="product_brand" required>
+            <select id="add-product-brand" name="product_brand" >
             <option value="">- Select Brand -</option>
             </select>
         </div>
 
         <div class="form-group-container">
             <label>Category:</label>
-            <select id="add-product-category" name="product_category" required>
+            <select id="add-product-category" name="product_category" >
             <option value="">- Select Category -</option>
             </select>
         </div>
 
         <div class="form-group-container">
             <label>Subcategory:</label>
-            <select id="add-product-subcategory" name="product_subcategory" required>
+            <select id="add-product-subcategory" name="product_subcategory" >
             <option value="">- Select Subcategory -</option>
             </select>
         </div>
@@ -93,7 +93,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'cashier') {
 
         <div class="form-group-container">
             <label>Status:</label>
-            <select id="add-product-status" name="status" required>
+            <select id="add-product-status" name="status" >
             <option value="active">Active</option>
             <option value="inactive">Inactive</option>
             </select>

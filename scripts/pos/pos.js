@@ -49,13 +49,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Inside DOMContentLoaded
     processPaymentButton.addEventListener('click', () => {
-        if (cart.length === 0) {
+        if (cart.length === 0 ) {
             alert('Please add items to the cart before processing payment.');
             return;
         }
 
         const amountReceived = parseFloat(amountReceivedInput.value);
-        if (isNaN(amountReceived) || amountReceived <= 0) {
+        if ( amountReceived <= 0 || amountReceived < subTotalEl.textContent) {
             alert('Please enter a valid amount received before processing payment.');
             return;
         }
@@ -131,14 +131,12 @@ function fetchProducts(query = '') {
         products.forEach(product => {
             const row = document.createElement('tr');
             row.innerHTML = `
-                <td>${product.product_name}</td>
-                <td>${product.barcode}</td>
+                <td>${product.description}</td>
                 <td>${product.selling_price}</td>
                 <td>
                     <button class="add-to-cart-button"
                         data-id="${product.id}"
-                        data-name="${product.product_name}"
-                        data-barcode="${product.barcode}"
+                        data-name="${product.description}"
                         data-price="${product.selling_price}">
                         <img src="../assets/images/icons/add-to-cart.png" alt="Add to cart" class="add-to-cart-icon">
                         Add to cart
@@ -212,8 +210,7 @@ posProductSearchInput.addEventListener('keydown', (e) => {
             // Cart table
             const cartRow = document.createElement('tr');
             cartRow.innerHTML = `
-                <td>${item.name}</td>
-                <td>${item.barcode}</td>
+                <td>${item.description}</td>
                 <td>${item.price.toFixed(2)}</td>
                 <td>${item.quantity}</td>
                 <td>${item.total.toFixed(2)}</td>
@@ -224,7 +221,7 @@ posProductSearchInput.addEventListener('keydown', (e) => {
             // Receipt table
             const receiptRow = document.createElement('tr');
             receiptRow.innerHTML = `
-                <td>${item.name}</td>
+                <td>${item.description}</td>
                 <td>${item.quantity}</td>
                 <td>${item.total.toFixed(2)}</td>
             `;
@@ -233,8 +230,7 @@ posProductSearchInput.addEventListener('keydown', (e) => {
             // transaction table
             const transactionRow = document.createElement('tr');
             transactionRow.innerHTML = `
-                <td>${item.name}</td>
-                <td>${item.barcode}</td>
+                <td>${item.description}</td>
                 <td>${item.price.toFixed(2)}</td>
                 <td>${item.quantity}</td>
                 <td>${item.total.toFixed(2)}</td>            

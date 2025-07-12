@@ -42,16 +42,14 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'cashier') {
                             </tr>             
                         </table>
                     </div>
-
 </main>
 
-                    <!--| MODAL FOR EDITING SUBCATEGORY |-->
+<!--| MODAL FOR EDITING SUBCATEGORY |-->
 <div class="edit-subcategory-modal-container" id="edit-subcategory-modal-container">
     <div class="edit-subcategory-modal">
-        <button id="subcategory-edit-exit-button"><img src="../assets/images/icons/exit.png" alt=""></button>
+        <button id="subcategory-edit-exit-button" class="subcategory-edit-exit-button"><img src="../assets/images/icons/exit.png" alt=""></button>
         <h2>Edit Subategory</h2>
         <div class="edit-subcategory-details-container" id="edit-subcategory-details-container">
-
             <input type="hidden" name="edit-subcetegory-id" id="edit-subcategory-id">
             <label>Category:</label>
             <select name="" id="edit-subcategory-select-category"></select>
