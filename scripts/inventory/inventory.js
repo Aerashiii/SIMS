@@ -19,19 +19,19 @@ document.addEventListener('DOMContentLoaded', function () {
 
 /*=====================================| FOR ADD PRODUCT |========================================================================== */
      
-    const addProductSelectBrand = document.getElementById('add-product-brand');
-    const addProductSelectCategory = document.getElementById('add-product-category');
-    const addProductSelectSubcategory = document.getElementById('add-product-subcategory');
-    const addProductSelectSupplier = document.getElementById('add-product-select-supplier');
+  //  const addProductSelectBrand = document.getElementById('add-product-brand');
+   // const addProductSelectCategory = document.getElementById('add-product-category');
+   // const addProductSelectSubcategory = document.getElementById('add-product-subcategory');
+    //const addProductSelectSupplier = document.getElementById('add-product-select-supplier');
 
     const addProductModalCon = document.getElementById('add-product-modal');
     const addProductButton = document.getElementById('inventory-add-product-button');
     const addProductCancelButton = document.getElementById('add-product-cancel-button');
 
-    fetchSelectBrandAddProduct();
-    fetchSelectCategoryAddProduct();
-    fetchSelectSubcategoryAddProduct();
-    fetchSelectSupplierAddProduct();
+    //fetchSelectBrandAddProduct();
+   // fetchSelectCategoryAddProduct();
+    //fetchSelectSubcategoryAddProduct();
+    //fetchSelectSupplierAddProduct();
    
 
         //DISPLAY THE ADD PRODUCT MODAL WHEN ADD NEW PRODUCT BUTTON CLICKED
@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', function () {
   //  })
 
 
-    /**| RETRIEVE BRAND FOR ADD PRODUCT SELECT BRAND  |** */ 
+    /**| RETRIEVE BRAND FOR ADD PRODUCT SELECT BRAND  |**  
     function fetchSelectBrandAddProduct() {
         fetch('../handler/records/brand/retrieve-brand.php')
             .then(response => {
@@ -65,7 +65,7 @@ document.addEventListener('DOMContentLoaded', function () {
        
     }
   
-    /***| RETRIEVE CATEGORY FOR ADD PRODUCT SELECT CATEGORY |* */
+    /***| RETRIEVE CATEGORY FOR ADD PRODUCT SELECT CATEGORY |* 
      // DISPLAY CATEGORY
    function fetchSelectCategoryAddProduct() {
     fetch('../handler/records/category/retrieve-category.php')
@@ -95,7 +95,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
    
 
-    /***| RETRIEVE SUBCATEGORY FOR ADD PRODUCT SELECT SUBCATEGORY |* */
+    /***| RETRIEVE SUBCATEGORY FOR ADD PRODUCT SELECT SUBCATEGORY |* 
      // DISPLAY CATEGORY
    function fetchSelectSubcategoryAddProduct() {
     fetch('../handler/records/category/retrieve-subcategory.php')
@@ -125,7 +125,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   
 
-     /***| RETRIEVE SUPPLIER FOR ADD PRODUCT SELECT SUPPLIER |* */
+     /***| RETRIEVE SUPPLIER FOR ADD PRODUCT SELECT SUPPLIER |* 
      // DISPLAY CATEGORY
    function fetchSelectSupplierAddProduct() { 
         fetch('../handler/records/supplier/retrieve-supplier.php')
@@ -153,7 +153,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
    
-
+*/
  
  /**======================| FOR ADD PRODUCT |=============================== */
 
@@ -176,41 +176,8 @@ function generate13DigitBarcode() {
   return Array.from({ length: 13 }, () => Math.floor(Math.random() * 10)).join('');
 }
 
-// Handle form submission
-addProductForm.addEventListener("submit", function (event) {
-  event.preventDefault();
-  addProduct();
-});
 
-function addProduct() {
-  const formData = new FormData(addProductForm);
 
-  fetch("../handler/inventory/add-product.php", {
-    method: "POST",
-    body: formData,
-  })
-    .then((response) => {
-      if (!response.ok) {
-        return response.text().then((text) => {
-          throw new Error(`Server responded with status ${response.status}: ${text}`);
-        });
-      }
-      return response.json();
-    })
-    .then((data) => {
-      if (data.success) {
-        alert("Product added successfully!");
-        addProductModalCon.style.display = "none";
-        location.reload();
-      } else {
-        alert("Error: " + data.message);
-      }
-    })
-    .catch((error) => {
-      console.error("Error:", error);
-      alert("An error occurred while adding the product.");
-    });
-}
 
 
   //HIDE THE ADD PRODUCT MODAL WHEN CANCEL BUTTON CLICKED

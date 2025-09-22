@@ -25,7 +25,11 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'cashier') {
                 <div class="supplier-information-container">
                     <div class="supplier-info-header-container">
                         <h3>Supplier Information</h3>
-                        <a href="records-add-supplier.php"><button id="add-supplier-button">Add Supplier</button></a>
+                        <div class="supplier-info-header-buttons-container">
+                            <a href="records-add-supplier.php"><button id="add-supplier-button">Add Supplier</button></a>
+                            <a href="inventory-add-product.php"><button id="add-product-from-supplier-button">Add Product</button></a>
+                        </div>
+                        
                     </div>      
                     <table id="supplier-information-table">
                         <tr>

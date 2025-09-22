@@ -16,57 +16,68 @@ document.addEventListener('DOMContentLoaded', function () {
     const addCategoryModalCon = document.querySelector('.add-category-modal-container');
     const addCategoryForm = document.getElementById('add-category-form');
 
-    // Exit Edit Modal
-    editCategoryExitBtn.addEventListener('click', () => {
-        editCategoryModalCon.style.display = 'none';
-        console.log("Exit button clicked");
-    });
+  
 
     // Event Listeners
     editCategorySaveButton.addEventListener('click', saveEditedCategory);
     deleteCategoryYesButton.addEventListener('click', confirmDeleteCategory);
     cancelDeleteCategoryButton.addEventListener('click', cancelDeleteCategory);
+    editCategoryExitBtn.addEventListener('click', closeEditcategoryModal);
 
     // Fetch categories on page load
     fetchCategoryData();
 
     // ADD CATEGORY SUBMIT
-    addCategoryForm.addEventListener("submit", function (event) {
+    
+     addCategoryForm.addEventListener('submit', function (event) {
         event.preventDefault();
-        createCategory();
+       createCategory();
     });
 
-    function createCategory() {
-        const categoryName = document.getElementById('add-category-name').value.trim();
-        const categoryStatus = document.getElementById('add-category-status').value.trim();
+ function createCategory(event) {
+    event.preventDefault(); // Prevent form submission
 
-        if (!categoryName || !categoryStatus) {
-            alert("Please fill in all fields.");
-            return;
+    const categoryName = document.getElementById('add-category-name').value.trim();
+    const categoryStatus = document.getElementById('add-category-status').value.trim();
+
+    if (!categoryName || !categoryStatus) {
+        alert("Please fill in all fields.");
+        return;
+    }
+
+    const formData = new FormData();
+    formData.append("category_name", categoryName);
+    formData.append("status", categoryStatus);
+
+    fetch("../handler/records/category/add-category.php", {
+        method: "POST",
+        body: formData,
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert("✅ Category created successfully!");
+            showToast();
+         
+        } else {
+            alert(`❌ Error: ${data.message}`);
         }
+    })
+    .catch(error => {
+        console.error("Error:", error);
+        alert("An error occurred while creating the category.");
+    });
+}
 
-        const formData = new FormData();
-        formData.append("category_name", categoryName);
-        formData.append("category_status", categoryStatus);
 
-        fetch("../handler/records/category/add-category.php", {
-            method: "POST",
-            body: formData,
-        })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    alert("Category created successfully!");
-                    addCategoryModalCon.style.display = 'none';
-                    location.reload();
-                } else {
-                    alert(`Error: ${data.message}`);
-                }
-            })
-            .catch(error => {
-                console.error("Error:", error);
-                alert("An error occurred while creating the category.");
-            });
+ function showToast() {
+      const toast = document.getElementById("toast");
+      toast.className = "show";
+      
+      // Hide the toast after 3 seconds
+      setTimeout(() => {
+        toast.className = toast.className.replace("show", "");
+      }, 3000);
     }
 
     function fetchCategoryData() {
@@ -185,6 +196,10 @@ document.addEventListener('DOMContentLoaded', function () {
         editCategoryModalCon.style.display = 'none';
     }
 
+function closeEditcategoryModal(){
+    editCategoryModalCon.style.display = 'none';
+}
+/**===================| HANDLE DELETE CATEGORY |============================== */
     function handleDeleteCategory(event) {
         categoryId = event.currentTarget.dataset.id;
 
@@ -240,30 +255,5 @@ document.addEventListener('DOMContentLoaded', function () {
         deleteCategoryModal.style.display = 'none';
     }
 
-    // ====================| VALIDATION: AMOUNT RECEIVED VS SUBTOTAL |====================
-    const amountReceivedInput = document.getElementById('amount-received');
-    const subTotalInput = document.getElementById('sub-total');
-    const saveTransactionButton = document.getElementById('save-transaction-button');
-
-    if (saveTransactionButton) {
-        saveTransactionButton.addEventListener('click', function (e) {
-            const amountReceived = parseFloat(amountReceivedInput?.value);
-            const subTotal = parseFloat(subTotalInput?.value);
-
-            if (isNaN(amountReceived) || isNaN(subTotal)) {
-                alert("Please enter valid amount and subtotal.");
-                e.preventDefault();
-                return;
-            }
-
-            if (amountReceived < subTotal) {
-                e.preventDefault();
-                alert("⚠️ Amount received must be greater than or equal to the subtotal.");
-                amountReceivedInput.focus();
-            } else {
-                console.log("✅ Transaction valid, proceeding...");
-                // You can now call your saveTransaction function if applicable
-            }
-        });
-    }
+   
 });

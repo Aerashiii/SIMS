@@ -3,9 +3,8 @@ document.addEventListener('DOMContentLoaded', function () {
     const brandTable = document.getElementById('brand-table');
     const addBrandButton = document.getElementById('add-brand-button');
     const addBrandModalCon = document.querySelector('.add-brand-modal-container');
-    const addBrandCancelButton = document.getElementById('add-brand-cancel-button');
     const addBrandForm = document.getElementById('add-brand-form');
-
+ 
     //FOR EDITING BRAND
     const editBrandModalCon = document.querySelector('.edit-brand-modal-container');
     const editBrandExitButton = document.getElementById('brand-edit-exit-button');
@@ -42,7 +41,7 @@ document.addEventListener('DOMContentLoaded', function () {
             .then(data => {
                 if (data.success) {
                     alert('Brand created successfully!');
-                    addBrandModalCon.style.display = 'none';
+                   
                     fetchBrandData(); // Refresh brand table
                 } else {
                     alert(`Error: ${data.message}`);

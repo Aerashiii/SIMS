@@ -16,7 +16,7 @@ $deleted = 'no';
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Get the data from the request
     $category_name = $_POST['category_name'] ?? null;
-    $category_status = $_POST['category_status'] ?? null;
+    $category_status = $_POST['status'] ?? null;
 
     if (!$category_name || !$category_status) {
         echo json_encode(["success" => false, "message" => "Invalid input data."]);

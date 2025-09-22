@@ -195,6 +195,30 @@ cursor: pointer;
 width:100%;
 }
 
+ #toast{
+      visibility: hidden;
+      min-width: 250px;
+      margin-left: -125px;
+      background-color: #333;
+      color: #fff;
+      text-align: center;
+      border-radius: 4px;
+      padding: 16px;
+      position: fixed;
+      z-index: 9999;
+      left: 50%;
+      bottom: 30px;
+      font-size: 17px;
+      opacity: 0;
+      transition: opacity 0.5s ease, bottom 0.5s ease;
+    }
+
+    #toast.show {
+      visibility: visible;
+      opacity: 1;
+      bottom: 50px;
+    }
+
 /**********| FOR RDITING CATEGORY |***************/
 .edit-category-modal-container{
     width:100%;
@@ -1076,7 +1100,20 @@ width:100%;
     align-items: center;
     padding:10px 5px;
 }
+.supplier-info-header-buttons-container{
+    display: flex;
+    gap:10px;
+}
 #add-supplier-button{
+    padding:8px 10px;
+    font-weight: bold;
+    cursor:pointer;
+    border:none;
+    background-color: #B2CF9B;
+    border-radius:3px;
+    box-shadow: 2px 2px 2px 1px rgba(192, 192, 192, 0.664);
+}
+#add-product-from-supplier-button{
     padding:8px 10px;
     font-weight: bold;
     cursor:pointer;

@@ -81,6 +81,7 @@
     cursor:pointer;
     background-color: #e0e0e0;
 }
+/*
 #onhand-product-button.active{
     background-color: #99BC85;
     border:none;
@@ -111,6 +112,7 @@
     border:none;
     color:#ffffff;
 }
+*/
 /**********************| INVENTORY CONTENTS |**********************************/
 /*| #3 |*/
 .inventory-content-container{
@@ -118,7 +120,7 @@
     border:1px solid #1b1b1b;
     height:73vh;
     padding:0 10px 10px 10px;
-    display:none;
+    display:block;
     overflow-y: auto;
     border-radius:10px ;
 
@@ -178,7 +180,7 @@
 
 /************| ON HAND INVENTORY |****************/
 /*| #3 |*/
-#onhand-inventory-content-container.active{
+#onhand-inventory-content-container{
     display:block;
 }
 .onhand-header-container{
@@ -228,7 +230,7 @@
 
 /*************| LOW STOCK INVENTORY |***************/
 /*| #4 |*/
-#low-stock-inventory-content-container.active{
+#low-stock-inventory-content-container{
     display: block;
 
 }
@@ -268,7 +270,7 @@
 
 /**************| OUT OF STOCK INVENTORY |**************/
 /*| #5 |*/
-#out-stock-inventory-content-container.active{
+#out-stock-inventory-content-container{
     display: block;
 }
 .out-stock-header-container{
@@ -315,7 +317,7 @@
 }
 /**************| STOCK IN STOCK INVENTORY |**************/
 /*| #5 |*/
-#stock-in-inventory-content-container.active{
+#stock-in-inventory-content-container{
     display: block;
 }
 .stock-in-header-container{
@@ -431,7 +433,7 @@
 
 /**************| PURCHASE ORDER INVENTORY |**************/
 /*| #6 */
-#purchase-order-inventory-content-container.active{
+#purchase-order-inventory-content-container{
     display: block;
 }
 .purchase-order-header-container{
@@ -572,20 +574,22 @@ text-align: left;
     width:100%;
     height:100vh;
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
 
 }
 .add-product-form-container{
     background-color: #ffffff;
     padding:30px;
     border-radius: 10px;
-    width: 100%;
+    width: 80%;
+    border: 1px solid rgb(206, 206, 206)
 }
 .add-product-inventory-button-container{
     width:100%;
     display: flex;
     justify-content: flex-end;
+    padding:10px 0;
 }
 #add-product-inventory-button{
     text-decoration: none;
@@ -652,30 +656,37 @@ text-align: left;
     width:30%;
 }
 
-.add-product-select-supplier-container{
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-}
 
-.add-product-suplier-container{
+
+
+.add-product-supplier-container{
     width:100%;
     display:flex;
-    justify-content: space-around;
     align-items: center;
     gap:10px;
-}
-#add-product-select-supplier{
-    display: none;
-}
-#add-product-select-supplier-button{
-    width:150px;
-    height:2rem;
-    cursor:pointer;
+ 
+   
 }
 
 
 
+/***********| ADD product select supplier | ************/
+/***********| ADD product select supplier | ************/
+
+#add-product-select-supplier {
+    width: 100%;
+}
+#add-product-add-supplier-button {
+    padding: 5px 10px;
+    border: 1px solid #99BC85;
+    background-color: #B2CF9B;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    text-align: center;
+    width: 150px;
+    margin-top: 8px;
+}
 
 
 

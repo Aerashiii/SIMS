@@ -44,8 +44,7 @@ function fetchProductData(query = '', categoryId = '') {
         products.forEach(product => {
             const row = document.createElement('tr');
             row.innerHTML = `
-                <td>${product.barcode}</td>
-                <td>${product.product_name}</td>
+                <td>${product.description}</td>
                 <td>${product.category_name}</td>
                 <td>${product.subcategory_name}</td>
                 <td>${product.brand_name}</td>
@@ -53,8 +52,6 @@ function fetchProductData(query = '', categoryId = '') {
                 <td>${product.reorder_point}</td>
                 <td>${product.original_price}</td>
                 <td>${product.selling_price}</td>
-                <td>${product.supplier}</td>
-                <td>${product.status}</td>
                 <td>
                     <button data-id="${product.id}" class="product-edit-button">
                         <img src="../assets/images/icons/edit.png" alt="Edit">

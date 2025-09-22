@@ -36,41 +36,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'cashier') {
         <button id="purchase-order-button">Purchase Order</button>
     </div>
 
-    <!-------------------| ON HAND INVENTORY LIST -------------------->
-    <!--| #3 |-->  
-    <div class="inventory-content-container active" id="onhand-inventory-content-container" >
-        <div class="onhand-header-container">
-            <h2>On Hand Inventory List</h2>
-            <div class="inventory-search-container">         
-                <input type="text" placeholder="Search" class="inventory-search-input" id="inventory-onhand-products-search-input">
-                <button type="submit" name="submit" class="inventory-search-submit-button" id="inventory-onhand-product-search-submit-button">search</button>
-            </div>         
-            
-            <select name="" class="inventory-select-category" id="select-product-by-category"> </select>
-
-        </div>
-        <table id="onhand-inventory-table">
-            <thead>
-                <tr>
-                    <th>Barcode</th>
-                    <th>Product Name</th>
-                    <th>Category</th>
-                    <th>Subcategory</th>
-                    <th>Brand</th>
-                    <th>Quantity</th>
-                    <th>Reorder Point</th>
-                    <th>Original Price</th>
-                    <th>Selling Price</th>
-                    <th>Supplier</th>
-                    <th>Status</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody></tbody>
-            
-        </table>
-
-    </div>
+   
     <!-------------------| LOW STOCK LIST -------------------->
     <!--| #4 |-->  
     <div class="inventory-content-container" id="low-stock-inventory-content-container">

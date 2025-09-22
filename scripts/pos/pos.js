@@ -212,7 +212,7 @@ posProductSearchInput.addEventListener('keydown', (e) => {
             cartRow.innerHTML = `
                 <td>${item.description}</td>
                 <td>${item.price.toFixed(2)}</td>
-                <td>${item.quantity}</td>
+                <td><input type="number" value="${item.quantity}" min="1" onchange="updateCartItemQuantity(${index}, this.value)"></td>
                 <td>${item.total.toFixed(2)}</td>
                 <td><button onclick="removeCartItem(${index})">Remove</button></td>
             `;

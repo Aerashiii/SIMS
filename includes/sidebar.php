@@ -20,7 +20,7 @@
         </li>
         <!-- | INVENTORY SIDEBAR BUTTON |-->
         <li class="menu-item">
-            <a href="../pages/inventory.php" class="sidebar-link" data-page="inventory">
+            <a href="../pages/inventory-onhand-product.php" class="sidebar-link" data-page="inventory">
                 <span class="material-symbols-rounded">inventory</span>
                 <h3>Inventory</h3>
             </a>

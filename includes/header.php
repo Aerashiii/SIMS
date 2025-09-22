@@ -52,7 +52,7 @@
       echo '<script src="../scripts/records/subcategory.js"></script>';
       break;
     case 'records-brand':
-    case 'records-add-brand':
+    case 'records-add-brand': 
       echo '<title>Records</title>';
       echo '<link rel="stylesheet" href="../styles/records.css">';
       echo '<script src="../scripts/records/records.js"></script>';
@@ -73,18 +73,41 @@
       echo '<script src="../scripts/records/supplier.js"></script>';     
       break;
 
-    case 'inventory':
+    //case 'inventory':
     case 'inventory-add-product':
-      echo '<title>Inventory</title>';
+      echo '<script type="module" src="../scripts/inventory/inventory-add-product.js"></script>';
       echo '<link rel="stylesheet" href="../styles/inventory.css">';
-      echo '<script type="module" src="../scripts/inventory/inventory.js"></script>';
-      echo '<script type="module" src="../scripts/inventory/onhand-product-list.js"></script>';
-      echo '<script type="module" src="../scripts/inventory/low-stock-product.js"></script>';
-      echo '<script type="module" src="../scripts/inventory/out-of-stock-products.js"></script>';
-      echo '<script type="module" src="../scripts/inventory/stock-in.js"></script>';
-      echo '<script type="module" src="../scripts/inventory/edit-and-delete-product.js"></script>';
-      echo '<script type="module" src="../scripts/inventory/purchase-order.js"></script>';
+      break;
 
+    case 'inventory-onhand-products':
+      echo '<script type="module" src="../scripts/inventory/onhand-product-list.js"></script>';
+      echo '<link rel="stylesheet" href="../styles/inventory.css">'; 
+      //echo '<script type="module" src="../scripts/inventory/edit-and-delete-product.js"></script>';
+     // echo '<script type="module" src="../scripts/inventory/inventory-add-product.js"></script>';
+      break;
+    case 'inventory-lowstock-products':
+      echo '<script type="module" src="../scripts/inventory/low-stock-product.js"></script>';
+      echo '<link rel="stylesheet" href="../styles/inventory.css">'; 
+      echo '<script type="module" src="../scripts/inventory/edit-and-delete-product.js"></script>';
+      echo '<script type="module" src="../scripts/inventory/inventory-add-product.js"></script>';
+      break;
+    case 'inventory-out-of-stock-products':
+      echo '<script type="module" src="../scripts/inventory/out-of-stock-products.js"></script>';
+      echo '<link rel="stylesheet" href="../styles/inventory.css">'; 
+      echo '<script type="module" src="../scripts/inventory/edit-and-delete-product.js"></script>';
+      echo '<script type="module" src="../scripts/inventory/inventory-add-product.js"></script>';
+      break;
+    case 'inventory-stockin-products':
+      echo '<script type="module" src="../scripts/inventory/stock-in.js"></script>';
+      echo '<link rel="stylesheet" href="../styles/inventory.css">'; 
+      echo '<script type="module" src="../scripts/inventory/edit-and-delete-product.js"></script>';
+      echo '<script type="module" src="../scripts/inventory/inventory-add-product.js"></script>';
+      break;
+    case 'inventory-purchase-order-products':   
+      echo '<title>Inventory</title>';  
+      echo '<script type="module" src="../scripts/inventory/purchase-order.js"></script>';
+      echo '<link rel="stylesheet" href="../styles/inventory.css">'; 
+      echo '<script type="module" src="../scripts/inventory/edit-and-delete-product.js"></script>';
       echo '<script type="module" src="../scripts/inventory/inventory-add-product.js"></script>';
       break;
 

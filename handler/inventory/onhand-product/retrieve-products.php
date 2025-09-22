@@ -35,13 +35,14 @@ $sql = "SELECT
             p.quantity,
             p.reorder_point,
             p.status,
-            IFNULL(s.supplier_name, 'Unknown') AS supplier_name
+            IFNULL(s.supplier_name, 'Unknown') AS supplier_name,
+            p.description
         FROM products p
         LEFT JOIN brand b ON p.brand_id = b.brand_id
         LEFT JOIN category c ON p.category_id = c.category_id
         LEFT JOIN subcategory sub ON p.subcategory_id = sub.subcategory_id
         LEFT JOIN supplier s ON p.supplier_id = s.supplier_id
-        WHERE p.status = 'active' AND p.quantity > 0 AND p.deleted = 'no'";
+        WHERE p.quantity > 0 AND p.deleted = 'no'";
 
 $params = [];
 $types = "";
@@ -90,7 +91,8 @@ if ($result) {
                 'quantity' => $row['quantity'],
                 'reorder_point' => $row['reorder_point'],
                 'status' => $row['status'],
-                'supplier' => $row['supplier_name']
+                'supplier' => $row['supplier_name'],
+                'description' => $row['description']
             ];
         }
 
