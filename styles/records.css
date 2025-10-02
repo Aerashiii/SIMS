@@ -35,7 +35,7 @@
     font-weight: bold;
     cursor:pointer;
     border:none;
-    background-color: #e0e0e0;
+   
     border-radius:3px;
     width:100px;
 }
@@ -195,11 +195,11 @@ cursor: pointer;
 width:100%;
 }
 
- #toast{
+#toast {
       visibility: hidden;
       min-width: 250px;
       margin-left: -125px;
-      background-color: #333;
+      background-color: #B2CF9B;
       color: #fff;
       text-align: center;
       border-radius: 4px;
@@ -207,130 +207,97 @@ width:100%;
       position: fixed;
       z-index: 9999;
       left: 50%;
-      bottom: 30px;
+      top: 30px; /* ⬅️ Changed from bottom to top */
       font-size: 17px;
       opacity: 0;
-      transition: opacity 0.5s ease, bottom 0.5s ease;
-    }
+      transition: opacity 0.5s ease, top 0.5s ease; /* ⬅️ Animate top instead of bottom */
+}
 
-    #toast.show {
+#toast.show {
       visibility: visible;
       opacity: 1;
-      bottom: 50px;
-    }
+      top: 50px; /* ⬅️ Slide down when visible */
+}
 
-/**********| FOR RDITING CATEGORY |***************/
-.edit-category-modal-container{
-    width:100%;
-    height:100vh;
-    position:fixed;
+
+/**********| FOR EDITING CATEGORY |***************/
+.edit-category-modal-container {
+    width: 100%;
+    height: 100vh;
+    position: fixed;
     z-index: 60;
-    background-color: rgba(0, 0, 0, 0.418);
-    align-items: center;
-    justify-content: center;
-    top:0;
-    display:none;
+    background-color: rgba(0, 0, 0, 0.5);
+    top: 0;
+    display: none;
+    align-items: center;   /* ✅ fix */
+    justify-content: center; /* ✅ fix */
 }
-.edit-category-modal{
-    background-color: #ffffff;
-    padding:20px;
-    padding-top:5px;
-    border-radius:10px;
-    width:400px;
+.edit-category-modal {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    width: 400px;
+    
 }
-
-#category-edit-exit-button{
+.category-edit-exit-button{
     border-radius: 50%;
     padding:5px;
-    border:1px solid;
+    height:30px;
+    width: 30px;
+    border-color:#B2CF9B ;
+    background-color: #B2CF9B;
+    font-weight: bold;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
     float: right;
+    border:1px solid;
 }
-#category-edit-exit-button:hover{
-    border-color: red;
+.category-edit-exit-button:hover{
+    background-color: red;
+
 }
-.edit-category-modal h2{
-    text-align: center;
-    margin-top:30px;
-}
-.edit-category-details-container{
+.edit-category-details-container {
     display: flex;
     flex-direction: column;
+    margin-top: 20px;
+    
+    
 }
 .edit-category-details-container label{
+    font-weight: bold;
     margin-top:10px;
 }
-#edit-category-name,
-#edit-category-status{
+.edit-brand-details-container input,
+.edit-brand-details-container select{
     height:2rem;
     padding:5px;
 }
-
 #save-edit-category-button{
-    margin-top:20px;
     height: 2rem;
     font-weight: bold;
     cursor: pointer;
+    width: 100%;
+    margin-top: 30px;
 }
 /**********| FOR DELETING CATEGORY |***************/
-.delete-category-modal-container{
-    top:0;
-    width:100%;
+.delete-category-modal-container {
+    top: 0;
+    width: 100%;
     height: 100vh;
-    position:fixed;
-    z-index:100;
-    background-color: rgba(0, 0, 0, 0.301); 
-    justify-content:center;
-    align-items:center;
-    display:none;
+    position: fixed;
+    z-index: 100;
+    background-color: rgba(0, 0, 0, 0.3); 
+    display: none;
+    justify-content: center; /* ✅ fix */
+    align-items: center; /* ✅ fix */
 }
 .delete-category-modal{
-    
     padding:30px;
     background-color: #ffffff;
     border-radius:5px;  
     text-align: center;
-}
-#delete-category-name{
-    color:#000a29;
-    font-weight: bold;
-    
-   
-}
-.category-delete-yes-and-no-button{
-    display: flex;
-    gap:10px;
-    justify-content: center;
-}
-#delete-category-yes-button,
-#delete-category-no-button{
-    padding: 5px 15px;
-    border-radius: 5px;
-    margin-top: 50px;
-    font-size: 1.1rem;
-    font-weight: bold;
-    border:none;
-    cursor: pointer;
-    width: 80px;
-    color:#ffffff;
-}
-#delete-category-yes-button{
-    background-color: red;
-}
-#delete-category-no-button{
-    background-color: #000c75;
-}
-#delete-category-yes-button:hover {
-    font-size: 1.3rem;
-
-}
-
-#delete-category-no-button:hover {
-    font-size: 1.3rem;
-
 }
 
 

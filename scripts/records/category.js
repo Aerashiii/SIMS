@@ -1,125 +1,87 @@
 document.addEventListener('DOMContentLoaded', function () {
-    // CATEGORY
+    // Elements
     const categoryTable = document.getElementById("category-table");
+    const categoryTableBody = categoryTable.querySelector('tbody');
+   
 
     // EDIT CATEGORY
-    const editCategoryModalCon = document.querySelector('.edit-category-modal-container');
-    const editCategoryExitBtn = document.querySelector('.category-edit-exit-button');
-    const editCategorySaveButton = document.getElementById('save-edit-category-button');
+    const editModal = document.getElementById("edit-category-modal-container");
+    const editCategorySaveButton = document.getElementById("save-edit-category-button");
+    const editCategoryExitButton = document.querySelector(".category-edit-exit-button"); // matches HTML now
 
-    // DELETE CATEGORY
-    const deleteCategoryModal = document.querySelector('.delete-category-modal-container');
-    const deleteCategoryYesButton = document.querySelector('#delete-category-yes-button');
-    const cancelDeleteCategoryButton = document.querySelector('#delete-category-no-button');
+    // DELETE
+    const deleteModal = document.getElementById("delete-category-modal-container");
+    const deleteCategoryName = document.getElementById('delete-category-name');
+    const deleteCategoryYesButton = document.getElementById('delete-category-yes-button');
+    const cancelDeleteCategoryButton = document.getElementById('delete-category-no-button');
 
-    // ADD CATEGORY
-    const addCategoryModalCon = document.querySelector('.add-category-modal-container');
-    const addCategoryForm = document.getElementById('add-category-form');
+    // state
+    let categoryIdToDelete = null;
 
-  
-
-    // Event Listeners
-    editCategorySaveButton.addEventListener('click', saveEditedCategory);
-    deleteCategoryYesButton.addEventListener('click', confirmDeleteCategory);
-    cancelDeleteCategoryButton.addEventListener('click', cancelDeleteCategory);
-    editCategoryExitBtn.addEventListener('click', closeEditcategoryModal);
-
-    // Fetch categories on page load
+    // Load categories on page load
     fetchCategoryData();
 
-    // ADD CATEGORY SUBMIT
-    
-     addCategoryForm.addEventListener('submit', function (event) {
-        event.preventDefault();
-       createCategory();
-    });
+   
 
- function createCategory(event) {
-    event.preventDefault(); // Prevent form submission
-
-    const categoryName = document.getElementById('add-category-name').value.trim();
-    const categoryStatus = document.getElementById('add-category-status').value.trim();
-
-    if (!categoryName || !categoryStatus) {
-        alert("Please fill in all fields.");
-        return;
-    }
-
-    const formData = new FormData();
-    formData.append("category_name", categoryName);
-    formData.append("status", categoryStatus);
-
-    fetch("../handler/records/category/add-category.php", {
-        method: "POST",
-        body: formData,
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            alert("✅ Category created successfully!");
-            showToast();
-         
-        } else {
-            alert(`❌ Error: ${data.message}`);
-        }
-    })
-    .catch(error => {
-        console.error("Error:", error);
-        alert("An error occurred while creating the category.");
-    });
-}
-
-
- function showToast() {
-      const toast = document.getElementById("toast");
-      toast.className = "show";
-      
-      // Hide the toast after 3 seconds
-      setTimeout(() => {
-        toast.className = toast.className.replace("show", "");
-      }, 3000);
-    }
-
+    // Fetch category data
     function fetchCategoryData() {
         fetch('../handler/records/category/retrieve-category.php')
             .then(response => {
-                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
                 return response.json();
             })
             .then(data => {
-                if (data.length === 0) {
-                    console.warn('No category data found.');
+                // Expect { success: true, data: [...] }
+                if (!data.success) {
+                    console.warn('retrieve-category returned success=false', data);
+                    categoryTableBody.innerHTML = '<tr><td colspan="4">No categories found.</td></tr>';
+                    return;
+                }
+                if (!Array.isArray(data.data) || data.data.length === 0) {
+                    categoryTableBody.innerHTML = '<tr><td colspan="4">No categories found.</td></tr>';
                 } else {
-                    populateCategoryTable(data);
+                    populateCategoryTable(data.data);
                 }
             })
-            .catch(error => console.error('Error fetching category data:', error));
+            .catch(error => {
+                console.error('Error fetching category data:', error);
+                categoryTableBody.innerHTML = '<tr><td colspan="4">Error loading categories.</td></tr>';
+            });
     }
 
+    // Populate category table
     function populateCategoryTable(categories) {
-        categoryTable.querySelectorAll('tr:not(:first-child)').forEach(row => row.remove());
+        categoryTableBody.innerHTML = ''; // clear tbody
 
         categories.forEach(category => {
-            const row = document.createElement('tr');
-            row.innerHTML = `
-                <td>${category.category_name}</td>
-                <td>${category.date_created}</td>
-                <td>${category.status}</td>
+            const tr = document.createElement('tr');
+
+            // Ensure fields exist; fallbacks to empty strings
+            const name = escapeHtml(category.category_name || '');
+            const created = escapeHtml(category.date_created || '');
+            const status = escapeHtml(category.status || '');
+
+            tr.innerHTML = `
+                <td>${name}</td>
+                <td>${created}</td>
+                <td>${status}</td>
                 <td>
-                    <button data-id="${category.category_id}" class="category-edit-button">
+                    <button data-id="${category.category_id}" class="category-edit-button" title="Edit">
                         <img src="../assets/images/icons/edit.png" alt="Edit">
                     </button>
-                    <button data-id="${category.category_id}" class="category-delete-button">
+                    <button data-id="${category.category_id}" class="category-delete-button" title="Delete">
                         <img src="../assets/images/icons/delete1.png" alt="Delete">
                     </button>
                 </td>
             `;
-            categoryTable.appendChild(row);
+
+            categoryTableBody.appendChild(tr);
         });
 
         attachCategoryActionListeners();
     }
 
+    // attach listeners to the action buttons
     function attachCategoryActionListeners() {
         document.querySelectorAll('.category-edit-button').forEach(button =>
             button.addEventListener('click', handleEditCategory)
@@ -129,131 +91,149 @@ document.addEventListener('DOMContentLoaded', function () {
         );
     }
 
-    function handleEditCategory(event) {
-        const categoryId = event.currentTarget.dataset.id;
+    // helper: escape html
+    function escapeHtml(unsafe) {
+        return String(unsafe)
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+    }
 
-        fetch(`../handler/records/category/retrieve-category-details.php?id=${categoryId}`)
-            .then(response => response.json())
-            .then(category => {
-                if (category.error) {
-                    console.error('Error fetching category details:', category.error);
+    /** EDIT */
+    function handleEditCategory(event) {
+        const id = event.currentTarget.dataset.id;
+        if (!id) return;
+        fetch(`../handler/records/category/retrieve-category-details.php?id=${encodeURIComponent(id)}`)
+            .then(res => {
+                if (!res.ok) throw new Error('Failed to fetch details');
+                return res.json();
+            })
+            .then(payload => {
+                if (payload.error || !payload.category_id) {
+                    console.error('Bad payload from retrieve-category-details', payload);
+                    alert('Failed to load category details.');
                     return;
                 }
-
-                displayEditCategoryDetails(category);
+                displayEditCategoryDetails(payload);
             })
-            .catch(error => console.error('Error fetching category details:', error));
+            .catch(err => {
+                console.error('Error fetching category details:', err);
+            });
     }
 
     function displayEditCategoryDetails(category) {
         document.getElementById('edit-category-id').value = category.category_id;
-        document.getElementById('edit-category-name').value = category.category_name;
-        document.getElementById('edit-category-status').value = category.status;
-
-        editCategoryModalCon.style.display = 'flex';
+        document.getElementById('edit-category-name').value = category.category_name || '';
+        document.getElementById('edit-category-status').value = category.status || 'active';
+        editModal.style.display = 'flex';
     }
 
-    function saveEditedCategory() {
-        const category_id = document.getElementById('edit-category-id').value;
-        const category_name = document.getElementById('edit-category-name').value.trim();
-        const status = document.getElementById('edit-category-status').value;
-
-        if (!category_name) {
-            alert("Please enter a category name.");
-            return;
-        }
-
-        const categoryDetails = {
-            category_id: category_id,
-            category_name: category_name,
-            status: status
+    // Save edits
+    editCategorySaveButton.addEventListener('click', function (event) {
+        event.preventDefault();
+        const payload = {
+            category_id: document.getElementById('edit-category-id').value,
+            category_name: document.getElementById('edit-category-name').value.trim(),
+            status: document.getElementById('edit-category-status').value
         };
 
         fetch('../handler/records/category/category-edit-handler.php', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(categoryDetails),
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload),
         })
-            .then(response => {
-                if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
-                return response.json();
-            })
-            .then(data => {
-                if (data.success) {
-                    alert('Category saved successfully!');
-                    window.location.reload();
-                } else {
-                    alert('Error: ' + data.message);
-                }
-            })
-            .catch(error => {
-                console.error('Fetch error:', error);
-                alert('An error occurred while saving.');
-            });
+        .then(res => {
+            if (!res.ok) return res.json().then(j => Promise.reject(j));
+            return res.json();
+        })
+        .then(data => {
+            if (data.success) {
+                showToast('✅ Category updated');
+                editModal.style.display = 'none';
+                fetchCategoryData();
+            } else {
+                alert(data.message || 'Failed to update');
+            }
+        })
+        .catch(err => {
+            console.error('Error updating category:', err);
+            alert('Error updating category');
+        });
+    });
 
-        editCategoryModalCon.style.display = 'none';
-    }
+    // Close edit modal
+    editCategoryExitButton.addEventListener('click', function () {
+        editModal.style.display = 'none';
+    });
 
-function closeEditcategoryModal(){
-    editCategoryModalCon.style.display = 'none';
-}
-/**===================| HANDLE DELETE CATEGORY |============================== */
+    /** DELETE */
     function handleDeleteCategory(event) {
-        categoryId = event.currentTarget.dataset.id;
-
-        fetch(`../handler/records/category/retrieve-category-details.php?id=${categoryId}`)
-            .then(response => response.json())
-            .then(category => {
-                if (category.error) {
-                    console.error('Error fetching product details:', category.error);
+        const id = event.currentTarget.dataset.id;
+        if (!id) return;
+        // fetch details so we can show name
+        fetch(`../handler/records/category/retrieve-category-details.php?id=${encodeURIComponent(id)}`)
+            .then(res => {
+                if (!res.ok) throw new Error('Failed to fetch details');
+                return res.json();
+            })
+            .then(payload => {
+                if (payload.error || !payload.category_id) {
+                    console.error('Bad payload from retrieve-category-details', payload);
+                    alert('Failed to load category details.');
                     return;
                 }
-                displayDeleteCategoryDetails(category);
+                categoryIdToDelete = payload.category_id;
+                deleteCategoryName.textContent = payload.category_name || '';
+                deleteModal.style.display = 'flex';
             })
-            .catch(error => console.error('Error fetching product details:', error));
+            .catch(err => {
+                console.error('Error fetching category details:', err);
+            });
     }
 
-    function displayDeleteCategoryDetails(category) {
-        deleteCategoryModal.style.display = 'flex';
-        document.querySelector('#delete-category-name').textContent = category.category_name;
-    }
-
-    function confirmDeleteCategory() {
-        if (!categoryId) {
-            console.error('Category ID is not defined.');
+    // Confirm delete
+    deleteCategoryYesButton.addEventListener('click', function () {
+        if (!categoryIdToDelete) {
+            alert('No category selected');
             return;
         }
 
-        fetch(`../handler/records/category/category-delete-handler.php`, {
+        const formBody = new URLSearchParams();
+        formBody.append('id', categoryIdToDelete);
+
+        fetch('../handler/records/category/category-delete-handler.php', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-            },
-            body: `id=${categoryId}`
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: formBody.toString()
         })
-            .then(response => response.text())
-            .then(text => {
-                try {
-                    const data = JSON.parse(text);
-                    if (data.success) {
-                        alert(data.success);
-                        window.location.reload();
-                    } else {
-                        alert(data.error);
-                    }
-                } catch (error) {
-                    console.error('Response not JSON:', text);
-                    alert('Something went wrong');
-                }
-            })
-            .catch(error => console.error('Error:', error));
-    }
+        .then(res => res.json())
+        .then(data => {
+            if (data.success) {
+                showToast('✅ Category deleted');
+                deleteModal.style.display = 'none';
+                categoryIdToDelete = null;
+                fetchCategoryData();
+            } else {
+                alert(data.error || 'Failed to delete');
+            }
+        })
+        .catch(err => {
+            console.error('Error deleting category:', err);
+            alert('Error deleting category');
+        });
+    });
 
-    function cancelDeleteCategory() {
-        deleteCategoryModal.style.display = 'none';
-    }
+    // Cancel delete
+    cancelDeleteCategoryButton.addEventListener('click', function () {
+        deleteModal.style.display = 'none';
+        categoryIdToDelete = null;
+    });
 
-   
+    // close modals when clicking outside (optional UX)
+    window.addEventListener('click', function(e) {
+        if (e.target === editModal) editModal.style.display = 'none';
+        if (e.target === deleteModal) deleteModal.style.display = 'none';
+    });
 });

@@ -1,52 +1,42 @@
 <?php
-// product-delete-handler.php
+// category-delete-handler.php
+header('Content-Type: application/json; charset=utf-8');
+
 $host = "localhost";
 $username = "root";
 $password = "";
 $dbname = "simsdb";
 
 $conn = new mysqli($host, $username, $password, $dbname);
-
 if ($conn->connect_error) {
-    die(json_encode(["success" => false, "message" => "Connection failed: " . $conn->connect_error]));
+    echo json_encode(['error' => 'Connection failed: ' . $conn->connect_error]);
+    exit;
 }
 
-// Enable error reporting for debugging
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
-// Set response header to JSON
-header('Content-Type: application/json');
-
-// Check if the request method is POST
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Get the product ID from POST data
-   $categoryId = isset($_POST['id']) ? intval($_POST['id']) : null;
-
-    // Check if the product ID is valid
-    if ( $categoryId) {
-        // Prepare SQL to delete the product
-        $sql = "UPDATE category SET deleted = 'yes' WHERE category_id = ?";
-        $stmt = $conn->prepare($sql);
-
-        // Check if the statement was prepared correctly
-        if ($stmt) {
-            $stmt->bind_param("i",  $categoryId);
-            if ($stmt->execute()) {
-                echo json_encode(['success' => 'Category deleted successfully.']);
-            } else {
-                echo json_encode(['error' => 'Failed to delete Category.']);
-            }
-            $stmt->close();
-        } else {
-            echo json_encode(['error' => 'Error preparing statement.']);
-        }
-    } else {
-        echo json_encode(['error' => 'Invalid product ID.']);
-    }
-} else {
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     echo json_encode(['error' => 'Invalid request method.']);
+    exit;
 }
-?>
 
+// accept form/urlencoded 'id'
+$id = isset($_POST['id']) ? intval($_POST['id']) : 0;
+if ($id <= 0) {
+    echo json_encode(['error' => 'Invalid category ID.']);
+    exit;
+}
+
+$stmt = $conn->prepare("UPDATE category SET deleted = 'yes' WHERE category_id = ?");
+if (!$stmt) {
+    echo json_encode(['error' => 'Prepare failed: ' . $conn->error]);
+    exit;
+}
+$stmt->bind_param('i', $id);
+
+if ($stmt->execute()) {
+    echo json_encode(['success' => true, 'message' => 'Category deleted successfully.']);
+} else {
+    echo json_encode(['error' => 'Failed to delete category.']);
+}
+
+$stmt->close();
+$conn->close();

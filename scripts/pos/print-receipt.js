@@ -1,6 +1,6 @@
 //THIS IS print0receipt.js
 
-export function printReceipt(addedProducts, cashReceived, paymentMethod, customerName = 'Guest', customerContact = null) {
+export function printReceipt(addedProducts, cashReceived, paymentMethod, userName, customerName = 'Guest', customerContact = null) {
     const branchName = sessionStorage.getItem('branch_name') || 'Generals Space Rent';
     const date = new Date().toLocaleString('en-US', {
         weekday: 'short',
@@ -20,6 +20,7 @@ export function printReceipt(addedProducts, cashReceived, paymentMethod, custome
             <h3 style="text-align: center;">${branchName}</h3>
             <p style="text-align: center;">${date}</p>
             <hr>
+            <p>Transact By:${userName}</p>
             <p><strong>Customer:</strong> ${customerName}</p>
             ${customerContact ? `<p><strong>Contact:</strong> ${customerContact}</p>` : ''}
             <table style="width: 100%; border-collapse: collapse;">

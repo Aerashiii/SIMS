@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const deleteSubcategoryModal = document.querySelector('.delete-subcategory-modal-container');
     const deleteSubcategoryYesButton = document.getElementById('delete-subcategory-yes-button');
     const cancelDeleteSubcategoryButton = document.getElementById('delete-subcategory-no-button');
+   
 
     // FOR ADDING SUBCATEGORY
     const addSubcategoryButton = document.getElementById('add-subcategory-button');
@@ -24,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function () {
     fetchCategoryDataForSelectCategory();
     fetchSubcategoryData();
     fetchCategoryDataForSubcategory();
-    fetchCategoryForSelectCategory();
+  
 
     // Event Listeners
     editSubcategorySaveButton.addEventListener('click', saveEditSubcategoryDetails);
@@ -50,12 +51,7 @@ document.addEventListener('DOMContentLoaded', function () {
             .catch(err => console.error('Error fetching category data:', err));
     }
 
-    function fetchCategoryForSelectCategory() {
-        fetch('../handler/records/category/retrieve-category.php')
-            .then(res => res.json())
-            .then(data => populateEditSubcategorySelectCategory(data))
-            .catch(err => console.error('Error fetching category data:', err));
-    }
+  
 
     function fetchCategoryDataForSelectCategory() {
         fetch('../handler/records/category/retrieve-category.php')
@@ -84,8 +80,25 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    function populateEditSubcategorySelectCategory(categories) {
-        editSubcategorySelectCategory.innerHTML = '<option value="">-select category-</option>';
+    // 
+     // ✅ Fetch categories for editing subcategory select category
+    fetch('../handler/records/category/retrieve-category.php')
+    .then(res => res.json())
+    .then(data => {
+        console.log("Categories fetched:", data); // debug
+        if (data.success && Array.isArray(data.data)) {
+            populateSelectCategory(data.data); // 👈 use data.data
+        } else {
+            console.error("Error:", data.message);
+            showToast("⚠️ " + (data.message || "Failed to load categories"));
+        }
+    })
+    .catch(err => {
+        console.error('Error fetching category data:', err);
+        showToast("⚠️ Could not load categories.");
+    });
+
+    function populateSelectCategory(categories) {
         categories.forEach(category => {
             const option = document.createElement('option');
             option.value = category.category_id;

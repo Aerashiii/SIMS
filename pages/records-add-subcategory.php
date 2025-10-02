@@ -1,4 +1,5 @@
 <?php 
+// records-add-subcategory.php
 session_start();
 
 if (!isset($_SESSION['user'])) {
@@ -48,5 +49,8 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'cashier') {
             </form>
             <button id="add-subcategory-cancel-button" class="add-subcategory-cancel-button">Cancel</button>
         </div>
+
+        <!-- Toast container -->
+      <div id="toast" aria-live="polite"></div>
     </div>
 </main>

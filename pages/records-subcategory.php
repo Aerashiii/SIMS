@@ -17,6 +17,22 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'cashier') {
     $page = 'records-subcategory'; //ASSIGNS THE NAME OF THE PAGE. THIS PAGE IS NAMED 'ANALYTICS' AND IS USED IN THE HEADER.PHP FILE.
     require '../includes/header.php'; //REQUIRES THE HEADER.PHP TO APPLY THE CSS, SCRIPTS, SIDEBAR, AND TOP NAVIGATION.
 ?>
+<style>
+    #subcategory-button{
+        background-color: #B2CF9B;
+        padding:5px 10px;
+        font-weight: bold;
+        cursor:pointer;
+        border:none;
+        border-radius:3px;
+        width:100px;
+    }
+    #subcategory-button:hover{
+        background-color: #B2CF9B;
+        color: #ffffff;
+    }
+
+</style>
 <main class="main-content-container">
      <?php include 'records-submenu.php'; ?> 
      <div class="category-header-buttons-container">

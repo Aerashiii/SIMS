@@ -1,5 +1,6 @@
 <?php
-
+// retrieve-category.php
+header('Content-Type: application/json; charset=utf-8');
 
 $host = "localhost";
 $username = "root";
@@ -9,37 +10,34 @@ $dbname = "simsdb";
 // Database connection
 $conn = new mysqli($host, $username, $password, $dbname);
 if ($conn->connect_error) {
-    die(json_encode(['success' => false, 'message' => "Connection failed: " . $conn->connect_error]));
+    echo json_encode(['success' => false, 'message' => "Connection failed: " . $conn->connect_error]);
+    exit;
 }
 
-header('Content-Type: application/json');
-
-
-$sql = "SELECT category_id, category_name, status,date_created FROM category WHERE deleted='no'";
+$sql = "SELECT category_id, category_name, date_created, status FROM category WHERE deleted='no' ORDER BY category_id DESC";
 $stmt = $conn->prepare($sql);
 if (!$stmt) {
-    die(json_encode(['success' => false, 'message' => "SQL prepare failed: " . $conn->error]));
+    echo json_encode(['success' => false, 'message' => "SQL prepare failed: " . $conn->error]);
+    exit;
 }
 
-
 if (!$stmt->execute()) {
-    die(json_encode(['success' => false, 'message' => "Execution failed: " . $stmt->error]));
+    echo json_encode(['success' => false, 'message' => "Execution failed: " . $stmt->error]);
+    exit;
 }
 
 $result = $stmt->get_result();
-$category_data = $result->fetch_all(MYSQLI_ASSOC);
+$category_data = [];
 
-// Format created_date to "Month Day, Year" format
-foreach ($category_data as &$category) {
-    if (!empty($category['date_created'])) {
-        $category['date_created'] = date("F j, Y", strtotime($category['date_created']));
+while ($row = $result->fetch_assoc()) {
+    // Format date
+    if (!empty($row['date_created'])) {
+        $row['date_created'] = date("F j, Y", strtotime($row['date_created']));
     }
+    $category_data[] = $row;
 }
 
-unset($category); // Break the reference to avoid side effects
-
-echo json_encode($category_data);
+echo json_encode(['success' => true, 'data' => $category_data]);
 
 $stmt->close();
 $conn->close();
-?>

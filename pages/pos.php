@@ -84,6 +84,10 @@ if (!isset($_SESSION['user'])) {
                         <p><?php echo date(' M j, Y |  h:i A'); ?></p>
                     </div>
                     <h4 id="h4-store-name">General's Space Rent</h4>
+                    <div>
+                        <label for="">transact By:</label>
+                        <span><?php echo $_SESSION['user']; ?></span>
+                    </div>
                     <div class="transaction-details-container">
                         <div class="pos-product-sales-receipt-container">
                             <div class="pos-product-total-sales-container">
