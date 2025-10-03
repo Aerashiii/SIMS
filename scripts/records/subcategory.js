@@ -13,12 +13,6 @@ document.addEventListener('DOMContentLoaded', function () {
     const cancelDeleteSubcategoryButton = document.getElementById('delete-subcategory-no-button');
    
 
-    // FOR ADDING SUBCATEGORY
-    const addSubcategoryButton = document.getElementById('add-subcategory-button');
-    const addSubcategoryModalCon = document.querySelector('.add-subcategory-modal-container');
-    const addSubcategoryCancelButton = document.querySelector('.add-subcategory-cancel-button');
-    const addSubcategorySelectCategory = document.getElementById('add-subcategory-select-category');
-    const addSubcategoryForm = document.getElementById('add-subcategory-form');
 
     const SelectCategoryOnSubcategoryTable = document.getElementById('subcategory-select-category');
 
@@ -30,44 +24,22 @@ document.addEventListener('DOMContentLoaded', function () {
     // Event Listeners
     editSubcategorySaveButton.addEventListener('click', saveEditSubcategoryDetails);
     editSubcategoryExitButton.addEventListener('click', closeEditSubcategoryModal);
-    addSubcategoryCancelButton.addEventListener('click', closeAddSubcategoryModal);
+   
     cancelDeleteSubcategoryButton.addEventListener('click', closeDeleteSubcategoryModal);
     deleteSubcategoryYesButton.addEventListener('click', confirmDeleteSubcategory);
 
-    addSubcategoryForm.addEventListener("submit", function (event) {
-        event.preventDefault();
-        createSubcategory();
-    });
+
 
     SelectCategoryOnSubcategoryTable.addEventListener('change', function () {
         fetchSubcategoryData(this.value);
     });
 
-    // FETCH CATEGORY FOR ADD & EDIT
-    function fetchCategoryDataForSubcategory() {
-        fetch('../handler/records/category/retrieve-category.php')
-            .then(res => res.json())
-            .then(data => populateSelectCategory(data))
-            .catch(err => console.error('Error fetching category data:', err));
-    }
-
-  
 
     function fetchCategoryDataForSelectCategory() {
         fetch('../handler/records/category/retrieve-category.php')
             .then(res => res.json())
             .then(data => populateSelectCategoryOnSubcategoryTable(data))
             .catch(err => console.error('Error fetching category data:', err));
-    }
-
-    function populateSelectCategory(categories) {
-        addSubcategorySelectCategory.innerHTML = '<option value="">-select category-</option>';
-        categories.forEach(category => {
-            const option = document.createElement('option');
-            option.value = category.category_id;
-            option.textContent = category.category_name;
-            addSubcategorySelectCategory.appendChild(option);
-        });
     }
 
     function populateSelectCategoryOnSubcategoryTable(categories) {
@@ -80,8 +52,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // 
-     // ✅ Fetch categories for editing subcategory select category
+ /*================| FOR RETRIVING CATEGORY ON EDITING SUBCATEGORY SELECT CATEGORY |=============================== */
     fetch('../handler/records/category/retrieve-category.php')
     .then(res => res.json())
     .then(data => {
@@ -107,45 +78,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    function closeAddSubcategoryModal() {
-        console.log("Add subcategory modal closed");
-        addSubcategoryModalCon.style.display = 'none';
-        window.location.reload();
-    }
-
-    function createSubcategory() {
-        const categoryId = addSubcategorySelectCategory.value.trim();
-        const subcategoryName = document.getElementById("add-subcategory-name").value.trim();
-        const subcategoryStatus = document.getElementById("add-subcategory-status").value.trim();
-
-        if (!categoryId || !subcategoryName) {
-            alert("Please fill in all fields.");
-            return;
-        }
-
-        const formData = new FormData();
-        formData.append("category_id", categoryId);
-        formData.append("subcategory_name", subcategoryName);
-        formData.append("subcategory_status", subcategoryStatus);
-
-        fetch("../handler/records/category/add-subcategory.php", {
-            method: "POST",
-            body: formData,
-        })
-            .then(res => res.json())
-            .then(data => {
-                if (data.success) {
-                    alert("Subcategory created!");
-                    fetchSubcategoryData();
-                } else {
-                    alert(data.message || "Error occurred.");
-                }
-            })
-            .catch(err => {
-                console.error("Error:", err);
-                alert("Error occurred while creating subcategory.");
-            });
-    }
+   
 
     function fetchSubcategoryData(categoryId = null) {
         const url = categoryId
@@ -157,7 +90,7 @@ document.addEventListener('DOMContentLoaded', function () {
             .then(data => populateSubcategoryTable(data))
             .catch(err => console.error('Error fetching subcategories:', err));
     }
-
+/*================| FOR DISPLAYING SUBCATEGORIES |=============================== */
     function populateSubcategoryTable(subcategories) {
         const subcategoryTable = document.getElementById('subcategory-table');
         subcategoryTable.querySelectorAll('tr:not(:first-child)').forEach(row => row.remove());
@@ -193,6 +126,7 @@ document.addEventListener('DOMContentLoaded', function () {
         );
     }
 
+/*================| FOR EDITING SUBCATEGORY |=============================== */
     function handleEditSubcategory(event) {
         const id = event.currentTarget.dataset.id;
         fetch(`../handler/records/category/retrieve-subcategory-details.php?id=${id}`)
@@ -240,6 +174,9 @@ document.addEventListener('DOMContentLoaded', function () {
         editSubcategoryModalCon.style.display = 'none';
     }
 
+
+
+    /*================| FOR DELETING SUBCATEGORY |=============================== */
     function handleDeleteSubcategory(event) {
         subcategoryId = event.currentTarget.dataset.id;
         fetch(`../handler/records/category/retrieve-subcategory-details.php?id=${subcategoryId}`)

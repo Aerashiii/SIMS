@@ -122,6 +122,11 @@
       echo '<script type="module" src="../scripts/inventory/edit-and-delete-product.js"></script>';
       echo '<script type="module" src="../scripts/inventory/inventory-add-product.js"></script>';
       break;
+    case 'inventory-add-order': 
+      echo '<title>Inventory</title>';  
+      echo '<link rel="stylesheet" href="../styles/inventory.css">'; 
+      
+      break;
 
     case 'pos':
       echo '<title>Point Of Sale</title>';

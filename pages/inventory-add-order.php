@@ -22,6 +22,31 @@ require '../includes/header.php';
 ?>
 
 <main class="main-content-container">
+    <div class="purchase-add-order-header-container">
+        <h1>Purchase Product </h1>
+        <a href="inventory-purchase-order-product.php">Back</a>
+    </div>
+    <div class="purchase order-products-container">
+       
+        <div class="purchase-order-products-table-container">
+            <table id="purchase-order-products-table">
+                <tr>
+                    <th>Description</th>
+                        <th>Category</th>
+                        <th>Quantity</th>                     
+                        <th>Original Price</th>                      
+                        <th>Action</th>
+                </tr>
+            </table>
+        </div>
+        <div class="purchase-order-actions-container">
+            <button>Add Product</button>
+            <button>Save</button>
+        </div>
+        
+        
+
+    </div>
 <div class="add-order-modal-container">
     <div class="add-order-form-container">
         <form action="" id="add-order-product-form">

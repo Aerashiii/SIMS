@@ -1,56 +1,37 @@
 <?php
-
 $host = "localhost";
 $username = "root";
 $password = "";
 $dbname = "simsdb";
 
 $conn = new mysqli($host, $username, $password, $dbname);
-
-if ($conn->connect_error) {
-    die(json_encode(["success" => false, "message" => "Connection failed: " . $conn->connect_error]));
-}
-
-// Set header for JSON response
 header('Content-Type: application/json');
 
-try {
-    // Decode the JSON payload
-    $input = json_decode(file_get_contents('php://input'), true);
-
-    if (!$input) {
-        throw new Exception('Invalid JSON input');
-    }
-
-    // Extract values safely
-    $subcategoryId = $input['subcategory_id'];
-    $subcategoryName = $input['subcategory_name'];
-    $categoryId = $input['category_id'];
-    $status = $input['status'];
-   
-
-    // Prepare the SQL statement
-    $stmt = $conn->prepare("
-        UPDATE subcategory
-        SET subcategory_name = ?, category_id=?, status = ?
-        WHERE subcategory_id = ?
-    ");
-
-    $stmt->bind_param(
-        'sisi',
-        $subcategoryName,
-        $categoryId,
-        $status,
-        $subcategoryId
-    );
-
-    if ($stmt->execute()) {
-        echo json_encode(['success' => true]);
-    } else {
-        throw new Exception('Database update failed');
-    }
-} catch (Exception $e) {
-    http_response_code(500);
-    echo json_encode(['success' => false, 'message' => $e->getMessage()]);
+if ($conn->connect_error) {
+    echo json_encode(["success" => false, "message" => "DB Connection failed: " . $conn->connect_error]);
+    exit;
 }
+
+$input = json_decode(file_get_contents('php://input'), true);
+if (!$input) {
+    echo json_encode(["success" => false, "message" => "Invalid input"]);
+    exit;
+}
+
+$subcategoryId = intval($input['subcategory_id']);
+$subcategoryName = trim($input['subcategory_name']);
+$categoryId = intval($input['category_id']);
+$status = trim($input['status']);
+
+$stmt = $conn->prepare("UPDATE subcategory SET subcategory_name=?, category_id=?, status=? WHERE subcategory_id=?");
+$stmt->bind_param("sisi", $subcategoryName, $categoryId, $status, $subcategoryId);
+
+if ($stmt->execute()) {
+    echo json_encode(["success" => true, "message" => "Subcategory updated successfully"]);
+} else {
+    echo json_encode(["success" => false, "message" => "Update failed: " . $stmt->error]);
+}
+
+$stmt->close();
+$conn->close();
 ?>

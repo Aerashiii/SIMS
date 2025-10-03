@@ -61,16 +61,12 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'cashier') {
             <thead>
                 <tr>              
 
-                    <th>Description</th>
-                    <th>Category</th>
-                    <th>Subcategory</th>
-                    <th>Brand</th>
-                    <th>Quantity</th>
-                    <th>Reorder Point</th>
-                    <th>Original Price</th>
-                    <th>Selling Price</th>
+                    <th>Transaction ID</th>
+                    <th>Processed by</th>
+                    <th>Total Product</th>
+                    <th>Cost</th>
                     <th>Status</th>
-                    <th>Action</th>
+                    <th>Action</th>                 
                 </tr>
             </thead>
             <tbody></tbody>
