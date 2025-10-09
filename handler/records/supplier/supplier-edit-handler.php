@@ -9,7 +9,8 @@ $dbname = "simsdb";
 $conn = new mysqli($host, $username, $password, $dbname);
 
 if ($conn->connect_error) {
-    die(json_encode(["success" => false, "message" => "Connection failed: " . $conn->connect_error]));
+    echo json_encode(["success" => false, "message" => "Connection failed: " . $conn->connect_error]);
+    exit;
 }
 
 try {
@@ -20,18 +21,22 @@ try {
         throw new Exception('Invalid JSON input');
     }
 
-    // Get the values from the input
-    $supplier_id = $input['supplier_id'];
-    $supplier_name = $input['supplier_name'];
-    $contact_person = $input['contact_person'];
-    $contact_number = $input['contact_number'];
-    $address = $input['address'];
-    $supplier_type = $input['supplier_type'];
-    $product_category_id = $input['product_category_id'];
-    $payment_terms = $input['payment_terms'];
-    $note = $input['note'];
+    // Sanitize and assign
+    $supplier_id         = intval($input['supplier_id'] ?? 0);
+    $supplier_name       = trim($input['supplier_name'] ?? '');
+    $contact_person      = trim($input['contact_person'] ?? '');
+    $contact_number      = trim($input['contact_number'] ?? '');
+    $address             = trim($input['address'] ?? '');
+    $supplier_type       = trim($input['supplier_type'] ?? '');
+    $product_category_id = intval($input['product_category_id'] ?? 0);
+    $payment_terms       = trim($input['payment_terms'] ?? '');
+    $note                = trim($input['note'] ?? '');
 
-    // Prepare the update SQL statement
+    if ($supplier_id <= 0) {
+        throw new Exception('Invalid Supplier ID');
+    }
+
+    // Prepare statement
     $stmt = $conn->prepare("
         UPDATE supplier
         SET supplier_name = ?, contact_person = ?, contact_number = ?, 
@@ -40,21 +45,26 @@ try {
         WHERE supplier_id = ?
     ");
 
-    if ($stmt === false) {
+    if (!$stmt) {
         throw new Exception('Query preparation failed: ' . $conn->error);
     }
 
-    // Bind parameters to the SQL statement
+    // ✅ Correct binding
     $stmt->bind_param(
-        'ssississi',  // s: string, i: integer
-        $supplier_name, $contact_person, $contact_number, 
-        $address, $supplier_type, $product_category_id, 
-        $payment_terms, $note, $supplier_id
+        'sssssissi',
+        $supplier_name,
+        $contact_person,
+        $contact_number,
+        $address,
+        $supplier_type,
+        $product_category_id,
+        $payment_terms,
+        $note,
+        $supplier_id
     );
 
-    // Execute the query and check if successful
     if ($stmt->execute()) {
-        echo json_encode(['success' => true]);
+        echo json_encode(['success' => true, 'message' => 'Supplier updated successfully']);
     } else {
         throw new Exception('Database update failed: ' . $stmt->error);
     }
@@ -63,10 +73,7 @@ try {
     http_response_code(500);
     echo json_encode(['success' => false, 'message' => $e->getMessage()]);
 } finally {
-    // Close the statement and connection
-    if (isset($stmt)) {
-        $stmt->close();
-    }
+    if (isset($stmt)) $stmt->close();
     $conn->close();
 }
 ?>

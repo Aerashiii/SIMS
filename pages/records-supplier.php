@@ -46,6 +46,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'cashier') {
                     </table>
                 </div>
             </div>
+             <div id="toast" aria-live="polite"></div>
 </main>
 
 

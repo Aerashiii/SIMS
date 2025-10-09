@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const addProductForm = document.getElementById("add-product-form");
   const addProductSelectSupplier = document.getElementById("add-product-select-supplier");
   const addProductSelectBrand = document.getElementById("add-product-brand");
-  const addProductSelectCategory = document.getElementById("add-product-category");
+  const addProductSelectCategory = document.getElementById("add-order-product-category");
   const addProductSelectSubcategory = document.getElementById("add-product-subcategory");
   const addProductBarcodeInput = document.getElementById("add-product-barcode");
   const generateBarcodeBtn = document.getElementById("inventory-add-product-generate-barcode-button");
@@ -13,7 +13,8 @@ document.addEventListener("DOMContentLoaded", function () {
   fetchOptions("../handler/records/category/retrieve-category.php", addProductSelectCategory, "category_id", "category_name");
   fetchOptions("../handler/records/category/retrieve-subcategory.php", addProductSelectSubcategory, "subcategory_id", "subcategory_name");
   fetchOptions("../handler/records/supplier/retrieve-supplier.php", addProductSelectSupplier, "supplier_id", "supplier_name");
-
+ // fetchCategoryData();
+  
   function fetchOptions(url, selectElement, valueKey, textKey) {
     fetch(url)
       .then(response => response.json())
@@ -28,6 +29,9 @@ document.addEventListener("DOMContentLoaded", function () {
       })
       .catch(error => console.error(`Error fetching ${url}:`, error));
   }
+
+
+
 
   // Barcode restrictions
   addProductBarcodeInput.addEventListener("input", () => {
@@ -48,7 +52,11 @@ document.addEventListener("DOMContentLoaded", function () {
   // Submit
   addProductForm.addEventListener("submit", function (event) {
     event.preventDefault();
+  
+
     const formData = new FormData(addProductForm);
+
+   
 
     fetch("../handler/inventory/add-product.php", {
       method: "POST",

@@ -40,16 +40,15 @@ require '../includes/header.php';
             </table>
         </div>
         <div class="purchase-order-actions-container">
-            <button>Add Product</button>
-            <button>Save</button>
+            <button id="add-purchase-product-button">Add Product</button>
+            <button id="save-purchase-order-button">Save</button>
         </div>
-        
-        
-
     </div>
-<div class="add-order-modal-container">
+
+</main>
+
+ <div class="add-order-modal-container">
     <div class="add-order-form-container">
-        <form action="" id="add-order-product-form">
             <h3>Add Purchase Order</h3>
             <div class="order-form-group-container">
                 <label>Product Name:</label>
@@ -109,10 +108,13 @@ require '../includes/header.php';
                     <option value="completed">Completed</option>
                 </select>
             </div>
+            <div class="order-form-group-container">
+                <label for="purchase-order-description">Description:</label>
+                <textarea name="description" id="purchase-order-description"></textarea>
+            </div>
 
-            <input type="submit" id="add-order-product-submit-button" value="Submit">
-        </form>
+            <input type="button" id="add-order-product-submit-button" value="Submit">
+      
         <button id="add-order-product-cancel-button">Cancel</button>
     </div>
 </div>
-</main>

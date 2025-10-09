@@ -1,59 +1,62 @@
-<?php 
+<?php
+header('Content-Type: application/json');
+
 $server = "localhost";
 $username = "root";
 $password = "";
 $dbname = "simsdb";
 
-// Create connection
 $conn = new mysqli($server, $username, $password, $dbname);
-
-// Check connection
 if ($conn->connect_error) {
     http_response_code(500);
-    echo json_encode(["success" => false, "message" => "Database connection failed: " . $conn->connect_error]);
+    echo json_encode(["success" => false, "message" => "Database connection failed"]);
     exit();
 }
 
-header('Content-Type: application/json');
-$deleted = 'no';
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $supplier_name = $_POST['supplier_name'] ?? '';
-    $contact_person = $_POST['contact_person'] ?? '';
-    $contact_number = $_POST['phone_number'] ?? '';
-    $address = $_POST['address'] ?? '';
-    $supplier_type = $_POST['supplier_type'] ?? '';
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    $supplier_name = trim($_POST['supplier_name'] ?? '');
+    $contact_person = trim($_POST['contact_person'] ?? '');
+    $contact_number = trim($_POST['phone_number'] ?? '');
+    $address = trim($_POST['address'] ?? '');
+    $supplier_type = trim($_POST['supplier_type'] ?? '');
     $product_category_id = $_POST['product_category_id'] ?? '';
-    $payment_terms = $_POST['payment_terms'] ?? '';
-    $note = $_POST['note'] ?? '';
+    $payment_terms = trim($_POST['payment_terms'] ?? '');
+    $note = trim($_POST['note'] ?? '');
+    $deleted = 'no';
 
-    if (empty($supplier_name) || empty($contact_person) || empty($contact_number) || empty($address) || empty($supplier_type) || empty($product_category_id) || empty($payment_terms)) {
+    if (!$supplier_name || !$contact_person || !$address || !$supplier_type || !$product_category_id || !$payment_terms) {
         http_response_code(400);
-        echo json_encode(["success" => false, "message" => "All fields are required."]);
+        echo json_encode(["success" => false, "message" => "⚠️ Required fields are missing."]);
         exit();
     }
 
-    $stmt = $conn->prepare("INSERT INTO supplier (supplier_name, contact_person, contact_number, address, supplier_type, product_category_id, payment_terms, note, deleted) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    $stmt = $conn->prepare("INSERT INTO supplier 
+        (supplier_name, contact_person, contact_number, address, supplier_type, product_category_id, payment_terms, note, deleted) 
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+
     if (!$stmt) {
         http_response_code(500);
-        echo json_encode(["success" => false, "message" => "Failed to prepare SQL statement: " . $conn->error]);
+        echo json_encode(["success" => false, "message" => "SQL error: " . $conn->error]);
         exit();
     }
 
-    // ✅ Correct number of parameters
-    $stmt->bind_param("sssssssss", $supplier_name, $contact_person, $contact_number, $address, $supplier_type, $product_category_id, $payment_terms, $note, $deleted);
+    $stmt->bind_param("sssssssss", 
+        $supplier_name, $contact_person, $contact_number, 
+        $address, $supplier_type, $product_category_id, 
+        $payment_terms, $note, $deleted
+    );
 
     if ($stmt->execute()) {
         echo json_encode(["success" => true, "message" => "Supplier added successfully."]);
     } else {
         http_response_code(500);
-        echo json_encode(["success" => false, "message" => "Failed to execute query: " . $stmt->error]);
+        echo json_encode(["success" => false, "message" => "Failed to insert: " . $stmt->error]);
     }
 
     $stmt->close();
-    $conn->close();
 } else {
     http_response_code(405);
     echo json_encode(["success" => false, "message" => "Invalid request method."]);
 }
-?>
+
+$conn->close();

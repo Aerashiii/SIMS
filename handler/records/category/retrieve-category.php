@@ -41,3 +41,4 @@ echo json_encode(['success' => true, 'data' => $category_data]);
 
 $stmt->close();
 $conn->close();
+?>

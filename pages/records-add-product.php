@@ -33,21 +33,21 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'cashier') {
                 <div class="form-group-container">
                     <label>Brand:</label>
                     <select id="add-product-brand" name="product_brand" required>
-                    <option value="">- Select Brand -</option>
+                    <option value="N/A">- Select Brand -</option>
                     </select>
                 </div>
 
                 <div class="form-group-container">
                     <label>Category:</label>
                     <select id="add-product-category" name="product_category" required>
-                    <option value="">- Select Category -</option>
+                    <option value="N/A">- Select Category -</option>
                     </select>
                 </div>
 
                 <div class="form-group-container">
                     <label>Subcategory:</label>
                     <select id="add-product-subcategory" name="product_subcategory" required>
-                    <option value="">- Select Subcategory -</option>
+                    <option value="N/A">- Select Subcategory -</option>
                     </select>
                 </div>
 
@@ -84,7 +84,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'cashier') {
                     <div class="add-product-suplier-container">
                         <input type="text" id="add-product-input-supplier" >
                         <select id="add-product-select-supplier" name="supplier_id" >
-                        <option value="">- Select Supplier -</option>
+                        <option value="N/A">- Select Supplier -</option>
                         </select>
                         <button id="add-product-select-supplier-button" type="button">Select Supplier</button>
                     </div>           

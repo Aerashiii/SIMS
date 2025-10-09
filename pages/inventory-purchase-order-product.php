@@ -64,7 +64,6 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'cashier') {
                     <th>Transaction ID</th>
                     <th>Processed by</th>
                     <th>Total Product</th>
-                    <th>Cost</th>
                     <th>Status</th>
                     <th>Action</th>                 
                 </tr>

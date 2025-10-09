@@ -74,11 +74,16 @@
       echo '<script src="../scripts/records/products.js"></script>';
       break;
     case 'records-supplier':
+        echo '<title>Records</title>';
+      echo '<link rel="stylesheet" href="../styles/records.css">';
+      echo '<script src="../scripts/records/records.js"></script>';
+      echo '<script src="../scripts/records/supplier.js"></script>';     
+      break;
     case 'records-add-supplier':
       echo '<title>Records</title>';
       echo '<link rel="stylesheet" href="../styles/records.css">';
       echo '<script src="../scripts/records/records.js"></script>';
-      echo '<script src="../scripts/records/supplier.js"></script>';     
+      echo '<script src="../scripts/records/add-supplier.js"></script>';     
       break;
 
     //case 'inventory':
@@ -117,7 +122,7 @@
       break;
     case 'inventory-purchase-order-products':   
       echo '<title>Inventory</title>';  
-      echo '<script type="module" src="../scripts/inventory/purchase-order.js"></script>';
+      //echo '<script type="module" src="../scripts/inventory/purchase-order.js"></script>';
       echo '<link rel="stylesheet" href="../styles/inventory.css">'; 
       echo '<script type="module" src="../scripts/inventory/edit-and-delete-product.js"></script>';
       echo '<script type="module" src="../scripts/inventory/inventory-add-product.js"></script>';
@@ -125,7 +130,7 @@
     case 'inventory-add-order': 
       echo '<title>Inventory</title>';  
       echo '<link rel="stylesheet" href="../styles/inventory.css">'; 
-      
+      echo '<script type="module" src="../scripts/inventory/add-order.js"></script>';   
       break;
 
     case 'pos':
