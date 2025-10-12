@@ -88,7 +88,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'cashier') {
                     <table id="stockin-product-selection-table">
                         <thead>
                             <tr>
-                                <th>Product Name</th>
+                                <th>Description</th>
                                 <th>Brand</th>
                                 <th>Barcode</th>
                                 <th>Quantity</th>

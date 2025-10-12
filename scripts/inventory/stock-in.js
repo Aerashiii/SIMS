@@ -136,7 +136,7 @@ function renderStockinTable() {
         const Row = document.createElement('tr');
         Row.innerHTML = `
             <td style="display: none;"><input type="hidden" name="product_id[]" value="${item.productId}">${item.productId}</td>
-            <td>${item.name}</td>
+            <td>${item.description}</td>
              <td>${item.barcode}</td>
             <td>${item.brand}</td>     
             <td><input type="number" name="quantity[]" min="1" required></td>
