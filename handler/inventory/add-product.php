@@ -44,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     $stmt->bind_param(
-        "ssiiiddiiisss",
+        "ssiiiddiisiss",
         $product_name,
         $barcode,
         $brand_id,

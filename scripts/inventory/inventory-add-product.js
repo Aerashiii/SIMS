@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const addProductForm = document.getElementById("add-product-form");
   const addProductSelectSupplier = document.getElementById("add-product-select-supplier");
   const addProductSelectBrand = document.getElementById("add-product-brand");
-  const addProductSelectCategory = document.getElementById("add-order-product-category");
+  const addProductSelectCategory = document.getElementById("add-product-category");
   const addProductSelectSubcategory = document.getElementById("add-product-subcategory");
   const addProductBarcodeInput = document.getElementById("add-product-barcode");
   const generateBarcodeBtn = document.getElementById("inventory-add-product-generate-barcode-button");
@@ -15,20 +15,31 @@ document.addEventListener("DOMContentLoaded", function () {
   fetchOptions("../handler/records/supplier/retrieve-supplier.php", addProductSelectSupplier, "supplier_id", "supplier_name");
  // fetchCategoryData();
   
-  function fetchOptions(url, selectElement, valueKey, textKey) {
+   function fetchOptions(url, selectElement, valueKey, textKey) {
     fetch(url)
       .then(response => response.json())
       .then(data => {
-        if (!Array.isArray(data)) return;
-        data.forEach(item => {
+        // Handle wrapped response
+        const items = Array.isArray(data) ? data : data.data;
+
+        if (!Array.isArray(items)) {
+          console.warn(`⚠️ No valid array data found in ${url}`, data);
+          return;
+        }
+
+        // Clear old options except first placeholder
+        selectElement.innerHTML = '<option value="">Select</option>';
+
+        items.forEach(item => {
           const option = document.createElement("option");
           option.value = item[valueKey];
           option.textContent = item[textKey];
           selectElement.appendChild(option);
         });
       })
-      .catch(error => console.error(`Error fetching ${url}:`, error));
+      .catch(error => console.error(`❌ Error fetching ${url}:`, error));
   }
+
 
 
 

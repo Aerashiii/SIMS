@@ -22,9 +22,16 @@ require '../includes/header.php';
 ?>
 
 <main class="main-content-container">
-    <div class="purchase-add-order-header-container">
+    <div class="purchase-add-order-header-container">   
+        <a href="inventory-purchase-order-product.php"><span class="arrow">&#8592; Back</span></a>
+    </div>
+     <div class="purchase-order-actions-container">
         <h1>Purchase Product </h1>
-        <a href="inventory-purchase-order-product.php">Back</a>
+        <div class="purchase-order-buttons-container">
+            <button id="add-purchase-product-button"><img src="../assets/images/icons/add-cart.png" alt="" id="add-to-cart-icon"></i></button>
+            <button id="save-purchase-order-button">Save</button>
+        </div>
+        
     </div>
     <div class="purchase order-products-container">
        
@@ -39,11 +46,9 @@ require '../includes/header.php';
                 </tr>
             </table>
         </div>
-        <div class="purchase-order-actions-container">
-            <button id="add-purchase-product-button">Add Product</button>
-            <button id="save-purchase-order-button">Save</button>
-        </div>
+       
     </div>
+    <div id="toast" aria-live="polite"></div>
 
 </main>
 
@@ -57,19 +62,19 @@ require '../includes/header.php';
             <div class="order-form-group-container">
                 <label>Brand:</label>
                 <select name="product_brand" id="add-order-product-brand" required>
-                    <option value="">- Select Brand -</option>
+                    <option value="N/A">- Select Brand -</option>
                 </select>
             </div>
             <div class="order-form-group-container">
                 <label>Category:</label>
                 <select name="product_category" id="add-order-product-category" required>
-                    <option value="">- Select category -</option>
+                    <option value="N/A">- Select category -</option>
                 </select>
             </div>
             <div class="order-form-group-container">
                 <label>Subcategory:</label>
                 <select name="product_subcategory" id="add-order-product-subcategory" required>
-                    <option value="">- Select subcategory -</option>
+                    <option value="N/A">- Select subcategory -</option>
                 </select>
             </div>
             <div class="order-form-group-container">
@@ -98,14 +103,13 @@ require '../includes/header.php';
             <div class="order-form-group-container">
                 <label>Supplier:</label>
                 <select name="supplier_id" id="add-order-product-select-supplier" required>
-                    <option value="">- Select Supplier -</option>
+                    <option value="N/A">- Select Supplier -</option>
                 </select>
             </div>
             <div class="order-form-group-container">
                 <label>Status:</label>
                 <select name="status" id="add-order-product-status" required>
-                    <option value="pending">Pending</option>
-                    <option value="completed">Completed</option>
+                    <option value="pending">Pending</option>                 
                 </select>
             </div>
             <div class="order-form-group-container">

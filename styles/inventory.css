@@ -1,4 +1,27 @@
 /***********************| ALL INVENTORY STYLES ONLY HERE |***************************/
+#toast {
+      visibility: hidden;
+      min-width: 250px;
+      margin-left: -125px;
+      background-color: #B2CF9B;
+      color: #fff;
+      text-align: center;
+      border-radius: 4px;
+      padding: 16px;
+      position: fixed;
+      z-index: 9999;
+      left: 50%;
+      top: 30px; /* ⬅️ Changed from bottom to top */
+      font-size: 17px;
+      opacity: 0;
+      transition: opacity 0.5s ease, top 0.5s ease; /* ⬅️ Animate top instead of bottom */
+}
+
+#toast.show {
+      visibility: visible;
+      opacity: 1;
+      top: 50px; /* ⬅️ Slide down when visible */
+}
 
 .inventory-main-container{
     width:100%;
@@ -15,51 +38,32 @@
     justify-content: space-between;
 }
 /* FOR ADD NEW PRODUCT BUTTON */ 
-
-#inventory-add-product-button {
-    position: relative;
-    width: 150px;
-    height: 40px;
-    cursor: pointer;
+.button__text{
     display: flex;
     align-items: center;
-    overflow: hidden;
+    gap:5px;
+}
+.add-product-cart{
+    width:25px;
+    height:25px;
+}
+#inventory-add-product-button {
+    position: relative;
+    height: 40px;
+    cursor: pointer;
+    border-radius:5px;
     border: 1px solid #34974d;
     background-color: #3aa856;
     transition: all 0.3s;
     text-decoration: none;
+    padding:5px 10px;
+    font-weight: bold;
+    color:#ffffff;
 }
-
-#inventory-add-product-button .button__text,
-#inventory-add-product-button .button__icon {
-    transition: all 0.3s;
-}
-
-/* BUTTON TEXT */
-#inventory-add-product-button .button__text {
-    flex: 1;
-    color: #fff;
-    font-weight: 600;
-    text-align: left;
-    padding-left:10px;
-}
-
-/* BUTTON ICON */
-#inventory-add-product-button .button__icon {
-    position: absolute;
-    right: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-    width: 40px;
+#inventory-add-product-button:hover{
     background-color: #34974d;
-    transform: translateX(100%); /* Start hidden to the right */
-}
-
-/* HOVER EFFECT */
-#inventory-add-product-button:hover {
-    background: #34974d;
+    transform: scale(1.1);
+    box-shadow: 1px 1px 1px 1px #99BC85;
 }
 
 
@@ -465,6 +469,10 @@
     border-bottom: 2px solid #99BC85;
     box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.1);
 }
+#purchase-order-inventory-table tr td span{
+    font-weight: bold;
+    color:#42c222;
+}
 #purchase-order-action-text{
     margin:0;
 }
@@ -502,11 +510,102 @@ background-color: #dddddd;
     background-color: #ffffff;
 }
 
+/*=====================| FOR VIEWING PURCHASE ORDER DETAILS |==========================================*/
+
+.order-details-header-container{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding:10px 0;
+    width:100%;
+  
+}
+#purchase-details-back-button{
+    padding: 5px 10px;
+    border:1px solid #99BC85;
+    background-color: #B2CF9B;
+    border-radius:5px;
+    font-weight: bold;
+    cursor: pointer;
+    text-align: center;
+    margin-right: 10px;
+    transition: all 0.3s ease;
+}
+#purchase-details-back-button:hover{
+    transform: scale(1.1);
+    box-shadow: 1px 1px 1px 1px #99BC85;
+}
+
+.purchase-order-details-main-container{
+    width:100%;
+    padding:10px 0;
+}
+.purchase-order-buttons-container{
+    display: flex;
+    gap:10px;
+    margin-left: auto;
+}
+.purchase-order-buttons-container button{
+    padding: 5px 10px;
+    border:1px solid #99BC85;
+    background-color: #B2CF9B;
+    border-radius:5px;
+    font-weight: bold;
+    cursor: pointer;
+    text-align: center;
+    margin-right: 10px;
+    transition: all 0.3s ease;
+}
+.purchase-order-buttons-container button:hover{
+    transform: scale(1.1);
+    box-shadow: 1px 1px 1px 1px #99BC85;
+}
+.purchase-order-details-container{
+    width:100%;
+    border:1px solid #99BC85;
+    border-radius: 10px;
+    padding:20px;
+    margin-top:20px;
+}
+.purchase-order-detail{
+    display: flex;
+    padding:2px 0;
+}
+.purchase-order-detail label{
+    width:120px;
+    font-weight: bold;
+    color: #636363;
+}
+.purchase-order-total-amount-container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-right:20px;
+    margin-top:20px;
+  
+}
+.purchase-order-total-amount-container label{
+    font-size: 1.2rem;
+    font-weight: bold;
+    color:#000000;
+}
+#purchase-order-total-amount{
+    font-size: 1.5rem;
+    font-weight: bold;
+    color:#42c222;
+}
+
+
+
+
+
+
+
 /**************************| FOR ADD ORDER MODAL |**********************/
 .purchase-add-order-header-container{
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-end;
 }
 .purchase-add-order-header-container h1{
     font-size: 2rem;
@@ -523,7 +622,7 @@ background-color: #dddddd;
 }
 .purchase-order-products-table-container{
     width:100%;
-    height:500px;
+    max-height:500px;
     overflow: auto;
     margin-top:10px;
     border: 1px solid #99BC85;
@@ -535,28 +634,68 @@ background-color: #dddddd;
     border-collapse:collapse;
     text-align: center;
 }
+#purchase-order-products-table tr th{
+    padding:8px;
+    position: sticky;
+    z-index:5;
+    top:0;
+    background-color:#E1F0DA;
+}
+#purchase-order-products-table tr td{
+    padding: 5px 0;
+    border-bottom:1px solid #99bc8571;
+}
 .purchase-order-actions-container{
     width: 100%;
     display: flex;
-    flex-direction: column;
     gap:10px;
-    margin-top:10px;
+    margin-top:20px;
+    align-items: center;
+    justify-content: space-between;
 }
-.purchase-order-actions-container button{
-    padding: 5px 10px;
-    border:1px solid #99BC85;
-    background-color: #B2CF9B;
+
+
+.purchase-order-buttons-container{
+    display: flex;
+    gap:10px;
+    margin-left: auto;
+}
+#add-purchase-product-button{
+    border:1px solid #cacaca;
+    background-color: #fafafa;
     border-radius:5px;
     font-weight: bold;
     cursor: pointer;
     text-align: center;
     margin-right: 10px;
-  
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding:5px;
+}
+#add-purchase-product-button:hover{
+    border-color: #99BC85;
 }
 
-
-
-
+#add-to-cart-icon:hover{
+    transform: scale(1.1);
+}
+#save-purchase-order-button{
+    border:1px solid #99BC85;
+    background-color: #ffffff;
+    border-radius:5px;
+    color:#99BC85;
+    font-weight: bold;
+    cursor: pointer;
+    text-align: center;
+    margin-right: 10px;
+    padding:1px 10px;
+    font-size: 1.1rem;
+}
+#save-purchase-order-button:hover{
+    color:#a1df7e;
+    border-color: #a1df7e;
+}
 
 .add-order-modal-container{
     width:100%;
@@ -660,9 +799,12 @@ text-align: left;
     padding:5px 10px;
     border-radius: 5px;
     right:0;
+    transition: all 0.3s;
 }
 #add-product-inventory-button:hover{
     background-color: #83b667;
+    transform: scale(1.1);
+    box-shadow: 1px 1px 1px 1px #99BC85;
 }
 #add-product-form{
     display: flex;
@@ -1045,6 +1187,31 @@ input:focus {
     justify-content: center;
     margin: auto;
    
+}
+
+/***************************| TOAST MESSAGE |***************************/
+#toast {
+      visibility: hidden;
+      min-width: 250px;
+      margin-left: -125px;
+      background-color: #B2CF9B;
+      color: #fff;
+      text-align: center;
+      border-radius: 4px;
+      padding: 16px;
+      position: fixed;
+      z-index: 9999;
+      left: 50%;
+      top: 30px; /* ⬅️ Changed from bottom to top */
+      font-size: 17px;
+      opacity: 0;
+      transition: opacity 0.5s ease, top 0.5s ease; /* ⬅️ Animate top instead of bottom */
+}
+
+#toast.show {
+      visibility: visible;
+      opacity: 1;
+      top: 50px; /* ⬅️ Slide down when visible */
 }
 
 /*====================| MEDIA QUERY FOR INVENTORY PAGE |=====================*/

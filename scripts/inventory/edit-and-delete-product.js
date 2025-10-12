@@ -4,59 +4,44 @@ document.addEventListener('DOMContentLoaded', function () {
     const editProductExitButton = document.getElementById('edit-product-exit-button');
     const editProductModalCon = document.querySelector('.edit-product-modal-container');
     const editProductSaveButton = document.getElementById('save-edit-product-button');
+
     const editProductSelectBrand = document.getElementById('edit-product-brand');
     const editProductSelectCategory = document.getElementById('edit-product-category');
     const editProductSelectSubcategory = document.getElementById('edit-product-subcategory');
     const editProductSelectSupplier = document.getElementById('edit-product-select-supplier');
 
-    fetchSelectBrandEditProduct();
-    fetchSelectCategoryEditProduct();
-    fetchSelectSubcategoryEditProduct();
-    fetchSelectSupplierEditProduct();
 
-    function fetchSelectBrandEditProduct() {
-        fetch('../handler/records/brand/retrieve-brand.php')
-            .then(res => res.ok ? res.json() : Promise.reject(res.status))
-            .then(data => populateSelect(editProductSelectBrand, data, 'brand_id', 'brand_name'))
-            .catch(err => console.error('Error fetching brand data:', err));
-    }
+    // Load dropdowns
+  fetchOptions("../handler/records/brand/retrieve-brand.php", editProductSelectBrand, "brand_id", "brand_name");
+  fetchOptions("../handler/records/category/retrieve-category.php", editProductSelectCategory, "category_id", "category_name");
+  fetchOptions("../handler/records/category/retrieve-subcategory.php", editProductSelectSubcategory, "subcategory_id", "subcategory_name");
+  fetchOptions("../handler/records/supplier/retrieve-supplier.php", editProductSelectSupplier, "supplier_id", "supplier_name");
+ // fetchCategoryData();
+  
+  function fetchOptions(url, selectElement, valueKey, textKey) {
+    fetch(url)
+      .then(response => response.json())
+      .then(data => {
+        // Handle wrapped response
+        const items = Array.isArray(data) ? data : data.data;
 
-    function fetchSelectCategoryEditProduct() {
-        fetch('../handler/records/category/retrieve-category.php')
-            .then(res => res.ok ? res.json() : Promise.reject(res.status))
-            .then(data => populateSelect(editProductSelectCategory, data, 'category_id', 'category_name'))
-            .catch(err => console.error('Error fetching category data:', err));
-    }
+        if (!Array.isArray(items)) {
+          console.warn(`⚠️ No valid array data found in ${url}`, data);
+          return;
+        }
 
-    function fetchSelectSubcategoryEditProduct() {
-        fetch('../handler/records/category/retrieve-subcategory.php')
-            .then(res => res.ok ? res.json() : Promise.reject(res.status))
-            .then(data => populateSelect(editProductSelectSubcategory, data, 'subcategory_id', 'subcategory_name'))
-            .catch(err => console.error('Error fetching subcategory data:', err));
-    }
+        // Clear old options except first placeholder
+        selectElement.innerHTML = '<option value="">Select</option>';
 
-    function fetchSelectSupplierEditProduct() {
-        fetch('../handler/records/supplier/retrieve-supplier.php')
-            .then(res => res.ok ? res.json() : Promise.reject(res.status))
-            .then(data => {
-                if (data.success) {
-                    populateSelect(editProductSelectSupplier, data.data, 'supplier_id', 'supplier_name');
-                } else {
-                    console.warn('Supplier data not found.');
-                }
-            })
-            .catch(err => console.error('Error fetching supplier data:', err));
-    }
-
-    function populateSelect(selectElement, data, valueKey, labelKey) {
-        selectElement.innerHTML = ''; // Clear before populating
-        data.forEach(item => {
-            const option = document.createElement('option');
-            option.value = item[valueKey];
-            option.textContent = item[labelKey];
-            selectElement.appendChild(option);
+        items.forEach(item => {
+          const option = document.createElement("option");
+          option.value = item[valueKey];
+          option.textContent = item[textKey];
+          selectElement.appendChild(option);
         });
-    }
+      })
+      .catch(error => console.error(`❌ Error fetching ${url}:`, error));
+  }
 
     editProductSaveButton.addEventListener('click', function (e) {
         e.preventDefault();

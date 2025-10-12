@@ -109,8 +109,7 @@ require '../includes/header.php';
                 <div class="form-group-container">
                     <label>Status:</label>
                     <select id="add-product-status" name="status">
-                        <option value="active">Active</option>
-                        <option value="inactive">Inactive</option>
+                        <option value="active">Active</option>                      
                     </select>
                 </div>
 

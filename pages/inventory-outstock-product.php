@@ -28,7 +28,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'cashier') {
         <h1>Inventory Management</h1>
 
         <a href="inventory-add-product.php"  class="button" id="inventory-add-product-button">
-            <span class="button__text">Add Product</span>
+            <span class="button__text"><img src="../assets/images/icons/ecommerce.png" alt="" class="add-product-cart">Add Product</span>
         </a>
     </div>
 

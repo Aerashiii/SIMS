@@ -27,7 +27,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'cashier') {
         <h1>Inventory Management</h1>
 
         <a href="inventory-add-product.php"  class="button" id="inventory-add-product-button">
-            <span class="button__text">Add Product</span>
+            <span class="button__text"><img src="../assets/images/icons/ecommerce.png" alt="" class="add-product-cart">Add Product</span>
         </a>
     </div>
 
@@ -122,8 +122,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'cashier') {
 
             <label for="">Status:</label>
             <select name="" id="edit-product-status" required>
-                <option value="active">active</option>
-                <option value="inactive">inactive</option>
+                <option value="active">active</option>               
             </select>
 
             <label for="">Supplier:</label>

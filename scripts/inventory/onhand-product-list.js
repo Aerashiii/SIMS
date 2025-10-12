@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function () {
     let currentSelectedCategory = '';
 
     // Initial load
-    fetchCategoryDataForSelectCategory();
+   
     fetchProductData();
 
     /** Fetch products */
@@ -74,17 +74,26 @@ document.addEventListener('DOMContentLoaded', function () {
         );
     }
 
-    /** Fetch categories for filter */
-    function fetchCategoryDataForSelectCategory() {
-        fetch('../handler/records/category/retrieve-category.php')
-            .then(response => response.json())
-            .then(data => {
-                populateSelectCategoryOnSubcategoryTable(data);
-            })
-            .catch(error => console.error('Error fetching category data:', error));
-    }
 
-    function populateSelectCategoryOnSubcategoryTable(categories) {
+
+     // ✅ Fetch categories
+    fetch('../handler/records/category/retrieve-category.php')
+    .then(res => res.json())
+    .then(data => {
+        console.log("Categories fetched:", data); // debug
+        if (data.success && Array.isArray(data.data)) {
+            populateSelectCategory(data.data); // 👈 use data.data
+        } else {
+            console.error("Error:", data.message);
+            showToast("⚠️ " + (data.message || "Failed to load categories"));
+        }
+    })
+    .catch(err => {
+        console.error('Error fetching category data:', err);
+        showToast("⚠️ Could not load categories.");
+    });
+
+    function populateSelectCategory(categories) {
         SelectCategoryOnSubcategoryTable.innerHTML = '';
         const defaultOption = document.createElement('option');
         defaultOption.text = 'All Categories';
@@ -93,11 +102,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
         categories.forEach(category => {
             const option = document.createElement('option');
-            option.text = category.category_name;
             option.value = category.category_id;
+            option.textContent = category.category_name;
             SelectCategoryOnSubcategoryTable.appendChild(option);
         });
     }
+
+
 
     /** Event: filter by category */
     SelectCategoryOnSubcategoryTable.addEventListener('change', function () {
