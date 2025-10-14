@@ -173,6 +173,11 @@
 
     case 'settings-profile-settings':
     case 'settings-user-management':
+      echo '<title>Settings</title>';
+      echo '<link rel="stylesheet" href="../styles/settings.css">';
+      echo '<script src="../scripts/settings.js"></script>';
+      echo '<script src="../scripts/settings/business-setting.js"></script>';
+      break;
     case 'settings-system-preferences':
       echo '<title>Settings</title>';
       echo '<link rel="stylesheet" href="../styles/settings.css">';

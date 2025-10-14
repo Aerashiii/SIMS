@@ -11,6 +11,30 @@ document.addEventListener('DOMContentLoaded', function () {
    let currentSearchQuery = '';
    let currentSelectedCategory = '';
    // Fetch products (all or filtered)
+
+   // =====================| TOGGLE INVENTORY CONTENT BY SUBMENU |=====================
+    const submenuItems = document.querySelectorAll('.reports-inventory-submenu-list li');
+    const inventoryContainers = document.querySelectorAll('.inventory-content-container');
+
+    // Set the first submenu as active by default
+    submenuItems[0].classList.add('active');
+    inventoryContainers[0].classList.add('active');
+
+    submenuItems.forEach((item, index) => {
+        item.addEventListener('click', () => {
+            // Remove 'active' class from all submenu items
+            submenuItems.forEach(li => li.classList.remove('active'));
+            // Add 'active' to the clicked item
+            item.classList.add('active');
+
+            // Hide all inventory content containers
+            inventoryContainers.forEach(container => container.classList.remove('active'));
+
+            // Show the corresponding container
+            inventoryContainers[index].classList.add('active');
+        });
+    });
+
    
    function fetchProductData(query = '', categoryId = '') {
        const formData = new URLSearchParams();
@@ -42,6 +66,7 @@ document.addEventListener('DOMContentLoaded', function () {
            products.forEach(product => {
                const row = document.createElement('tr');
                row.innerHTML = `
+                    <td>${product.description}</td>
                    <td>${product.barcode}</td>
                    <td>${product.product_name}</td>
                    <td>${product.category_name}</td>

@@ -40,6 +40,7 @@ function fetchProductData(query = '', categoryId = '') {
         products.forEach(product => {
             const row = document.createElement('tr');
             row.innerHTML = `
+                    <td>${product.description}</td>
                     <td>${product.barcode}</td>
                    <td>${product.product_name}</td>
                    <td>${product.category_name}</td>

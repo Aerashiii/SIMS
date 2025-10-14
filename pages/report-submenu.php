@@ -2,6 +2,18 @@
 
 
 <style>
+    .reports-header-container{
+        display:flex;
+        justify-content: flex-start;
+        align-items: center;
+        gap:5px;
+        font-size: 30px;
+        cursor:pointer;
+        font-weight:bold;
+    }
+    .reports-header-container:hover{
+        color:#B2CF9B;
+    }
     .reports-main-content-container {
         padding: 0px 10px 0px 20px;
         margin-left: 13%;
@@ -9,13 +21,38 @@
     }
 
     .reports-top-submenu-container {
-        width: 100%;
+       height: 85vh;
+        width: 0px;
+        border-radius: 3px;
+        background-color: #ffffff;
+        z-index: 10;
+        top: 12vh;
+        position: fixed;
+        overflow: hidden;
+        border: none;
+        padding:10px 0;
+        transition: width 0.3s ease; /* Smooth transition effect */
+       
+    }
+    .reports-top-submenu-container.active{
+        width:200px;
+        height:90vh;
+    }
+    #hide-reports-submenu-button{
+        float:right;
+        cursor: pointer;
+    }
+    #hide-reports-submenu-button:hover{
+        color:red;
     }
 
     .reports-submenu-list {
         display: flex;
-        justify-content: center;
-        align-items: center;
+        justify-content: flex-start;
+        flex-direction: column; 
+        height:100%;
+        margin-top:20px;
+        padding:5px 
     }
 
     .reports-submenu-list li {
@@ -53,6 +90,10 @@
 document.addEventListener('DOMContentLoaded', function () {
     const currentPath = window.location.pathname.split('/').pop(); // get only the file name like 'report-sales.php'
     const reportsTopbarLinks = document.querySelectorAll('.reports-top-bar');
+    const reportsHeaderContainer = document.getElementById('reports-header-container');
+    const reportsSubmenuContainer = document.querySelector('.reports-top-submenu-container');
+    const hideReportsSubmenuButton = document.getElementById('hide-reports-submenu-button');
+    
 
     reportsTopbarLinks.forEach(link => {
         const linkPath = link.getAttribute('href').split('/').pop(); // get href's filename
@@ -63,11 +104,20 @@ document.addEventListener('DOMContentLoaded', function () {
             link.classList.remove('active');
         }
     });
+
+    reportsHeaderContainer.addEventListener('click', function () {
+        reportsSubmenuContainer.classList.toggle('active');
+    });
+    hideReportsSubmenuButton.addEventListener('click', function () {
+        reportsSubmenuContainer.classList.remove('active');
+    });
 });
 </script>
 <?php include '../includes/sidebar.php'; ?>
 <main class="main-content-container">
+    <div class="reports-header-container" id="reports-header-container"><span class="material-symbols-rounded">menu</span>Reports Management</div>
     <div class="reports-top-submenu-container">  
+        <span class="material-symbols-rounded" id="hide-reports-submenu-button">cancel</span>
         <ul class="reports-submenu-list">
             <li><a href="report-inventory.php" class="reports-top-bar"><span class="material-symbols-rounded">inventory_2</span>Inventory</a></li>
             <li><a href="report-sales.php" class="reports-top-bar"><span class="material-symbols-rounded">request_quote</span>Sales</a></li>

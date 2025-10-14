@@ -155,7 +155,6 @@
 .receipt-preview-container{
     border:1px solid #99BC85;
     width:35%;
-  
     background-color: #ffffff;
     padding:0px 20px 20px 20px;
 }
@@ -164,7 +163,7 @@
     border:1px solid #99BC85;
     background-color:#E1F0DA;
     padding:20px;
-    padding-top: 10px !important;
+    padding-top: 30px !important;
 }
 .pos-receipt-datetime-container{
     font-size: 0.7rem;
@@ -172,8 +171,36 @@
 #h4-store-name{
     text-align: center;
     font-size: 1.5rem;
-    padding:10px 0;
+   
 }
+.store-address-and-contact-container{
+    text-align: center;
+    font-size: 0.8rem;
+    display: flex;
+    width:100%;
+    flex-direction: column;
+    padding: 0 50px;
+}
+.preview-receipt-partition{
+    width:100%;
+    overflow: hidden;
+}
+/*==============| FOR PREVIEW RECEIPT ITEMS TABLE |=====================*/
+.pos-receipt-item-table-container{
+    width:100%;
+    height:auto;
+    overflow: auto;
+   
+    margin-top:10px;
+}
+#pos-receipt-item-table{
+    border:none;
+    width:100%;
+    border-collapse:collapse;
+    text-align: center;
+}
+
+
 .transaction-details-container{
     display:flex;
     flex-direction: column;
@@ -261,7 +288,24 @@
     height:1.5rem;
     padding:5px;
 }
+.preview-receipt-totals-container{
+    margin-top:20px;
+    display: flex;
+    flex-direction: column;
+    gap:10px;
+}
+.preview-receipt-totals-container div{
+    display: flex;
+    align-items: center;
+    justify-content:space-between;
+    width:100%;
+}
 
+.preview-receipt-footer-container{
+    margin-top:20px;
+    text-align: center;
+    font-size: 0.8rem;
+}
 
 /***************| PRODUCT SELECTION STYLES |***************/
 .pos-product-selection-modal-container{

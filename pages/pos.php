@@ -80,39 +80,56 @@ if (!isset($_SESSION['user'])) {
                 <h4>Receipt Preview:</h4>
                 <div class="receipt-preview-content-container">
 
-                    <div class="pos-receipt-datetime-container">
-                        <p><?php echo date(' M j, Y |  h:i A'); ?></p>
-                    </div>
+
                     <h4 id="h4-store-name">General's Space Rent</h4>
+                    <div class="store-address-and-contact-container">
+                        <p id="store-complete-address">PUROK 20, BLOCK 8, FATIMA GENERAL SANTOS CITY</p>                 
+                        <p id="store-contact-number">Contact No. <span id="store-contact-number">09757579376</span></p>
+
+                        
+                    </div>
+                    <div class="preview-receipt-partition">=======================================</div>
                     <div>
-                        <label for="">transact By:</label>
+                        <label for="">Cashier:</label>
                         <span><?php echo $_SESSION['user']; ?></span>
                     </div>
-                    <div class="transaction-details-container">
-                        <div class="pos-product-sales-receipt-container">
-                            <div class="pos-product-total-sales-container">
-                                <label for="">Total Items:</label>
-                                <span id="pos-receipt-total-items"></span>                             
-                            </div>                          
-                            <table id="pos-product-sales-receipt-table"><tbody></tbody></table>
+                    <div>
+                        <label for="">Date:</label>
+                        <span><?php echo date(' M j, Y |  h:i A'); ?></span>
+                    </div>
+                    <div class="preview-receipt-partition">=======================================</div>           
+                    <div class="pos-receipt-item-table-container">
+                        <table id="pos-receipt-item-table">
+                            <thead>
+                                <tr>
+                                    <th>Qty.</th>
+                                    <th>Description</th>
+                                    <th>Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                    <div class="preview-receipt-partition">=======================================</div>
+                    <div class="preview-receipt-totals-container">
+                        <div >
+                            <label for="">Total QTY:</label>
+                            <span id="pos-receipt-total-qty"> 5</span>
+                        </div>
+                        <div >
+                            <label for="">Amount Due:</label>
+                            <span id="pos-receipt-amount-due">5656</span>
                         </div>
                         <div>
-                            <label for="" class="pos-receipt-total-label">Total:</label>
-                            <span id="pos-receipt-total-sales-amount"></span>
-                        </div>
-                        <div>
-                            <label for="">Payment Method:</label>
-                            <span>Cash</span>
-                        </div>
-                        <div>
-                            <label for="">Amount Recieved:</label>
-                            <span id="pos-receipt-amount-received"></span>
+                            <label for="">Cash:</label>
+                            <span id="pos-receipt-cash-amount">5656</span>
                         </div>
                         <div>
                             <label for="">Change:</label>
-                            <span id="pos-receipt-change-amount"></span>
+                            <span id="pos-receipt-change-amount">5656</span>
                         </div>
                     </div>
+                    <div class="preview-receipt-partition">=======================================</div>                      
                     <div class="customer-information-container">
                         <h5>Custormer Informaion: (optional)</h5>
                         <div class="name-container">
@@ -123,8 +140,14 @@ if (!isset($_SESSION['user'])) {
                             <label for="">Contact Number:</label>
                             <input type="text" id="pos-customer-contact-number-input" required>
                         </div>                    
-                    </div>                  
-                                    
+                    </div>  
+                    <div class="preview-receipt-partition">=======================================</div>                      
+                    <div class="preview-receipt-footer-container">
+                        <p>THIS SERVE AS OFFICIAL RECEIPT</p>
+                        <P>BRING THIS OF RECEIPT INCASE OF EXCHANGE OF MERCHANDISE WITHIN 7 DAYS</P>
+                        <P>THANK YOU AND COME AGAIN!</P>
+                        <h3>THIS DOCUMENT IS NOT VALID FOR CLAIM OF INPUT TAX.</h3>
+                    </div>
                 </div>                
             </div>
         </div>

@@ -31,10 +31,17 @@ include 'report-submenu.php';
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.1/xlsx.full.min.js"></script>
 <main class="reports-main-content-container"><!-- | THE STYLES FOR THIS CONTAINER ARE DEFINED IN GLOBAL.CSS TO STANDARDIZE THE STYLE OF THE MAIN CONTAINER ACROSS ALL PAGES |-->
  
-
+<div class="reports-inventory-submenu-container">
+    <ul class="reports-inventory-submenu-list">
+        <li>On Hand</li>
+        <li>Low Stock</li>
+        <li>Out of Stock</li>
+    </ul>
+    
+</div>
   <!-------------------| ON HAND INVENTORY LIST -------------------->
     <!--| #3 |-->  
-    <div class="inventory-content-container" id="onhand-inventory-content-container" >
+    <div class="inventory-content-container active" id="onhand-inventory-content-container" >
         <div class="reports-onhand-header-container">
             <h2>On Hand Inventory List</h2>
             <select name="" class="inventory-select-category" id="report-onhand-select-product-by-category"> </select>
@@ -52,6 +59,7 @@ include 'report-submenu.php';
             <table id="reports-onhand-inventory-table" class="reports-inventory-table">
                 <thead>
                     <tr>
+                        <th>Description</th>
                         <th>Barcode</th>
                         <th>Product Name</th>
                         <th>Category</th>                
@@ -86,6 +94,7 @@ include 'report-submenu.php';
             <table id="report-low-stock-inventory-table" class="reports-inventory-table">
                 <thead>
                     <tr>
+                        <th>Description</th>
                         <th>Barcode</th>
                         <th>Product Name</th>
                         <th>Category</th>                
@@ -122,6 +131,7 @@ include 'report-submenu.php';
             <table id="report-out-stock-inventory-table" class="reports-inventory-table">
                 <thead>
                     <tr>
+                        <th>Description</th>
                         <th>Barcode</th>
                         <th>Product Name</th>
                         <th>Category</th>                
