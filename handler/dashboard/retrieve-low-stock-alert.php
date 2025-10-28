@@ -1,4 +1,5 @@
 <?php
+// retrieve-low-stock-alert.php
 $server = "localhost";
 $username = "root";
 $password = "";
