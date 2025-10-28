@@ -91,7 +91,8 @@ if (!isset($_SESSION['user'])) {
                     <div class="preview-receipt-partition">=======================================</div>
                     <div>
                         <label for="">Cashier:</label>
-                        <span><?php echo $_SESSION['user']; ?></span>
+                        <span id="pos-receipt-cashier"><?php echo $_SESSION['user']; ?></span>
+                        <input type="hidden" id="pos-receipt-cashier-id" value="<?php echo $_SESSION['id']; ?>">
                     </div>
                     <div>
                         <label for="">Date:</label>
@@ -114,19 +115,19 @@ if (!isset($_SESSION['user'])) {
                     <div class="preview-receipt-totals-container">
                         <div >
                             <label for="">Total QTY:</label>
-                            <span id="pos-receipt-total-qty"> 5</span>
+                            <span id="pos-receipt-total-qty"> </span>
                         </div>
                         <div >
                             <label for="">Amount Due:</label>
-                            <span id="pos-receipt-amount-due">5656</span>
+                            <span id="pos-receipt-amount-due"></span>
                         </div>
                         <div>
                             <label for="">Cash:</label>
-                            <span id="pos-receipt-cash-amount">5656</span>
+                            <span id="pos-receipt-cash-amount"></span>
                         </div>
                         <div>
                             <label for="">Change:</label>
-                            <span id="pos-receipt-change-amount">5656</span>
+                            <span id="pos-receipt-change-amount"></span>
                         </div>
                     </div>
                     <div class="preview-receipt-partition">=======================================</div>                      
@@ -242,6 +243,10 @@ if (!isset($_SESSION['user'])) {
                 
             </div>
         </div>
+
+
+        <!-- Toast container -->
+      <div id="toast" aria-live="polite"></div>
 
 
 

@@ -1,6 +1,6 @@
 <?php
 //update-products-quantity.php
-// This script updates the product quantities in the database based on the products sold in a transaction.
+
 $server = "localhost";
 $username = "root";
 $password = "";
