@@ -3,8 +3,8 @@ export function printReceipt(addedProducts, cashReceived, paymentMethod, userNam
     
 
     const branchName = "General's Space Rent";
-    const branchAddress = "PUROK 20, BLOCK 8, FATIMA GENERAL SANTOS CITY";
-    const branchContact = "09757579376";
+    const branchAddress = "PUROK 00, BLOCK 00,  GENERAL SANTOS CITY";
+    const branchContact = "0999999999";
 
     const date = new Date().toLocaleString('en-US', {
         month: 'short',
