@@ -263,42 +263,60 @@ posSalesProcessConfirmButton.addEventListener('click', () => {
     }
 
     /* ========== 🧩 POPULATE PRODUCT TABLE ========== */
-    function populateProductTable(products) {
-        productSelectionTable.innerHTML = '';
-        products.forEach(p => {
-            const tr = document.createElement('tr');
-            tr.innerHTML = `
-                <td>${p.description}</td>
-                <td>${parseFloat(p.selling_price).toFixed(2)}</td>
-                <td>
-                    <button class="add-to-cart-button"
-                        data-name="${p.description}"
-                        data-price="${p.selling_price}">
-                        🛒 Add
-                    </button>
-                </td>`;
-            productSelectionTable.appendChild(tr);
-        });
+    /* ========== 🧩 POPULATE PRODUCT TABLE (UPDATED) ========== */
+function populateProductTable(products) {
+    productSelectionTable.innerHTML = '';
+    products.forEach(p => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+            <td>${p.description}</td>
+            <td>${parseFloat(p.selling_price).toFixed(2)}</td>
+            <td>${p.quantity > 0 ? p.quantity : '<span style="color:red;">Out of Stock</span>'}</td>
+            <td>
+                <button class="add-to-cart-button"
+                    data-name="${p.description}"
+                    data-price="${p.selling_price}"
+                    data-quantity="${p.quantity}">
+                    🛒 Add
+                </button>
+            </td>`;
+        productSelectionTable.appendChild(tr);
+    });
 
-        document.querySelectorAll('.add-to-cart-button').forEach(btn => {
-            btn.addEventListener('click', () => {
-                const name = btn.dataset.name;
-                const price = parseFloat(btn.dataset.price);
-                const existing = cart.find(item => item.name === name);
+    document.querySelectorAll('.add-to-cart-button').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const name = btn.dataset.name;
+            const price = parseFloat(btn.dataset.price);
+            const stockQty = parseInt(btn.dataset.quantity);
 
-                if (existing) {
-                    existing.quantity++;
-                    existing.total = existing.quantity * existing.price;
-                    showToast(`Added another ${name} (x${existing.quantity})`);
-                } else {
-                    cart.push({ name, price, quantity: 1, total: price });
-                    showToast(`${name} added to cart!`);
+            // 🚫 Prevent adding if stock is zero
+            if (stockQty <= 0) {
+                showToast(`⚠️ ${name} is out of stock!`);
+                return;
+            }
+
+            const existing = cart.find(item => item.name === name);
+
+            if (existing) {
+                // 🚫 Prevent exceeding stock
+                if (existing.quantity >= stockQty) {
+                    showToast(`⚠️ Not enough stock for ${name}. Available: ${stockQty}`);
+                    return;
                 }
 
-                renderCart();
-            });
+                existing.quantity++;
+                existing.total = existing.quantity * existing.price;
+                showToast(`Added another ${name} (x${existing.quantity})`);
+            } else {
+                cart.push({ name, price, quantity: 1, total: price, stock: stockQty });
+                showToast(`${name} added to cart!`);
+            }
+
+            renderCart();
         });
-    }
+    });
+}
+
 
     /* ========== 🔍 PRODUCT SEARCH ========== */
     const searchInput = document.getElementById('pos-product-selection-search-input');

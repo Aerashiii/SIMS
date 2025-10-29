@@ -102,34 +102,35 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'cashier') {
             <div>
                 <div class="edit-original-price-container" >
                     <label for="">Original Price:</label>
-                    <input type="text" name="edit-product-original-price" id="edit-product-original-price"  required>
+                    <input type="text" name="edit-product-original-price" id="edit-product-original-price"  >
                 </div>
                 <div class="edit-selling-price-container" >
                     <label for="">Selling Price:</label>
-                    <input type="text" name="edit-product-selling-price" id="edit-product-selling-price"  required>
+                    <input type="text" name="edit-product-selling-price" id="edit-product-selling-price"  >
                 </div>               
             </div>
             <div>
                 <div class="edit-quantity-container">
                     <label for="">Quantity</label>
-                    <input type="text" name="edit-product-quantity" id="edit-product-quantity"  required>
+                    <input type="text" name="edit-product-quantity" id="edit-product-quantity"  >
                 </div>
                 <div class="edit-reorder-point-container">
                     <label for="">Reorder Point:</label>
-                    <input type="text" name="edit-product-reorder-point" id="edit-product-reorder-point"  required>
+                    <input type="text" name="edit-product-reorder-point" id="edit-product-reorder-point"  >
                 </div>               
             </div>
 
             <label for="">Status:</label>
-            <select name="" id="edit-product-status" required>
+            <select name="" id="edit-product-status" >
                 <option value="active">active</option>               
             </select>
 
             <label for="">Supplier:</label>
-            <select name="edit-product-select-supplier" id="edit-product-select-supplier"  required></select>
+            <select name="edit-product-select-supplier" id="edit-product-select-supplier"  ></select>
 
-           
-                  
+            <label for="">Description:</label>
+            <textarea name="edit-product-description" id="edit-product-description" rows="4" ></textarea>
+
             <button id="save-edit-product-button">Save</button>
         </div>
         </form>

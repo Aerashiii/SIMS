@@ -131,6 +131,9 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'cashier') {
             <label for="">Supplier:</label>
             <select name="edit-product-select-supplier" id="edit-product-select-supplier"  required></select>
 
+            <label for="">Description:</label>
+            <textarea name="edit-product-description" id="edit-product-description" rows="4" ></textarea>
+
            
                   
             <button id="save-edit-product-button">Save</button>

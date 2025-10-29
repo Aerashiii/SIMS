@@ -64,8 +64,9 @@ document.addEventListener('DOMContentLoaded', function () {
             quantity: document.getElementById('edit-product-quantity').value.trim(),
             reorder_point: document.getElementById('edit-product-reorder-point').value.trim(),
             status: document.getElementById('edit-product-status').value.trim(),
-            supplier_id: editProductSelectSupplier.value
-        };
+            supplier_id: editProductSelectSupplier.value,
+            description: document.getElementById('edit-product-description').value.trim()
+    };
 
         fetch('../handler/inventory/edit-product-handler.php', {
             method: 'POST',
