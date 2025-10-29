@@ -3,88 +3,124 @@ document.addEventListener("DOMContentLoaded", () => {
     const boxOne = document.querySelector('.metrics-box-container-one');
     const boxTwo = document.querySelector('.metrics-box-container-two');
 
-    // ✅ Toggle metrics box visibility
+    // Toggle metrics boxes
     switchIcon?.addEventListener('click', () => {
         boxOne?.classList.toggle('active');
         boxTwo?.classList.toggle('active');
     });
 
-    // ✅ Reusable fetch helper
+    // Generic fetch helper
     async function fetchData(url, callback) {
         try {
-            const response = await fetch(url);
-            const result = await response.json();
-            if (result.success && result.data) {
-                callback(result.data);
+            const res = await fetch(url);
+            const json = await res.json();
+            if (json.success && json.data) {
+                callback(json.data);
             } else {
-                console.error(`❌ Error fetching ${url}:`, result.message);
+                console.error('Error fetching:', json.message || json);
             }
         } catch (err) {
-            console.error(`⚠️ Fetch failed (${url}):`, err);
+            console.error('Fetch failed:', url, err);
         }
     }
 
-    // ✅ METRICS DATA
-    fetchData('../handler/dashboard/retrieve-metrics-details.php', (d) => {
-        const setText = (id, value) => {
-            const el = document.getElementById(id);
-            if (el) el.textContent = value;
-        };
-
-        setText('total-sales', `₱${d.total_sales}`);
-        setText('total-value', `₱${d.total_value}`);
-        setText('total-products', d.total_products);
-        setText('total-rental-boxes', d.total_rental_boxes);
-        setText('total-expenses', `₱${d.total_expenses}`);
-        setText('total-pending-orders', d.total_pending_orders);
-        setText('low-stock-items', d.low_stock_items);
-        setText('occupied-rental-boxes', d.rented_quantity);
+    // ✅ Fetch Total Products
+    fetchData('../handler/dashboard/retrieve-total-products.php', (data) => {
+        const totalProducts = document.getElementById('total-products');
+        if (totalProducts) totalProducts.textContent = data.total_products ?? '0';
     });
 
-    // ✅ RECENT SALES TABLE
+    // ✅ Fetch Total Low Stock Products
+    fetchData('../handler/dashboard/retrieve-low-stock-products.php', (data) => {
+        const lowStockEl = document.getElementById('low-stock-items');
+        if (lowStockEl) lowStockEl.textContent = data.low_stock_count ?? '0';
+    });
+
+
+    // ✅ Fetch Total Sales
+    fetchData('../handler/dashboard/retrieve-total-sales.php', (data) => {
+        const salesEl = document.getElementById('total-sales');
+        if (salesEl) {
+            // Format as peso currency
+            salesEl.textContent = `₱${Number(data.total_sales).toLocaleString()}`;
+        }
+    });
+
+    // ✅ Fetch Total Inventory Value
+    fetchData('../handler/dashboard/retrieve-total-value.php', (data) => {
+        const valueEl = document.getElementById('total-value');
+        if (valueEl) {
+            valueEl.textContent = `₱${Number(data.total_value).toLocaleString()}`;
+        }
+    });
+    // ✅ Fetch Total Expenses
+   fetchData('../handler/dashboard/retrieve-total-expenses.php', (data) => {
+        const expenseEl = document.getElementById('total-expenses');
+        if (expenseEl) {
+            expenseEl.textContent = `₱${Number(data.total_expenses).toLocaleString()}`;
+        }
+    });
+
+    // ✅ Fetch Total Pending Orders
+    fetchData('../handler/dashboard/retrieve-pending-orders.php', (data) => {
+        const pendingEl = document.getElementById('total-pending-orders');
+        if (pendingEl) {
+            pendingEl.textContent = data.total_pending_orders ?? '0';
+        }
+    });
+
+    // ✅ Fetch and display Low Stock Products
+    fetchData('../handler/dashboard/retrieve-low-stock-alert.php', (data) => {
+        const tbody = document.querySelector('#low-stock-alert-table tbody');
+        if (!tbody) return;
+
+        tbody.innerHTML = ''; // Clear existing rows
+
+        if (data.length === 0) {
+            tbody.innerHTML = `
+                <tr><td colspan="3" style="text-align:center;">No low-stock items</td></tr>
+            `;
+            return;
+        }
+
+        data.forEach(item => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td>${item.product_name}</td>
+                <td>${item.quantity}</td>
+                <td>${item.alert_status}</td>
+            `;
+            tbody.appendChild(tr);
+        });
+    });
+
+    // ✅ Fetch Recent Sales
     fetchData('../handler/dashboard/retrieve-recent-sales.php', (sales) => {
         const tbody = document.querySelector('#recent-sales-table tbody');
         if (!tbody) return;
-        tbody.innerHTML = sales.length
-            ? sales.map(item => `
-                <tr>
-                    <td>${item.date}</td>
-                    <td>${item.customer_name}</td>
-                    <td>${item.total_items}</td>
-                    <td>₱${item.total_payment}</td>
-                </tr>
-              `).join('')
-            : `<tr><td colspan="4">No recent sales found</td></tr>`;
+
+        tbody.innerHTML = '';
+
+        if (sales.length === 0) {
+            tbody.innerHTML = `<tr><td colspan="4" style="text-align:center;">No recent sales found</td></tr>`;
+            return;
+        }
+
+        sales.forEach(item => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td>${item.date}</td>
+                <td>${item.customer_name}</td>
+                <td>${item.total_items}</td>
+                <td>₱${Number(item.total_payment).toLocaleString()}</td>
+            `;
+            tbody.appendChild(tr);
+        });
     });
 
-    // ✅ LOW STOCK ALERT TABLE
-    fetchData('../handler/dashboard/retrieve-low-stock-alert.php', (stocks) => {
-        const tbody = document.querySelector('#low-stock-alert-table tbody');
-        if (!tbody) return;
-        tbody.innerHTML = stocks.length
-            ? stocks.map(item => `
-                <tr>
-                    <td>${item.product_name}</td>
-                    <td>${item.current_stock}</td>
-                    <td>${item.reorder_point}</td>
-                </tr>
-              `).join('')
-            : `<tr><td colspan="3">No low-stock items</td></tr>`;
-    });
 
-    // ✅ RENTAL BOX SUMMARY TABLE
-    fetchData('../handler/dashboard/retrieve-rental-box-summary.php', (boxes) => {
-        const tbody = document.querySelector('#rental-box-summary-table tbody');
-        if (!tbody) return;
-        tbody.innerHTML = boxes.length
-            ? boxes.map(item => `
-                <tr>
-                    <td>${item.box_number}</td>
-                    <td>${item.renter_name}</td>
-                    <td>${item.status}</td>
-                    <td>${item.date}</td>
-                </tr>
-              `).join('')
-            : `<tr><td colspan="4">No rental box activity</td></tr>`;
-    });
+
+
+
+
 });

@@ -15,57 +15,55 @@ if (!isset($_SESSION['user'])) {
    
 ?>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-<main class="main-content-container"><!-- | THE STYLES FOR THIS CONTAINER ARE DEFINED IN GLOBAL.CSS TO STANDARDIZE THE STYLE OF THE MAIN CONTAINER ACROSS ALL PAGES |-->
-    <!-- | your code here |-->
+<main class="main-content-container">
     <h1>Dashboard</h1>
     <h2>Top Metrics</h2>
 
     <div class="top-metrics-box-container">
         <span><i class="fas fa-exchange-alt" id="switch-metrics-boxes-icon"></i></span>
+        
+        <!-- First set of metrics -->
         <div class="metrics-box-container-one active">
             <div class="metrics-box">
-                <span id="total-sales"></span>
+                <span id="total-sales">₱0</span>
                 <h3>Total Sales</h3>
             </div>
-            <div  class="metrics-box">
-                    <span id="total-value"></span>
-                    <h3>Total Value</h3>
+            <div class="metrics-box">
+                <span id="total-value">₱0</span>
+                <h3>Total Value</h3>
             </div>
-            <div  class="metrics-box">
-                <span id="total-products"></span>
-                <h3>Total Product</h3>
+            <div class="metrics-box">
+                <span id="total-products">0</span>
+                <h3>Total Products</h3>
             </div>
-            <div  class="metrics-box">
-                    <span id="total-rental-boxes"></span>
-                    <h3>Total Rental Boxes</h3>
+            <div class="metrics-box">
+                <span id="total-rental-boxes">0</span>
+                <h3>Total Rental Boxes</h3>
             </div>
-
-           
         </div>
+
+        <!-- Second set of metrics -->
         <div class="metrics-box-container-two">
-            <div  class="metrics-box">
-                    <span id="total-expenses"></span>
-                    <h3>Total Expenses</h3>
+            <div class="metrics-box">
+                <span id="total-expenses">₱0</span>
+                <h3>Total Expenses</h3>
             </div>
-            <div  class="metrics-box">
-                    <span id="total-pending-orders"></span>
-                    <h3>Pending Orders</h3>
+            <div class="metrics-box">
+                <span id="total-pending-orders">0</span>
+                <h3>Pending Orders</h3>
             </div>
-            <div  class="metrics-box">
-                <span id="low-stock-items"></span>
-                <h3>Low Stock Product</h3>
+            <div class="metrics-box">
+                <span id="low-stock-items">0</span>
+                <h3>Low Stock Products</h3>
             </div>
-    
-            <div  class="metrics-box">
-                <span id="occupied-rental-boxes"></span>
-                <h3>Occupied Rental Boxes</h3>
+            <div class="metrics-box">
+                <span id="occupied-rental-boxes">0</span>
+                <h3>Occupied Boxes</h3>
             </div>
-          
-
         </div>
-        
     </div>
 
+    <!-- other dashboard tables -->
     <div class="sales-details-container">
         <div class="recent-sales-container">
             <h2>Recent Sales</h2>
@@ -115,6 +113,4 @@ if (!isset($_SESSION['user'])) {
             </div>           
         </div>
     </div>
-
-
 </main>

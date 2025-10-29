@@ -1,44 +1,58 @@
 <?php
+// retrieve-recent-sales.php
+header('Content-Type: application/json');
+
 $server = "localhost";
 $username = "root";
 $password = "";
 $dbname = "simsdb";
 
+// ✅ Connect to database
 $conn = new mysqli($server, $username, $password, $dbname);
 
-header('Content-Type: application/json');
-
+// ❌ Handle connection error
 if ($conn->connect_error) {
-    echo json_encode(['success' => false, 'message' => $conn->connect_error]);
-    exit();
+    echo json_encode([
+        'success' => false,
+        'message' => 'Database connection failed: ' . $conn->connect_error
+    ]);
+    exit;
 }
 
-// Fetch sales from the last 1 day
-$sql = "SELECT date, customer_name, total_items, total_payment 
-        FROM `sales-transaction` 
-        WHERE date >= NOW() - INTERVAL 1 DAY 
-        ORDER BY date DESC 
-        LIMIT 10";
+// ✅ Query: fetch recent sales (latest 10)
+$sql = "
+    SELECT 
+        transact_id,
+        customer_name,
+        total_items,
+        total_payment,
+        date
+    FROM sales_transaction
+    WHERE 1
+    ORDER BY date DESC, transact_id DESC
+    LIMIT 10
+";
 
 $result = $conn->query($sql);
 
-$data = [];
+$recent_sales = [];
 
 if ($result && $result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
-        $data[] = [
-            'date' => $row['date'],
+        $recent_sales[] = [
+            'transact_id' => (int)$row['transact_id'],
             'customer_name' => $row['customer_name'],
-            'total_items' => $row['total_items'],
-            'total_payment' => $row['total_payment']
+            'total_items' => (int)$row['total_items'],
+            'total_payment' => (int)$row['total_payment'],
+            'date' => $row['date']
         ];
     }
 }
 
-$conn->close();
-
 echo json_encode([
     'success' => true,
-    'data' => $data
+    'data' => $recent_sales
 ]);
+
+$conn->close();
 ?>
