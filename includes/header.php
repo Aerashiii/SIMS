@@ -150,11 +150,26 @@
       echo '<title>Rental</title>';
       echo '<link rel="stylesheet" href="../styles/rental.css">';
       echo '<script type="module" src="../scripts/rental/rental.js"></script>';
-      echo '<script type="module" src="../scripts/rental/renter-list.js"></script>';
-      echo '<script type="module" src="../scripts/rental/rental-box.js"></script>';
+      break;
+    case 'rental-add-rental':
+      echo '<title>Rental</title>';
+      echo '<link rel="stylesheet" href="../styles/rental.css">';
       echo '<script type="module" src="../scripts/rental/add-rental.js"></script>';
-      echo '<script type="module" src="../scripts/rental/rental-transaction-print-receipt.js"></script>';
-      echo '<script type="module" src="../scripts/rental/rental-list.js"></script>';
+      break;
+    case 'rental-renter-list':
+      echo '<title>Rental</title>';
+      echo '<link rel="stylesheet" href="../styles/rental.css">';
+      echo '<script type="module" src="../scripts/rental/renter-list.js"></script>';
+      break;
+    case 'rental-rental-box':
+      echo '<title>Rental</title>';
+      echo '<link rel="stylesheet" href="../styles/rental.css">';
+      echo '<script type="module" src="../scripts/rental/rental-rental-box.js"></script>';
+      break;
+    case 'rental-add-rental-box':
+      echo '<title>Rental</title>';
+      echo '<link rel="stylesheet" href="../styles/rental.css">';
+      echo '<script type="module" src="../scripts/rental/rental-add-rental-box.js"></script>';
       break;
 
     case 'reports-submenu':

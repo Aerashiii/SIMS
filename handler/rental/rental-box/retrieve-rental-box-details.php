@@ -1,47 +1,52 @@
-
 <?php
-ini_set('display_errors', 1);
-error_reporting(E_ALL);
-
-$host = "localhost";
-$username = "root";
-$password = "";
-$dbname = "simsdb";
-
-$conn = new mysqli($host, $username, $password, $dbname);
-
-if ($conn->connect_error) {
-    die(json_encode(["success" => false, "message" => "Connection failed: " . $conn->connect_error]));
-}
-
+// retrieve-rental-box-details.php
 header('Content-Type: application/json');
+error_reporting(0);
+ini_set('display_errors', 0);
 
-if (isset($_GET['box_id'])) {
-    $boxId = intval($_GET['box_id']); 
+$response = ["success" => false, "message" => "Unknown error occurred."];
 
-    $sql = "SELECT * FROM rentalbox WHERE box_id = ?";
-    $stmt = $conn->prepare($sql);
+try {
+    $host = "localhost";
+    $username = "root";
+    $password = "";
+    $dbname = "simsdb";
 
-    if ($stmt === false) {
-        echo json_encode(['error' => 'Query preparation failed.']);
-        exit;
+    $conn = new mysqli($host, $username, $password, $dbname);
+    if ($conn->connect_error) {
+        throw new Exception("Connection failed: " . $conn->connect_error);
+    }
+
+    if (!isset($_GET['box_id'])) {
+        throw new Exception("Box ID not provided.");
+    }
+
+    $boxId = intval($_GET['box_id']);
+
+    // ✅ Corrected table name: rental_box
+    $stmt = $conn->prepare("SELECT * FROM rental_box WHERE box_id = ?");
+    if (!$stmt) {
+        throw new Exception("Query preparation failed: " . $conn->error);
     }
 
     $stmt->bind_param("i", $boxId);
     $stmt->execute();
     $result = $stmt->get_result();
 
-    if ($result->num_rows > 0) {
-        $rentalbox = $result->fetch_assoc();
-        echo json_encode($rentalbox);
+    if ($result && $result->num_rows > 0) {
+        $rentalBox = $result->fetch_assoc();
+        $response = ["success" => true, "data" => $rentalBox];
     } else {
-        echo json_encode(['error' => 'Rental Box not found.']);
+        throw new Exception("Rental box not found.");
     }
 
     $stmt->close();
-} else {
-    echo json_encode(['error' => 'Box ID not provided.']);
+    $conn->close();
+
+} catch (Exception $e) {
+    $response = ["success" => false, "message" => $e->getMessage()];
 }
 
-$conn->close();
+echo json_encode($response);
+exit;
 ?>

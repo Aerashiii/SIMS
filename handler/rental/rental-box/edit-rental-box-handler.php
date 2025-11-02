@@ -9,41 +9,58 @@ $dbname = "simsdb";
 $conn = new mysqli($host, $username, $password, $dbname);
 
 if ($conn->connect_error) {
-    die(json_encode(["success" => false, "message" => "Connection failed: " . $conn->connect_error]));
+    echo json_encode(["success" => false, "message" => "Connection failed: " . $conn->connect_error]);
+    exit;
 }
 
 try {
     $input = json_decode(file_get_contents('php://input'), true);
 
     if (!$input) {
-        throw new Exception('Invalid JSON input');
+        throw new Exception('Invalid JSON input.');
     }
 
-    // Extract rental box fields from input
-    $box_id = $input['box_id'];
-    $box_number = $input['box_number'];
-    $box_size = $input['box_size'];
-    $width = $input['width'];
-    $length = $input['length'];
-    $rental_fee = $input['rental_fee'];
-    $quantity = $input['quantity'];
-    $status = $input['status'];
+    // Extract rental box fields
+    $box_id = intval($input['box_id']);
+    $box_number = intval($input['box_number']);
+    $box_size = trim($input['box_size']);
+    $width = intval($input['width']);
+    $length = intval($input['length']);
+    $rental_fee = intval($input['rental_fee']);
+    $quantity = intval($input['quantity']);
+    $status = trim($input['status']);
 
-    // Prepare SQL UPDATE statement for rental box
+    // ✅ Check if box exists
+    $check = $conn->prepare("SELECT box_id FROM rental_box WHERE box_id = ?");
+    $check->bind_param('i', $box_id);
+    $check->execute();
+    $result = $check->get_result();
+    if ($result->num_rows === 0) {
+        throw new Exception("Box ID not found.");
+    }
+    $check->close();
+
+    // ✅ Correct table name and binding types
     $stmt = $conn->prepare("
-        UPDATE rentalbox 
-        SET box_number = ?, box_size = ?, width = ?, length = ?, 
-            rental_fee = ?, quantity = ?, status = ?
+        UPDATE rental_box 
+        SET box_number = ?, 
+            box_size = ?, 
+            width = ?, 
+            length = ?, 
+            rental_fee = ?, 
+            quantity = ?, 
+            status = ?
         WHERE box_id = ?
     ");
 
-    if ($stmt === false) {
-        throw new Exception('Query preparation failed: ' . $conn->error);
+    if (!$stmt) {
+        throw new Exception("SQL prepare failed: " . $conn->error);
     }
 
-    // Bind values (assuming width, length, rental_fee are decimal or float)
+    // ✅ Correct type binding (i = integer, s = string)
+    // order: int, string, int, int, int, int, string, int
     $stmt->bind_param(
-        'ssdddisi',
+        'isiiiisi',
         $box_number,
         $box_size,
         $width,
@@ -55,18 +72,15 @@ try {
     );
 
     if ($stmt->execute()) {
-        echo json_encode(['success' => true]);
+        echo json_encode(["success" => true, "message" => "Box updated successfully."]);
     } else {
-        throw new Exception('Update failed: ' . $stmt->error);
+        throw new Exception("Update failed: " . $stmt->error);
     }
 
 } catch (Exception $e) {
-    http_response_code(500);
-    echo json_encode(['success' => false, 'message' => $e->getMessage()]);
+    echo json_encode(["success" => false, "message" => $e->getMessage()]);
 } finally {
-    if (isset($stmt)) {
-        $stmt->close();
-    }
+    if (isset($stmt)) $stmt->close();
     $conn->close();
 }
 ?>
