@@ -90,9 +90,9 @@ if (!isset($_SESSION['user'])) {
                 <span class="exit-icon" id="rentalbox-selection-exit-button">&times;</span>
             </div>          
             <div class="rentalbox-selection-content-container">
-                <div class="rentalbox-selection-search-container">                 
+                <div class="addRental-selection-search-container">                 
                     <input type="text" placeholder="Search" id="rentalbox-selection-search-input">
-                    <button type="submit" name="submit" id="rentalbox-selection-search-submit-button">search</button>                 
+                    <button type="submit" name="submit" id="rentalbox-selection-search-submit-button">searchss</button>                 
                 </div>  
                 <div class="rentalbox-table-container">
                     <table id="rentalbox-selection-table">
@@ -113,32 +113,4 @@ if (!isset($_SESSION['user'])) {
                 </div>
             </div>
         </div>        
-</div>
-
-
-
-<!-- | FOR PRINTING RECEIPT FOR TENTAL BOX |-->
- <div class="print-receipt-modal-container">
-    <div class="print-receipt-modal">
-        <h2>Print Receipt?</h2>
-        <div class="print-receipt-yes-and-no-button">
-            <button id="print-receipt-yes-button">Print</button>
-            <button id="print-receipt-no-button">No</button>
-        </div>
-
-    </div>
- </div>
-
-
- <!-- | DELATION CONFIRMATION FOR RENTAL |-->
-<div class="delete-rental-modal-container">
-    <div class="delete-rental-modal">
-        <p>Are you sure you want to delete Rental?</p>
-        <span id="delete-rental-id"></span>
-        <div class="rental-delete-yes-and-no-button">
-            <button id="delete-rental-yes-button">Yes</button>
-            <button id="delete-rental-no-button">No</button>
-        </div>
-
-    </div>
 </div>

@@ -474,7 +474,168 @@
     color: white; 
 }
 
+/***| RENTAL BOX SELECTION STYLES |**/
+/***| RENTAL BOX SELECTION STYLES |***/
+.rentalbox-selection-modal-container {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    inset: 0; /* replaces top:0; left:0; width:100vw; height:100vh */
+    background-color: rgba(0, 0, 0, 0.35);
+    z-index: 9999;
+    opacity: 0;
+    transition: opacity 0.25s ease;
+}
 
+/* When modal is active */
+.rentalbox-selection-modal-container.show {
+    display: flex;
+    opacity: 1;
+}
+
+/* Main modal box */
+.rentalbox-selection-container {
+    width: 70%;
+    max-width: 900px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    animation: popUp 0.25s ease;
+}
+
+/* Header */
+.rentalbox-selection-header-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #dcdcdc;
+}
+
+.rentalbox-selection-header-container h4 {
+    font-size: 1.3rem;
+    color: #333;
+    font-weight: 600;
+}
+
+/* Exit button */
+#rentalbox-selection-exit-button {
+    background-color: #bdbdbd8e;
+    border-radius: 50%;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 3px 9px;
+    font-size: 1.3rem;
+    line-height: 1;
+    border: none;
+    transition: all 0.2s ease;
+}
+
+#rentalbox-selection-exit-button:hover {
+    background-color: #d00000;
+    color: #fff;
+    transform: scale(1.1);
+}
+
+/* Content layout */
+.rentalbox-selection-content-container {
+    margin-top: 15px;
+}
+
+.addRental-selection-search-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 10px;
+    gap: 8px;
+}
+
+.addRental-selection-search-container input[type="text"] {
+    padding: 8px 12px;
+    border-radius: 6px;
+    border: 1px solid #a8c29e;
+    width: 250px;
+    outline: none;
+    transition: 0.2s;
+}
+
+.addRental-selection-search-container input[type="text"]:focus {
+    border-color: #88b86a;
+    box-shadow: 0 0 4px #a0c894;
+}
+
+.addRental-selection-search-container button {
+    background-color: #a0c894;
+    color: #fff;
+    font-weight: 600;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 15px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.addRental-selection-search-container button:hover {
+    background-color: #8cb57f;
+}
+
+/* Table styling */
+.rentalbox-table-container {
+    overflow-x: auto;
+    max-height: 400px;
+}
+
+#rentalbox-selection-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+#rentalbox-selection-table th,
+#rentalbox-selection-table td {
+    border-bottom: 1px solid #ddd;
+    padding: 10px 12px;
+    font-size: 0.95rem;
+}
+
+#rentalbox-selection-table th {
+    background-color: #dbe8d2;
+    color: #333;
+    font-weight: 600;
+}
+
+#rentalbox-selection-table tr:hover {
+    background-color: #f5f8f1;
+}
+
+/* Select button in table */
+.select-box-btn {
+    background-color: #88b86a;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 6px 10px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.select-box-btn:hover {
+    background-color: #6ea155;
+}
+
+/* Small pop-up animation */
+@keyframes popUp {
+    from {
+        transform: scale(0.95);
+        opacity: 0.6;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
 
 
 
@@ -1076,52 +1237,7 @@ margin-right:0;
 
 
 
-/***************| RENTAL BOX SELECTION STYLES |***************
-.rentalbox-selection-modal-container{
-    display: none;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    padding: 20px 0;
-    position: absolute;
-    z-index: 50;
-    top: 0;
-    left: 0;
-    margin: 0;
-    width:100vw;
-    height:100vh;
-    background-color: #0000003d;
-}
-.rentalbox-selection-container{
-    width:70%;
-    height:auto;
-    background-color: #ffffff;
-    padding:20px;
-    border-radius:10px;
-}
-.rentalbox-selection-header-container{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding-bottom: 10px;
-}
-#rentalbox-selection-exit-button{
-   
-    background-color: #bdbdbd8e;
-    border-radius: 50%;
-    font-weight: bold;
-    cursor: pointer;  
-   padding: 0 7px;
-    font-size: 1.5rem;
-   
-}
-#rentalbox-selection-exit-button:hover{
-    background-color: #da0000;
-    color: rgb(255, 255, 255);
 
-   
-}
 /*************| FOR SEARCH PRODUCT ON PRODUCT SELECTION TABLE |*********************
 .rentalbox-selection-search-container {
     display: flex;

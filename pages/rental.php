@@ -58,7 +58,6 @@ if (!isset($_SESSION['user'])) {
                             <tr>
                                 <th>Renter Name</th>
                                 <th>Quantity</th>
-                                <th>Payment</th>
                                 <th>Rental Start Date</th>
                                 <th>Due Date</th>
                                 <th>Status</th>                                  
@@ -113,10 +112,7 @@ if (!isset($_SESSION['user'])) {
                     </div>
                  </div>
         </div>
-    </div> 
-
-
-     
+    </div>    
 
 </main>
  
