@@ -1,3 +1,5 @@
+import { printReceipt } from './rental-print-receipt.js';
+
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('add-rental-transaction-form');
     const addBoxBtn = document.getElementById('add-rental-box-transaction-button');
@@ -143,9 +145,23 @@ document.addEventListener('DOMContentLoaded', () => {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(data)
             });
+
             const result = await response.json();
+
             if (result.success) {
                 alert('✅ Rental transaction added successfully!');
+
+                // 🧾 Print rental receipt
+                printReceipt(
+                    selectedBoxes, // boxes rented
+                    "<?php echo $_SESSION['user']; ?>", // cashier/user
+                    data.renter_name,
+                    data.contact_number,
+                    data.rental_start_date,
+                    data.rental_end_date,
+                    selectedBoxes.reduce((sum, box) => sum + box.total, 0) // total
+                );
+
                 form.reset();
                 selectedBoxes = [];
                 boxTableBody.innerHTML = '';

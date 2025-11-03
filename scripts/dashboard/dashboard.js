@@ -119,6 +119,46 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
 
+    // ✅ Fetch Total Rental Boxes
+    fetchData('../handler/dashboard/retrieve-total-rental-boxes.php', (data) => {
+        const totalEl = document.getElementById('total-rental-boxes');
+        if (totalEl) totalEl.textContent = data.total_rental_boxes ?? '0';
+    });
+
+    // ✅ Fetch Occupied Rental Boxes
+    fetchData('../handler/dashboard/retrieve-occupied-rental-boxes.php', (data) => {
+        const occupiedEl = document.getElementById('occupied-rental-boxes');
+        if (occupiedEl) occupiedEl.textContent = data.occupied_boxes ?? '0';
+    });
+
+    // ✅ Fetch Rental Box Summary Table
+    fetchData('../handler/dashboard/retrieve-rental-box-summary.php', (data) => {
+        const tbody = document.querySelector('#rental-box-summary-table tbody');
+        if (!tbody) return;
+
+        tbody.innerHTML = '';
+
+        if (!data || data.length === 0) {
+            tbody.innerHTML = `<tr><td colspan="4" style="text-align:center;">No rental box records found</td></tr>`;
+            return;
+        }
+
+        data.forEach(row => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td>${row.renter}</td>
+                <td>${row.total_boxes}</td>
+                <td>${row.status}</td>
+                <td>${row.date}</td>
+            `;
+            tbody.appendChild(tr);
+        });
+    });
+
+
+
+   
+
 
 
 

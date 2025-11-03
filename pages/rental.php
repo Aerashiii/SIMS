@@ -110,6 +110,8 @@ if (!isset($_SESSION['user'])) {
                         <label for="">Total Amount: </label>
                         <span id="box-rented-total-amount"></span>
                     </div>
+
+                    <button id="mark-as-completed-button">Mark as Completed</button>
                  </div>
         </div>
     </div>    

@@ -20,7 +20,7 @@ if ($id === 0) {
     exit;
 }
 
-// Get rental + renter details
+// ✅ Fetch rental + renter details
 $sql = "
     SELECT 
         rt.id AS rental_transaction_id,
@@ -30,15 +30,16 @@ $sql = "
         rt.rental_end_date,
         rt.status
     FROM rental_transaction rt
-    JOIN renter r ON rt.renter_id = r.renter_id
+    INNER JOIN renter r ON rt.renter_id = r.renter_id
     WHERE rt.id = $id
 ";
+
 $result = $conn->query($sql);
 
 if ($result && $result->num_rows > 0) {
     $rental = $result->fetch_assoc();
 
-    // Fetch rented boxes
+    // ✅ Fetch boxes rented under this transaction
     $boxSql = "
         SELECT 
             rb.box_number,
@@ -46,18 +47,25 @@ if ($result && $result->num_rows > 0) {
             rbt.quantity,
             (rb.rental_fee * rbt.quantity) AS total_fee
         FROM rented_box_transaction rbt
-        JOIN rental_box rb ON rbt.box_id = rb.box_id
+        INNER JOIN rental_box rb ON rbt.box_id = rb.box_id
         WHERE rbt.rental_transaction_id = $id
     ";
 
     $boxResult = $conn->query($boxSql);
     $boxes = [];
-    while ($box = $boxResult->fetch_assoc()) {
-        $boxes[] = $box;
+
+    if ($boxResult && $boxResult->num_rows > 0) {
+        while ($box = $boxResult->fetch_assoc()) {
+            $boxes[] = $box;
+        }
     }
 
     $rental['boxes'] = $boxes;
-    echo json_encode(["success" => true, "data" => $rental]);
+
+    echo json_encode([
+        "success" => true,
+        "data" => $rental
+    ]);
 } else {
     echo json_encode(["success" => false, "message" => "Rental not found"]);
 }

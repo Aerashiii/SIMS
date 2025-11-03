@@ -27,15 +27,20 @@ $sql = "
         p.id,
         p.product_name,
         p.barcode,
+        p.brand_id,
         b.brand_name,
+        p.category_id,
         c.category_name,
+        p.subcategory_id,
         sc.subcategory_name,
         p.original_price,
         p.selling_price,
         p.quantity,
         p.reorder_point,
         p.status,
+        p.supplier_id,
         s.supplier_name,
+        p.description,
         p.date_created
     FROM products p
     LEFT JOIN brand b ON p.brand_id = b.brand_id

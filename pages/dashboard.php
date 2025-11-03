@@ -102,8 +102,8 @@ if (!isset($_SESSION['user'])) {
                 <table id="rental-box-summary-table">
                     <thead>
                         <tr>
-                            <th>Box Number</th>
                             <th>Renter</th>
+                            <th>Total Boxes</th>
                             <th>Status</th>
                             <th>Date</th>
                         </tr>  

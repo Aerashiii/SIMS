@@ -1,51 +1,39 @@
 <?php
+header('Content-Type: application/json');
 $server = "localhost";
 $username = "root";
 $password = "";
 $dbname = "simsdb";
 
+// ✅ Connect to database
 $conn = new mysqli($server, $username, $password, $dbname);
 
-header('Content-Type: application/json');
+try {
+    $query = "
+        SELECT 
+            r.renter_name AS renter,
+            COUNT(rbt.box_id) AS total_boxes,
+            rt.status,
+            DATE_FORMAT(rt.date_created, '%Y-%m-%d %H:%i:%s') AS date
+        FROM rented_box_transaction rbt
+        JOIN renter r ON rbt.renter_id = r.renter_id
+        JOIN rental_transaction rt ON rbt.rental_transaction_id = rt.id
+        GROUP BY rbt.renter_id, rt.status, rt.date_created
+        ORDER BY rt.date_created DESC
+        LIMIT 10
+    ";
 
-if ($conn->connect_error) {
-    echo json_encode(['success' => false, 'message' => $conn->connect_error]);
-    exit();
-}
+    $result = $conn->query($query);
+    $data = [];
 
-// Fetch rental box summary
-$sql = "
-    SELECT 
-        rentalbox.box_number,
-        renter.renter_name,
-        `rental-transaction`.status,
-        `rental-transaction`.rental_start_date AS date_rented
-    FROM `rented-box-transaction`
-    INNER JOIN rentalbox ON rentalbox.box_id = `rented-box-transaction`.box_id
-    INNER JOIN `rental-transaction` ON `rental-transaction`.id = `rented-box-transaction`.rental_transaction_id
-    INNER JOIN renter ON renter.renter_id = `rented-box-transaction`.renter_id
-    ORDER BY `rental-transaction`.rental_start_date DESC
-";
-
-$result = $conn->query($sql);
-
-$data = [];
-
-if ($result && $result->num_rows > 0) {
-    while ($row = $result->fetch_assoc()) {
-        $data[] = [
-            'box_number' => $row['box_number'],
-            'renter_name' => $row['renter_name'] ?? 'Unknown',
-            'status' => $row['status'],
-            'date' => $row['date_rented'] // Changed from 'date' to 'date_rented'
-        ];
+    if ($result && $result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            $data[] = $row;
+        }
     }
+
+    echo json_encode(['success' => true, 'data' => $data]);
+} catch (Exception $e) {
+    echo json_encode(['success' => false, 'message' => $e->getMessage()]);
 }
-
-$conn->close();
-
-echo json_encode([
-    'success' => true,
-    'data' => $data
-]);
 ?>

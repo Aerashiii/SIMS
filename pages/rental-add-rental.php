@@ -1,15 +1,11 @@
 <!-- | ALL RENTAL-BOXES CONTENT ONLY HERE |-->
-
 <?php 
 session_start();
-
 if (!isset($_SESSION['user'])) {
     // if not login, go to login page
     header('Location: login.php');
     exit;
 }
-
-
     $page ='rental-add-rental'; //ASSIGNS THE NAME OF THE PAGE. THIS PAGE IS NAMED 'RENTAL-BOXES' AND IS USED IN THE HEADER.PHP FILE.
     require '../includes/header.php'; //REQUIRES THE HEADER.PHP, FOR YOU CAN APPLY THE CSS,SCRIPT,SIDEBAR, AND TOPNAV ON THIS PAGE.
 ?>
@@ -41,8 +37,7 @@ if (!isset($_SESSION['user'])) {
                         <div class="add-rental-box-transaction-button-container">
                             <button id="add-rental-box-transaction-button">Add Rental Box</button>
 
-                        </div>
-                        
+                        </div>                       
                     </div>
                     <div class="add-rental-transaction-total-container">
                         <label for="">Total Amount:</label>
@@ -74,12 +69,7 @@ if (!isset($_SESSION['user'])) {
                 </div>
                 <input type="submit" id="add-rental-transaction-save-button">
            </form>
-
         </div>
-
-
-
-
 </main>
  
 <!---- | MODAL FOR SELECTING RENTAL BOX |-->
