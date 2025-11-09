@@ -1,48 +1,46 @@
 <?php
-// fetch_rental_reports.php
+header('Content-Type: application/json');
 
-// Connect to database
-$host = 'localhost';
-$user = 'root';
-$pass = '';
-$db = 'simsdb'; // << CHANGE THIS
 
-$conn = new mysqli($host, $user, $pass, $db);
+// Database connection
+$servername = "localhost";
+$username = "root";
+$password = "";
+$database = "simsdb";
 
-// Check connection
+$conn = new mysqli($servername, $username, $password, $database);
 if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+    echo json_encode(['error' => 'Connection failed: ' . $conn->connect_error]);
+    exit;
 }
 
-// SQL query to get the rental transactions with needed info
 $sql = "
     SELECT 
         rt.id AS rental_id,
         r.renter_name,
-        CONCAT('Box ', b.box_number, ' (', b.box_size, ' - ', b.width, 'x', b.length, ')') AS item_rented,
-        rbt.quantity,
-        b.rental_fee,
+        rt.rented_quantity,
+        rt.payment,
         rt.rental_start_date,
         rt.rental_end_date,
         rt.status
-    FROM `rental-transaction` rt
-    JOIN `renter` r ON r.renter_id = rt.renter_id
-    JOIN `rented-box-transaction` rbt ON rbt.rental_transaction_id = rt.id
-    JOIN `rentalbox` b ON b.box_id = rbt.box_id
+    FROM rental_transaction rt
+    INNER JOIN renter r ON r.renter_id = rt.renter_id
+    WHERE rt.deleted = 'no'
+    ORDER BY rt.date_created DESC
 ";
 
 $result = $conn->query($sql);
 
-$reports = [];
-
-if ($result->num_rows > 0) {
-    while ($row = $result->fetch_assoc()) {
-        $reports[] = $row;
-    }
+if (!$result) {
+    echo json_encode(['error' => 'Query failed: ' . $conn->error]);
+    exit;
 }
 
-$conn->close();
+$reports = [];
+while ($row = $result->fetch_assoc()) {
+    $reports[] = $row;
+}
 
-// Send JSON response
-header('Content-Type: application/json');
 echo json_encode($reports);
+$conn->close();
+?>

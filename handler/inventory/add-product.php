@@ -71,3 +71,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 } else {
     echo json_encode(['success' => false, 'message' => 'Invalid request method.']);
 }
+
+?>
+<php
+
+$server="localhost";
+$username ="root";
+password="";
+$dbname="simsdb";
+
+$conn = new mysqli($server, $username, $password, $dbname);
+if($conn->connect_error){
+    die("Connection failed: ". $conn->connect_error); 
+}
+
+$sql = "INSERT INTO test(column1, column2, column3)VALUES(?,?,?)";
+
+$stmt =$conn->prepare($sql);
+$stmt->bind_param("sss",$value1, $value2, $value3);
+$stmt->execute();
+$stmt->close();
+?>

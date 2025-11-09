@@ -174,15 +174,24 @@
 
     case 'reports-submenu':
     case 'report-inventory':
-    case 'report-rental':
-    case 'report-sales':
       echo '<title>Reports</title>';
       echo '<link rel="stylesheet" href="../styles/reports.css">';
       echo '<script src="../scripts/reports/reports.js"></script>';
       echo '<script src="../scripts/reports/report-inventory.js"></script>';
       echo '<script src="../scripts/reports/report-low-stock.js"></script>';
       echo '<script src="../scripts/reports/report-out-stock.js"></script>';
+  
+      break;
+    case 'report-sales':
+      echo '<title>Reports</title>';
+      echo '<link rel="stylesheet" href="../styles/reports.css">';
+      echo '<script src="../scripts/reports/reports.js"></script>';
       echo '<script src="../scripts/reports/report-sales.js"></script>';
+      break;
+    case 'report-rental':
+      echo '<title>Reports</title>';
+      echo '<link rel="stylesheet" href="../styles/reports.css">';
+      echo '<script src="../scripts/reports/reports.js"></script>';
       echo '<script src="../scripts/reports/report-rental.js"></script>';
       break;
 

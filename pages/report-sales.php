@@ -48,12 +48,11 @@ include 'report-submenu.php';
             <table id="report-sales-table" class="report-sales-table">
                 <thead>
                     <tr>
-                        <th>No.</th>
                         <th>Date of Sale</th>
+                        <th>Made by</th>
                         <th>Sales ID</th>
                         <th>Quantity Sold</th>                
                         <th>Total Sale Amount</th>
-                        <th>Payment Method</th>
                         <th>Customer Name</th> 
                         <th>Contact Number</th>                                                                                             
                     </tr>
@@ -62,11 +61,5 @@ include 'report-submenu.php';
             </table>
         </div>
     </div>
-
-
-
-
-
-
 
 </main>

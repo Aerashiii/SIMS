@@ -1,4 +1,5 @@
 <?php 
+// report-rental.php
 session_start();
 
 // Authentication check
@@ -50,9 +51,8 @@ include 'report-submenu.php';
                       <tr>
                           <th>Rental Id</th>
                           <th>Renter Name</th>
-                          <th>Item Rented</th>
-                          <th>Quantity</th>                
-                          <th>Rental Fee</th>
+                          <th>Rented Quantity</th>                
+                          <th>Total Fee</th>
                           <th>Date Rented</th>
                           <th>Due Date</th> 
                           <th>Status</th>                                                                                             

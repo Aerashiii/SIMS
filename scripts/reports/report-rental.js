@@ -1,100 +1,83 @@
-document.addEventListener('DOMContentLoaded', function(){
-    // Fetch rental reports data
+document.addEventListener('DOMContentLoaded', function () {
+    const table = document.querySelector('#report-rental-table tbody');
+    if (!table) {
+        console.error('Table body not found!');
+        return;
+    }
+
     fetch('../handler/reports/retrieve-rental-transaction.php')
         .then(response => response.json())
         .then(data => {
-            const tableBody = document.querySelector('#report-rental-table tbody');
-            tableBody.innerHTML = ''; // clear existing rows
+            table.innerHTML = '';
+
+            if (data.error) {
+                console.error(data.error);
+                table.innerHTML = `<tr><td colspan="7">Error loading data.</td></tr>`;
+                return;
+            }
+
+            if (!Array.isArray(data) || data.length === 0) {
+                table.innerHTML = `<tr><td colspan="7">No rental transactions found.</td></tr>`;
+                return;
+            }
 
             data.forEach(report => {
-                const row = document.createElement('tr');
-
-                row.innerHTML = `
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
                     <td>${report.rental_id}</td>
                     <td>${report.renter_name}</td>
-                    <td>${report.item_rented}</td>
-                    <td>${report.quantity}</td>
-                    <td>₱${report.rental_fee * report.quantity}</td>
+                    <td>${report.rented_quantity}</td>
+                    <td>₱${parseFloat(report.payment).toLocaleString()}</td>
                     <td>${report.rental_start_date}</td>
                     <td>${report.rental_end_date}</td>
                     <td>${report.status}</td>
                 `;
-
-                tableBody.appendChild(row);
+                table.appendChild(tr);
             });
         })
         .catch(error => {
             console.error('Error fetching rental reports:', error);
+            table.innerHTML = `<tr><td colspan="7">Error fetching data.</td></tr>`;
         });
 
-    /*===============================| EXPORT RENTAL TRANSACTION TO PDF |======================================== */
-    document.getElementById("report-rental-pdf-button").addEventListener("click", function() {
-        const { jsPDF } = window.jspdf;
-        const doc = new jsPDF();
-        const table = document.getElementById("report-rental-table");
-        
-        if (!table) {
-            console.error("Table not found");
-            return;
-        }
-        
-        const rows = table.querySelectorAll("tr");
+    // PDF export
+    const pdfBtn = document.getElementById('report-rental-pdf-button');
+    if (pdfBtn) {
+        pdfBtn.addEventListener('click', function() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            const tableEl = document.getElementById("report-rental-table");
 
-        doc.setFontSize(18);
-        doc.text("Rental Transaction Report", 14, 20); // <-- Updated title
+            doc.setFontSize(18);
+            doc.text("Rental Transaction Report", 14, 20);
 
-        const tableData = [];
-        for (let i = 1; i < rows.length; i++) { // Skip header
-            const rowData = [];
-            const cols = rows[i].querySelectorAll("td");
-            for (let j = 0; j < cols.length; j++) {
-                rowData.push(cols[j].innerText);
-            }
-            tableData.push(rowData);
-        }
-
-        if (doc.autoTable) {
-            doc.autoTable({
-                head: [['Rental ID', 'Renter Name', 'Item Rented', 'Quantity', 'Rental Fee', 'Date Rented', 'Due Date', 'Status']], // <-- Corrected headers
-                body: tableData,
-                startY: 30,
-                styles: {
-                    fontSize: 8,
-                    cellPadding: 2
-                },
-                headStyles: {
-                    fillColor: [22, 160, 133],
-                    textColor: 255,
-                    fontSize: 9
-                }
+            const rows = [];
+            tableEl.querySelectorAll("tbody tr").forEach(tr => {
+                const row = Array.from(tr.children).map(td => td.innerText);
+                rows.push(row);
             });
 
-            doc.save("rental_transaction_report.pdf"); // <-- Corrected filename
-        } else {
-            console.error("autoTable is not available in jsPDF instance");
-            alert("PDF export feature is not available. Please try again later.");
-        }
-    });
+            doc.autoTable({
+                head: [['Rental ID', 'Renter Name', 'Quantity', 'Total Fee', 'Date Rented', 'Due Date', 'Status']],
+                body: rows,
+                startY: 30,
+                styles: { fontSize: 8, cellPadding: 2 },
+                headStyles: { fillColor: [22, 160, 133], textColor: 255 }
+            });
 
-    /*===============================| EXPORT RENTAL TRANSACTION TO EXCEL |======================================== */
-    document.getElementById("report-rental-excel-button").addEventListener("click", function() {
-        const table = document.getElementById('report-rental-table');
-        const rows = table.getElementsByTagName("tr");
+            doc.save("rental_transaction_report.pdf");
+        });
+    }
 
-        const tableData = [];
-        for (let i = 0; i < rows.length; i++) {
-            const rowData = [];
-            const cols = rows[i].getElementsByTagName(i === 0 ? "th" : "td");
-            for (let j = 0; j < cols.length; j++) {
-                rowData.push(cols[j].innerText);
-            }
-            tableData.push(rowData);
-        }
-
-        const ws = XLSX.utils.aoa_to_sheet(tableData);
-        const wb = XLSX.utils.book_new();
-        XLSX.utils.book_append_sheet(wb, ws, "Rental Transactions");
-
-        XLSX.writeFile(wb, "rental_transaction_report.xlsx"); // <-- Corrected filename
-    });
+    // Excel export
+    const excelBtn = document.getElementById('report-rental-excel-button');
+    if (excelBtn) {
+        excelBtn.addEventListener('click', function() {
+            const tableEl = document.getElementById('report-rental-table');
+            const ws = XLSX.utils.table_to_sheet(tableEl);
+            const wb = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(wb, ws, "Rental Transactions");
+            XLSX.writeFile(wb, "rental_transaction_report.xlsx");
+        });
+    }
 });

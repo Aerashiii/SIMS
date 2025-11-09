@@ -1,32 +1,46 @@
 <?php
-// fetch_sales_transactions.php
+header('Content-Type: application/json');
 
-// Connect to database
-$servername = "localhost"; // or your server
-$username = "root";        // your database username
-$password = "";            // your database password
-$database = "simsdb"; // your database name
+// Database connection
+$servername = "localhost";
+$username = "root";
+$password = "";
+$database = "simsdb";
 
 $conn = new mysqli($servername, $username, $password, $database);
 
-// Check connection
 if ($conn->connect_error) {
-    die(json_encode(["error" => "Connection failed: " . $conn->connect_error]));
+    echo json_encode(["error" => "Connection failed: " . $conn->connect_error]);
+    exit;
 }
 
-// Fetch sales transactions
-$sql = "SELECT * FROM `sales-transaction` ORDER BY `date` DESC";
-$result = $conn->query($sql);
+// Use correct table name (underscore, not dash)
+$sql = "
+    SELECT 
+        s.transact_id,
+        s.total_items,
+        s.total_payment,
+        s.payment_method,
+        s.customer_name,
+        s.contact_number,
+        s.date,
+        u.name AS user_name
+    FROM sales_transaction AS s
+    JOIN user AS u ON s.user_id = u.id
+    ORDER BY s.date DESC
+";
 
+$result = $conn->query($sql);
 $sales = [];
 
-if ($result->num_rows > 0) {
+if ($result && $result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
         $sales[] = $row;
     }
+} else {
+    $sales = [];
 }
 
 echo json_encode($sales);
-
 $conn->close();
 ?>

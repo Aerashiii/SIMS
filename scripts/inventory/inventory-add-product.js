@@ -40,7 +40,18 @@ document.addEventListener("DOMContentLoaded", function () {
       .catch(error => console.error(`❌ Error fetching ${url}:`, error));
   }
 
-
+fetch("../sample/records.php", {
+  method: "POST",
+  body: formData,
+})
+.then(response =>response.json())
+.then(data =>{
+  if(data.success){
+    alert("sample is alert");
+  }else{
+    alert("error" + data.message);
+  }
+})
 
 
 
@@ -67,7 +78,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const formData = new FormData(addProductForm);
 
-   
 
     fetch("../handler/inventory/add-product.php", {
       method: "POST",
@@ -88,3 +98,18 @@ document.addEventListener("DOMContentLoaded", function () {
       });
   });
 });
+
+
+fetch("../sims/practice.php",{
+  method: "POST",
+  bosy: formdata,
+})
+.then(response =>response.jason())
+.then(data =>{
+  if(data.success){
+    alert("practice success");
+  }
+  else{
+    alert("error" + data.message);
+  }
+})
